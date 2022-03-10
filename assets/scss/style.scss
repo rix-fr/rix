@@ -1,0 +1,37 @@
+@import "normalize";
+@import "~prismjs/themes/prism-tomorrow.css";
+@import '~aos/dist/aos';
+
+// Prevents hiding elements for animations if js is not enabled:
+html.no-js [data-aos] {
+  opacity: 1;
+  transform: none;
+  pointer-events: unset;
+}
+
+// base
+@import "base/_variables";
+@import "base/_fonts";
+@import "base/_icons";
+@import "base/_layout";
+@import "base/_utilities";
+
+// layout components
+//@import "components/_header";
+
+// components
+@import "components/_admonition";
+@import "components/_alert";
+
+// generic
+@import "generic/_a";
+@import "generic/_blockquote";
+@import "generic/_code";
+@import "generic/_figure";
+@import "generic/_iframe";
+@import "generic/_img";
+@import "generic/_kbd";
+@import "generic/_ul";
+
+// pages
+//@import "pages/_page-contact";

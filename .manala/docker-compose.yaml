@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+
+    ##########
+    # System #
+    ##########
+
+    system:
+        hostname: rix
+        build:
+            context: .
+            target: system
+        image: rix:20220310144312
+        restart: always
+        ports:
+            - 8000:80
+            - 8080:8080
+        volumes:
+            - ..:${DIR}
+        environment:
+            DIR: ${DIR}
+            CACHE_DIR: ${CACHE_DIR}
+        working_dir: ${DIR}
+        entrypoint: .manala/docker/entrypoint

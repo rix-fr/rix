@@ -1,0 +1,54 @@
+{% import "macros.html.twig" as macros %}
+{% extends 'base.html.twig' %}
+
+{% block meta_title "Les offres d'emploi Rix" %}
+{% block meta_description "Découvrez les offres d'emploi ouvertes chez Rix" %}
+
+{% block og_image absolute_url(asset(constant('App\\Model\\Job::DEFAULT_SOCIAL_IMG')|glide_image_preset('opengraph_image'))) %}
+{% block twitter_image absolute_url(asset(constant('App\\Model\\Job::DEFAULT_SOCIAL_IMG')|glide_image_preset('twitter_card'))) %}
+
+{% block content %}
+
+    {# TODO #}
+
+    {% if jobs is not empty %}
+        <ul class="article-list">
+            {% for job in jobs %}
+                <li itemscope itemtype="https://schema.org/JobPosting">
+                    <div>
+                        <a href="{{ path('job', { job: job.slug }) }}" class="title" itemprop="title">
+                            {{ job.fullTitle }}
+                        </a>
+                        <p class="description" itemprop="description">
+                            {{ job.description }}
+                        </p>
+                        <a href="{{ path('job', { job: job.slug }) }}">
+                            <span>
+                                Voir le post
+                                {% include 'partials/svg-arrow.html.twig' %}
+                            </span>
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <aside class="bricks">
+            {% include 'partials/brick-application.html.twig' %}
+        </aside>
+    {% else %}
+        <ul class="article-list">
+            <li class="miniature-inline miniature-inline--small no-result">
+                <div class="miniature-inline__content">
+                    <span class="title">Nous n'avons aucun poste ouvert en ce moment. Vous souhaitez nous envoyer une candidature spontanée ?</span>
+                    <a href="{{ path('contact') }}" class="btn btn--secondary btn--animated">
+                        <span>
+                            Envoyez nous un message
+                            {% include 'partials/svg-arrow.html.twig' %}
+                        </span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    {% endif %}
+{% endblock %}
