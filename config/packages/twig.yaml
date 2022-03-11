@@ -1,0 +1,54 @@
+twig:
+    strict_variables: true
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        forceNoIndex: '%env(bool:APP_FORCE_NO_INDEX)%'
+        site:
+            title: "Rix 🐺 - Expertise & solutions devops sur-mesure"
+            description: "Rix - Conception d'infrastructures web sur-mesure orientées DevOps - Expertise et outillage Devops"
+            birthdate: 04/01/2005
+            contact:
+                email: contact@rix.com
+                jobsEmail: jobs@rix.com
+                phone: 04 82 53 37 19
+                phoneto: +33482533719
+                address:
+                    street_address: 34 rue Jean Broquin
+                    address_locality: 69006 Lyon
+                    google_maps: https://g.page/Elao_fr?share
+
+            social:
+                github: https://github.com/rix-fr
+                twitter: https://twitter.com/rix_fr
+                instagram: https://www.instagram.com/XXX/
+
+            trackers:
+                matomo: '%env(MATOMO_ID)%'
+
+            menu:
+                - { path: 'services', label: 'Services' }
+                - { path: 'case_studies', label: 'Études de cas' }
+                - { path: 'team', label: "L'équipe" }
+                - { path: 'about', label: 'À propos' }
+                - { path: 'blog', label: 'Blog' }
+                - { path: 'contact', label: 'Contact', icon: 'contact', mobileClass: 'nav-mobile__item--large' }
+            footer:
+                -
+                    - { path: 'services', label: 'Services' }
+                    - { path: 'case_studies', label: 'Études de cas' }
+                -
+                    - { path: 'team', label: "L'équipe" }
+                    - { path: 'blog', label: 'Blog' }
+                    - { path: 'blog_rss', label: 'RSS' }
+                -
+                    - { path: 'about', label: 'À propos' }
+                    - { path: 'contact', label: 'Contact' }
+
+            home:
+                highlights:
+                    # Cas d'étude mis en avant :
+                    caseStudy: musique-music
+
+when@test:
+    twig:
+        strict_variables: true

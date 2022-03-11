@@ -1,0 +1,32 @@
+####################################################################
+# !!! REMINDER !!!                                                 #
+# Don't forget to run `manala up` each time you update this file ! #
+####################################################################
+
+manala:
+    recipe: lazy.symfony
+
+###########
+# Project #
+###########
+
+project:
+    name: rix
+
+##########
+# System #
+##########
+
+system:
+    nginx:
+        version: 1.18
+        port: 8000
+    php:
+        version: 8.1
+        extensions:
+          - gd
+    nodejs:
+        version: 16
+    network:
+        ports:
+          - 8080:8080 # Webpack dev server

@@ -1,0 +1,106 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+
+  tests:
+    name: 'Tests'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+
+      # https://github.com/actions/setup-node
+      - name: 'Setup node'
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16'
+
+      - name: 'Setup PHP'
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: "none"
+          ini-values: "memory_limit=-1"
+          php-version: "8.1"
+
+      - name: 'Cache resized images'
+        uses: actions/cache@v2
+        with:
+          path: public/resized
+          key: resized-images-${{ github.workflow }}-${{ secrets.CACHE_VERSION }}
+
+      - name: 'Determine composer cache directory'
+        id: composer-cache
+        run: echo "::set-output name=directory::$(composer config cache-dir)"
+
+      - name: 'Cache composer dependencies'
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.directory }}
+          key: composer-${{ hashFiles('composer.lock') }}
+
+      - name: 'Install dependencies'
+        id: deps
+        run: |
+          echo "::group::composer install"
+            composer install --no-progress --ansi
+          echo "::endgroup::"
+
+          # echo "::group::install phpunit"
+          #   vendor/bin/simple-phpunit install
+          # echo "::endgroup::"
+
+          echo "::group::npm install"
+            npm install --color=always --no-progress
+          echo "::endgroup::"
+
+      - name: 'Warmup'
+        run: |
+          bin/console cache:clear --ansi --no-warmup
+          bin/console cache:warmup --ansi
+        env:
+          APP_ENV: test
+
+      - name: 'Composer validate'
+        if: always() && steps.deps.outcome == 'success'
+        run: composer validate --no-check-publish --ansi --no-interaction
+
+      - name: 'Lint YAML'
+        if: always() && steps.deps.outcome == 'success'
+        run: bin/console lint:yaml config translations --parse-tags --ansi --no-interaction
+
+      - name: 'Lint Twig'
+        if: always() && steps.deps.outcome == 'success'
+        run: bin/console lint:twig templates --show-deprecations --ansi --no-interaction
+
+      - name: 'Lint JS'
+        if: always() && steps.deps.outcome == 'success'
+        run: npm run lint
+
+      - name: 'Lint Parameters and Services'
+        if: always() && steps.deps.outcome == 'success'
+        run: bin/console lint:container --ansi --no-interaction
+
+      - name: 'PHP CS Fixer'
+        if: always() && steps.deps.outcome == 'success'
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff
+
+      - name: 'PhpStan'
+        if: always() && steps.deps.outcome == 'success'
+        run: vendor/bin/phpstan --no-progress --no-interaction analyse
+        env:
+          APP_ENV: test
+
+      - name: 'Check build static'
+        run: |
+          npx encore production --color
+          bin/console stenope:build --no-interaction -vv --ansi
+        env:
+          APP_ENV: prod

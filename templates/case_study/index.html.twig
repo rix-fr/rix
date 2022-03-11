@@ -1,0 +1,75 @@
+{% import "macros.html.twig" as macros %}
+{% extends 'base.html.twig' %}
+
+{% block og_image asset('social/Rix-home-og2.jpg')  %}
+{% block twitter_image absolute_url(asset('social/rix-ogimage-twitter2.jpg'))  %}
+{% set interval = date('now').diff(date(site.birthdate)) %}
+{% block meta_title "Réalisations web : revue de nos projets depuis %d ans | Rix"|format(interval.y) %}
+{% block meta_description "Découvrez quelques unes des applications web et mobile réalisées depuis %d ans chez Rix"|format(interval.y) %}
+
+{% block content %}
+
+    <div class="page-projects container">
+        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+            <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a itemprop="item" href="{{ path('homepage') }}">
+                    <span itemprop="name">Accueil</span>
+                </a>
+                <meta itemprop="position" content="1" />
+            </li>
+            <li class="breadcrumb__item"  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a itemprop="item" href="#">
+                    <span itemprop="name">Nos études de cas</span>
+                </a>
+                <meta itemprop="position" content="2" />
+            </li>
+        </ol>
+
+        <div class="banner-case-study">
+            <h1 class="banner-case-study__title">
+                Découvrez
+                <span>nos études de cas</span>
+            </h1>
+            <div class="banner-case-study__content">
+                <div class="info">
+                    <p>Voici une sélection récente de projets dans lesquels nous avons pu voir se créer une émulation forte avec nos clients et leurs utilisateurs.</p>
+                </div>
+                <div class="highlight">
+                    {% set interval = date('now').diff(date(site.birthdate)) %}
+                    <p class="">Notre meilleur argument qualité, ce sont les <strong>200+ projets</strong> sur lesquels nous avons travaillé depuis plus de <strong>{{ interval.y }} ans.</strong></p>
+                    <i class="icon icon--brackets-right" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+
+        <ul class="article-list">
+            {% for caseStudy in caseStudies %}
+                <li class="miniature-inline">
+                    <a href="{{ path('case_study', { caseStudy: caseStudy.slug }) }}" class="miniature-inline__image">
+                        <span class="image" style="{{ macros.backgroundImageSrcset(caseStudy.images|first, 'case_study_thumbnail.md') }};width:500px;height:370px;display:block"></span>
+                    </a>
+                    <div class="miniature-inline__content">
+                        <span class="info">{{ caseStudy.clients }}</span>
+                        <a href="{{ path('case_study', { caseStudy: caseStudy.slug }) }}" class="title">
+                            {{ caseStudy.title }}
+                        </a>
+                        <p class="description">
+                            {{ caseStudy.description }}
+                        </p>
+                        <a href="{{ path('case_study', { caseStudy: caseStudy.slug }) }}" class="btn btn--secondary btn--animated">
+                            <span>
+                                Voir l'étude de cas
+                                {% include 'partials/svg-arrow.html.twig' %}
+                            </span>
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <aside class="bricks">
+            {% include 'partials/brick-visit.html.twig' %}
+            {% include 'partials/brick-contact.html.twig' %}
+        </aside>
+    </div>
+{% endblock content %}

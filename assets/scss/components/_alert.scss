@@ -1,0 +1,30 @@
+.alert {
+  padding: 30px;
+  display: flex;
+  font-family: 'antikor bold';
+  font-size: 14px;
+
+  .icon {
+    margin-right: 25px;
+    font-size: 25px;
+  }
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.alert--error {
+  color: $color-brand;
+  background: $color-secondary;
+}
+
+.alert--warning {
+  color: transparentize(#fff, .1);
+  background: $color-warning;
+}
+
+.alert--info {
+  color: transparentize(#fff, .1);
+  background: $color-info;
+}

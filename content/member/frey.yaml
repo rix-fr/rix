@@ -1,0 +1,25 @@
+active: true
+anonymousPhoto: true
+
+name: Florian Rey
+position: "DevOps"
+bio: |
+    Florian est le joker de l'équipe de développement.
+    Avec l'aide de ses collègues, il construit et maintient les environnements de développement et de production, bichonne les stratégies de déploiement notamment grâce à Manala, un projet open source fait maison.
+    Il intervient également comme consultant auprès des entreprises qui veulent améliorer leur stack de travail.
+
+integrationDate: 01-12-2011
+
+website: http://www.elao.com
+twitter: FlorianReyElao
+github: nervo
+linkedIn: ~
+email: florian.rey@elao.com
+avatar: content/images/member/avatars/frey.jpg
+
+certifications: [ ]
+
+emojis:
+    - 🌰
+    - 👾
+    - 🥧

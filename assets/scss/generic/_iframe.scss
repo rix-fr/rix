@@ -1,0 +1,46 @@
+.twitter-tweet-rendered,
+.instagram-media-rendered,
+.fb_iframe_widget {
+  margin: 50px auto !important;
+  display: flex !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.twitter-tweet-rendered,
+.fb_iframe_widget {
+  iframe {
+    margin: 0 !important;
+  }
+}
+
+.responsive-video {
+  margin: 50px auto !important;
+  padding-bottom: calc(var(--aspect-ratio, .5625) * 100%);
+  height: 0;
+  position: relative;
+
+  iframe {
+    margin: 0 !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100% !important;
+    width: 100% !important;
+  }
+}
+
+@media (max-width: $screen-xs) {
+  .twitter-tweet-rendered,
+  .fb_iframe_widget {
+    > span,
+    iframe {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+  }
+
+  .instagram-media-rendered {
+    min-width: unset !important;
+  }
+}

@@ -1,0 +1,67 @@
+{% import "macros.html.twig" as macros %}
+{% extends 'base.html.twig' %}
+
+{% set interval = date('now').diff(date(site.birthdate)) %}
+
+{% block meta_title "Accueil" %}
+{% block meta_description "Rix depuis plus de %d ans par des expert·e·s passionné·e·s | Rix"|format(interval.y) %}
+{#{% block og_image asset('social/Rix-home-og2.jpg')  %}#}
+{#{% block twitter_image absolute_url(asset('social/rix-ogimage-twitter2.jpg'))  %}#}
+{% block meta %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    {# TODO #}
+
+    Site descr: {{ site.description }}
+
+    Nombre de membres: {{ membersCount }}
+
+    Cas d'étude mis en avant:
+
+    {% set highlightedCaseStudy = content_get('App\\Model\\CaseStudy', site.home.highlights.caseStudy) %}
+    <div class="banner-home__image">
+        <figure>
+            <div class="image" style="{{ macros.backgroundImageSrcset(highlightedCaseStudy.images|first, 'case_study_thumbnail.md') }}"></div>
+            <figcaption>
+                <span>{{ highlightedCaseStudy.title }}</span>
+                {{ highlightedCaseStudy.shortDescription }}
+            </figcaption>
+        </figure>
+        <a href="{{ path('case_study', { caseStudy: highlightedCaseStudy.slug }) }}" class="btn btn--primary btn--animated">
+            <span>
+                Découvrir le projet
+                {% include 'partials/svg-arrow.html.twig' %}
+            </span>
+        </a>
+    </div>
+
+    Années d'XP:
+
+    <div class="item">
+        {% set interval = date('now').diff(date(site.birthdate)) %}
+        <span class="number">{{ interval.y }}</span>
+        ans d'expérience
+        <small>(et d'expérimentations)</small>
+    </div>
+
+    Technos (termes glossaire) à mettre en avant :
+
+    {% include "glossary/term_list.html.twig" with { terms: [
+        'example',
+    ] } only %}
+
+    {% include 'partials/brick-visit.html.twig' %}
+    {% include 'partials/brick-contact.html.twig' %}
+
+    Offres d'emploi :
+
+    <a href="{{ path('jobs') }}" class="brick-team">
+        <h3 class="title">Rejoindre l'équipe</h3>
+        {% set count = content_list('App\\Model\\Job', null, { active: true })|length %}
+        {% if count > 0 %}
+            <span class="subtitle">{{ 'job_offers'|trans({ count: count }) }}</span>
+        {% endif %}
+    </a>
+{% endblock %}
