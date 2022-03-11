@@ -1,6 +1,6 @@
-# elao_
+# Rix
 
-The Elao website.
+The Rix website.
 
 ## Prerequisite
 
