@@ -1,13 +1,16 @@
-// $fonts: (
-//   antikor regular: '../../fonts/antikor-regular',
-// );
+$fonts: (
+  Montserrat Regular: '../../fonts/dm-serif-display-regular',
+  Montserrat Medium: '../../fonts/dm-serif-display-regular',
+  Outfit Semi Bold: '../../fonts/dm-serif-display-regular',
+  DM Serif Display: '../../fonts/dm-serif-display-regular',
+);
 
-// @each $font-name, $font-path in $fonts {
-//   @font-face {
-//     font-family: '#{$font-name}';
-//     src: url('#{$font-path}.woff2') format('woff2'),
-//          url('#{$font-path}.woff') format('woff');
-//     font-weight: normal;
-//     font-style: normal;
-//   }
-// }
+@each $font-name, $font-path in $fonts {
+  @font-face {
+    font-family: '#{$font-name}';
+    src: url('#{$font-path}.woff2') format('woff2'),
+         url('#{$font-path}.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+}

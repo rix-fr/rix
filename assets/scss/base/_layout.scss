@@ -3,17 +3,16 @@ html {
 }
 
 body {
-  // font-family: 'faktum regular';
-  // font-size: 20px;
+  font-family: $primary-font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-// b,
-// strong {
-//   font-family: 'faktum semibold';
-//   font-weight: unset;
-// }
+b,
+strong {
+  font-family: $primary-font--bold;
+  font-weight: unset;
+}
 
 // ::selection {
 //   color: $color-secondary;
