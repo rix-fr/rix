@@ -4,6 +4,7 @@ html {
 
 body {
   font-family: $primary-font;
+  color: $color-primary;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -15,8 +16,8 @@ strong {
 }
 
 // ::selection {
-//   color: $color-secondary;
-//   background-color: $color-brand;
+//   color: #fff;
+//   background-color: $color-primary;
 // }
 
 // .container {
