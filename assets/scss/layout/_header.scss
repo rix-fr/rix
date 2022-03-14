@@ -1,0 +1,24 @@
+.header {
+  height: 155px;
+  background: #fff;
+  border-top: solid 30px $color-primary;
+
+  .container {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    width: 170px;
+  }
+}
+
+@media (max-width: $screen-md) {
+  .header {
+    height: 125px;
+
+    .logo {
+      width: 115px;
+    }
+  }
+}

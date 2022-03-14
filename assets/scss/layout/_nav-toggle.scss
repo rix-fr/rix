@@ -1,0 +1,26 @@
+.nav-toggle {
+  display: none;
+}
+
+@media (max-width: $screen-sm) {
+  .nav-toggle {
+    margin-left: auto;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    justify-content: center;
+    background: transparent;
+    border: solid 1px $color-border;
+    border-radius: 0;
+  }
+
+  .nav-toggle--open {
+    color: $color-primary;
+  }
+
+  .nav-toggle--close {
+    color: $color-border;
+  }
+}

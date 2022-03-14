@@ -24,12 +24,13 @@ twig:
                 matomo: '%env(MATOMO_ID)%'
 
             menu:
-                - { path: 'services', label: 'Services' }
-                - { path: 'case_studies', label: 'Études de cas' }
+                - { path: 'homepage', label: 'Accueil' }
+                - { path: 'services', label: 'Nos services' }
+                - { path: 'case_studies', label: 'Cas clients' }
                 - { path: 'team', label: "L'équipe" }
                 - { path: 'about', label: 'À propos' }
-                - { path: 'blog', label: 'Blog' }
-                - { path: 'contact', label: 'Contact', icon: 'contact', mobileClass: 'nav-mobile__item--large' }
+                # - { path: 'blog', label: 'Blog' }
+                - { path: 'contact', label: 'Contactez-nous', icon: 'contact', mobileClass: 'nav-mobile__item--large' }
             footer:
                 -
                     - { path: 'services', label: 'Services' }
