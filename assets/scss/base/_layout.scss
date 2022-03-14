@@ -3,46 +3,26 @@ html {
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  font-family: 'faktum regular';
-  font-size: 20px;
-  line-height: 1.6;
-  overflow-x: hidden;
+  // font-family: 'faktum regular';
+  // font-size: 20px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-b,
-strong {
-  font-family: 'faktum semibold';
-  font-weight: unset;
-}
+// b,
+// strong {
+//   font-family: 'faktum semibold';
+//   font-weight: unset;
+// }
 
-::selection {
-  color: $color-secondary;
-  background-color: $color-brand;
-}
+// ::selection {
+//   color: $color-secondary;
+//   background-color: $color-brand;
+// }
 
-.container {
-  margin: 0 auto;
-  padding: 0 20px;
-  width: 100%;
-  max-width: 1280px;
-}
-
-.container--narrow {
-  padding: 0 110px;
-}
-
-@media (max-width: $screen-md) {
-  .container--narrow {
-    padding: 0;
-  }
-}
-
-@media (max-width: $screen-xs) {
-  body {
-    font-size: 18px;
-  }
-}
+// .container {
+//   margin: 0 auto;
+//   padding: 0 20px;
+//   width: 100%;
+//   max-width: 1280px;
+// }
