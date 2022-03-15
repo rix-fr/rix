@@ -9,23 +9,20 @@
 //   pointer-events: unset;
 // }
 
-// base
 @import "base/_variables";
 @import "base/_fonts";
 @import "base/_icons";
 @import "base/_layout";
 @import "base/_utilities";
 
-// layout
 @import "layout/_header";
 @import "layout/_nav";
 @import "layout/_nav-mobile";
 @import "layout/_nav-toggle";
 @import "layout/_footer";
 
-// components
+@import "components/_contact-tiles";
 
-// generic
 @import "generic/_a";
 @import "generic/_code";
 @import "generic/_img";
@@ -33,5 +30,4 @@
 // @import "generic/_iframe";
 // @import "generic/_kbd";
 
-// pages
 //@import "pages/_page-contact";

@@ -26,6 +26,8 @@ $icons: (
   chevron: '\e902',
   close: '\e900',
   hamburger: '\e901',
+  location: '\e903',
+  message: '\e904',
 );
 
 @each $icon-name, $icon-character in $icons {

@@ -1,0 +1,85 @@
+.contact-tiles {}
+
+.contact-tiles__item {
+  margin-bottom: 20px;
+  padding: 30px 35px 35px 0;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  color: #fff;
+  background: $color-secondary;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  > span {
+    padding-left: 35px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  a {
+    font-family: $primary-font--bold;
+    text-decoration: underline;
+  }
+
+  .icon {
+    width: 120px;
+    min-width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    border-right: solid 2px #fff;
+  }
+
+  .title {
+    margin-bottom: 12px;
+    font-family: $secondary-font;
+    font-size: 24px;
+    line-height: 1.2;
+  }
+}
+
+@media (max-width: $screen-lg) {
+  .contact-tiles {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+  }
+
+  .contact-tiles__item {
+    margin: 0 10px;
+
+    &:first-of-type { margin-left: 0; }
+    &:last-of-type { margin-right: 0; }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .contact-tiles {
+    flex-direction: column;
+  }
+
+  .contact-tiles__item {
+    margin: 0 0 20px;
+
+    > span {
+      padding-left: 30px;
+    }
+
+    .icon {
+      width: 80px;
+      min-width: 80px;
+    }
+  }
+}
+
+@media (max-width: $screen-xxs) {
+  .contact-tiles__item {
+    .icon {
+      display: none;
+    }
+  }
+}
