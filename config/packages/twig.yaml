@@ -31,17 +31,21 @@ twig:
                 - { path: 'about', label: 'À propos' }
                 # - { path: 'blog', label: 'Blog' }
                 - { path: 'contact', label: 'Contactez-nous', icon: 'contact', mobileClass: 'nav-mobile__item--large' }
+
             footer:
+                - { path: "case_studies", label: "Cas clients" }
+                - { path: "about", label: "À propos" }
+                - { path: "contact", label: "Contact" }
+
+            footerServices:
                 -
-                    - { path: 'services', label: 'Services' }
-                    - { path: 'case_studies', label: 'Études de cas' }
+                    - { path: "services", label: "Accompagnement et outillage DevOps" }
+                    - { path: "services", label: "Conception d'infrastructures sur-mesure" }
+                    - { path: "services", label: "Environnement de développement" }
                 -
-                    - { path: 'team', label: "L'équipe" }
-                    - { path: 'blog', label: 'Blog' }
-                    - { path: 'blog_rss', label: 'RSS' }
-                -
-                    - { path: 'about', label: 'À propos' }
-                    - { path: 'contact', label: 'Contact' }
+                    - { path: "services", label: "Pilotage d'infrastructures souveraines" }
+                    - { path: "services", label: "Pilotage d'infrastructures cloud" }
+                    - { path: "services", label: "Performances et diagnostique" }
 
             home:
                 highlights:

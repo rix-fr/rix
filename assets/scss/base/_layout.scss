@@ -3,10 +3,17 @@ html {
 }
 
 body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   font-family: $primary-font;
   color: $color-primary;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  flex: 1;
 }
 
 b,

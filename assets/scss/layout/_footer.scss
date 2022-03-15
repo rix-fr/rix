@@ -1,0 +1,180 @@
+.footer {
+  padding: 100px 0 160px;
+  color: #fff;
+  line-height: 1.6;
+  background: $color-primary;
+
+  a {
+    font-family: $primary-font;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.footer__brand {
+  position: relative;
+  color: #fff;
+  border-top: solid 2px #fff;
+
+  img {
+    width: 170px;
+  }
+
+  span {
+    position: absolute;
+    top: 65px;
+    left: 105px;
+  }
+}
+
+.footer__links {
+  margin-top: -30px;
+  margin-bottom: 75px;
+  padding-left: 105px;
+  display: flex;
+  align-items: flex-end;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    flex: 1;
+  }
+
+  li {
+    margin: 0 0 20px;
+    padding-left: 30px;
+    position: relative;
+
+    &:before,
+    &:after {
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      top: 4px
+    }
+
+    &:before {
+      left: 0;
+      content: '';
+      background: #203860;
+      border-radius: 50%;
+    }
+
+    &:after {
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'icomoon';
+      font-size: 7px;
+      color: #fff;
+      content: '\e902';
+    }
+
+    a {
+      font-family: $primary-font;
+      text-decoration: none;
+    }
+  }
+
+  a {
+    margin-bottom: 45px;
+    font-family: $secondary-font;
+  }
+
+  .pages {
+    width: 300px;
+    display: flex;
+  }
+
+  .services {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    > div {
+      display: flex;
+    }
+
+    ul {
+      margin: 0 10px;
+
+      &:first-of-type { margin-left: 0; }
+      &:last-of-type { margin-right: 0; }
+    }
+  }
+}
+
+.footer__legals {
+  text-align: center;
+}
+
+@media (max-width: $screen-md) {
+  .footer__links {
+    align-items: flex-start;
+
+    .pages {
+      margin-top: 65px;
+      width: 400px;
+    }
+
+    .services {
+      > div {
+        flex-direction: column;
+      }
+
+      ul {
+        margin: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .footer__brand {
+    img {
+      width: 115px;
+    }
+
+    span {
+      top: 50px;
+      left: 71px;
+    }
+  }
+
+  .footer__links {
+    margin-top: 0;
+    padding-left: 0;
+    flex-direction: column;
+
+    a {
+      font-size: 20px;
+    }
+
+    ul {
+      a {
+        font-size: 16px;
+      }
+    }
+
+    .pages {
+      margin-top: 45px;
+      width: unset;
+    }
+
+    .services {
+      margin-top: 35px;
+
+      a {
+        margin-bottom: 25px;
+      }
+    }
+  }
+
+  .footer__legals {
+    a {
+      white-space: nowrap;
+    }
+  }
+}
