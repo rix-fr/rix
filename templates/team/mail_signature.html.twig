@@ -27,22 +27,22 @@
 {% endblock %}
 
 {% macro signatureHtml(member) %}
-<table style="margin-top: 20px; padding: 20px 50px 10px 0; font-family: Courier, sans-serif; font-size: 12px; background-color: #fff; border-top: 1px dashed #ddd;">
+<table style="margin-top: 20px; padding: 0 50px 10px 0; font-family: Arial, sans-serif; font-size: 12px; background-color: #fff; border-top: 2px solid #07162F; border-spacing: 0;">
     <tbody>
         <tr>
-            <td style="padding-top: 5px; padding-right: 15px; vertical-align: top;">
-                <img src="{{ absolute_url(asset('images/corpo/logo-email-signature.png')) }}" alt="logo rix" width="45" height="16" style="width: 45px; height: 16px">
+            <td style="padding: 0 20px 0 0; vertical-align: top;">
+                <img src="{{ absolute_url(asset('build/images/logos/logo-signature.png')) }}" alt="logo rix" width="68" height="120" style="width: 68px; height: 120px">
             </td>
-            <td>
-                <strong style="font-family: Courier, sans-serif; font-size: 14px; font-weight: bold; color: #ff4344; line-height: 20px;">{{ member.name|split(' ', 2)[0] }} <span style="color: #7f1a55;">{{ member.name|split(' ', 2)[1] }}</span></strong>
-                <div style="font-family: Courier, sans-serif; font-size: 12px; color: #7f1a55; line-height: 20px; white-space: nowrap;">// <span style="font-family: Courier, sans-serif; font-size: 12px; color: #7f1a55 !important; line-height: 20px;white-space: normal; hyphens: auto;">{{ member.position }}</span></div>
-                <div style="font-family: Courier, sans-serif; font-size: 12px; color: #7f1a55 !important; line-height: 20px; white-space: nowrap;">// <a href="mailto:{{ member.email }}" target="_blank" style="font-family: Courier, sans-serif; font-size: 12px; color: #7f1a55 !important; line-height: 20px; text-decoration: none; white-space: normal; word-break: break-all;">{{ member.email -}}</a></div>
+            <td style="padding-top: 15px; padding-right: 50px;">
+                <strong style="font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; color: #07162F; line-height: 20px;">{{ member.name|split(' ', 2)[0] }} <span style="color: #07162F;">{{ member.name|split(' ', 2)[1] }}</span></strong>
+                <div style="font-family: Arial, sans-serif; font-size: 14px; color: #07162F; line-height: 20px; white-space: nowrap;"><span style="font-family: Arial, sans-serif; font-size: 14px; color: #07162F !important; line-height: 20px;white-space: normal; hyphens: auto;">{{ member.position }}</span></div>
+                <div style="font-family: Arial, sans-serif; font-size: 14px; color: #07162F !important; line-height: 20px; white-space: nowrap;"><a href="mailto:{{ member.email }}" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #07162F !important; line-height: 20px; text-decoration: none; white-space: normal; word-break: break-all;">{{ member.email -}}</a></div>
                 {%- if member.phone is not empty -%}
-                    <div style="font-family: Courier, sans-serif; font-size: 12px; color: #7f1a55; line-height: 20px; white-space: nowrap;">// <span style="font-family: Courier, sans-serif; font-size: 12px; color: #7f1a55 !important; line-height: 20px;white-space: normal; word-break: break-all;">{{ member.phone }}</span></div>
+                    <div style="font-family: Arial, sans-serif; font-size: 14px; color: #07162F; line-height: 20px; white-space: nowrap;"><span style="font-family: Arial, sans-serif; font-size: 14px; color: #07162F !important; line-height: 20px;white-space: normal; word-break: break-all;">{{ member.phone }}</span></div>
                 {%- endif -%}
-                    <div style="font-family: Courier, sans-serif; font-size: 12px; color: #7f1a55; line-height: 20px; white-space: nowrap;">// <span style="font-family: Courier, sans-serif; font-size: 12px; color: #7f1a55 !important; line-height: 20px;white-space: normal; word-break: break-all;">{{ site.contact.phone }}</span></div>
+                    <div style="font-family: Arial, sans-serif; font-size: 14px; color: #07162F; line-height: 20px; white-space: nowrap;"><span style="font-family: Arial, sans-serif; font-size: 14px; color: #07162F !important; line-height: 20px;white-space: normal; word-break: break-all;">{{ site.contact.phone }}</span></div>
                 <div>
-                    <a href="{{ url('homepage') }}" target="_blank" style="font-family: Courier, sans-serif; font-size: 12px; color: #ff4344; line-height: 20px; text-decoration: none;">rix.com</a>
+                    <a href="{{ url('homepage') }}" target="_blank" style="font-family: Arial, sans-serif; font-size: 14px; color: #07162F; line-height: 20px; text-decoration: underline; padding-top: 7px; display: block;">rix.com</a>
                 </div>
             </td>
         </tr>
