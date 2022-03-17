@@ -26,3 +26,9 @@ errors_404:
     options:
         stenope:
             sitemap: false
+
+mail_template:
+    path: /mail
+    controller:  Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+    defaults:
+        template: 'mail/template.html.twig'
