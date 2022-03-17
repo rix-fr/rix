@@ -3,7 +3,7 @@
     <channel>
         <title>Le blog de l'équipe Rix</title>
         <description>Découvrez nos articles techniques (ou non), rédigés par les membres de l'équipe Rix !</description>
-        <copyright>Rix - L’utilisation des flux RSS de rix.fr est réservée à un usage strictement personnel, non professionnel et non collectif. Toute autre exploitation doit faire l’objet d’une autorisation et donner lieu au versement d’une rémunération. Contact : contact@rix.com</copyright>
+        <copyright>Rix - L’utilisation des flux RSS de rix.fr est réservée à un usage strictement personnel, non professionnel et non collectif. Toute autre exploitation doit faire l’objet d’une autorisation et donner lieu au versement d’une rémunération. Contact : {{ site.contact.email }}</copyright>
         <link>{{ url('blog') }}</link>
         <pubDate>{{ 'now'|date(constant('DATE_RFC2822')) }}</pubDate>
         <language>fr</language>

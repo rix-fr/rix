@@ -6,21 +6,19 @@ twig:
         site:
             title: "Rix 🐺 - Expertise & solutions devops sur-mesure"
             description: "Rix - Conception d'infrastructures web sur-mesure orientées DevOps - Expertise et outillage Devops"
-            birthdate: 04/01/2005
+            birthdate: 03/31/2020
             contact:
-                email: contact@rix.com
-                jobsEmail: jobs@rix.com
+                email: contact@rix.fr
+                jobsEmail: jobs@rix.fr
                 phone: 04 82 53 37 19
                 phoneto: +33482533719
                 address:
                     street_address: 34 rue Jean Broquin
                     address_locality: 69006 Lyon
-                    google_maps: https://g.page/Elao_fr?share
 
             social:
                 github: https://github.com/rix-fr
                 twitter: https://twitter.com/rix_fr
-                instagram: https://www.instagram.com/XXX/
 
             trackers:
                 matomo: '%env(MATOMO_ID)%'

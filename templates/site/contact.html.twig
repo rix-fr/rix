@@ -37,10 +37,8 @@
                     <img src="{{ asset('build/images/pages/contact/stamp.svg') }}" alt="">
                     <p class="name" itemprop="name">Rix</p>
                     <address itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                        <a href="{{ site.contact.address.google_maps }}" target="_blank">
-                            <span itemprop="streetAddress">{{ site.contact.address.street_address }}</span><br/>
-                            <span itemprop="addressLocality">{{ site.contact.address.address_locality }}</span>
-                        </a>
+                        <span itemprop="streetAddress">{{ site.contact.address.street_address }}</span><br/>
+                        <span itemprop="addressLocality">{{ site.contact.address.address_locality }}</span>
                     </address>
                     <address>
                         <a href="tel:{{ site.contact.phoneto }}" itemprop="telephone">{{ site.contact.phone }}</a>
