@@ -1,0 +1,193 @@
+<style type="text/css">
+    body {
+        background: #f2f4fc;
+    }
+
+    tbody tr.row {
+        border-bottom: 1px solid #adadad;
+    }
+
+    tr.row td {
+        padding: 10px;
+    }
+
+    tfoot tr.row {
+        white-space: nowrap;
+        border-bottom: none;
+    }
+
+    td {
+        padding: 0 25px;
+    }
+
+    th {
+        padding: 10px;
+        font-weight: 500;
+    }
+
+    h1 {
+        margin: 0;
+        padding: 50px 0;
+        font-size: 28px;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .email {
+        max-width: 650px;
+        margin: 0 auto;
+        border-spacing: 0;
+        background: #fff;
+        font-family: Arial, sans-serif;
+        color: #07162f;
+    }
+
+    .invoice-summary {
+        margin-top: 50px;
+        border-collapse: collapse;
+    }
+
+    .invoice-summary__headers {
+        color: #fff;
+        background-color: #3c3d3a;
+    }
+
+    .row p {
+        margin: 0;
+    }
+
+    .image {
+        display: block;
+        margin: 50px auto;
+        max-width: 100%;
+    }
+
+    .lighter {
+        font-size: 15px;;
+        color: #333;
+    }
+
+    .price {
+        padding: 50px 25px;
+        font-size: 22px;
+    }
+
+    .unit {
+        font-weight: 600;
+    }
+
+    .price {
+        text-align: center;
+    }
+
+    .total {
+        background-color: #f5f4f3;
+        font-weight: 600;
+    }
+
+    .footer {
+        padding: 80px 25px 20px;
+        font-size: 12px;
+    }
+
+    .footer a {
+        color: #07162f;
+        text-decoration: underline;
+    }
+</style>
+
+<table class="email">
+    <tbody>
+        <tr>
+            <td>
+                <img src="https://www.rix.fr/images/rix.svg" width="60" height="106" style="width: 60px; height: 106px">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h1>Facture n°532</h1>
+            </td>
+        </tr>
+        <tr>
+            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl malesuada, fringilla massa eget, luctus diam.</td>
+        </tr>
+        <tr>
+            <td><img alt="image" class="image" src="https://picsum.photos/200/300"></td>
+        </tr>
+        <tr>
+            <td><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl malesuada, fringilla massa eget, luctus diam.</p></td>
+        </tr>
+        <tr>
+            <td>
+                <table class="invoice-summary">
+                    <thead class="invoice-summary__headers">
+                        <tr>
+                            <th>#</th>
+                            <th>Article & Description</th>
+                            <th>Quantité</th>
+                            <th>Taux</th>
+                            <th>Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="row">
+                          <th scope="row">1</th>
+                          <td>
+                            <p>Conception/Installation</p>
+                            <p class="lighter">Mise à jour des environnements et transfert de l'applicatif</p>
+                          </td>
+                          <td>0,50</td>
+                          <td>800,00</td>
+                          <td>400,00</td>
+                        </tr>
+                        <tr class="row">
+                          <th scope="row">2</th>
+                          <td>
+                            <p class="lighter">Double facturation du matériel (1 mois le temps du transfert)</p>
+                          </td>
+                          <td>1,00</td>
+                          <td>214,00</td>
+                          <td>214,00</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr class="row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Sous-total</td>
+                            <td>614,00</td>
+                        </tr>
+                        <tr class="row">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>TVA (20%)</td>
+                            <td>80,00</td>
+                        </tr>
+                        <tr class="row total">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Total</td>
+                            <td>€694,00</td>
+                        </tr>
+                      </tfoot>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="price">Montant de la facture: <span class="unit">2000€</span></td>
+        </tr>
+        <tr>
+            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl malesuada, fringilla massa eget, luctus diam.</td>
+        </tr>
+        <tr>
+            <td class="footer">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl malesuada, fringilla massa eget, luctus diam.
+                <a href="#">Unsubscribe</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
