@@ -1,6 +1,21 @@
 {
-  "build/app.js": "/rix/build/app.537d0580.js",
-  "build/runtime.js": "/rix/build/runtime.de302631.js",
+  "build/app.css": "/rix/build/app.1a65045a.css",
+  "build/app.js": "/rix/build/app.e2bdfab6.js",
+  "build/style.css": "/rix/build/style.1a65045a.css",
+  "build/runtime.js": "/rix/build/runtime.b8b0bc6c.js",
   "build/40.1ba7a51b.js": "/rix/build/40.1ba7a51b.js",
-  "build/321.9a36fa81.css": "/rix/build/321.9a36fa81.css"
+  "build/fonts/montserrat-medium.woff": "/rix/build/fonts/montserrat-medium.2451e96b.woff",
+  "build/fonts/montserrat-regular.woff": "/rix/build/fonts/montserrat-regular.4a3d6361.woff",
+  "build/fonts/montserrat-medium.woff2": "/rix/build/fonts/montserrat-medium.cf734a37.woff2",
+  "build/fonts/montserrat-regular.woff2": "/rix/build/fonts/montserrat-regular.4ada7f2f.woff2",
+  "build/fonts/dm-serif-display-regular.woff": "/rix/build/fonts/dm-serif-display-regular.7265fe7d.woff",
+  "build/fonts/dm-serif-display-regular.woff2": "/rix/build/fonts/dm-serif-display-regular.f7535417.woff2",
+  "build/fonts/outfit-semi-bold.woff": "/rix/build/fonts/outfit-semi-bold.58a47c5f.woff",
+  "build/fonts/outfit-semi-bold.woff2": "/rix/build/fonts/outfit-semi-bold.007337b1.woff2",
+  "build/images/icomoon.svg": "/rix/build/images/icomoon.7cd412f1.svg",
+  "build/fonts/icomoon.eot": "/rix/build/fonts/icomoon.a92ba76d.eot",
+  "build/fonts/icomoon.woff": "/rix/build/fonts/icomoon.6a9629a1.woff",
+  "build/fonts/icomoon.ttf": "/rix/build/fonts/icomoon.97651705.ttf",
+  "build/images/logos/logo-horizontal.svg": "/rix/build/images/logos/logo-horizontal.ae7b8485.svg",
+  "build/images/logos/logo-horizontal-white.svg": "/rix/build/images/logos/logo-horizontal-white.901392b9.svg"
 }

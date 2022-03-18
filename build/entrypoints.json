@@ -2,20 +2,20 @@
   "entrypoints": {
     "app": {
       "js": [
-        "/rix/build/runtime.de302631.js",
+        "/rix/build/runtime.b8b0bc6c.js",
         "/rix/build/40.1ba7a51b.js",
-        "/rix/build/app.537d0580.js"
+        "/rix/build/app.e2bdfab6.js"
       ],
       "css": [
-        "/rix/build/321.9a36fa81.css"
+        "/rix/build/app.1a65045a.css"
       ]
     },
     "style": {
       "js": [
-        "/rix/build/runtime.de302631.js"
+        "/rix/build/runtime.b8b0bc6c.js"
       ],
       "css": [
-        "/rix/build/321.9a36fa81.css"
+        "/rix/build/style.1a65045a.css"
       ]
     }
   }
