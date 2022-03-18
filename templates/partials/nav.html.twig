@@ -1,0 +1,17 @@
+<nav class="nav">
+    <ul>
+        {% for item in site.menu|filter(item => item.desktop ?? true) %}
+            <li class="nav__item {{ app.request.attributes.get( '_route' ) == item.path ? 'nav__item--active' }}">
+                <a href="{{ path(item.path) }}">
+                    <span>{{ item.label }}</span>
+                </a>
+            </li>
+        {% endfor %}
+        <li class="nav__item nav__item--icon">
+            <a href="{{ path('contact') }}">
+                {{ include('partials/contact-icon.html.twig') }}
+                <span>Contactez-nous</span>
+            </a>
+        </li>
+    </ul>
+</nav>

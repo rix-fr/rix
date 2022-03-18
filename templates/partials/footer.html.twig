@@ -1,58 +1,64 @@
 <footer class="footer">
     <div class="container">
-        <section class="footer__links">
-            <p class="h1">
-                Rix
-                <span>gère</span>
-                <span>votre infra</span>
-            </p>
-
-            <div class="links">
-                {% for col in site.footer %}
-                    <ul>
-                        {% for item in col %}
-                            <li>
-                                <a href="{{ path(item.path) }}">{{ item.label }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endfor %}
+        <div class="footer__contact">
+            <div class="catchphrase">
+                <p class="h1">Le monde du DevOps vous semble obscur ?</p>
+                <p>Contactez-nous, nous vous aiderons à y <strong>voir plus clair</strong>.</p>
+            </div>
+            <div class="contact-tiles">
+                <span class="contact-tiles__item">
+                    <i class="icon icon--location" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Passez nous voir !</span>
+                        <span>Nous sommes à Lyon !</span>
+                        <span>{{ site.contact.address }}</span>
+                    </span>
+                </span>
+                <span class="contact-tiles__item">
+                    <i class="icon icon--message" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Par téléphone ou par mail</span>
+                        <a href="tel:{{ site.contact.phoneto }}">{{ site.contact.phone }}</a>
+                        <a href="mailto:contact@rix.fr">{{ site.contact.email }}</a>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="footer__brand">
+            <img src="{{ asset('build/images/logos/logo-horizontal-white.svg') }}" alt="Rix">
+            <span>Expertise et outilllage DevOps</span>
+        </div>
+        <nav class="footer__links">
+            <div class="pages">
                 <ul>
-                    <li>
-                        {% set count = content_list('App\\Model\\Job', null, { active: true })|length %}
-                        <a href="{{ path('jobs') }}">
-                            Nous recrutons
-                            {% if count %}
-                                <span class="bullet">{{ count }}</span>
-                            {% endif %}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ path('glossary') }}">Glossaire 🧐</a>
-                    </li>
+                    {% for item in site.footer %}
+                        <li>
+                            <a href="{{ path(item.path) }}">{{ item.label }}</a>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
-            <div class="socials">
-                <ul>
-                    <li>
-                        <a href="{{ site.social.github }}" target="_blank">
-                            <i class="icon icon--github"></i>
-                            Github
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ site.social.twitter }}" target="_blank">
-                            <i class="icon icon--twitter"></i>
-                            Twitter
-                        </a>
-                    </li>
-                </ul>
+            <div class="services">
+                <a href="{{ path('services') }}">Nos services</a>
+                <div>
+                    {% for col in site.footerServices %}
+                        <ul>
+                            {% for item in col %}
+                                <li>
+                                    <a href="{{ path(item.path) }}">{{ item.label }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </div>
             </div>
-        </section>
-        <section class="footer__legals">
-            <span>© 2005 - {{ 'now'|date('Y') }} - Rix - Tous droits réservés</span>
+        </nav>
+        <div class="footer__legals">
+            <span>©{{ 'now'|date('Y') }} - Rix - Tous droits réservés</span>
+            -
             <a href="{{ path('legal') }}">Mentions légales</a>
-            <a href="{{ path('privacy') }}">Protection des données</a>
-        </section>
+            -
+            <a href="{{ path('privacy') }}">Données personnelles</a>
+        </div>
     </div>
 </footer>

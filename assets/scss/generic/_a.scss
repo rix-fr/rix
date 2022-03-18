@@ -1,19 +1,9 @@
 a {
-  color: unset;
-  text-decoration: none;
-  transition: color ease-in .1s;
-  position: relative;
-  border-bottom: solid 3px $color-brand;
-  cursor: pointer;
-  word-wrap: break-word;
+  transition: color ease .2s;
 
   &:hover,
   &:active,
-  &:focus {
-    color: $color-brand;
-  }
+  &:focus {}
 }
 
-a:not([href]) {
-  cursor: initial;
-}
+a:not([href]) {}

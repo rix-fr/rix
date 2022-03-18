@@ -25,7 +25,6 @@
                         <a href="{{ path('job', { job: job.slug }) }}">
                             <span>
                                 Voir le post
-                                {% include 'partials/svg-arrow.html.twig' %}
                             </span>
                         </a>
                     </div>
@@ -33,9 +32,6 @@
             {% endfor %}
         </ul>
 
-        <aside class="bricks">
-            {% include 'partials/brick-application.html.twig' %}
-        </aside>
     {% else %}
         <ul class="article-list">
             <li class="miniature-inline miniature-inline--small no-result">
@@ -44,7 +40,6 @@
                     <a href="{{ path('contact') }}" class="btn btn--secondary btn--animated">
                         <span>
                             Envoyez nous un message
-                            {% include 'partials/svg-arrow.html.twig' %}
                         </span>
                     </a>
                 </div>

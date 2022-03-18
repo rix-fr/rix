@@ -59,17 +59,11 @@
                         <a href="{{ path('case_study', { caseStudy: caseStudy.slug }) }}" class="btn btn--secondary btn--animated">
                             <span>
                                 Voir l'étude de cas
-                                {% include 'partials/svg-arrow.html.twig' %}
                             </span>
                         </a>
                     </div>
                 </li>
             {% endfor %}
         </ul>
-
-        <aside class="bricks">
-            {% include 'partials/brick-visit.html.twig' %}
-            {% include 'partials/brick-contact.html.twig' %}
-        </aside>
     </div>
 {% endblock content %}

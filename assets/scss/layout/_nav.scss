@@ -1,0 +1,108 @@
+.nav {
+  margin-left: auto;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+  }
+}
+
+.nav__item {
+  margin: 0 20px;
+  display: flex;
+  align-items: center;
+
+  a {
+    font-family: $secondary-font;
+    font-size: 18px;
+    color: $color-primary;
+    text-decoration: none;
+
+    span {
+      padding: 7px 2px;
+      position: relative;
+
+      &:after {
+        width: 100%;
+        height: 2px;
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        content: '';
+        background: $color-secondary;
+        opacity: 0;
+        transition: ease-out .15s;
+      }
+    }
+
+    &:hover {
+      span {
+        &:after {
+          bottom: 0;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.nav__item--icon {
+  a {
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 9px;
+      width: 25px;
+
+      path,
+      circle {
+        transition: stroke ease .2s, fill ease .2s;
+      }
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      svg {
+        path {
+          stroke: $color-secondary;
+        }
+
+        circle {
+          fill: $color-secondary;
+        }
+      }
+    }
+  }
+}
+
+.nav__item--active {
+  a {
+    &:after {
+      bottom: 0;
+      opacity: 1;
+      background: $color-border;
+    }
+  }
+}
+
+@media (max-width: $screen-md) {
+  .nav__item {
+    margin: 0 15px;
+  }
+
+  .nav__item--icon {
+    svg {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .nav {
+    display: none;
+  }
+}

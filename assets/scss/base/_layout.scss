@@ -3,46 +3,33 @@ html {
 }
 
 body {
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: 'faktum regular';
-  font-size: 20px;
-  line-height: 1.6;
-  overflow-x: hidden;
+  font-family: $primary-font;
+  color: $color-primary;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+main {
+  flex: 1;
+}
+
 b,
 strong {
-  font-family: 'faktum semibold';
+  font-family: $primary-font--bold;
   font-weight: unset;
 }
 
-::selection {
-  color: $color-secondary;
-  background-color: $color-brand;
-}
+// ::selection {
+//   color: #fff;
+//   background-color: $color-primary;
+// }
 
 .container {
   margin: 0 auto;
   padding: 0 20px;
   width: 100%;
-  max-width: 1280px;
-}
-
-.container--narrow {
-  padding: 0 110px;
-}
-
-@media (max-width: $screen-md) {
-  .container--narrow {
-    padding: 0;
-  }
-}
-
-@media (max-width: $screen-xs) {
-  body {
-    font-size: 18px;
-  }
+  max-width: 1440px;
 }
