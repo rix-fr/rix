@@ -1,48 +1,93 @@
 <style type="text/css">
-    .title {
-        font-family: 'fantasy' !important;
+    body {
+        background: #f2f4fc;
+    }
+
+    td {
+        padding: 0 25px;
+    }
+
+    tr:first-of-type > td {
+        padding: 0;
+    }
+
+    .email {
+        max-width: 580px;
+        margin: 0 auto;
+        border-spacing: 0;
+        background: #fff;
+        font-family: Arial, sans-serif;
     }
 
     .logo {
         width: 65px;
-        height: 120px;
+    }
+
+    .title {
+        padding: 50px 25px;
+        font-size: 35px;
+    }
+
+    .image {
+        text-align: center;
+        padding-top: 50px;
+    }
+
+    .price {
+        padding: 50px 25px;
+        font-size: 30px;
+    }
+
+    .unit {
+        font-weight: 600;
+    }
+
+    .title,
+    .price {
+        text-align: center;
+    }
+
+    .footer {
+        padding: 80px 25px 20px;
+        font-size: 14px;
+        color: #99B7D1;
+    }
+
+    .footer > a {
+        color: #99B7D1;
+        text-decoration: none;
+        border-bottom: 2px solid #99B7D1;
     }
 </style>
 
-<table class="main">
-    <tr>
-        <td>
-            <img src="https://www.rix.fr/images/rix.svg" class="logo" alt="logo rix">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <h1 class="title">Facture N°
-                <span>542</span>
-            </h1>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <span>
+<table class="email">
+    <tbody>
+        <tr>
+            <td>
+                <img src="https://www.rix.fr/images/rix.svg" class="logo" alt="logo rix">
+            </td>
+        </tr>
+        <tr>
+            <td class="title">Facture n°<span>542</span></td>
+        </tr>
+        <tr>
+            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl malesuada, fringilla massa eget, luctus diam.</td>
+        </tr>
+        <tr>
+            <td class="image"><img alt="image" src="https://www.placecage.com/g/200/300"></td>
+        </tr>
+        <tr>
+            <td class="price">Montant de la facture: <span class="unit">2000€</span></td>
+        </tr>
+        <tr>
+            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl malesuada, fringilla massa eget, luctus diam.</td>
+        </tr>
+        <tr>
+            <td class="footer">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl malesuada, fringilla massa eget, luctus diam.
-            </span>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <h2>
-                Montant de la facture:
-                <span>2000€</span>
-            </h2>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <span>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl malesuada, fringilla massa eget, luctus diam.
-            </span>
-        </td>
-    </tr>
+                <a href="#">Unsubscribe</a>
+            </td>
+        </tr>
+    </tbody>
 </table>
 
