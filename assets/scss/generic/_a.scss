@@ -1,4 +1,6 @@
 a {
+  transition: color ease .2s;
+
   &:hover,
   &:active,
   &:focus {}

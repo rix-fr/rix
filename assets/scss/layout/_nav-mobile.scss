@@ -24,7 +24,7 @@
     margin: 0 0 10px;
     padding: 0 0 0 45px;
     display: flex;
-    font-size: 36px;
+    font-size: 31px;
 
     a {
       padding: 10px 0;
@@ -41,15 +41,20 @@
     }
   }
 
-  .nav-mobile__item--large {
+  .nav-mobile__item--icon {
     margin: auto 0 0;
     padding: 0;
     height: 100px;
-    align-items: center;
-    justify-content: center;
     border-top: solid 1px $color-border;
 
-    img {
+    a {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    svg {
       margin-right: 15px;
       width: 40px;
     }
@@ -64,5 +69,6 @@
     display: flex;
     flex-direction: column;
     background: $color-primary;
+    z-index: 9999999;
   }
 }

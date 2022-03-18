@@ -17,11 +17,12 @@
     padding-left: 35px;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
   }
 
   a {
+    position: relative;
     font-family: $primary-font--bold;
-    text-decoration: underline;
   }
 
   .icon {

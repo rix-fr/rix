@@ -91,50 +91,11 @@
                     </a>
 
                     {% block desktop_nav %}
-                        <nav class="nav">
-                            <ul>
-                                {% for item in site.menu|filter(item => item.desktop ?? true) %}
-                                    <li class="nav__item {{ app.request.attributes.get( '_route' ) == item.path ? 'nav__item--active' }}">
-                                        {% if item.icon ?? false %}
-                                            <img src="{{ asset('build/images/nav-icons/' ~ item.icon ~ '.svg') }}" alt="">
-                                        {% endif %}
-                                        <a href="{{ path(item.path) }}">
-                                            {{ item.label }}
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </nav>
+                        {{ include('partials/nav.html.twig') }}
                     {% endblock %}
 
                     {% block mobile_nav %}
-                        <nav class="nav-mobile">
-                            <div class="nav-mobile__header">
-                                <a href="{{ path('homepage') }}">
-                                    <img src="{{ asset('build/images/logos/logo-horizontal-white.svg') }}" alt="" class="logo">
-                                </a>
-                                <button class="nav-toggle nav-toggle--close">
-                                    <i class="icon icon--close" aria-hidden="true"></i>
-                                    <span class="screen-reader">Fermer le menu</span>
-                                </button>
-                            </div>
-                            <ul>
-                                {% for item in site.menu|filter(item => item.mobile ?? true) %}
-                                    <li class="nav-mobile__item {{ app.request.attributes.get( '_route' ) == item.path ? 'nav-mobile__item--active' }} {{ item.mobileClass|default('') }}">
-                                        {% if item.icon ?? false %}
-                                            <img src="{{ asset('build/images/nav-icons/' ~ item.icon ~ '.svg') }}" alt="">
-                                        {% endif %}
-                                        <a href="{{ path(item.path) }}">
-                                            {{ item.label }}
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </nav>
-                        <button class="nav-toggle nav-toggle--open">
-                            <i class="icon icon--hamburger" aria-hidden="true"></i>
-                            <span class="screen-reader">Ouvrir le menu</span>
-                        </button>
+                        {{ include('partials/nav-mobile.html.twig') }}
                     {% endblock %}
                 </div>
             </header>

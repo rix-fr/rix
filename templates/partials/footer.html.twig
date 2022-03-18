@@ -11,15 +11,15 @@
                     <span>
                         <span class="title">Passez nous voir !</span>
                         <span>Nous sommes à Lyon !</span>
-                        <span>34 rue Jean Broquin, 69006 Lyon</span>
+                        <span>{{ site.contact.address }}</span>
                     </span>
                 </span>
                 <span class="contact-tiles__item">
                     <i class="icon icon--message" aria-hidden="true"></i>
                     <span>
                         <span class="title">Par téléphone ou par mail</span>
-                        <a href="tel:+33482533719">04 82 53 37 19</a>
-                        <a href="mailto:contact@rix.fr">contact@rix.fr</a>
+                        <a href="tel:{{ site.contact.phoneto }}">{{ site.contact.phone }}</a>
+                        <a href="mailto:contact@rix.fr">{{ site.contact.email }}</a>
                     </span>
                 </span>
             </div>

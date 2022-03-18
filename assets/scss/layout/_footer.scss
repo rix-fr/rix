@@ -6,8 +6,14 @@
 
   a {
     font-family: $primary-font;
-    color: #fff;
+    color: rgba(255, 255, 255, .8);
     text-decoration: none;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: rgba(255, 255, 255, 1);
+    }
   }
 }
 
@@ -56,8 +62,10 @@
   margin-top: -30px;
   margin-bottom: 75px;
   padding-left: 105px;
+  position: relative;
   display: flex;
   align-items: flex-end;
+  z-index: 1;
 
   ul {
     margin: 0;
@@ -100,12 +108,24 @@
     a {
       font-family: $primary-font;
       text-decoration: none;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: rgba(255, 255, 255, 1);
+      }
     }
   }
 
   a {
     margin-bottom: 45px;
     font-family: $secondary-font;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $color-secondary;
+    }
   }
 
   .pages {
@@ -116,9 +136,11 @@
   .services {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     flex: 1;
 
     > div {
+      width: 100%;
       display: flex;
     }
 

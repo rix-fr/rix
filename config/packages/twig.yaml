@@ -1,8 +1,8 @@
 twig:
     strict_variables: true
-    default_path: '%kernel.project_dir%/templates'
+    default_path: "%kernel.project_dir%/templates"
     globals:
-        forceNoIndex: '%env(bool:APP_FORCE_NO_INDEX)%'
+        forceNoIndex: "%env(bool:APP_FORCE_NO_INDEX)%"
         site:
             title: "Rix 🐺 - Expertise & solutions devops sur-mesure"
             description: "Rix - Conception d'infrastructures web sur-mesure orientées DevOps - Expertise et outillage Devops"
@@ -12,25 +12,22 @@ twig:
                 jobsEmail: jobs@rix.fr
                 phone: 04 82 53 37 19
                 phoneto: +33482533719
-                address:
-                    street_address: 34 rue Jean Broquin
-                    address_locality: 69006 Lyon
+                address: 34 rue Jean Broquin, 69006 Lyon
 
             social:
                 github: https://github.com/rix-fr
                 twitter: https://twitter.com/rix_fr
 
             trackers:
-                matomo: '%env(MATOMO_ID)%'
+                matomo: "%env(MATOMO_ID)%"
 
             menu:
-                - { path: 'homepage', label: 'Accueil' }
-                - { path: 'services', label: 'Nos services' }
-                - { path: 'case_studies', label: 'Cas clients' }
-                - { path: 'team', label: "L'équipe" }
-                - { path: 'about', label: 'À propos' }
-                # - { path: 'blog', label: 'Blog' }
-                - { path: 'contact', label: 'Contactez-nous', icon: 'contact', mobileClass: 'nav-mobile__item--large' }
+                - { path: "homepage", label: "Accueil" }
+                - { path: "services", label: "Nos services" }
+                - { path: "case_studies", label: "Cas clients" }
+                - { path: "team", label: "L'équipe" }
+                - { path: "about", label: "À propos" }
+                # - { path: "blog", label: "Blog" }
 
             footer:
                 - { path: "case_studies", label: "Cas clients" }
