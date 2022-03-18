@@ -73,7 +73,6 @@
                         <a href="{{ caseStudy.websiteUrl }}" class="btn btn--secondary btn--animated {{ caseStudy.websiteUrl is empty ? 'hidden' }}" target="_blank">
                             <span>
                                 Voir le site
-                                {% include 'partials/svg-arrow.html.twig' %}
                             </span>
                         </a>
                     </div>
@@ -128,7 +127,6 @@
                             <a href="{{ path('case_study', { caseStudy: caseStudy.slug }) }}" class="btn btn--secondary btn--animated">
                                 <span>
                                     Voir l'étude de cas
-                                    {% include 'partials/svg-arrow.html.twig' %}
                                 </span>
                             </a>
                         </div>
