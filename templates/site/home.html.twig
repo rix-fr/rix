@@ -12,52 +12,207 @@
 {% endblock %}
 
 {% block content %}
-    {# TODO #}
 
-    {# Site descr: {{ site.description }}
-
-    Nombre de membres: {{ membersCount }}
-
-    Cas d'étude mis en avant:
-
-    {% set highlightedCaseStudy = content_get('App\\Model\\CaseStudy', site.home.highlights.caseStudy) %}
-    <div class="banner-home__image">
-        <figure>
-            <div class="image" style="{{ macros.backgroundImageSrcset(highlightedCaseStudy.images|first, 'case_study_thumbnail.md') }}"></div>
-            <figcaption>
-                <span>{{ highlightedCaseStudy.title }}</span>
-                {{ highlightedCaseStudy.shortDescription }}
-            </figcaption>
-        </figure>
-        <a href="{{ path('case_study', { caseStudy: highlightedCaseStudy.slug }) }}" class="btn btn--primary btn--animated">
-            <span>
-                Découvrir le projet
-            </span>
-        </a>
+    <div class="banner">
+        <div class="container">
+            <h1>Conception d’infrastructures <strong>sur-mesure</strong> et d’outillage DevOps</h1>
+            <p>Grâce à nos cultures DevOps et SecOps, nous assurons le dialogue avec les équipes de développement et les équipes de cyber-sécurité afin d'apporter notre expertise dans l'analyse des comportements des applications web</p>
+            <a href="{{ path('contact') }}" class="button">Contactez-nous !</a>
+        </div>
     </div>
 
-    Années d'XP:
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <section>
+                    <h2>
+                        <span>Nos valeurs</span>
+                        Nos engagements
+                    </h2>
 
-    <div class="item">
-        {% set interval = date('now').diff(date(site.birthdate)) %}
-        <span class="number">{{ interval.y }}</span>
-        ans d'expérience
-        <small>(et d'expérimentations)</small>
+                    <ul class="values">
+                        <li class="values__item">
+                            <div class="image-title">
+                                <img src="{{ asset('build/images/home/values/placeholder.svg') }}" alt="">
+                                <h3 class="image-title__content">Indépendance et gouvernance</h3>
+                            </div>
+                            <p>Après plusieurs années à utiliser de grand fournisseurs de solution «cloud», nous avons pris le parti d'essayer au maximum, de travailler avec des <strong>acteurs nationaux</strong> afin de trouver des solutions matérielles permettant de construire des <strong>infrastructures robustes et évolutives</strong>.</p>
+                        </li>
+                        <li class="values__item">
+                            <div class="image-title">
+                                <img src="{{ asset('build/images/home/values/placeholder.svg') }}" alt="">
+                                <h3 class="image-title__content">Proximité et réactivité</h3>
+                            </div>
+                            <p>Nous aimons rencontrer les personnes avec lesquelles nous travaillons, notre objectif est de bien comprendre les enjeux du métier afin d'apporter un maximum de valeur à travers nos solutions. Chaque projet étant différent nous avons besoin de <strong>comprendre vos contraintes et vos objectifs</strong> afin de faire correspondre nos infrastructures à vos besoins réels.</p>
+                        </li>
+                        <li class="values__item">
+                            <div class="image-title">
+                                <img src="{{ asset('build/images/home/values/placeholder.svg') }}" alt="">
+                                <h3 class="image-title__content">Sécurité</h3>
+                            </div>
+                            <p>Très sensibles aux problématiques de sécurité, nous sommes partie prenante de la mise en conformité de vos infrastructures. Nous vous accompagnons pour la mise en place de vos PRA et leur mise en application. Si vous souhaitez aller plus loin, notre réseau de professionnels reconnus vous permettra de mettre en oeuvre <strong>Pentest, Audit</strong> et/ou <strong>Bug Bounty</strong>.</p>
+                        </li>
+                    </ul>
+                </section>
+
+                <div class="open-source">
+                    <h2 class="open-source__title">Open source</h2>
+                    <div class="open-source__content">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae debitis quidem dolores voluptates? Voluptas reiciendis numquam magni, maiores expedita sequi autem? Quaerat minus voluptate ab expedita laudantium doloribus dicta odit!</p>
+                        <a href="#" class="button button-ghost button-ghost--light"><span>Aller sur notre Github</span></a>
+                    </div>
+                </div>
+
+                <section class="home-services">
+                    <h2>
+                        <span>Nos services</span>
+                        Nous concevons des infrastructures sur-mesure et de l'outillage DevOps
+                    </h2>
+                    <p>Nous vous accompagnons dans la mise en place d'outils et de worflows orientés Ops en nous appuyant sur des outils issus de notre expérience de plus de 15 ans d'exploitation d'applications web.</p>
+
+                    <div class="services-list">
+                        <div class="services-list__title">
+                            <h3>
+                                <span>Services</span>
+                                Conseils DevOps
+                            </h3>
+                        </div>
+                        <ul>
+                            <li class="services-list__item">
+                                <a href="#">
+                                    <img src="{{ asset('build/images/home/services/consulting.svg') }}" alt="">
+                                    <h4>Accompagnement et outillage DevOps</h4>
+                                    <p>Nous vous accompagnons dans la mise en place d'outils</p>
+                                    <span class="sliding-button sliding-button--mobile">
+                                        <span class="sliding-button__content">
+                                            <i class="icon icon--arrow" aria-hidden="true"></i>
+                                            Découvrir les services
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="services-list__item">
+                                <a href="#">
+                                    <img src="{{ asset('build/images/home/services/conception.svg') }}" alt="">
+                                    <h4>Conception sur-mesure d'infrastructures</h4>
+                                    <p>Ducimus consequatur laudantium, eos, eius atque sed accusantium natus sint labore culpa et numquam itaque nulla, sapiente! Unde soluta, eius ratione mollitia!</p>
+                                    <span class="sliding-button">
+                                        <span class="sliding-button__content">
+                                            <i class="icon icon--arrow" aria-hidden="true"></i>
+                                            Découvrir les services
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="services-list__item">
+                                <a href="#">
+                                    <img src="{{ asset('build/images/home/services/environment.svg') }}" alt="">
+                                    <h4>Environnement et développement</h4>
+                                    <p>Exercitationem non commodi obcaecati earum similique eius expedita.</p>
+                                    <span class="sliding-button">
+                                        <span class="sliding-button__content">
+                                            <i class="icon icon--arrow" aria-hidden="true"></i>
+                                            Découvrir les services
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="services-list">
+                        <div class="services-list__title">
+                            <h3>
+                                <span>Services</span>
+                                Infrastructure
+                            </h3>
+                        </div>
+                        <ul>
+                            <li class="services-list__item">
+                                <a href="#">
+                                    <img src="{{ asset('build/images/home/services/sovereignty.svg') }}" alt="">
+                                    <h4>Pilotage d'infrastructures souveraines</h4>
+                                    <p>Nous vous accompagnons dans la mise en place d'outils</p>
+                                    <span class="sliding-button sliding-button--replaced">
+                                        <img src="{{ asset('build/images/home/services/ovh-cloud.svg') }}" alt="OVH Cloud">
+                                        <img src="{{ asset('build/images/home/services/scaleway.svg') }}" alt="Scaleway">
+                                        <span class="sliding-button__content">
+                                            <i class="icon icon--arrow" aria-hidden="true"></i>
+                                            Découvrir les services
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="services-list__item">
+                                <a href="#">
+                                    <img src="{{ asset('build/images/home/services/cloud.svg') }}" alt="">
+                                    <h4>Pilotage d'infrastructures cloud</h4>
+                                    <p>Ducimus consequatur laudantium, eos, eius atque sed accusantium natus sint labore culpa et numquam itaque nulla, sapiente! Unde soluta, eius ratione mollitia!</p>
+                                    <span class="sliding-button sliding-button--replaced">
+                                        <img src="{{ asset('build/images/home/services/aws.svg') }}" alt="AWS">
+                                        <img src="{{ asset('build/images/home/services/google-cloud.svg') }}" alt="Google Cloud">
+                                        <span class="sliding-button__content">
+                                            <i class="icon icon--arrow" aria-hidden="true"></i>
+                                            Découvrir les services
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="services-list__item">
+                                <a href="#">
+                                    <img src="{{ asset('build/images/home/services/performance.svg') }}" alt="">
+                                    <h4>Performances et diagnostique</h4>
+                                    <p>Exercitationem non commodi obcaecati earum similique eius expedita.</p>
+                                    <span class="sliding-button">
+                                        <span class="sliding-button__content">
+                                            <i class="icon icon--arrow" aria-hidden="true"></i>
+                                            Découvrir les services
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
     </div>
-
-    Technos (termes glossaire) à mettre en avant :
-
-    {% include "glossary/term_list.html.twig" with { terms: [
-        'example',
-    ] } only %}
-
-    Offres d'emploi :
-
-    <a href="{{ path('jobs') }}" class="brick-team">
-        <h3 class="title">Rejoindre l'équipe</h3>
-        {% set count = content_list('App\\Model\\Job', null, { active: true })|length %}
-        {% if count > 0 %}
-            <span class="subtitle">{{ 'job_offers'|trans({ count: count }) }}</span>
-        {% endif %}
-    </a> #}
+    <section class="home-ecosystem">
+        <div class="container">
+            <h2>
+                <span>Notre territoire</span>
+                Un écosystème éprouvé
+            </h2>
+            <div class="ecosystem">
+                <img src="{{ asset('build/images/home/ecosystem/wolf.png') }}" alt="">
+                <ul class="ecosystem__list">
+                    <li class="analysis">
+                        <img src="{{ asset('build/images/home/ecosystem/analysis.svg') }}" alt="">
+                        <h4>Analyse</h4>
+                        <p>Collecte des données et analyse des comportements applicatifs et système pour le pilotage</p>
+                    </li>
+                    <li class="detection">
+                        <img src="{{ asset('build/images/home/ecosystem/detection.svg') }}" alt="">
+                        <h4>Détection</h4>
+                        <p>Système de supervision permettant d'anticiper de potentiels incidents</p>
+                    </li>
+                    <li class="automation">
+                        <img src="{{ asset('build/images/home/ecosystem/automation.svg') }}" alt="">
+                        <h4>Automation</h4>
+                        <p>Construction des conteneurs à l'aide d'outils d'IAC et de stratégies «d'automation»</p>
+                    </li>
+                    <li class="supervision">
+                        <img src="{{ asset('build/images/home/ecosystem/supervision.svg') }}" alt="">
+                        <h4>Supervision</h4>
+                        <p>Supervision des systèmes et des applications en temps réel</p>
+                    </li>
+                    <li class="backup">
+                        <img src="{{ asset('build/images/home/ecosystem/backup.svg') }}" alt="">
+                        <h4>Sauvegarde</h4>
+                        <p>Sauvegardes chiffrées conformes WORM (Write Once Read Many)</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
 {% endblock %}

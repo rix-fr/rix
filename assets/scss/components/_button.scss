@@ -1,0 +1,118 @@
+.button {
+  padding: 15px 35px;
+  min-height: 48px;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-family: $secondary-font;
+  color: #fff;
+  line-height: 1.4;
+  text-decoration: none;
+  background: $color-secondary;
+  z-index: 1;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    z-index: -1;
+    width: 300px;
+    height: 200px;
+    background: $color-primary;
+    position: absolute;
+    transform: translateY(70%);
+    transition: transform .6s;
+  }
+
+  &:hover {
+    &:before {
+      transform: translateY(0) rotate(10deg);
+    }
+  }
+}
+
+.button-ghost {
+  padding: 15px 35px 15px 60px;
+  background: transparent;
+  border: solid 1px $color-border;
+
+  &:before {
+    background: $color-secondary;
+  }
+
+  &:after {
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    font-family: 'icomoon';
+    content: '\e905';
+    transform: translate(0, -50%);
+    transition: transform .4s linear;
+  }
+
+  span {
+    transition: transform .3s linear;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    border: solid 1px $color-secondary;
+
+    &:after {
+      transform: translate(10px, -50%);
+    }
+
+    span {
+      transform: translateX(5px);
+    }
+  }
+}
+
+.button-ghost--light {
+  color: #fff;
+
+  &:after {
+    color: $color-secondary;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: #fff;
+
+    &:after {
+      color: $color-primary;
+    }
+  }
+}
+
+.button-ghost--dark {
+  color: $color-primary;
+
+  &:after {
+    color: $color-secondary;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $color-primary;
+
+    &:after {
+      color: #fff;
+    }
+  }
+}
+
+@media (max-width: $screen-xxs) {
+  .button {
+    padding: 15px 20px;
+  }
+
+  .button-ghost {
+    &:after {
+      display: none;
+    }
+  }
+}

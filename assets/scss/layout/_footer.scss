@@ -4,6 +4,10 @@
   line-height: 1.6;
   background: $color-primary;
 
+  .container {
+    padding: 0 20px;
+  }
+
   a {
     font-family: $primary-font;
     color: rgba(255, 255, 255, .8);

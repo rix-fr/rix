@@ -8,6 +8,7 @@ body {
   flex-direction: column;
   font-family: $primary-font;
   color: $color-primary;
+  line-height: 1.9;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -29,7 +30,13 @@ strong {
 
 .container {
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 125px;
   width: 100%;
   max-width: 1440px;
+}
+
+@media (max-width: $screen-xs) {
+  .container {
+    padding: 0 20px;
+  }
 }

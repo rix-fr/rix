@@ -20,14 +20,23 @@
 @import "layout/_nav-mobile";
 @import "layout/_nav-toggle";
 @import "layout/_footer";
+@import "layout/_beveled-wrapper";
 
+@import "components/_banner";
+@import "components/_button";
 @import "components/_contact-tiles";
+@import "components/_values";
+@import "components/_open-source";
+@import "components/_services-list";
+@import "components/_sliding-button";
+@import "components/_ecosystem";
 
 @import "generic/_a";
 @import "generic/_code";
 @import "generic/_img";
 @import "generic/_ul";
+@import "generic/_titles";
 // @import "generic/_iframe";
 // @import "generic/_kbd";
 
-//@import "pages/_page-contact";
+@import "pages/_home";
