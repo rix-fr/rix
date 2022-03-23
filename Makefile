@@ -130,7 +130,7 @@ security.npm:
 #######
 
 ssh@production:
-	ssh app@website-1.rix.prod.rix.run
+	ssh app@web-01.rix.prod.rix.link
 
 ########
 # Test #
