@@ -9,7 +9,7 @@ Requires:
 {% set nextPage = min(page + 1, maxPage) %}
 {% set routeParams = routeParams ?? {} %}
 
-{% if maxPage != 1 %}
+{% if maxPage not in [0, 1] %}
     <ul class="pagination">
         <li class="pagination__item pagination__item--nav">
             <a href="{{ previousPage == minPage ? path(minPageRoute, routeParams) : path(route, routeParams|merge({ page: previousPage })) }}">
