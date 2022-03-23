@@ -33,7 +33,7 @@ class BlogController extends AbstractController
             'page' => $page,
             'minPage' => 1,
             'maxPage' => ceil(\count($articles) / $perPage),
-        ])->setLastModified(ContentUtils::max($pageArticles, 'lastModifiedOrCreated'));
+        ])->setLastModified(\count($pageArticles) > 0 ? ContentUtils::max($pageArticles, 'lastModifiedOrCreated') : null);
     }
 
     #[Route('/tag/{tag}', name: 'blog_tag')]
@@ -54,7 +54,7 @@ class BlogController extends AbstractController
             'page' => $page,
             'minPage' => 1,
             'maxPage' => ceil(\count($articles) / $perPage),
-        ])->setLastModified(ContentUtils::max($pageArticles, 'lastModifiedOrCreated'));
+        ])->setLastModified(\count($pageArticles) > 0 ? ContentUtils::max($pageArticles, 'lastModifiedOrCreated') : null);
     }
 
     #[Route('/rss.xml', name: 'blog_rss', options: [
