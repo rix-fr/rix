@@ -24,15 +24,6 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_DEPLOY_KEY_PRODUCTION }}
 
-      - name: 'Create GitHub deployment'
-        uses: chrnorm/deployment-action@releases/v1
-        id: deployment
-        with:
-          ref: ${{ github.head_ref }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          target_url: ${{ secrets.WEBSITE_URL }}
-          environment: production
-
       # https://github.com/actions/setup-node
       - name: 'Setup node'
         uses: actions/setup-node@v2
@@ -107,23 +98,3 @@ jobs:
             --rsh "ssh -o StrictHostKeyChecking=no" \
             --itemize-changes \
           ;
-
-      - name: 'Update deployment status (success)'
-        if: success()
-        uses: chrnorm/deployment-status@releases/v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          description: "Deployed website (${{ github.ref }})"
-          target_url: ${{ secrets.WEBSITE_URL }}
-          environment_url: ${{ secrets.WEBSITE_URL }}
-          state: "success"
-          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-
-      - name: 'Update deployment status (failure)'
-        if: failure()
-        uses: chrnorm/deployment-status@releases/v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          description: "Failed to deploy ${{ github.ref }}"
-          state: "failure"
-          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
