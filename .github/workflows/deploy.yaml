@@ -2,18 +2,28 @@ name: Deploy production
 
 on:
   workflow_dispatch: ~
+  push:
+    branches: [main]
   schedule:
     - cron: '0 8 * * 1,2,3,4,5' # At 08:30 (UTC, => 09:30 / 10:30 in Europe/Paris depending on the DST), each day of the week.
-  push:
-    branches:
-      - main
 
 jobs:
 
   deploy-production:
-    name: '🚧  Build & deploy 🚀'
+    name: ${{ matrix.name }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
+
+    # Expose some Github Workflow variables using a matrix, to be used in next steps:
+    strategy:
+      matrix:
+        include:
+          - name: '🚧  Build & deploy 🚀'
+            WEBSITE_URL: https://v2.rix.fr
+            DEPLOY_HOST: web-01.rix.prod.rix.link
+            DEPLOY_USER: app
+            DEPLOY_PATH: /srv/app/v2
+            MATOMO_ID: 1
 
     steps:
       - name: 'Checkout'
@@ -30,7 +40,7 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          target_url: ${{ secrets.WEBSITE_URL }}
+          target_url: ${{ matrix.WEBSITE_URL }}
           environment: production
 
       # https://github.com/actions/setup-node
@@ -92,14 +102,14 @@ jobs:
         run: bin/console stenope:build --no-interaction -vv --ansi --ignore-content-not-found
         env:
           APP_ENV: prod
-          ROUTER_DEFAULT_URI: ${{ secrets.WEBSITE_URL }}
+          ROUTER_DEFAULT_URI: ${{ matrix.WEBSITE_URL }}
           INCLUDE_SAMPLES: 0
           SHOW_UNPUBLISHED_ARTICLES: 0
-          MATOMO_ID: 1
+          MATOMO_ID: ${{ matrix.MATOMO_ID }}
 
       - name: '🚀 Deploy'
         run: |
-          rsync build/ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ secrets.DEPLOY_PATH }} \
+          rsync build/ ${{ matrix.DEPLOY_USER }}@${{ matrix.DEPLOY_HOST }}:${{ matrix.DEPLOY_PATH }} \
             --human-readable \
             --compress \
             --archive \
@@ -114,8 +124,8 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           description: "Deployed website (${{ github.ref }})"
-          target_url: ${{ secrets.WEBSITE_URL }}
-          environment_url: ${{ secrets.WEBSITE_URL }}
+          target_url: ${{ matrix.WEBSITE_URL }}
+          environment_url: ${{ matrix.WEBSITE_URL }}
           state: "success"
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
 
