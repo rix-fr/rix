@@ -125,13 +125,6 @@ security.symfony:
 security.npm:
 	npm audit ; RC=$${?} ; [ $${RC} -gt 2 ] && exit $${RC} || exit 0
 
-#######
-# SSH #
-#######
-
-ssh@production:
-	ssh app@web-01.rix.prod.rix.link
-
 ########
 # Test #
 ########
