@@ -14,6 +14,11 @@
     margin: 0 20px 30px;
     width: calc(25% - 40px);
     min-width: calc(25% - 40px);
+
+    &:before,
+    &:after {
+      content: none;
+    }
   }
 }
 

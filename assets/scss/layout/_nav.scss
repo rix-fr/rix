@@ -16,6 +16,11 @@
   display: flex;
   align-items: center;
 
+  &:before,
+  &:after {
+    content: none;
+  }
+
   a {
     font-family: $secondary-font;
     font-size: toRem(18px);

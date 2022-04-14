@@ -11,6 +11,11 @@
   margin: 0 15px;
   width: calc((100% / 3) - 15px);
   min-width: calc((100% / 3) - 15px);
+
+  &:before,
+  &:after {
+    content: none;
+  }
 }
 
 @media (max-width: $screen-md) {

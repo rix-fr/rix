@@ -30,6 +30,12 @@
   min-width: calc(100% / 3);
   position: relative;
   border-right: solid 1px $color-border;
+  padding-left: 0;
+
+  &:before,
+  &:after {
+    content: none;
+  }
 
   &:last-of-type { border-right: none; }
 
