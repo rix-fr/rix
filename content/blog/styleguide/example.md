@@ -81,7 +81,6 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 !!! danger "Titre"
     Le même [composant](https://www.rix.fr) dans le style "danger".
 
-
 ### Les images
 
 Une image (qui a du sens, ça n'inclut pas les gifs rigolos) a toujours une légende, et si possible on crédite son auteur·ice.
@@ -97,13 +96,15 @@ Une image (qui a du sens, ça n'inclut pas les gifs rigolos) a toujours une lég
 ```html
 <!-- Comme ceci -->
 <figure>
-    <img src="photo.png" alt="photo de ...">
+    <img src="./../../images/blog/styleguide/photo.png" alt="photo de ...">
     <figcaption>
       <span class="figure__legend">Photo de ...</span>
       <span class="figure__credits">Crédit photo : <a href="">Nom de l'auteur</a></span>
     </figcaption>
 </figure>
 ```
+
+Pour les autres images, utilisez simplement la syntaxe Markdown classique (_cf sections suivantes_).
 
 #### Images retina
 

@@ -59,6 +59,11 @@ class ResizeImagesContentProcessor implements ProcessorInterface
             $this->processImage($element, $content);
         }
 
+        /** @var \DOMElement $element */
+        foreach ($crawler->filter('video') as $element) {
+            $this->processVideoPoster($element, $content);
+        }
+
         $this->crawlers->save($content, $data, $this->property);
     }
 
@@ -84,6 +89,25 @@ class ResizeImagesContentProcessor implements ProcessorInterface
         $dpr1 1x,
         $dpr2 2x,
         HTML);
+    }
+
+    private function processVideoPoster(\DOMElement $element, Content $content): void
+    {
+        if (!$element->hasAttribute('poster')) {
+            return;
+        }
+
+        $source = $element->getAttribute('poster');
+
+        if (!$this->isLocalImage($source)) {
+            return;
+        }
+
+        $source = $this->normalizePath($source, $content);
+
+        $resized = $this->resizedUrlGenerator->withPreset($source, $this->preset);
+
+        $element->setAttribute('poster', $resized);
     }
 
     private function isLocalImage(string $url): bool
