@@ -17,6 +17,7 @@ twig:
             social:
                 github: https://github.com/rix-fr
                 twitter: https://twitter.com/rix_fr
+                twitter_user: rix_fr
 
             trackers:
                 matomo: "%env(MATOMO_ID)%"
