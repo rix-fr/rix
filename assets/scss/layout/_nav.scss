@@ -18,7 +18,7 @@
 
   a {
     font-family: $secondary-font;
-    font-size: 18px;
+    font-size: toRem(18px);
     color: $color-primary;
     text-decoration: none;
 

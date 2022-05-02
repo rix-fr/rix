@@ -31,9 +31,9 @@
 
 .beveled-wrapper {
   // overlap wrapper and banner
-  margin-bottom: -1110px;
+  margin-bottom: -1300px;
   position: relative;
-  top: -1110px;
+  top: -1300px;
 
   // push wrapper down to make room for area B
   padding-top: var(--area-b-height);
@@ -59,7 +59,7 @@
   background: linear-gradient(to right, transparent calc(50% + 719px), #fff calc(50% + 719px) 100%);
 
   .shape {
-    padding-top: 440px;
+    padding-top: 200px;
     position: relative;
     background: url('../../images/bevel.svg') no-repeat;
     background-size: cover !important;
@@ -83,6 +83,10 @@
     flex-direction: column;
     background: #fff;
   }
+
+  h2 {
+    margin: 0;
+  }
 }
 
 
@@ -103,13 +107,13 @@
 
 @media (max-width: $screen-md) {
   .beveled-wrapper {
-    margin-bottom: -1100px;
-    top: -1100px;
+    margin-bottom: -1200px;
+    top: -1200px;
   }
 
   .beveled-wrapper__gradient {
     .shape {
-      padding-top: 300px;
+      padding-top: 130px;
     }
   }
 }
@@ -118,14 +122,8 @@
 @media (max-width: $screen-sm) {
   .beveled-wrapper {
     margin-left: 15px;
-    margin-bottom: -1500px;
-    top: -1500px;
-  }
-
-  .beveled-wrapper__gradient {
-    .shape {
-      padding-top: 200px;
-    }
+    margin-bottom: -1400px;
+    top: -1400px;
   }
 }
 
@@ -135,7 +133,7 @@
     top: -1300px;
 
     .shape {
-      padding-top: 150px;
+      padding-top: 100px;
     }
   }
 }

@@ -1,0 +1,44 @@
+@use '../abstracts' as *;
+
+.experience {
+  padding: 70px 0;
+  min-height: 370px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  color: $color-primary;
+  white-space: nowrap;
+  text-align: center;
+  background: #fff;
+  border: solid 1px $color-border;
+  border-top: solid 13px $color-primary;
+
+  strong {
+    font-family: $tertiary-font;
+    font-size: toRem(40px);
+    line-height: 1.1;
+
+    span {
+      font-size: toRem(120px);
+    }
+  }
+}
+
+.experience--dark {
+  color: #fff;
+  background: $color-primary;
+  border: none;
+  border-top: solid 13px $color-light;
+
+  &:before {
+    height: 55px;
+    width: 45px;
+    position: absolute;
+    top: -1px;
+    right: 35px;
+    content: '';
+    background: url('../../images/about/team/expertise.svg') no-repeat;
+    background-size: contain;
+    background-position: center top;
+  }
+}

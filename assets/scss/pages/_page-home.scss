@@ -1,5 +1,11 @@
 @use '../abstracts' as *;
 
+.page-home {
+  main {
+    padding-bottom: 700px;
+  }
+}
+
 .home-services {
   > p {
     margin-bottom: 100px;

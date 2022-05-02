@@ -11,6 +11,8 @@
     {{ parent() }}
 {% endblock %}
 
+{% block body_class %}page-home{% endblock %}
+
 {% block content %}
 
     <div class="banner">
@@ -23,38 +25,37 @@
 
     <div class="beveled-wrapper">
         <div class="beveled-wrapper__gradient">
-            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container shape">
+                <!-- 🐺 shape -->
+                <h2>
+                    <span>Nos valeurs</span>
+                    Nos engagements
+                </h2>
+            </div>
             <div class="container content">
-                <section>
-                    <h2>
-                        <span>Nos valeurs</span>
-                        Nos engagements
-                    </h2>
-
-                    <ul class="values">
-                        <li class="values__item">
-                            <div class="image-title">
-                                <img src="{{ asset('build/images/home/values/placeholder.svg') }}" alt="">
-                                <h3 class="image-title__content">Indépendance et gouvernance</h3>
-                            </div>
-                            <p>Après plusieurs années à utiliser de grand fournisseurs de solution «cloud», nous avons pris le parti d'essayer au maximum, de travailler avec des <strong>acteurs nationaux</strong> afin de trouver des solutions matérielles permettant de construire des <strong>infrastructures robustes et évolutives</strong>.</p>
-                        </li>
-                        <li class="values__item">
-                            <div class="image-title">
-                                <img src="{{ asset('build/images/home/values/placeholder.svg') }}" alt="">
-                                <h3 class="image-title__content">Proximité et réactivité</h3>
-                            </div>
-                            <p>Nous aimons rencontrer les personnes avec lesquelles nous travaillons, notre objectif est de bien comprendre les enjeux du métier afin d'apporter un maximum de valeur à travers nos solutions. Chaque projet étant différent nous avons besoin de <strong>comprendre vos contraintes et vos objectifs</strong> afin de faire correspondre nos infrastructures à vos besoins réels.</p>
-                        </li>
-                        <li class="values__item">
-                            <div class="image-title">
-                                <img src="{{ asset('build/images/home/values/placeholder.svg') }}" alt="">
-                                <h3 class="image-title__content">Sécurité</h3>
-                            </div>
-                            <p>Très sensibles aux problématiques de sécurité, nous sommes partie prenante de la mise en conformité de vos infrastructures. Nous vous accompagnons pour la mise en place de vos PRA et leur mise en application. Si vous souhaitez aller plus loin, notre réseau de professionnels reconnus vous permettra de mettre en oeuvre <strong>Pentest, Audit</strong> et/ou <strong>Bug Bounty</strong>.</p>
-                        </li>
-                    </ul>
-                </section>
+                <ul class="values">
+                    <li class="values__item">
+                        <div class="image-title">
+                            <img src="{{ asset('build/images/home/values/placeholder.svg') }}" alt="">
+                            <h3 class="image-title__content">Indépendance et gouvernance</h3>
+                        </div>
+                        <p>Après plusieurs années à utiliser de grand fournisseurs de solution «cloud», nous avons pris le parti d'essayer au maximum, de travailler avec des <strong>acteurs nationaux</strong> afin de trouver des solutions matérielles permettant de construire des <strong>infrastructures robustes et évolutives</strong>.</p>
+                    </li>
+                    <li class="values__item">
+                        <div class="image-title">
+                            <img src="{{ asset('build/images/home/values/placeholder.svg') }}" alt="">
+                            <h3 class="image-title__content">Proximité et réactivité</h3>
+                        </div>
+                        <p>Nous aimons rencontrer les personnes avec lesquelles nous travaillons, notre objectif est de bien comprendre les enjeux du métier afin d'apporter un maximum de valeur à travers nos solutions. Chaque projet étant différent nous avons besoin de <strong>comprendre vos contraintes et vos objectifs</strong> afin de faire correspondre nos infrastructures à vos besoins réels.</p>
+                    </li>
+                    <li class="values__item">
+                        <div class="image-title">
+                            <img src="{{ asset('build/images/home/values/placeholder.svg') }}" alt="">
+                            <h3 class="image-title__content">Sécurité</h3>
+                        </div>
+                        <p>Très sensibles aux problématiques de sécurité, nous sommes partie prenante de la mise en conformité de vos infrastructures. Nous vous accompagnons pour la mise en place de vos PRA et leur mise en application. Si vous souhaitez aller plus loin, notre réseau de professionnels reconnus vous permettra de mettre en oeuvre <strong>Pentest, Audit</strong> et/ou <strong>Bug Bounty</strong>.</p>
+                    </li>
+                </ul>
 
                 <div class="open-source">
                     <h2 class="open-source__title">Open source</h2>

@@ -1,0 +1,54 @@
+@use '../abstracts' as *;
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: solid 1px $color-border;
+}
+
+.profile__image {
+  margin-bottom: 20px;
+  height: 195px;
+  background: $color-light left / contain no-repeat url('../../../content/images/member/avatars/default.png');
+}
+
+.profile__name {
+  padding: 0 40px;
+  font-family: $secondary-font;
+  font-size: toRem(24px);
+  line-height: 1.4;
+}
+
+.profile__job {
+  padding: 0 40px;
+  font-size: toRem(20px);
+  line-height: 1.4;
+  color: $color-secondary;
+}
+
+.profile__socials {
+  margin-top: 20px;
+  display: flex;
+
+  a {
+    padding: 7px 0;
+    flex: 1;
+    font-size: toRem(17px);
+    color: $color-secondary;
+    text-decoration: none;
+    text-align: center;
+    border-top: solid 1px $color-border;
+    border-right: solid 1px $color-border;
+
+    &:last-of-type {
+      border-right: none;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: $color-light;
+    }
+  }
+}
