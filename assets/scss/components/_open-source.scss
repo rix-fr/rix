@@ -1,0 +1,90 @@
+@use '../abstracts' as *;
+
+.open-source {
+  margin: 0 0 50px;
+  padding-top: 130px;
+  padding-left: 150px;
+  padding-right: 100px;
+  padding-bottom: 100px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  background: $color-primary url('../../images/home/grid.svg') no-repeat;
+  background-size: contain;
+  background-position: bottom center;
+
+  &:before,
+  &:after {
+    position: absolute;
+    content: '';
+  }
+
+  &:before {
+    margin-top: -1px;
+    margin-left: -1px;
+    margin-right: -1px;
+    height: 100px;
+    width: calc(100% + 2px);
+    top: 0;
+    left: 0;
+    background: url('../../images/home/triangle.svg') no-repeat;
+    background-size: cover;
+    background-position: left bottom;
+  }
+
+  &:after {
+    height: 100px;
+    width: 95px;
+    top: 60px;
+    left: 150px;
+    background: url('../../images/home/github.svg') no-repeat;
+    background-size: contain;
+    background-position: center bottom;
+  }
+}
+
+.open-source__title {
+  margin-right: 120px;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.open-source__content {
+  .button {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: $screen-md) {
+  .open-source {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+
+    &:after {
+      left: 40px;
+    }
+  }
+
+  .open-source__title {
+    margin-right: 0;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: $screen-xs) {
+  .open-source {
+    position: relative;
+    left: 20px;
+  }
+}
+
+@media (max-width: $screen-xxs) {
+  .open-source {
+    width: calc(100% + 20px);
+    left: 0;
+  }
+}

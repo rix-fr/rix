@@ -1,0 +1,150 @@
+@use '../abstracts' as *;
+
+//
+//
+//                                                                                                  .
+//                                                                                            .     |
+//                                                                                      .           |
+//                                                                                .     area B      |
+//                                                                          ________________________|
+//                                                                    .    |                        |
+//                                                              .          |                        |
+//                                                        .         |      |                        |
+//                                                  .      |        |<---->|                        |
+//                                            .            |  wolf  | area |                        |
+//                                      .                    ------     D  |                        |
+//                                 .                                       |                        |
+//                           .                                             |                        |
+//                     .                                                   |                        |
+//               .                         area A                          |                        |
+//         .                                                               |                        |
+//         |_______________________________________________________________|________________________|
+//
+//                                                                   |<---------------------------->|
+//                                                                             background C
+
+:root {
+  --area-b-height: 76px;
+  --area-b-width: 1000px;
+  --area-d-width: 30px;
+}
+
+.beveled-wrapper {
+  // overlap wrapper and banner
+  margin-bottom: -1110px;
+  position: relative;
+  top: -1110px;
+
+  // push wrapper down to make room for area B
+  padding-top: var(--area-b-height);
+
+  // prevent horizontal scroll as area B is very large on purpose (the end of it should not be visible even on xxl screens)
+  overflow: hidden;
+}
+
+.beveled-wrapper__gradient {
+  // Background C is a CSS gradient that mimics a background split
+  //
+  // 1. Split screen in two = keep a background on only 50% of the screen
+  // linear-gradient(to right, transparent 50%, #fff 50% 100%)
+  //
+  // 2. Remove 1/2 of the container's width from that background to get only the space left on the right of the container
+  // 1440px / 2 = 720px
+  // linear-gradient(to right, transparent calc(50% - 720px), #fff calc(50% - 720px) 100%)
+  //
+  // 3. 1px overlap security
+  // 720px - 1px = 719px
+  // linear-gradient(to right, transparent calc(50% - 719px), #fff calc(50% - 719px) 100%)
+
+  background: linear-gradient(to right, transparent calc(50% + 719px), #fff calc(50% + 719px) 100%);
+
+  .shape {
+    padding-top: 440px;
+    position: relative;
+    background: url('../../images/bevel.svg') no-repeat;
+    background-size: cover !important;
+    background-position: top right !important;
+
+    // area B
+    &:before {
+      width: var(--area-b-width);
+      height: var(--area-b-height);
+      position: absolute;
+      top: calc((var(--area-b-height) * -1) + 1px); // 1px overlap security
+      right: calc((var(--area-b-width) * -1) + var(--area-d-width));
+      content: '';
+      background: url('../../images/bevel-right.svg') no-repeat;
+      background-size: cover;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+  }
+}
+
+
+@media (max-width: 1440px) {
+  .beveled-wrapper__gradient {
+    background: transparent;
+
+    .shape {
+      background: url('../../images/bevel-mobile.svg') no-repeat;
+
+      &:before {
+        display: none;
+      }
+    }
+  }
+}
+
+
+@media (max-width: $screen-md) {
+  .beveled-wrapper {
+    margin-bottom: -1100px;
+    top: -1100px;
+  }
+
+  .beveled-wrapper__gradient {
+    .shape {
+      padding-top: 300px;
+    }
+  }
+}
+
+
+@media (max-width: $screen-sm) {
+  .beveled-wrapper {
+    margin-left: 15px;
+    margin-bottom: -1500px;
+    top: -1500px;
+  }
+
+  .beveled-wrapper__gradient {
+    .shape {
+      padding-top: 200px;
+    }
+  }
+}
+
+@media (max-width: $screen-xs) {
+  .beveled-wrapper {
+    margin-bottom: -1300px;
+    top: -1300px;
+
+    .shape {
+      padding-top: 150px;
+    }
+  }
+}
+
+
+@media (max-width: $screen-xxs) {
+  .beveled-wrapper {
+    .shape {
+      padding-top: 100px;
+    }
+  }
+}

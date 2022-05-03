@@ -1,8 +1,14 @@
+@use '../abstracts' as *;
+
 .footer {
   padding: 100px 0 160px;
   color: #fff;
   line-height: 1.6;
   background: $color-primary;
+
+  .container {
+    padding: 0 20px;
+  }
 
   a {
     font-family: $primary-font;

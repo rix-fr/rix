@@ -1,6 +1,5 @@
-@import "normalize";
-// @import "~prismjs/themes/prism-tomorrow.css";
-// @import '~aos/dist/aos';
+// @use "~prismjs/themes/prism-tomorrow.css";
+// @use '~aos/dist/aos';
 
 // Prevents hiding elements for animations if js is not enabled:
 // html.no-js [data-aos] {
@@ -9,25 +8,34 @@
 //   pointer-events: unset;
 // }
 
-@import "base/_variables";
-@import "base/_fonts";
-@import "base/_icons";
-@import "base/_layout";
-@import "base/_utilities";
+@use "base/_reset";
+@use "base/_font-face";
 
-@import "layout/_header";
-@import "layout/_nav";
-@import "layout/_nav-mobile";
-@import "layout/_nav-toggle";
-@import "layout/_footer";
+@use "layout/_header";
+@use "layout/_layout";
+@use "layout/_nav";
+@use "layout/_nav-mobile";
+@use "layout/_nav-toggle";
+@use "layout/_footer";
+@use "layout/_beveled-wrapper";
 
-@import "components/_contact-tiles";
+@use "components/_banner";
+@use "components/_button";
+@use "components/_contact-tiles";
+@use "components/_values";
+@use "components/_open-source";
+@use "components/_services-list";
+@use "components/_sliding-button";
+@use "components/_ecosystem";
 
-@import "generic/_a";
-@import "generic/_code";
-@import "generic/_img";
-@import "generic/_ul";
-// @import "generic/_iframe";
-// @import "generic/_kbd";
+@use "generic/_a";
+// @use "generic/_code";
+@use "generic/_img";
+@use "generic/_titles";
+// @use "generic/_ul";
+// // @use "generic/_iframe";
+// // @use "generic/_kbd";
 
-//@import "pages/_page-contact";
+@use "utilities/_screen-reader";
+
+@use "pages/_home";

@@ -1,0 +1,51 @@
+@use '../abstracts' as *;
+
+.home-services {
+  > p {
+    margin-bottom: 100px;
+    max-width: 690px;
+  }
+}
+
+.home-ecosystem {
+  position: relative;
+  background: url('../../images/home/waves.svg') no-repeat;
+  background-size: 1650px;
+  background-position: center;
+
+  &:before,
+  &:after {
+    height: 200px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    content: '';
+    z-index: 0;
+  }
+
+  &:before {
+    top: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 40%, rgba(255, 255, 255, .5) 70%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  &:after {
+    bottom: 0;
+  }
+
+  h2 {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@media (max-width: $screen-xs) {
+  .home-ecosystem {
+    background-size: 105%;
+    background-position: top center;
+
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
+}

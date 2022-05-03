@@ -1,0 +1,26 @@
+@use '../abstracts' as *;
+
+.banner {
+  height: 1880px;
+  display: flex;
+  background: url('../../images/banner.jpg') no-repeat;
+  background-size: cover;
+
+  h1 {
+    max-width: 950px;
+  }
+
+  p {
+    max-width: 700px;
+  }
+
+  .button {
+    margin-top: 35px;
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .banner {
+    background: url('../../images/banner-mobile.jpg') no-repeat;
+  }
+}

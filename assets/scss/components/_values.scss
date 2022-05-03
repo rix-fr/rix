@@ -1,0 +1,27 @@
+@use '../abstracts' as *;
+
+.values {
+  margin: 0 0 50px;
+  padding: 0;
+  display: flex;
+  list-style: none;
+}
+
+.values__item {
+  margin: 0 15px;
+  width: calc((100% / 3) - 15px);
+  min-width: calc((100% / 3) - 15px);
+}
+
+@media (max-width: $screen-md) {
+  .values {
+    margin-left: 20px;
+    flex-direction: column;
+  }
+
+  .values__item {
+    margin: 0 0 40px;
+    width: 100%;
+    min-width: 100%;
+  }
+}

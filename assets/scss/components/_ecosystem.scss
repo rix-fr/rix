@@ -1,0 +1,75 @@
+@use '../abstracts' as *;
+
+.ecosystem {
+  position: relative;
+
+  > img {
+    width: 330px;
+    position: absolute;
+    top: 275px;
+    left: 400px;
+  }
+}
+
+.ecosystem__list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+
+  li {
+    margin-bottom: 20px;
+    padding: 30px 35px;
+    width: 370px;
+    min-height: 300px;
+    background: #fff;
+    border: solid 1px #d7e4ef;
+
+    img {
+      width: 50px;
+    }
+
+    strong {
+      font-size: 24px;
+    }
+  }
+
+  .analysis { margin-left: 200px; }
+  .detection { margin-left: 40px; }
+  .automation { margin-left: 45px; }
+  .supervision { margin-left: 300px; }
+  .backup { margin-left: 225px; }
+}
+
+@media (max-width: $screen-xl) {
+  .ecosystem {
+    > img {
+      position: static;
+      margin-left: auto;
+      margin-bottom: -20px;
+      width: 270px;
+    }
+  }
+
+  .ecosystem__list {
+    li {
+      width: 100%;
+      min-height: unset;
+    }
+
+    .analysis,
+    .detection,
+    .automation,
+    .supervision,
+    .backup { margin-left: 0; }
+  }
+}
+
+@media (max-width: $screen-md) {
+  .ecosystem {
+    > img {
+      width: 200px;
+    }
+  }
+}
