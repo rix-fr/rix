@@ -6,7 +6,8 @@ twig:
         site:
             title: "Rix 🐺 - Expertise & solutions devops sur-mesure"
             description: "Rix - Conception d'infrastructures web sur-mesure orientées DevOps - Expertise et outillage Devops"
-            birthdate: 03/31/2020
+            birthdate: 03/31/2020 # Date de création de Rix
+            xpDate: 01/01/2006 # Date d'expertise Rix (en tant que Elao)
             contact:
                 email: contact@rix.fr
                 jobsEmail: jobs@rix.fr

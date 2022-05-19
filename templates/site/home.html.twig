@@ -1,7 +1,7 @@
 {% import "macros.html.twig" as macros %}
 {% extends 'base.html.twig' %}
 
-{% set interval = date('now').diff(date(site.birthdate)) %}
+{% set interval = date('now').diff(date(site.xpDate)) %}
 
 {% block meta_title "Accueil" %}
 {% block meta_description "Rix depuis plus de %d ans par des expert·e·s passionné·e·s | Rix"|format(interval.y) %}

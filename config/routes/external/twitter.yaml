@@ -4,3 +4,6 @@ twitter_like:
 
 twitter_rix_tweet:
     path: /rix_fr/status/{tweetId}
+
+twitter_account:
+    path: /{account}

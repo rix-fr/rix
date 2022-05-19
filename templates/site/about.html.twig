@@ -5,10 +5,12 @@
 
 {% block body_class %}page-about{% endblock %}
 
+{% set xpYears = date('now').diff(date(site.xpDate)).y %}
+
 {% block content %}
     <div class="banner">
         <div class="container">
-            <h1>Rix, plus de <strong>16 ans d'expertise</strong> DevOps en France</h1>
+            <h1>Rix, plus de <strong>{{ xpYears}} ans d'expertise</strong> DevOps en France</h1>
             <a href="{{ path('contact') }}" class="button">Contactez-nous !</a>
         </div>
     </div>
@@ -78,86 +80,43 @@
             </h2>
             <p>Nous sommes soudés et fiers de l'être depuis de nombreuses années.</p>
             <ul class="profile-list">
-                <li class="experience experience--light"><strong><span>16</span> ans</strong> d'expertise</li>
-                <li class="profile">
-                    <div class="profile__image"></div>
-                    <strong class="profile__name">Guewen Faivre</strong>
-                    <span class="profile__job">DevOps</span>
-                    <div class="profile__socials">
-                        <a href="#">
-                            <i class="icon icon--github" aria-hidden="true"></i>
-                            <span class="screen-reader">Profil Github de Guewen Faivre</span>
-                        </a>
-                        <a href="#">
-                            <i class="icon icon--linkedin" aria-hidden="true"></i>
-                            <span class="screen-reader">Profil Linkedin de Guewen Faivre</span>
-                        </a>
-                        <a href="#">
-                            <i class="icon icon--twitter" aria-hidden="true"></i>
-                            <span class="screen-reader">Page Twitter de Guewen Faivre</span>
-                        </a>
-                    </div>
-                </li>
-                <li class="profile">
-                    <div class="profile__image"></div>
-                    <strong class="profile__name">Florian Rey</strong>
-                    <span class="profile__job">DevOps</span>
-                    <div class="profile__socials">
-                        <a href="#">
-                            <i class="icon icon--github" aria-hidden="true"></i>
-                            <span class="screen-reader">Profil Github de Florian Rey</span>
-                        </a>
-                        <a href="#">
-                            <i class="icon icon--linkedin" aria-hidden="true"></i>
-                            <span class="screen-reader">Profil Linkedin de Florian Rey</span>
-                        </a>
-                        <a href="#">
-                            <i class="icon icon--twitter" aria-hidden="true"></i>
-                            <span class="screen-reader">Page Twitter de Florian Rey</span>
-                        </a>
-                    </div>
-                </li>
-                <li></li>
-                <li></li>
-                <li class="experience  experience--dark">Nous cumulons <strong><span>50</span> ans</strong> d'expérience dans  l'équipe</li>
-                <li class="profile">
-                    <div class="profile__image"></div>
-                    <strong class="profile__name">Lod Lapeyre</strong>
-                    <span class="profile__job">DevOps</span>
-                    <div class="profile__socials">
-                        <a href="#">
-                            <i class="icon icon--github" aria-hidden="true"></i>
-                            <span class="screen-reader">Profil Github de Lod Lapeyre</span>
-                        </a>
-                        <a href="#">
-                            <i class="icon icon--linkedin" aria-hidden="true"></i>
-                            <span class="screen-reader">Profil Linkedin de Lod Lapeyre</span>
-                        </a>
-                        <a href="#">
-                            <i class="icon icon--twitter" aria-hidden="true"></i>
-                            <span class="screen-reader">Page Twitter de Lod Lapeyre</span>
-                        </a>
-                    </div>
-                </li>
-                <li class="profile">
-                    <div class="profile__image"></div>
-                    <strong class="profile__name">Yves Heitz</strong>
-                    <span class="profile__job">DevOps</span>
-                    <div class="profile__socials">
-                        <a href="#">
-                            <i class="icon icon--github" aria-hidden="true"></i>
-                            <span class="screen-reader">Profil Github de Yves Heitz</span>
-                        </a>
-                        <a href="#">
-                            <i class="icon icon--linkedin" aria-hidden="true"></i>
-                            <span class="screen-reader">Profil Linkedin de Yves Heitz</span>
-                        </a>
-                        <a href="#">
-                            <i class="icon icon--twitter" aria-hidden="true"></i>
-                            <span class="screen-reader">Page Twitter de Yves Heitz</span>
-                        </a>
-                    </div>
-                </li>
+                <li class="experience experience--light"><strong><span>{{ xpYears }}</span> ans</strong> d'expertise</li>
+
+                {% for member in members %}
+                    <li class="profile">
+                        <div class="profile__image"></div>
+                        <strong class="profile__name">{{ member.name }}</strong>
+                        <span class="profile__job">{{ member.position }}</span>
+                        <div class="profile__socials">
+                            {% if member.github is not empty %}
+                                <a href="{{ path('github_account', { account: member.github }) }}" target="_blank">
+                                    <i class="icon icon--github" aria-hidden="true"></i>
+                                    <span class="screen-reader">Profil Github de {{ member.name }}</span>
+                                </a>
+                            {% endif %}
+
+                            {% if member.linkedIn is not empty %}
+                                <a href="{{ path('linkedIn_account', { account: member.linkedIn }) }}" target="_blank">
+                                    <i class="icon icon--linkedin" aria-hidden="true"></i>
+                                    <span class="screen-reader">Profil Linkedin de {{ member.name }}</span>
+                                </a>
+                            {% endif %}
+
+                            {% if member.twitter is not empty %}
+                                <a href="{{ path('twitter_account', { account: member.twitter }) }}" target="_blank">
+                                    <i class="icon icon--twitter" aria-hidden="true"></i>
+                                    <span class="screen-reader">Page Twitter de {{ member.name }}</span>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </li>
+
+                    {% if loop.index == 2 %}
+                        <li></li>
+                        <li></li>
+                        <li class="experience  experience--dark">Nous cumulons <strong><span>50</span> ans</strong> d'expérience dans  l'équipe</li>
+                    {% endif %}
+                {% endfor %}
             </ul>
         </div>
     </div>

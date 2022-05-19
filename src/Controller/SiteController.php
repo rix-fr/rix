@@ -27,9 +27,11 @@ class SiteController extends AbstractController
     }
 
     #[Route('/a-propos', name: 'about')]
-    public function about(): Response
+    public function about(ContentManagerInterface $manager): Response
     {
-        return $this->render('site/about.html.twig');
+        $members = $manager->getContents(Member::class, ['name' => true], ['active' => true]);
+
+        return $this->render('site/about.html.twig', ['members' => $members]);
     }
 
     #[Route('/services', name: 'services')]
