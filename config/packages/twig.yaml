@@ -27,7 +27,6 @@ twig:
                 - { path: "homepage", label: "Accueil" }
                 - { path: "services", label: "Nos services" }
                 - { path: "case_studies", label: "Cas clients" }
-                - { path: "team", label: "L'équipe" }
                 - { path: "about", label: "À propos" }
                 # - { path: "blog", label: "Blog" }
 
