@@ -1,0 +1,65 @@
+@use '../abstracts' as *;
+
+.timeline {
+  margin: 50px 0;
+  padding: 0;
+  display: flex;
+  list-style: none;
+}
+
+.timeline__item {
+  margin: 0 80px;
+  padding-top: 68px;
+  max-width: 330px;
+  position: relative;
+
+  &:before,
+  &:after {
+    position: absolute;
+    content: '';
+  }
+
+  &:before {
+    width: 100%;
+    height: 2px;
+    top: 32px;
+    left: 100px;
+    background-image: url('../../images/about/dot.svg');
+    background-repeat: repeat-x;
+  }
+
+  &:after {
+    height: 65px;
+    width: 65px;
+    top: 0;
+    background-image: url('../../images/about/circle.svg');
+  }
+
+  &:last-of-type {
+    &:before {
+      display: none;
+    }
+  }
+
+  .title {
+    font-size: toRem(24px);
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .timeline {
+    flex-direction: column;
+  }
+
+  .timeline__item {
+    margin: 0 0 50px;
+
+    &:before {
+      display: none;
+    }
+
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+}

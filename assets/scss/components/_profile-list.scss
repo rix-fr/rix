@@ -1,0 +1,54 @@
+@use '../abstracts' as *;
+
+.profile-list {
+  margin: 70px 0;
+  margin-left: -125px;
+  margin-right: -125px;
+  padding: 0;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  list-style: none;
+
+  > li {
+    margin: 0 20px 30px;
+    width: calc(25% - 40px);
+    min-width: calc(25% - 40px);
+  }
+}
+
+@media (max-width: $screen-lg) {
+  .profile-list {
+    > li {
+      display: none;
+      width: calc(33.33% - 40px);
+      min-width: calc(33.33% - 40px);
+    }
+
+    .profile,
+    .experience {
+      display: flex;
+    }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .profile-list {
+    > li {
+      width: calc(50% - 40px);
+      min-width: calc(50% - 40px);
+    }
+  }
+}
+
+@media (max-width: $screen-xs) {
+  .profile-list {
+    margin: 70px 0 0;
+
+    > li {
+      margin: 0 0 30px;
+      width: 100%;
+      min-width: 100%;
+    }
+  }
+}

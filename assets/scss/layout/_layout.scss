@@ -9,6 +9,7 @@ body {
   display: flex;
   flex-direction: column;
   font-family: $primary-font;
+  font-size: $base-font-size;
   color: $color-primary;
   line-height: 1.9;
   -webkit-font-smoothing: antialiased;
@@ -17,6 +18,10 @@ body {
 
 main {
   flex: 1;
+  padding-bottom: 350px;
+  background: url('../../images/background.jpg') no-repeat;
+  background-size: contain;
+  background-position: center bottom;
 }
 
 b,

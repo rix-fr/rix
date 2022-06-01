@@ -18,6 +18,14 @@ twitter:
         stenope:
             ignore: true
 
+linkedIn:
+    schemes: https
+    host: www.linkedin.com
+    resource: routes/external/linkedIn.yaml
+    options:
+        stenope:
+            ignore: true
+
 errors_404:
     path: 404.html
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController

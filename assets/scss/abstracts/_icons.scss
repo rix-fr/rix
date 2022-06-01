@@ -29,6 +29,9 @@ $icons: (
   hamburger: '\e901',
   location: '\e903',
   message: '\e904',
+  github: '\e906',
+  linkedin: '\e907',
+  twitter: '\e908',
 );
 
 @each $icon-name, $icon-character in $icons {

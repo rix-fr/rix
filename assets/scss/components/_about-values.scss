@@ -1,0 +1,107 @@
+@use '../abstracts' as *;
+
+.about-values {
+  margin: 100px 0 200px;
+  position: relative;
+  color: #fff;
+  background: $color-primary url('../../images/about/values/glow.png') no-repeat;
+  background-size: 550px;
+  background-position: left bottom;
+
+  &:before,
+  &:after {
+    width: 100%;
+    position: absolute;
+    content: '';
+    background-size: cover !important;
+  }
+
+  &:before {
+    height: 100px;
+    top: -100px;
+    background: url('../../images/about/values/top.svg') no-repeat;
+    background-position: right bottom;
+
+  }
+
+  &:after {
+    height: 200px;
+    bottom: -200px;
+    background: url('../../images/about/values/bottom.svg') no-repeat;
+    background-position: center bottom;
+  }
+
+  h2 {
+    margin-top: 100px;
+    margin-left: 125px;
+    margin-right: 125px;
+    color: #fff;
+  }
+
+  .grid {
+    height: 900px;
+    background-image: url('../../images/about/values/grid.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+  }
+
+  ul {
+    margin: 0;
+    padding: 85px 195px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    list-style: none;
+
+    li {
+      padding: 30px 35px;
+      height: 350px;
+      width: 400px;
+    }
+  }
+}
+
+@media (max-width: $screen-xl) {
+  .about-values {
+    padding-bottom: 135px;
+    background-size: 350px;
+
+    &:after {
+      height: 100px;
+      bottom: -100px;
+    }
+
+    .grid {
+      height: unset;
+      background: none;
+    }
+
+    ul {
+      padding: 0 125px;
+      flex-direction: column;
+
+      li {
+        margin: 0 0 80px;
+        padding: 0;
+        height: unset;
+        width: unset;
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .about-values {
+    h2 {
+      margin-top: 0;
+      margin-left: 40px;
+      margin-right: 40px;
+      margin-bottom: 80px;
+    }
+
+    ul {
+      padding: 0 40px;
+    }
+  }
+}

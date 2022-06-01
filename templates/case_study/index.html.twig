@@ -3,7 +3,7 @@
 
 {% block og_image asset('social/Rix-home-og2.jpg')  %}
 {% block twitter_image absolute_url(asset('social/rix-ogimage-twitter2.jpg'))  %}
-{% set interval = date('now').diff(date(site.birthdate)) %}
+{% set interval = date('now').diff(date(site.xpDate)) %}
 {% block meta_title "Réalisations web : revue de nos projets depuis %d ans | Rix"|format(interval.y) %}
 {% block meta_description "Découvrez quelques unes des applications web et mobile réalisées depuis %d ans chez Rix"|format(interval.y) %}
 
@@ -35,7 +35,7 @@
                     <p>Voici une sélection récente de projets dans lesquels nous avons pu voir se créer une émulation forte avec nos clients et leurs utilisateurs.</p>
                 </div>
                 <div class="highlight">
-                    {% set interval = date('now').diff(date(site.birthdate)) %}
+                    {% set interval = date('now').diff(date(site.xpDate)) %}
                     <p class="">Notre meilleur argument qualité, ce sont les <strong>200+ projets</strong> sur lesquels nous avons travaillé depuis plus de <strong>{{ interval.y }} ans.</strong></p>
                     <i class="icon icon--brackets-right" aria-hidden="true"></i>
                 </div>

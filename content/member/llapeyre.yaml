@@ -3,7 +3,7 @@ anonymousPhoto: true
 
 name: Lod Lapeyre
 pseudo: ~
-position: "DevOps"
+position: DevOps
 bio: |
     "Have you tried turning it off and on again ?"
     "Gaming everyday, bicycling everywhere, cooking everything"
@@ -11,7 +11,7 @@ integrationDate: 12-03-2019
 
 website: ~
 twitter: ~
-github: ~
+github: greedybro
 linkedIn: lod-lapeyre-942083152
 email: laud.lapeyre@elao.com
 avatar: images/authors/avatars/llapeyre.jpg

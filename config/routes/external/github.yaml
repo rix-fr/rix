@@ -4,3 +4,6 @@ github_edit_file:
         file: '.+'
         repo: '[\w-]+/[\w-]+'
         ref: '.+'
+
+github_account:
+    path: '/{account}'

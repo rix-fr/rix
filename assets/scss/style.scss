@@ -23,14 +23,20 @@
 @use "components/_button";
 @use "components/_contact-tiles";
 @use "components/_values";
+@use "components/_about-values";
 @use "components/_open-source";
 @use "components/_services-list";
 @use "components/_sliding-button";
 @use "components/_ecosystem";
+@use "components/_timeline";
+@use "components/_profile";
+@use "components/_profile-list";
+@use "components/_experience";
 
 @use "generic/_a";
 // @use "generic/_code";
 @use "generic/_img";
+@use "generic/_p";
 @use "generic/_titles";
 // @use "generic/_ul";
 // // @use "generic/_iframe";
@@ -38,4 +44,5 @@
 
 @use "utilities/_screen-reader";
 
-@use "pages/_home";
+@use "pages/_page-home";
+@use "pages/_page-about";
