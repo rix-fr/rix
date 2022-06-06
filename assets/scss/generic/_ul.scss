@@ -1,1 +1,43 @@
-ul {}
+@use '../abstracts' as *;
+
+ul {
+  margin: 35px 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    margin-bottom: 3px;
+    padding-left: 30px;
+    position: relative;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    &:before,
+    &:after {
+      width: 16px;
+      height: 16px;
+      position: absolute;
+      top: 4px
+    }
+
+    &:before {
+      left: 0;
+      content: '';
+      background: $color-light;
+      border-radius: 50%;
+    }
+
+    &:after {
+      left: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'icomoon';
+      font-size: toRem(7px);
+      color: $color-primary;
+      content: '\e902';
+    }
+  }
+}

@@ -4,7 +4,7 @@
   height: 1880px;
   display: flex;
   background: url('../../images/banner.jpg') no-repeat;
-  background-size: cover;
+  background-size: cover !important;
 
   h1 {
     max-width: 950px;

@@ -58,6 +58,11 @@
       padding: 30px 35px;
       height: 350px;
       width: 400px;
+
+      &:before,
+      &:after {
+        content: none;
+      }
     }
   }
 }

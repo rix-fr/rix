@@ -36,9 +36,11 @@
     position: absolute;
     top: -1px;
     right: 35px;
-    content: '';
+    left: unset;
+    content: '' !important;
     background: url('../../images/about/team/expertise.svg') no-repeat;
     background-size: contain;
     background-position: center top;
+    border-radius: 0;
   }
 }

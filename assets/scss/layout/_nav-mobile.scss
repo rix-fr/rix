@@ -28,6 +28,11 @@
     display: flex;
     font-size: toRem(31px);
 
+    &:before,
+    &:after {
+      content: none;
+    }
+
     a {
       padding: 10px 0;
       font-family: $secondary-font;

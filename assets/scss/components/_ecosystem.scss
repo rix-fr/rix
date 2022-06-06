@@ -26,6 +26,11 @@
     background: #fff;
     border: solid 1px #d7e4ef;
 
+    &:before,
+    &:after {
+      content: none;
+    }
+
     img {
       width: 50px;
     }
