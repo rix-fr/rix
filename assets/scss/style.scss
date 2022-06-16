@@ -21,6 +21,7 @@
 
 @use "components/_banner";
 @use "components/_button";
+@use "components/_contact-infos";
 @use "components/_contact-tiles";
 @use "components/_values";
 @use "components/_about-values";
@@ -47,3 +48,4 @@
 @use "pages/_page-home";
 @use "pages/_page-about";
 @use "pages/_page-services";
+@use "pages/_page-contact";
