@@ -2,47 +2,49 @@
 {#{% block og_image asset('social/Rix-home-og2.jpg')  %}#}
 {#{% block twitter_image absolute_url(asset('social/rix-ogimage-twitter2.jpg'))  %}#}
 
+{% block body_class 'page-contact' %}
+
 {% block content %}
     <div class="container">
-        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-            <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="{{ path('homepage') }}">
-                    <span itemprop="name">Accueil</span>
-                </a>
-                <meta itemprop="position" content="1" />
-            </li>
-            <li class="breadcrumb__item"  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="#">
-                    <span itemprop="name">Contact</span>
-                </a>
-                <meta itemprop="position" content="2" />
-            </li>
-        </ol>
+        <h1>
+            <span>Besoin d'informations ?</span>
+            <span>Contactez-nous</span>
+            <strong>Promis, on ne mord pas</strong>
+        </h1>
 
-        <div class="page-contact">
-            <h1>Écrire <span>un petit mot</span></h1>
+        <div class="contact-infos">
+            <div class="contact-infos__item">
+                <dl>
+                    <dt>Téléphone</dt>
+                    <dd>
+                        <a href="tel:{{ site.contact.phoneto }}">
+                            {{ include('partials/contact-icon.html.twig') }}
+                            {{ site.contact.phone }}
+                        </a>
+                    </dd>
+                </dl>
+            </div>
 
-            <div class="contact">
-                <div class="contact__message">
-                    <p class="title">Écrivez-nous !,</p>
-                    <div class="form-group">
-                        <div class="form-group__message">
-                            <p>On adore recevoir du courrier <3</p>
-                            <p>C'est par là que ça se passe =></p>
-                        </div>
-                    </div>
-                </div>
+            <div class="contact-infos__item">
+                <dl>
+                    <dt>Mail</dt>
+                    <dd>
+                        <a href="mailto:{{ site.contact.email }}">
+                            {{ include('partials/mail-icon.html.twig') }}
+                            {{ site.contact.email }}
+                        </a>
+                    </dd>
+                </dl>
+            </div>
 
-                <div class="contact__infos" itemscope itemtype="https://schema.org/Organization">
-                    <img src="{{ asset('build/images/pages/contact/stamp.svg') }}" alt="">
-                    <p class="name" itemprop="name">Rix</p>
-                    <address itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
-                        <span itemprop="streetAddress">{{ site.contact.address }}</span>
-                    </address>
-                    <address>
-                        <a href="tel:{{ site.contact.phoneto }}" itemprop="telephone">{{ site.contact.phone }}</a>
-                        <a href="mailto:{{ site.contact.email }}" itemprop="email" data-contact-target="email">{{ site.contact.email }}</a>
-                    </address>
+            <div class="contact-infos__item">
+                <div class="dl">
+                    <span class="dt">Passez nous voir</span>
+                    <span class="dd">
+                        {{ include('partials/location-icon.html.twig') }}
+                        Nous sommes à Lyon !
+                    </span>
+                    <span class="dd">{{ site.contact.address }}</span>
                 </div>
             </div>
         </div>

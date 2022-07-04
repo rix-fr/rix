@@ -3,7 +3,7 @@
 {% block meta_title "TODO" %}
 {% block meta_description "TODO" %}
 
-{% block body_class %}page-about{% endblock %}
+{% block body_class 'page-about' %}
 
 {% set xpYears = date('now').diff(date(site.xpDate)).y %}
 
@@ -11,6 +11,7 @@
     <div class="banner">
         <div class="container">
             <h1>Rix, plus de <strong>{{ xpYears}} ans d'expertise</strong> DevOps en France</h1>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error quae ratione natus ad architecto, doloribus aliquid perferendis et voluptas illo quidem possimus deserunt, recusandae nobis libero sapiente odio eveniet repellendus!</p>
             <a href="{{ path('contact') }}" class="button">Contactez-nous !</a>
         </div>
     </div>
