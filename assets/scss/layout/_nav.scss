@@ -66,13 +66,17 @@
 
       path,
       circle {
-        transition: stroke ease .2s, fill ease .2s;
+        transition: stroke ease .3s, fill ease .3s;
       }
     }
 
     &:hover,
     &:active,
     &:focus {
+      span:after {
+        display: none;
+      }
+
       svg {
         path {
           stroke: $color-secondary;
@@ -88,10 +92,12 @@
 
 .nav__item--active {
   a {
-    &:after {
-      bottom: 0;
-      opacity: 1;
-      background: $color-border;
+    span {
+      &:after {
+        bottom: 0;
+        opacity: 1;
+        background: $color-border;
+      }
     }
   }
 }
