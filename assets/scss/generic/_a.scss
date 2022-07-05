@@ -1,11 +1,12 @@
 @use '../abstracts' as *;
 
 a {
-  transition: color ease .2s;
+  color: $color-primary;
+  text-decoration: underline;
 
   &:hover,
   &:active,
-  &:focus {}
+  &:focus {
+    color: $color-primary;
+  }
 }
-
-a:not([href]) {}

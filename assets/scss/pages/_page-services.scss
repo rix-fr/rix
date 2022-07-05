@@ -35,6 +35,10 @@
   border: solid 1px $color-border;
   padding: 0 80px 70px;
   background: #fff;
+
+  h3 {
+    color: $color-primary;
+  }
 }
 
 @media (max-width: $screen-xs) {

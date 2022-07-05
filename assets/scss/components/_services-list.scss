@@ -22,6 +22,18 @@
 
   h3 {
     margin: 0;
+    font-family: $secondary-font;
+    font-size: toRem(36px);
+    font-weight: 400;
+    color: $color-primary;
+    line-height: 1.25;
+
+    > span {
+      display: block;
+      font-family: $secondary-font;
+      font-size: toRem(28px);
+      color: $color-secondary;
+    }
   }
 }
 
@@ -62,6 +74,14 @@
         transform: translateY(0) rotate(0deg);
       }
     }
+  }
+
+  h4 {
+    margin: 40px 0 15px;
+    font-family: $secondary-font;
+    font-size: toRem(24px);
+    color: $color-primary;
+    line-height: 1.3;
   }
 }
 

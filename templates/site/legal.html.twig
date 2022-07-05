@@ -1,61 +1,68 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <div class="container">
-        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-            <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="{{ path('homepage') }}">
-                    <span itemprop="name">Accueil</span>
-                </a>
-                <meta itemprop="position" content="1" />
-            </li>
-            <li class="breadcrumb__item"  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="#">
-                    <span itemprop="name">Mentions légales</span>
-                </a>
-                <meta itemprop="position" content="2" />
-            </li>
-        </ol>
+    <div class="banner">
+        <div class="container">
+            <h1>Mentions légales</h1>
+            <h2>Rix SAS</h2>
+            <p>
+                <strong>Identité : </strong>
+                <br>
+                Capital de 36 000 €
+                <br>
+                RCS Lyon 481 528 529
+            </p>
+            <p>
+                <strong>Siège social :</strong>
+                <br>
+                {{ site.contact.address }}
+                <br>
+                {{ site.contact.phone }}
+            </p>
+        </div>
+    </div>
 
-        <h2>Rix SAS</h2>
-        <h3>Identité</h3>
-        <p>Capital de 36 000 €</p>
-        <p>RCS Lyon 481 528 529</p>
-        <h3>Siège social</h3>
-        <p>34 rue Jean Broquin, 69006 Lyon</p>
-        <p>{{ site.contact.phone }}</p>
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape">
+                <!-- 🐺 shape -->
+                <h2>Conditions générales d'utilisation</h2>
+            </div>
+            <div class="container content">
+                <br>
 
-        <h2>Conditions générales d'utilisation</h2>
-        <p>L'accès et l'utilisation de ce support sont régis par les présentes conditions d’utilisation. Par votre accès, votre navigation et votre utilisation de notre site, vous reconnaissez que vous avez lu, compris et accepté sans réserve ces présentes conditions. <strong>Nous nous réservons le droit de les modifier.</strong></p>
+                <p>L'accès et l'utilisation de ce support sont régis par les présentes conditions d’utilisation. Par votre accès, votre navigation et votre utilisation de notre site, vous reconnaissez que vous avez lu, compris et accepté sans réserve ces présentes conditions. <strong>Nous nous réservons le droit de les modifier.</strong></p>
 
-        <h2>Liens</h2>
-        <p>Bien que nous vérifiions le contenu des liens hypertextes pointant sur des pages extérieures au moment de leur création, le contenu des sites visés peut changer postérieurement à cette vérification. Nous invitons donc les visiteurs à la plus grande prudence.</p>
-        <p>De même, nous vous prions de bien vouloir nous signaler tout lien hypertexte brisé ou erroné.</p>
+                <h2>Liens</h2>
+                <p>Bien que nous vérifiions le contenu des liens hypertextes pointant sur des pages extérieures au moment de leur création, le contenu des sites visés peut changer postérieurement à cette vérification. Nous invitons donc les visiteurs à la plus grande prudence.</p>
+                <p>De même, nous vous prions de bien vouloir nous signaler tout lien hypertexte brisé ou erroné.</p>
 
-        <h2>Contenus</h2>
-        <p>Bien que nous nous efforçions d'être le plus rigoureux possible, nous ne pouvons garantir l'exactitude et l'exhaustivité des données publiées sur ce support.</p>
-        <p>Le site est maintenu et mis à jour, nous ne pouvons néanmoins pas garantir l'actualisation des informations et méthodes qu'il contient.</p>
-        <p>Nous nous réservons le droits de corriger à tous moment ces données si d'aventure nous constations qu'elles sont érronées ou inexactes. En conséquence, l'utilisateur est seul responsable de leur utilisation.</p>
+                <h2>Contenus</h2>
+                <p>Bien que nous nous efforçions d'être le plus rigoureux possible, nous ne pouvons garantir l'exactitude et l'exhaustivité des données publiées sur ce support.</p>
+                <p>Le site est maintenu et mis à jour, nous ne pouvons néanmoins pas garantir l'actualisation des informations et méthodes qu'il contient.</p>
+                <p>Nous nous réservons le droits de corriger à tous moment ces données si d'aventure nous constations qu'elles sont érronées ou inexactes. En conséquence, l'utilisateur est seul responsable de leur utilisation.</p>
 
-        <h2>Responsabilité</h2>
-        <p>Nous ne pourrions être tenu pour responsable des dommages directs ou indirects qui pourraient résulter de l'accès ou de l'utilisation des ressources proposées par ce site.</p>
-        <p>Concernant les articles du blog notamment, ils sont rédigés à des fins pédagogiques et éducatives et doivent être mis en application en ayant bien compris leur finalité.</p>
-        <p>Nous nous réservons le droit de modifier ou d'interrompre, temporairement ou de façon permanente, tout ou partie de l'accès au site afin d'effectuer les opérations de maintenance nécessaires à son bon fonctionnement.</p>
+                <h2>Responsabilité</h2>
+                <p>Nous ne pourrions être tenu pour responsable des dommages directs ou indirects qui pourraient résulter de l'accès ou de l'utilisation des ressources proposées par ce site.</p>
+                <p>Concernant les articles du blog notamment, ils sont rédigés à des fins pédagogiques et éducatives et doivent être mis en application en ayant bien compris leur finalité.</p>
+                <p>Nous nous réservons le droit de modifier ou d'interrompre, temporairement ou de façon permanente, tout ou partie de l'accès au site afin d'effectuer les opérations de maintenance nécessaires à son bon fonctionnement.</p>
 
-        <h2>Protection des données personnelles</h2>
-        <p>La confidentialité et la sécurité de vos données est une <strong>priorité absolue</strong> pour nous.</p>
-        <p>Les adresses électroniques recueillies dans le cadre du formulaire de contact ne sont utilisées que pour l'envoi d'informations ayant motivé l'inscription.</p>
-        <p>Pour plus d’informations sur nos pratiques de confidentialité et les mesures prises pour protéger votre vie privée, consultez en détails notre page <a href="{{ path('privacy') }}">protection des données.</a></p>
+                <h2>Protection des données personnelles</h2>
+                <p>La confidentialité et la sécurité de vos données est une <strong>priorité absolue</strong> pour nous.</p>
+                <p>Les adresses électroniques recueillies dans le cadre du formulaire de contact ne sont utilisées que pour l'envoi d'informations ayant motivé l'inscription.</p>
+                <p>Pour plus d’informations sur nos pratiques de confidentialité et les mesures prises pour protéger votre vie privée, consultez en détails notre page <a href="{{ path('privacy') }}">protection des données.</a></p>
 
-        <h2>Droits d'auteur</h2>
-        <h3>Reproduction sur support papier</h3>
-        <p>À l'exception de l'iconographie, la reproduction des pages de ce site sur un support papier est autorisée, sous réserve du respect des trois conditions suivantes :</p>
-        <ul>
-            <li>Gratuité de la diffusion</li>
-            <li>Respect de l'intégrité des documents reproduits (aucune modification, ni altération d'aucune sorte)</li>
-            <li>Citation explicite du site <a href="{{ path('homepage') }}">({{ url('homepage') }})</a> comme source et mention que les droits de reproduction sont réservés et strictement limités</li>
-        </ul>
-        <h3>Reproduction sur support électronique</h3>
-        <p>La reproduction de tout ou partie de ce site sur un support électronique est autorisée sous réserve de l'ajout de façon claire et lisible de la source <a href="{{ path('homepage') }}">({{ url('homepage') }})</a> et de la mention "Droits réservés". Les informations utilisées ne doivent l'être à des fins personnelles, associatives ou professionnelles ; toute utilisation à des fins commerciales ou publicitaires est exclue.</p>
+                <h2>Droits d'auteur</h2>
+                <h3>Reproduction sur support papier</h3>
+                <p>À l'exception de l'iconographie, la reproduction des pages de ce site sur un support papier est autorisée, sous réserve du respect des trois conditions suivantes :</p>
+                <ul>
+                    <li>Gratuité de la diffusion</li>
+                    <li>Respect de l'intégrité des documents reproduits (aucune modification, ni altération d'aucune sorte)</li>
+                    <li>Citation explicite du site <a href="{{ path('homepage') }}">({{ url('homepage') }})</a> comme source et mention que les droits de reproduction sont réservés et strictement limités</li>
+                </ul>
+                <h3>Reproduction sur support électronique</h3>
+                <p>La reproduction de tout ou partie de ce site sur un support électronique est autorisée sous réserve de l'ajout de façon claire et lisible de la source <a href="{{ path('homepage') }}">({{ url('homepage') }})</a> et de la mention "Droits réservés". Les informations utilisées ne doivent l'être à des fins personnelles, associatives ou professionnelles ; toute utilisation à des fins commerciales ou publicitaires est exclue.</p>
+            </div>
+        </div>
     </div>
 {% endblock %}
