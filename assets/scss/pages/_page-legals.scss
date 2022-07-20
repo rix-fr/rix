@@ -1,7 +1,29 @@
 @use '../abstracts' as *;
 
 .page-legals {
-  .banner {
-    background-image: url('../../images/background.jpg') !important;
+  main {
+    padding-bottom: 0;
+    background: none;
   }
+
+  ul {
+    margin: 0;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  .h3 {
+    margin-bottom: 20px;
+  }
+}
+
+.banner {
+  background: url('../../images/background.jpg') no-repeat !important;
+}
+
+.link {
+  color: $color-primary;
+  font-weight: 600;
 }
