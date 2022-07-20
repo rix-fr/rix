@@ -1,55 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block content %}
-    <div class="container">
-        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-            <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="{{ path('homepage') }}">
-                    <span itemprop="name">Accueil</span>
-                </a>
-                <meta itemprop="position" content="1" />
-            </li>
-            <li class="breadcrumb__item"  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="#">
-                    <span itemprop="name">Protection des données</span>
-                </a>
-                <meta itemprop="position" content="2" />
-            </li>
-        </ol>
+{% block body_class %}page-privacy{% endblock %}
 
-        <h2>Quels sont les outils que nous utilisons ?</h2>
-        <ul>
-            <li><strong>Matomo (anciennement Piwik).</strong> Il est recommandé par la CNIL, permet de ne pas envoyer vos données à des tiers, il est hébergé chez nous et nous permet la collecte et l'analyse de quelques données du trafic que nous recevons. Celles-ci nous permettent par la suite d'avoir une idée des interactions avec le contenu proposé et de travailler à son amélioration.</li>
-            <li>Et ... <strong>c'est tout.</strong></li>
-        </ul>
-        <h2>Quelles sont les données que nous collectons ?</h2>
-        <h3>Avec Matomo</h3>
-        <p>Matomo dépose un cookie à l'aide de votre navigateur sur le disque de votre machine, et vous attribue plusieurs identifiants aléatoires et anonymes.</p>
-        <h3>La première fois que vous nous rendez visite</h3>
-        <ul>
-            <li>Les deux premiers chiffres de votre adresse IP, qui nous permettent de déterminer votre réseau de provenance et par la même votre origine géographique</li>
-            <li>La date et l'heure de votre visite et sa durée</li>
-            <li>Les pages que vous avez consultées</li>
-            <li>L'appareil utilisé, son système d'exploitation (version, modèle) ainsi que le type de navigateur (nom, langue, version) que vous utilisez</li>
-            <li>Éventuellement le site qui vous a amené jusqu'à nous</li>
-        </ul>
-        <h3>À chaque fois que vous consultez une page</h3>
-        <ul>
-            <li>L'URL de la page (titre, temps de chargement)</li>
-            <li>L'enchaînement des pages au cours de votre lecture</li>
-        </ul>
-        <h3>Correspondance électronique</h3>
-        <p>L'ensemble des documents transmis par nos correspondants sont conservés sur un stockage privé, hébergé par <!-- Rix ? --> en France.</p>
-        <p>Il est possible de chiffrer les correspondances envoyées à <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a> à l'aide de notre <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/6906BF0C8B9F4C1A744D82E4027032B8CC8E1651">clé publique.</a></p>
-        <h3>Où mes données sont-elles stockées ?</h3>
-        <p>Elles sont stockées sur nos serveurs, en France, qu'il sagisse de données collectées lors de votre passage sur nos sites, ou de données collectées lors de l'une de nos correspondances.</p>
-        <h3>Qui a accès à ces données ?</h3>
-        <p>Ces données ne sont accessibles que par les employé·e·s Rix.</p>
-        <h3>Candidatures</h3>
-        <p>Lorsque vous nous envoyez votre candidature, vos coordonnées et les documents que vous nous avez transmis sont conservés le temps du traitement.</p>
-        <h3>Données de navigation</h3>
-        <p>Les données collectées par Matomo sont conservées 24 mois, à l'issue desquels elles sont supprimées.</p>
-        <h3>Qui contacter en cas de questions ou de requête de suppression ?</h3>
-        <p>Vous disposez bien évidemment du droit de demander la modification et la suppression de l'ensemble des données dont nous pourrions disposer en nous contactant : <a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a></p>
+{% block content %}
+
+    <div class="banner">
+        <div class="container">
+            <h1>Données personnelles</h1>
+        </div>
     </div>
+
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <h2 class="h3">Quels sont les outils que nous utilisons ?</h2>
+                <h3 class="h4"><span>Matomo (anciennement Piwik)</span></h3>
+                <p>Il est recommandé par la CNIL, permet de ne pas envoyer vos données à des tiers, il est hébergé chez nous et nous permet la collecte et l'analyse de quelques données du trafic que nous recevons. Celles-ci nous permettent par la suite d'avoir une idée des interactions avec le contenu proposé et de travailler à son amélioration. Et ... c'est tout.</p>
+
+                <h2 class="h3">Quelles sont les données que nous collectons ?</h2>
+                <h3 class="h4"><span>Avec Matomo</span></h3>
+                <p>Matomo dépose un cookie à l'aide de votre navigateur sur le disque de votre machine, et vous attribue plusieurs identifiants <strong>aléatoires et anonymes</strong>.</p>
+                <h3 class="h4"><span>La première fois que vous nous rendez visite</span></h3>
+                <ul>
+                    <li>Les deux premiers chiffres de votre adresse IP, qui nous permettent de déterminer votre réseau de provenance et par la même votre origine géographique</li>
+                    <li>La date et l'heure de votre visite et sa durée</li>
+                    <li>Les pages que vous avez consultées</li>
+                    <li>L'appareil utilisé, son système d'exploitation (version, modèle) ainsi que le type de navigateur (nom, langue, version) que vous utilisez</li>
+                    <li>Éventuellement le site qui vous a amené jusqu'à nous</li>
+                </ul>
+                <h3 class="h4"><span>À chaque fois que vous consultez une page</span></h3>
+                <ul>
+                    <li>L'URL de la page (titre, temps de chargement)</li>
+                    <li>L'enchaînement des pages au cours de votre lecture</li>
+                </ul>
+                <h3 class="h4"><span>Correspondance électronique</span></h3>
+                <p>L'ensemble des documents transmis par nos correspondants sont conservés sur un stockage privé, hébergé par <!-- Rix ? --> en France.</p>
+                <p>Il est possible de chiffrer les correspondances envoyées à <a class="link" href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a> à l'aide de notre <a class="link" href="https://keys.openpgp.org/vks/v1/by-fingerprint/6906BF0C8B9F4C1A744D82E4027032B8CC8E1651">clé publique.</a></p>
+                <h2 class="h3">Où mes données sont-elles stockées ?</h2>
+                <p>Elles sont stockées sur nos serveurs, en France, qu'il sagisse de données collectées lors de votre passage sur nos sites, ou de données collectées lors de l'une de nos correspondances.</p>
+                <h2 class="h3">Qui a accès à ces données ?</h2>
+                <p>Ces données ne sont accessibles que par les employé·e·s Rix.</p>
+                <h3 class="h4"><span>Candidatures</span></h3>
+                <p>Lorsque vous nous envoyez votre candidature, vos coordonnées et les documents que vous nous avez transmis sont conservés le temps du traitement.</p>
+                <h3 class="h4"><span>Données de navigation</span></h3>
+                <p>Les données collectées par Matomo sont conservées 24 mois, à l'issue desquels elles sont supprimées.</p>
+                <h2 class="h3">Qui contacter en cas de questions ou de requête de suppression ?</h2>
+                <p>Vous disposez bien évidemment du droit de demander la modification et la suppression de l'ensemble des données dont nous pourrions disposer en nous contactant : <a class="link" href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a></p>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

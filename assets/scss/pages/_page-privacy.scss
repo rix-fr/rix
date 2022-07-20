@@ -1,0 +1,29 @@
+@use '../abstracts' as *;
+
+.page-privacy {
+  main {
+    padding-bottom: 0;
+    background: none;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  .h3 {
+    margin-bottom: 30px;
+  }
+
+  .h4 {
+    margin: 0 0 15px;
+  }
+}
+
+.banner {
+  background: url('../../images/background.jpg') no-repeat !important;
+}
+
+.link {
+  color: $color-primary;
+  font-weight: 600;
+}
