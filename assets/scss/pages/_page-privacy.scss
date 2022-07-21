@@ -3,7 +3,7 @@
 .page-privacy {
   main {
     padding-bottom: 0;
-    background: none;
+    background-image: none;
   }
 
   strong {
@@ -17,13 +17,38 @@
   .h4 {
     margin: 0 0 15px;
   }
+
+  .banner {
+    height: 1500px;
+    background-image: url('../../images/background.jpg') !important;
+    background-size: contain !important;
+    background-position: top center;
+  }
+
+  .beveled-wrapper__gradient {
+    .shape {
+      background-image: url('../../images/shape-header.svg');
+    }
+  }
+
+  .link {
+    color: $color-primary;
+    font-weight: 600;
+  }
 }
 
-.banner {
-  background: url('../../images/background.jpg') no-repeat !important;
+@media (max-width: $screen-sm) {
+  .page-legals {
+    .banner {
+      background-image: url('../../images/background-mobile.jpg') !important;
+    }
+  }
 }
 
-.link {
-  color: $color-primary;
-  font-weight: 600;
+@media (max-width: $screen-xs) {
+  .page-privacy {
+    .banner {
+      height: 1400px;
+    }
+  }
 }
