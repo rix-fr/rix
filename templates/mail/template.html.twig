@@ -1,19 +1,13 @@
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
 <style type="text/css">
+
     body {
-        background: #f2f4fc;
+        background-color: #d7e4ef;
     }
 
-    tbody tr.row {
-        border-bottom: 1px solid #adadad;
-    }
-
-    tr.row td {
-        padding: 10px;
-    }
-
-    tfoot tr.row {
-        white-space: nowrap;
-        border-bottom: none;
+    caption {
+        caption-side: top;
     }
 
     td {
@@ -33,6 +27,23 @@
         text-align: center;
     }
 
+    tbody tr.row {
+        border-bottom: 1px solid #d7e4ef;
+    }
+
+    tfoot tr.row {
+        white-space: nowrap;
+        border-bottom: none;
+    }
+
+    tr.row td {
+        padding: 10px;
+    }
+
+    tr.header th:not(:first-of-type) {
+        border-left: 1px solid #fff;
+    }
+
     .email {
         max-width: 650px;
         margin: 0 auto;
@@ -42,6 +53,21 @@
         color: #07162f;
     }
 
+    .info {
+        width: 100%;
+        border-collapse: collapse;
+        border: 0;
+        border-spacing: 0;
+    }
+
+    .info p {
+        margin: 0;
+    }
+
+    .info tr > td {
+        padding: 0;
+    }
+
     .invoice-summary {
         margin-top: 50px;
         border-collapse: collapse;
@@ -49,7 +75,7 @@
 
     .invoice-summary__headers {
         color: #fff;
-        background-color: #3c3d3a;
+        background-color: #07162f;
     }
 
     .row p {
@@ -62,26 +88,35 @@
         max-width: 100%;
     }
 
-    .lighter {
+    .text-light {
         font-size: 15px;;
         color: #333;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .text-left {
+        text-align: left;
+    }
+
+    .logo {
+        padding-bottom: 50px;
     }
 
     .price {
         padding: 50px 25px;
         font-size: 22px;
+        text-align: center;
     }
 
     .unit {
         font-weight: 600;
     }
 
-    .price {
-        text-align: center;
-    }
-
     .total {
-        background-color: #f5f4f3;
+        background-color: #d7e4ef;
         font-weight: 600;
     }
 
@@ -100,9 +135,33 @@
     <tbody>
         <tr>
             <td>
-                <img src="https://www.rix.fr/images/rix.svg" width="60" height="106" style="width: 60px; height: 106px">
+                <img class="logo" src="https://www.rix.fr/images/rix.svg" width="60" height="106" style="width: 60px; height: 106px">
             </td>
         </tr>
+        <tr>
+            <td>
+                <table class="info">
+                    <tr>
+                        <td>
+                            <p><strong>Rix</strong></p>
+                            <p>34 rue Jean Broquin</p>
+                            <p>Lyon 69003</p>
+                            <p>France</p>
+                            <p>+33 (0)0972508729</p>
+                            <p>https://www.rix.fr - facturation@rix.fr</p>
+                        </td>
+                        <td class="text-right">
+                            <p>Facturer à</p>
+                            <p><strong>Wotol</strong></p>
+                            <p>Date du devis:</p>
+                            <p>11-04-2022</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+    <tbody>
         <tr>
             <td>
                 <h1>Facture n°532</h1>
@@ -120,10 +179,14 @@
         <tr>
             <td>
                 <table class="invoice-summary">
+                    <caption class="text-left">
+                        <p>Objet:<br>
+                            Mise à jour des environnements vers Debian 11
+                        </p>
+                    </caption>
                     <thead class="invoice-summary__headers">
-                        <tr>
-                            <th>#</th>
-                            <th>Article & Description</th>
+                        <tr class="header">
+                            <th class="text-left">Description</th>
                             <th>Quantité</th>
                             <th>Taux</th>
                             <th>Montant</th>
@@ -131,53 +194,48 @@
                     </thead>
                     <tbody>
                         <tr class="row">
-                          <th scope="row">1</th>
                           <td>
                             <p>Conception/Installation</p>
-                            <p class="lighter">Mise à jour des environnements et transfert de l'applicatif</p>
+                            <p class="text-light">Mise à jour des environnements et transfert de l'applicatif</p>
                           </td>
-                          <td>0,50</td>
-                          <td>800,00</td>
-                          <td>400,00</td>
+                          <td class="text-right">0,50</td>
+                          <td class="text-right">800,00</td>
+                          <td class="text-right">400,00</td>
                         </tr>
                         <tr class="row">
-                          <th scope="row">2</th>
                           <td>
-                            <p class="lighter">Double facturation du matériel (1 mois le temps du transfert)</p>
+                            <p class="text-light">Double facturation du matériel (1 mois le temps du transfert)</p>
                           </td>
-                          <td>1,00</td>
-                          <td>214,00</td>
-                          <td>214,00</td>
+                          <td class="text-right">1,00</td>
+                          <td class="text-right">214,00</td>
+                          <td class="text-right">214,00</td>
                         </tr>
-                      </tbody>
-                      <tfoot>
+                    </tbody>
+                    <tfoot>
                         <tr class="row">
-                            <td></td>
                             <td></td>
                             <td></td>
                             <td>Sous-total</td>
-                            <td>614,00</td>
+                            <td class="text-right">614,00</td>
                         </tr>
                         <tr class="row">
                             <td></td>
                             <td></td>
-                            <td></td>
                             <td>TVA (20%)</td>
-                            <td>80,00</td>
+                            <td class="text-right">80,00</td>
                         </tr>
                         <tr class="row total">
                             <td></td>
                             <td></td>
-                            <td></td>
                             <td>Total</td>
-                            <td>€694,00</td>
+                            <td class="text-right">€694,00</td>
                         </tr>
-                      </tfoot>
+                    </tfoot>
                 </table>
             </td>
         </tr>
         <tr>
-            <td class="price">Montant de la facture: <span class="unit">2000€</span></td>
+            <td class="price">Montant de la facture: <span class="unit">700€</span></td>
         </tr>
         <tr>
             <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at nisl malesuada, fringilla massa eget, luctus diam.</td>
