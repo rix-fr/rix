@@ -1,11 +1,5 @@
 @use '../abstracts' as *;
 
-.page-about {
-  main {
-    padding-bottom: 700px;
-  }
-}
-
 .case-study {
   ul {
     align-items: flex-start;
@@ -13,7 +7,7 @@
     flex-wrap: wrap;
     list-style: none;
     justify-content: center;
-    margin: 70px -125px;
+    margin: 70px -180px;
     padding: 0;
 
     > li {
@@ -81,4 +75,71 @@
   font-family: Outfit Semi Bold;
   color: #eb5050;
   font-size: 1.25rem;
+}
+
+/* @media (max-width: $screen-xl) {
+  .case-study {
+    ul {
+      > li {
+        width: calc(35% - 25px);
+        min-width: calc(35% - 25px);
+      }
+    }
+  }
+} */
+
+/* @media (max-width: $screen-lg) {
+  .case-study {
+    ul {
+      > li {
+        width: calc(45% - 25px);
+        min-width: calc(45% - 25px);
+      }
+    }
+  }
+}
+ */
+@media (max-width: $screen-md) {
+  .case-study {
+    ul {
+      > li {
+        width: calc(45% - 30px);
+        min-width: calc(45% - 30px);
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .case-study {
+    ul {
+      > li {
+        width: calc(50% - 95px);
+        min-width: calc(50% - 95px);
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-xs) {
+  .case-study {
+    ul {
+      margin: 70px -145px;
+      > li {
+        width: calc(65% - 30px);
+        min-width: calc(65% - 30px);
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-xxs) {
+  .case-study {
+    ul {
+      > li {
+        width: calc(55% - 10px);
+        min-width: calc(55% - 10px);
+      }
+    }
+  }
 }
