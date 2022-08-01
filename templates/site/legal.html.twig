@@ -4,20 +4,29 @@
     <div class="banner">
         <div class="container">
             <h1>Mentions légales</h1>
-            <h2>Rix SAS</h2>
+            <h2>Rix</h2>
             <p>
                 <strong>Identité : </strong>
                 <br>
-                Capital de 36 000 €
+                SAS au capital de 10 000 €
                 <br>
-                RCS Lyon 481 528 529
+                R.C.S. Lyon 882 702 319
+                <br>
+                N° TVA: FR 82 882 702 319
             </p>
             <p>
                 <strong>Siège social :</strong>
                 <br>
                 {{ site.contact.address }}
                 <br>
-                {{ site.contact.phone }}
+                Directeur de la publication: {{ site.contact.publicationDirector }}
+            </p>
+            <p>
+                <strong>Coordonnées :</strong>
+                <br>
+                Téléphone: <a href="tel:{{ site.contact.phoneto }}">{{ site.contact.phone }}</a>
+                <br/>
+                Courriel: <a href="mailto:contact@rix.fr">{{ site.contact.email }}</a>
             </p>
         </div>
     </div>
