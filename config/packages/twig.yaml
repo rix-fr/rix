@@ -14,7 +14,7 @@ twig:
                 phone: 04 82 53 37 19
                 phoneto: +33482533719
                 address: 34 rue Jean Broquin, 69006 Lyon
-
+                publicationDirector: Guewen FAIVRE
             social:
                 github: https://github.com/rix-fr
                 twitter: https://twitter.com/rix_fr

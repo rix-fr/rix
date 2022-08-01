@@ -76,16 +76,20 @@
       background: url('../../images/bevel-right.svg') no-repeat;
       background-size: cover;
     }
+
+    .h2--large {
+      margin: 0;
+    }
+  }
+
+  h2:first-of-type {
+    margin: 0;
   }
 
   .content {
     display: flex;
     flex-direction: column;
     background: #fff;
-  }
-
-  h2 {
-    margin: 0;
   }
 }
 
