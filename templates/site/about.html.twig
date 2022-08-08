@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% set interval = date('now').diff(date(site.xpDate)) %}
+
 {% block meta_title "À propos de nous." %}
-{% block meta_description "Plus de 16 ans d'expérience en exploitation et en outillage d'infrastructures orientées DevOps." %}
+{% block meta_description "Plus de %d ans d'expérience en exploitation et en outillage d'infrastructures orientées DevOps." |format(interval.y) %}
 
 {% block body_class 'page-about' %}
 
@@ -30,20 +32,23 @@
                 <section>
                     <ul class="timeline">
                         <li class="timeline__item">
-                            <h3 class="title">Hébergement</h3>
-                            <p>Spécialistes de l’hébergement des applications <strong>PHP/ Symfony métier sur-mesure</strong> nous avons au cours de notre expérience été confrontés à beaucoup des <a href="case-studies">situations</a> que vous rencontrez peut-être aujourd’hui.</p>
+                            <h3 class="title">Analyse</h3>
+                            <p>Parce que nous avons évoluer au plus près des équipes de développement, nous savons qu'il est essentiel de bien comprendre le métier et d'assimiler ses contraintes.</p>
                         </li>
                         <li class="timeline__item">
                             <h3 class="title">Exploitation</h3>
                             <p>Parce que nous sommes issus de l’exploitation nous avons la prétention d’avoir <strong>une bonne vision</strong> des problématiques de mise en oeuvre d’une application web moderne. Et bien évidemment de son maintient en conditions opérationnelles.</p>
                         </li>
+                        <li class="timeline__item">
+                            <h3 class="title">Hébergement</h3>
+                            <p>Spécialistes de l’hébergement des applications <strong>PHP/ Symfony métier sur-mesure</strong> nous avons au cours de notre expérience été confrontés à beaucoup des <a href="case-studies">situations</a> que vous rencontrez peut-être aujourd’hui.</p>
+                        </li>
                     </ul>
                 </section>
-
                 <div class="about-values">
                     <h2 class="h2--large">
                         <span>Nos valeurs</span>
-                        <quote>Profile, don't assume !</quote>
+                        <quote>«Profile, don't assume !»</quote>
                     </h2>
                     <div class="grid">
                         <ul>
