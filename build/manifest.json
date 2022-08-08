@@ -2,7 +2,9 @@
   "build/app.js": "/rix/build/app.76a9a073.js",
   "build/runtime.js": "/rix/build/runtime.7013e0e6.js",
   "build/348.64eebf97.js": "/rix/build/348.64eebf97.js",
-  "build/305.3821ca07.css": "/rix/build/305.3821ca07.css",
+  "build/305.a3ba5fb3.css": "/rix/build/305.a3ba5fb3.css",
+  "build/images/case-studies/snow_mountain_background.jpg": "/rix/build/images/case-studies/snow_mountain_background.1eb08f71.jpg",
+  "build/images/snow_mountain_background.jpg": "/rix/build/images/snow_mountain_background.1eb08f71.jpg",
   "build/images/banner.jpg": "/rix/build/images/banner.4b7018e2.jpg",
   "build/images/background.jpg": "/rix/build/images/background.fe096fd5.jpg",
   "build/images/banner-mobile.jpg": "/rix/build/images/banner-mobile.f8a0e71d.jpg",
@@ -68,6 +70,9 @@
   "build/images/top.svg": "/rix/build/images/top.0eb15c3f.svg",
   "build/images/about/team/expertise.svg": "/rix/build/images/about/team/expertise.9d4f8cd1.svg",
   "build/images/expertise.svg": "/rix/build/images/expertise.9d4f8cd1.svg",
+  "build/images/shape-header.svg": "/rix/build/images/shape-header.a5d2d4ec.svg",
+  "build/images/case-studies/header_shape.svg": "/rix/build/images/case-studies/header_shape.113cf47a.svg",
+  "build/images/header_shape.svg": "/rix/build/images/header_shape.113cf47a.svg",
   "build/images/about/dot.svg": "/rix/build/images/about/dot.ec074665.svg",
   "build/images/dot.svg": "/rix/build/images/dot.ec074665.svg"
 }
