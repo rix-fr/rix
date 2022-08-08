@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block meta_title "TODO" %}
-{% block meta_description "TODO" %}
+{% block meta_title "À propos de nous." %}
+{% block meta_description "Plus de 16 ans d'expérience en exploitation et en outillage d'infrastructures orientées DevOps." %}
 
 {% block body_class 'page-about' %}
 
@@ -11,7 +11,8 @@
     <div class="banner">
         <div class="container">
             <h1>Rix, plus de <strong>{{ xpYears}} ans d'expertise</strong> DevOps en France</h1>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error quae ratione natus ad architecto, doloribus aliquid perferendis et voluptas illo quidem possimus deserunt, recusandae nobis libero sapiente odio eveniet repellendus!</p>
+            <p>Nous sommes le résultat de plus de 16 ans d'exploitation, en production, d'applications web métier pour le compte de l'atelier logiciel <a href="https://www.elao.com/">Elao</a>.</p>
+            <p>Durant des années nous avons accompagnés développeurs et équipes clientes tout au long de la mise en exploitation d'applications web souvent complexes.</p>
             <a href="{{ path('contact') }}" class="button">Contactez-nous !</a>
         </div>
     </div>
@@ -30,11 +31,11 @@
                     <ul class="timeline">
                         <li class="timeline__item">
                             <h3 class="title">Hébergement</h3>
-                            <p>Spécialistes de l’hébergement des applications <strong>PHP/ Symfony métier sur-mesure</strong> nous avons au cours de notre expérience été confrontés à beaucoup des situtations que vous rencontrez peut-être aujourd’hui.</p>
+                            <p>Spécialistes de l’hébergement des applications <strong>PHP/ Symfony métier sur-mesure</strong> nous avons au cours de notre expérience été confrontés à beaucoup des <a href="case-studies">situations</a> que vous rencontrez peut-être aujourd’hui.</p>
                         </li>
                         <li class="timeline__item">
                             <h3 class="title">Exploitation</h3>
-                            <p>Parce que nous sommes issus de l’exploitation nous avons la prétention d’avoir <strong>une bonne vision</strong> des problématiques de mise en oeuvre d’une application web moderne.</p>
+                            <p>Parce que nous sommes issus de l’exploitation nous avons la prétention d’avoir <strong>une bonne vision</strong> des problématiques de mise en oeuvre d’une application web moderne. Et bien évidemment de son maintient en conditions opérationnelles.</p>
                         </li>
                     </ul>
                 </section>
@@ -42,7 +43,7 @@
                 <div class="about-values">
                     <h2 class="h2--large">
                         <span>Nos valeurs</span>
-                        Lorem, ipsum dolor sit ametem, ipsum dolor sit amet
+                        <quote>Profile, don't assume !</quote>
                     </h2>
                     <div class="grid">
                         <ul>
@@ -51,7 +52,7 @@
                                     <img src="{{ asset('build/images/about/values/anticipate.svg') }}" alt="">
                                     <h3 class="image-title__content">Anticiper</h3>
                                 </div>
-                                Personne n’aime travailler en plein incident, nous mettons un point d’honneur à essayer d’anticiper les plus courants.
+                                Personne n’aime travailler en plein incident, nous mettons un point d’honneur à essayer d’anticiper les plus courants et quand nous n'y arrivons pas à effectuer un diagnostique rapide.
                             </li>
                             <li>
                                 <div class="image-title image-title--light">
@@ -65,7 +66,7 @@
                                     <img src="{{ asset('build/images/about/values/support.svg') }}" alt="">
                                     <h3 class="image-title__content">Accompagner</h3>
                                 </div>
-                                Nous avons conscience que nos métiers se sont énormément complexifiés, nous proposons toujours la solution qui nous semble le mieux convenir au contexte actuel de notre client sans jamais oublier que ce projet va évoluer, se transformer et grandir.
+                                Nous avons conscience que nos métiers se sont énormément complexifiés, nous proposons toujours la solution qui nous semble le mieux convenir au <strong>contexte</strong> actuel d'un client sans jamais oublier que ce projet va évoluer, se transformer et grandir.
                             </li>
                         </ul>
                     </div>
