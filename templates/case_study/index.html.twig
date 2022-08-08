@@ -1,69 +1,137 @@
 {% import "macros.html.twig" as macros %}
 {% extends 'base.html.twig' %}
+{#
+{% block og_image asset('social/Rix-home-og2.jpg')  %} #}
+{# {% block twitter_image absolute_url(asset('social/rix-ogimage-twitter2.jpg'))  %} #}
 
-{% block og_image asset('social/Rix-home-og2.jpg')  %}
-{% block twitter_image absolute_url(asset('social/rix-ogimage-twitter2.jpg'))  %}
 {% set interval = date('now').diff(date(site.xpDate)) %}
 {% block meta_title "Réalisations web : revue de nos projets depuis %d ans | Rix"|format(interval.y) %}
 {% block meta_description "Découvrez quelques unes des applications web et mobile réalisées depuis %d ans chez Rix"|format(interval.y) %}
 
+{% block body_class 'page-casebook' %}
+
 {% block content %}
 
-    <div class="page-projects container">
-        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-            <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="{{ path('homepage') }}">
-                    <span itemprop="name">Accueil</span>
-                </a>
-                <meta itemprop="position" content="1" />
-            </li>
-            <li class="breadcrumb__item"  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="#">
-                    <span itemprop="name">Nos études de cas</span>
-                </a>
-                <meta itemprop="position" content="2" />
-            </li>
-        </ol>
-
-        <div class="banner-case-study">
-            <h1 class="banner-case-study__title">
-                Découvrez
-                <span>nos études de cas</span>
+    <div class="banner">
+        <div class="container">
+            <h1>Découvrez</br>nos <strong>études de cas</strong>
             </h1>
-            <div class="banner-case-study__content">
-                <div class="info">
-                    <p>Voici une sélection récente de projets dans lesquels nous avons pu voir se créer une émulation forte avec nos clients et leurs utilisateurs.</p>
-                </div>
-                <div class="highlight">
-                    {% set interval = date('now').diff(date(site.xpDate)) %}
-                    <p class="">Notre meilleur argument qualité, ce sont les <strong>200+ projets</strong> sur lesquels nous avons travaillé depuis plus de <strong>{{ interval.y }} ans.</strong></p>
-                    <i class="icon icon--brackets-right" aria-hidden="true"></i>
+        </div>
+    </div>
+
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <h2>La réalité du terrain</h2>
+                <p>Voici une sélection récente de projets dans lesquels nous avons pu voir se créer une émulation forte avec nos clients et leurs utilisateurs.</p>
+                <div class="case-study">
+                    <ul>
+                        <li class="case-study__item">
+                            <a href="#">
+                                <div class="case-study__image"></div>
+                                <div class="case-study__content">
+                                    <span class="case-study__name">Nom du projet</span>
+                                    <h3>Nom du projet</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <span class="sliding-button sliding-button--mobile">
+                                        <span class="sliding-button__content">
+                                            <i class="icon icon--arrow" aria-hidden="true"></i>
+                                            Voir l’étude de cas
+                                        </span>
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="case-study__item">
+                            <a href="#">
+                                <div class="case-study__image"></div>
+                                <div class="case-study__content">
+                                    <span class="case-study__name">Nom du projet</span>
+                                    <h3>Nom du projet</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <span class="sliding-button sliding-button--mobile">
+                                        <span class="sliding-button__content">
+                                            <i class="icon icon--arrow" aria-hidden="true"></i>
+                                            Voir l’étude de cas
+                                        </span>
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="case-study__item">
+                            <a href="#">
+                                <div class="case-study__image"></div>
+                                <div class="case-study__content">
+                                    <span class="case-study__name">Nom du projet</span>
+                                    <h3>Nom du projet</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <span class="sliding-button sliding-button--mobile">
+                                        <span class="sliding-button__content">
+                                            <i class="icon icon--arrow" aria-hidden="true"></i>
+                                            Voir l’étude de cas
+                                        </span>
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-
-        <ul class="article-list">
-            {% for caseStudy in caseStudies %}
-                <li class="miniature-inline">
-                    <a href="{{ path('case_study', { caseStudy: caseStudy.slug }) }}" class="miniature-inline__image">
-                        <span class="image" style="{{ macros.backgroundImageSrcset(caseStudy.images|first, 'case_study_thumbnail.md') }};width:500px;height:370px;display:block"></span>
-                    </a>
-                    <div class="miniature-inline__content">
-                        <span class="info">{{ caseStudy.clients }}</span>
-                        <a href="{{ path('case_study', { caseStudy: caseStudy.slug }) }}" class="title">
-                            {{ caseStudy.title }}
-                        </a>
-                        <p class="description">
-                            {{ caseStudy.description }}
-                        </p>
-                        <a href="{{ path('case_study', { caseStudy: caseStudy.slug }) }}" class="btn btn--secondary btn--animated">
-                            <span>
-                                Voir l'étude de cas
-                            </span>
-                        </a>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
     </div>
-{% endblock content %}
+    <div class="container">
+        <div class="case-study">
+            <ul>
+                <li class="case-study__item">
+                    <a href="#">
+                        <div class="case-study__image"></div>
+                        <div class="case-study__content">
+                            <span class="case-study__name">Nom du projet</span>
+                            <h3>Nom du projet</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <span class="sliding-button sliding-button--mobile">
+                                <span class="sliding-button__content">
+                                    <i class="icon icon--arrow" aria-hidden="true"></i>
+                                    Voir l’étude de cas
+                                </span>
+                            </span>
+                        </div>
+                    </a>
+                </li>
+                <li class="case-study__item">
+                    <a href="#">
+                        <div class="case-study__image"></div>
+                        <div class="case-study__content">
+                            <span class="case-study__name">Nom du projet</span>
+                            <h3>Nom du projet</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <span class="sliding-button sliding-button--mobile">
+                                <span class="sliding-button__content">
+                                    <i class="icon icon--arrow" aria-hidden="true"></i>
+                                    Voir l’étude de cas
+                                </span>
+                            </span>
+                        </div>
+                    </a>
+                </li>
+                <li class="case-study__item">
+                    <a href="#">
+                        <div class="case-study__image"></div>
+                        <div class="case-study__content">
+                            <span class="case-study__name">Nom du projet</span>
+                            <h3>Nom du projet</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <span class="sliding-button sliding-button--mobile">
+                                <span class="sliding-button__content">
+                                    <i class="icon icon--arrow" aria-hidden="true"></i>
+                                    Voir l’étude de cas
+                                </span>
+                            </span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

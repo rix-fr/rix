@@ -21,6 +21,7 @@
 
 @use "components/_banner";
 @use "components/_button";
+@use "components/_case-study";
 @use "components/_contact-infos";
 @use "components/_contact-tiles";
 @use "components/_values";
@@ -46,6 +47,6 @@
 @use "utilities/_screen-reader";
 
 @use "pages/_page-home";
-@use "pages/_page-about";
+@use "pages/_page-casebook";
 @use "pages/_page-services";
 @use "pages/_page-contact";
