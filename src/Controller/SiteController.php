@@ -38,7 +38,7 @@ class SiteController extends AbstractController
     #[Route('/services', name: 'services')]
     public function services(ContentManagerInterface $manager): Response
     {
-        $lastCaseStudies = array_slice($manager->getContents(CaseStudy::class, ['date' => false], '_.enabled'), 0, 3);
+        $lastCaseStudies = \array_slice($manager->getContents(CaseStudy::class, ['date' => false], '_.enabled'), 0, 3);
 
         return $this->render('site/services.html.twig', [
             'lastCaseStudies' => $lastCaseStudies,
