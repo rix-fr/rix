@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Model\Article;
 use App\Model\Member;
+use App\Model\CaseStudy;
 use Stenope\Bundle\ContentManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,9 +36,13 @@ class SiteController extends AbstractController
     }
 
     #[Route('/services', name: 'services')]
-    public function services(): Response
+    public function services(ContentManagerInterface $manager): Response
     {
-        return $this->render('site/services.html.twig');
+        $lastCaseStudies = array_slice($manager->getContents(CaseStudy::class, ['date' => false], '_.enabled'), 0, 3);
+
+        return $this->render('site/services.html.twig', [
+            'lastCaseStudies' => $lastCaseStudies,
+        ]);
     }
 
     #[Route('/contact', name: 'contact')]
