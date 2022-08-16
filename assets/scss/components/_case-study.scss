@@ -37,7 +37,7 @@
     &:focus {
       .sliding-button {
         height: 60px;
-        border-top: solid 1px $color-border;
+        border-top: solid 1px $color-border !important;
       }
 
       .sliding-button__content,
@@ -51,7 +51,6 @@
 
 .case-study__content {
   display: block;
-  height: 100%;
   padding: 0 40px;
   text-decoration: none;
 
