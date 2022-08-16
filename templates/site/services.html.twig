@@ -152,14 +152,13 @@
             Études de cas
         </h2>
         <ul>
-            {% for caseStudy in lastCaseStudies %}
             <li class="case-study__item">
                 <a href="#">
                     <div class="case-study__image"></div>
                     <div class="case-study__content">
-                        <span class="case-study__name">{{ caseStudy.title }}</span>
-                        <h3>{{ caseStudy.title }}</h3>
-                        <p>{{ caseStudy.description }}</p>
+                        <span class="case-study__name">Nom du projet</span>
+                        <h3>Panneau pocket</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                         <span class="sliding-button sliding-button--mobile">
                             <span class="sliding-button__content">
                                 <i class="icon icon--arrow" aria-hidden="true"></i>
@@ -169,7 +168,38 @@
                     </div>
                 </a>
             </li>
-            {% endfor %}
+            <li class="case-study__item">
+                <a href="#">
+                    <div class="case-study__image"></div>
+                    <div class="case-study__content">
+                        <span class="case-study__name">Nom du projet</span>
+                        <h3>Bedrock</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <span class="sliding-button sliding-button--mobile">
+                            <span class="sliding-button__content">
+                                <i class="icon icon--arrow" aria-hidden="true"></i>
+                                Voir l’étude de cas
+                            </span>
+                        </span>
+                    </div>
+                </a>
+            </li>
+            <li class="case-study__item">
+                <a href="#">
+                    <div class="case-study__image"></div>
+                    <div class="case-study__content">
+                        <span class="case-study__name">Nom du projet</span>
+                        <h3>Matelex</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <span class="sliding-button sliding-button--mobile">
+                            <span class="sliding-button__content">
+                                <i class="icon icon--arrow" aria-hidden="true"></i>
+                                Voir l’étude de cas
+                            </span>
+                        </span>
+                    </div>
+                </a>
+            </li>
         </ul>
     </div>
 {% endblock %}
