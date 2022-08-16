@@ -9,34 +9,74 @@
     {{ caseStudy.metaDescription|default(caseStudy.description)|default(parent()) }}
 {%- endblock %}
 
-{% block og_image asset(caseStudy.images|first|glide_image_preset('opengraph_image')) %}
-{% block twitter_image absolute_url(asset(caseStudy.images|first|glide_image_preset('twitter_card'))) %}
+{# {% block og_image asset(caseStudy.images|first|glide_image_preset('opengraph_image')) %}
+{% block twitter_image absolute_url(asset(caseStudy.images|first|glide_image_preset('twitter_card'))) %} #}
+{% block body_class 'page-case-study' %}
 
 {% block content %}
-    <div class="page-project container">
-        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-            <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="{{ path('homepage') }}">
-                    <span itemprop="name">Accueil</span>
-                </a>
-                <meta itemprop="position" content="1" />
-            </li>
-            <li class="breadcrumb__item"  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="{{ path('case_studies') }}">
-                    <span itemprop="name">Nos études de cas</span>
-                </a>
-                <meta itemprop="position" content="2" />
-            </li>
-            <li class="breadcrumb__item"  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="#">
-                    <span itemprop="name">{{ caseStudy.title }}</span>
-                </a>
-                <meta itemprop="position" content="3" />
-            </li>
-        </ol>
+
+    <div class="banner">
+        <div class="container">
+            <h1>{{ caseStudy.title }}</h1>
+        </div>
+    </div>
+
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <div class="case-study__header">
+                    <h2>{{ caseStudy.title }}</h2>
+                    <p>Musique & Music est un éditeur spécialisé dans la musique de production dédiée aux professionnels. L'application web permet aux monteurs vidéos de chercher facilement des sons afin d'illustrer leurs productions.</p>
+                    <span class="h3">Services</span>
+                    <h3>Infrastructure<br>Développement</h3>
+                </div>
+                <div class="site-navigation">
+                    <div class="site-navigation__image"></div>
+                    <div class="site-navigation__content">
+                        <a href="https://github.com/manala" class="button button-ghost button-ghost--light"><span>Voir le site</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="container content">
+                <div class="technologies-list">
+                    <div class="technologies-list__title">
+                        <span class="h3">Les technos utilisées</span>
+                    </div>
+                    <ul>
+                        <li class="technologies-list__item">
+                            <a href="#">
+                                <span class="sliding-button sliding-button--replaced">
+                                    <img src="http://localhost:8080/build/images/services/ovh-cloud.c7447829.svg" alt="OVH Cloud">
+                                </span>
+                                <span>Ovh Cloud</span>
+                            </a>
+                        </li>
+                        <li class="technologies-list__item">
+                            <a href="#">
+                                <span class="sliding-button sliding-button--replaced">
+                                    <img src="http://localhost:8080/build/images/services/aws.4d8ec02e.svg" alt="AWS">
+                                </span>
+                                <span>Amazon Web Service</span>
+                            </a>
+                        </li>
+                        <li class="technologies-list__item">
+                            <a href="#">
+                                <span class="sliding-button sliding-button--replaced">
+                                    <img src="http://localhost:8080/build/images/services/scaleway.d2dc5698.svg" alt="Scaleway">
+                                </span>
+                                <span>Scaleway</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   {#  <div class="page-project container">
 
         <div class="banner-case-study">
-            <h1 class="banner-case-study__title">Découvrez <span>{{ caseStudy.title }}</span></h1>
 
             <div class="banner-case-study__content">
                 <div class="highlight">
@@ -135,5 +175,5 @@
                 {% endwith %}
             </ul>
         </div>
-    </div>
+    </div> #}
 {% endblock content %}
