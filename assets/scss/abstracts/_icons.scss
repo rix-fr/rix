@@ -32,6 +32,8 @@ $icons: (
   github: '\e906',
   linkedin: '\e907',
   twitter: '\e908',
+  quotations-left: '\e909',
+  quotations-right: '\e90a',
 );
 
 @each $icon-name, $icon-character in $icons {

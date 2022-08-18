@@ -1,14 +1,6 @@
 @use '../abstracts' as *;
 
 .page-case-study {
-  ul {
-    margin: 0;
-  }
-
-  .h3 {
-    margin-bottom: 20px;
-  }
-
   .banner {
     height: 1500px;
     background-image: url('../../images/case-studies/snow_mountain_background.jpg') !important;
@@ -18,26 +10,47 @@
   .beveled-wrapper__gradient {
     .content {
       position: relative;
-      display: flex;
-      flex-direction: row;
+      padding-bottom: 55px;
 
       ul {
-        > li {
-          &:before,
-          &:after {
-            content: none;
-          }
+        margin-top: 0;
+      }
+
+      blockquote {
+        margin: 80px 0;
+        padding: 46px 80px;
+        font-size: 36px;
+        line-height: 1.4;
+        position: relative;
+        border: solid 1px #99B7D1;
+
+        &::before,
+        &::after {
+          padding: 0 8px;
+          background-color: #fff;
+          color: $color-highlight;
+          font-family: icomoon;
+          position: absolute;
+        }
+
+        &::before {
+          content:'\e909';
+          top: -34px;
+        }
+
+        &::after {
+          content: '\e90a';
+          bottom: -32px;
+          right: 90px;
         }
       }
 
-      h3 {
-        margin-top: 0;
-        color: $color-primary;
-      }
+      figure {
+        margin-left: -125px;
 
-      .h3 {
-        margin-bottom: 0;
-        font-size: toRem(16px);
+        figcaption {
+          text-align: center;
+        }
       }
     }
 
@@ -47,6 +60,10 @@
 
     .case-study__header {
       width: 50%;
+    }
+
+    .case-study__image {
+      height: 743px;
     }
   }
 
@@ -69,7 +86,7 @@
       width: 100%;
 
       &:before {
-        width: 410px;
+        width: 490px;
       }
     }
   }
@@ -80,6 +97,18 @@
 
     ul {
       display: flex;
+      margin: 0;
+      padding: 0;
+      border-top: solid 1px #99B7D1;
+      border-bottom: solid 1px #99B7D1;
+      border-left: solid 1px #99B7D1;
+
+      > li {
+        &:before,
+        &:after {
+          content: none;
+        }
+      }
     }
 
     .technologies-list__title {
@@ -87,22 +116,33 @@
     }
 
     .technologies-list__item {
-      height: 80px;
       width: 33.3333333333%;
       min-width: 33.3333333333%;
+      margin-bottom: 0;
+      padding-left: 0;
       position: relative;
+      text-align: center;
 
       a {
-        padding: 0 130px 110px;
-        height: 100%;
+        padding-bottom: 20px;
         display: block;
+        height: 100%;
         text-decoration: none;
+        border-right: solid 1px #99B7D1;
       }
 
       img {
-        padding: 0 20px;
+        margin-bottom: 20px;
+        padding: 0px 50px;
         width: 100%;
-        border-right: solid 1px #99B7D1;
+        border-bottom: solid 1px #99B7D1;
+      }
+
+      span {
+        font-weight: 600;
+        font-size: 16px;
+        color: #99B7D1;
+        white-space: nowrap;
       }
     }
   }
