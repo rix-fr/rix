@@ -113,7 +113,32 @@ h6,
     font-size: toRem(48px);
   }
 
+  h2,
+  .h2 {
+    font-size: toRem(24px);
+  }
+
+  h3,
+  .h3 {
+    font-size: toRem(24px);
+  }
+
   .h2--large {
+    font-size: toRem(36px);
+  }
+
+  .h3--dark {
+    font-size: toRem(24px);
+  }
+
+  .h2,
+  .h2--large {
+    > span {
+      font-size: toRem(20px);
+    }
+  }
+
+  .case-study__title {
     font-size: toRem(36px);
   }
 }
