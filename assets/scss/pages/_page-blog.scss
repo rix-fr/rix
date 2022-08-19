@@ -1,0 +1,64 @@
+@use '../abstracts' as *;
+
+.page-blog {
+  .content {
+    ul {
+      > li {
+        &:first-of-type {
+          border: 1px solid $color-border;
+        }
+
+        &:before,
+        &:after {
+          content: none !important;
+        }
+      }
+    }
+  }
+
+  .banner {
+    height: 1500px;
+    background-image: url('../../images/blog/pine_trees_background.jpg') !important;
+    background-size: contain !important;
+  }
+
+  .beveled-wrapper__gradient {
+    .shape {
+      background-image: url('../../images/case-studies/header_shape.svg');
+    }
+  }
+}
+
+.miniature-highlight,
+.miniature-inline {
+  margin-bottom: 40px;
+}
+
+.miniature {
+  margin: 0 20px 30px 0 !important;
+}
+
+.miniature-inline,
+.miniature {
+  .tags-list {
+    margin: 0 0 35px;
+  }
+}
+
+@media (max-width: $screen-lg) {
+  .sliding-button--mobile {
+    border-top: 1px solid $color-border !important;
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .miniature {
+    margin: 0 0 30px !important;
+    width: 100%;
+
+    .sliding-button,
+    .sliding-button__content {
+      height: 60px;
+    }
+  }
+}

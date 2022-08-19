@@ -1,0 +1,23 @@
+@use '../abstracts' as *;
+
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+.tags-list__item {
+  display: flex;
+  border: none !important;
+  margin: 5px !important;
+  background-color: $color-light;
+  color: $color-primary;
+  font-family: $secondary-font;
+  font-size: 14px;
+  padding: 7px 10px !important;
+
+  a {
+    text-decoration: none;
+  }
+}

@@ -22,19 +22,21 @@
             <div class="container content">
                 <h2>La réalité du terrain</h2>
                 <p>Voici une sélection récente de projets dans lesquels nous avons pu voir se créer une émulation forte avec nos clients et leurs utilisateurs.</p>
-                <div class="case-study">
+                <div class="miniature-list">
                     <ul>
                         {% for caseStudy in caseStudies %}
-                        <li class="case-study__item">
+                        <li class="miniature-inline">
                             <a href="{{ path('case_study', { caseStudy: caseStudy.slug }) }}">
-                                <div class="case-study__image" style="{{ macros.backgroundImageSrcset(caseStudy.images|first, 'case_study_thumbnail.lg') }}"></div>
-                                <div class="case-study__content">
-                                    <span class="case-study__name">{{ caseStudy.title }}</span>
+                                <div class="miniature-inline__image">
+                                    <span class="image" style="{{ macros.backgroundImageSrcset(caseStudy.images|first, 'case_study_thumbnail.md') }}"></span>
+                                </div>
+                                <div class="miniature-inline__content">
+                                    <span class="miniature-inline__name">{{ caseStudy.title }}</span>
                                     <h3>{{ caseStudy.title }}</h3>
                                     <p>{{ caseStudy.shortDescription }}</p>
                                     <span class="sliding-button sliding-button--mobile">
                                         <span class="sliding-button__content">
-                                            <i class="icon icon--arrow" aria-hidden="true"></i>
+                                            <i class="icon icon--arrow-right" aria-hidden="true"></i>
                                             Voir l’étude de cas
                                         </span>
                                     </span>

@@ -1,0 +1,73 @@
+@use '../abstracts' as *;
+
+.article-author {
+  display: flex;
+  flex-wrap: wrap;
+  color: $color-primary;
+  align-items: center;
+  font-size: 18px;
+
+  img {
+    margin: 0;
+    margin-right: 15px;
+    width: 50px;
+    max-width: unset;
+    border-radius: 50%;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.article-author__image {
+  position: relative;
+
+  img {
+    margin: 0;
+    margin-right: 15px;
+    width: 60px;
+    max-width: unset;
+    border: solid 3px #fff;
+    border-radius: 50%;
+  }
+}
+
+.article-author__info {
+  display: flex;
+  flex-direction: column;
+
+  strong {
+    margin-top: 2px;
+    font-family: $secondary-font;
+  }
+
+  a:hover strong {
+    cursor: pointer;
+    color: $color-secondary;
+  }
+}
+
+.article-author--multi {
+  align-items: flex-start;
+  flex-direction: column;
+
+  .article-author__image {
+    margin-bottom: 10px;
+    position: relative;
+    left: -45px;
+    height: 60px;
+
+    @for $i from 1 through 5 {
+      a:nth-child(#{$i}) {
+        position: absolute;
+        left: #{$i * 45}px;
+      }
+    }
+  }
+
+  .article-author__info + .article-author__info {
+    margin-top: 20px;
+    margin-left: 0;
+  }
+}

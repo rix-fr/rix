@@ -1,0 +1,111 @@
+@use '../abstracts' as *;
+
+.pagination {
+  margin: 0;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+}
+
+.pagination__item {
+  margin: 0;
+  padding-left: 0;
+  border-top: 1px solid $color-border;
+  border-bottom: 1px solid $color-border;
+
+  &:before,
+  &:after {
+    display: none;
+  }
+
+  &:nth-child(2) {
+    padding-left: 20px;
+  }
+
+  &:nth-child(4) {
+    padding-right: 20px;
+  }
+
+  a {
+    margin-bottom: 0;
+    width: 48px;
+    height: 48px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: $secondary-font;
+    font-size: 18px;
+    color: $color-primary;
+    text-decoration: none;
+    z-index: 1;
+
+    &:after {
+      position: absolute;
+      content: '';
+      width: 25px;
+      height: 25px;
+      z-index: -1;
+      border-radius: 50%;
+      background: transparent;
+      transition: background ease-in .1s;
+      pointer-events: none;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: #fff;
+
+      &:after {
+        background: $color-primary;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.pagination__item--active {
+  a {
+    pointer-events: none;
+
+    &:after {
+      border-radius: unset;
+      background: $color-light;
+    }
+  }
+}
+
+.pagination__item--nav {
+  border-right: 1px solid $color-border;
+  border-left: 1px solid $color-border;
+
+  a {
+    width: 48px;
+    margin: 0;
+    font-size: 20px;
+    color: $color-secondary;
+    transition: background ease-in .1s;
+
+    &:after {
+      display: none;
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      background: $color-secondary;
+      color: #fff;
+    }
+  }
+}
+
+@media (max-width: $screen-xs) {
+  .pagination__item {
+    a {
+      height: 50px;
+    }
+  }
+}
