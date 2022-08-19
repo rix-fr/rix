@@ -27,6 +27,15 @@ blockquote {
     bottom: -32px;
     right: 90px;
   }
+
+  p {
+    margin: 0;
+  }
+
+  cite {
+    margin-top: 15px;
+    display: block;
+  }
 }
 
 @media (max-width: $screen-sm) {

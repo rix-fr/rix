@@ -3,20 +3,12 @@
 {% set noindex = true %}
 
 {% block content %}
-    <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-        <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a itemprop="item" href="{{ path('blog') }}">
-                <span itemprop="name">Blog</span>
-            </a>
-            <meta itemprop="position" content="1"/>
-        </li>
-        <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <a itemprop="item" href="#">
-                <span itemprop="name">#{{ tag|u.camel.title }}</span>
-            </a>
-            <meta itemprop="position" content="2"/>
-        </li>
-    </ol>
+    <div class="banner">
+        <div class="container">
+            <h1>Blog <strong>/</strong>
+            </h1>
+        </div>
+    </div>
 
     {{ block('articles') }}
 

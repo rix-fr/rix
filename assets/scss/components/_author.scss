@@ -33,10 +33,31 @@
 .author__info {
   display: flex;
   flex-direction: column;
+  line-height: 1.3;
 
   strong {
     font-family: $secondary-font;
-    line-height: 1.6;
+  }
+}
+
+.author__social {
+  margin-top: 10px;
+  min-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+  a {
+    margin: 0 6px 5px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color-primary;
+    text-decoration: none;
+    border: 1px solid $color-primary;
+    border-radius: 50%;
+    transition: color ease-in .15s, background ease-in .15s;
   }
 }
 

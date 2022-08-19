@@ -1,100 +1,106 @@
-// @use '../abstracts' as *;
+@use '../abstracts' as *;
 
-// code,
-// pre {
-//   &,
-//   &[class*="language-"],
-//   [class*="language-"] {
-//     padding: 0;
-//     font-family: $code-font;
-//     font-size: 18px;
-//     color: $color-primary;
-//     text-align: left;
-//     white-space: pre;
-//     word-spacing: normal;
-//     word-break: normal;
-//     word-wrap: normal;
-//     line-height: 1.5;
-//     overflow: auto;
-//     tab-size: 4;
-//     hyphens: none;
-//     background: $code-background;
-//   }
-// }
+code,
+pre {
+  &,
+  &[class*="language-"],
+  [class*="language-"] {
+    padding: 0;
+    font-family: $code-font;
+    font-size: toRem(18px);
+    color: $code-primary;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+    overflow: auto;
+    tab-size: 4;
+    hyphens: none;
+    background: $code-background;
+  }
+}
 
-// .code-multiline {
-//   margin: 30px 0 !important;
-//   padding: 20px 30px !important;
-//   font-size: 18px;
-// }
+.code-multiline {
+  margin: 30px 0 !important;
+  padding: 20px 30px !important;
+  font-size: toRem(18px);
+}
 
-// .code-inline {
-//   padding: 2px 4px;
-//   font-family: $code-font;
-//   color: $color-primary;
-//   background: $color-secondary;
-//   border-radius: 5px;
-//   white-space: pre-wrap;
-// }
+.code-inline {
+  padding: 2px 4px;
+  font-family: $code-font;
+  color: $code-primary;
+  background: $code-background;
+  border-radius: 5px;
+  white-space: pre-wrap;
+}
 
-// .token {
-//   &.prolog,
-//   &.doctype,
-//   &.cdata,
-//   &.inserted,
-//   &.punctuation,
-//   &.operator,
-//   &.property,
-//   &.selector,
-//   &.delimiter,
-//   &.class-name,
-//   &.function-name,
-//   &.function {
-//     color: $code-primary;
-//   }
+.token {
+  &.prolog,
+  &.doctype,
+  &.cdata,
+  &.inserted,
+  &.punctuation,
+  &.operator,
+  &.property,
+  &.selector,
+  &.delimiter,
+  &.class-name,
+  &.function-name,
+  &.function {
+    color: $code-primary;
+  }
 
-//   &.constant,
-//   &.symbol,
-//   &.variable,
-//   &.tag,
-//   &.attr-name,
-//   &.namespace,
-//   &.deleted,
-//   &.important,
-//   &.atrule,
-//   &.keyword,
-//   &.builtin {
-//     color: $code-tertiary;
-//   }
+  &.constant,
+  &.symbol,
+  &.variable,
+  &.tag,
+  &.attr-name,
+  &.namespace,
+  &.deleted,
+  &.important,
+  &.atrule,
+  &.keyword,
+  &.builtin {
+    color: $code-tertiary;
+  }
 
-//   &.boolean,
-//   &.number,
-//   &.string,
-//   &.char,
-//   &.attr-value,
-//   &.regex,
-//   &.entity,
-//   &.url {
-//     color: $code-info;
-//   }
+  &.boolean,
+  &.number,
+  &.string,
+  &.char,
+  &.attr-value,
+  &.regex,
+  &.entity,
+  &.url {
+    color: $code-info;
+  }
 
-//   &.comment,
-//   &.block-comment,
-//   &.comment *,
-//   &.block-comment * {
-//     color: $code-mute !important;
-//   }
+  &.comment,
+  &.block-comment,
+  &.comment *,
+  &.block-comment * {
+    color: $code-mute !important;
+    border: none;
+  }
 
-//   &.important,
-//   &.bold {
-//     font-weight: bold;
-//   }
+  &.important,
+  &.bold {
+    font-weight: bold;
+  }
 
-//   &.italic {
-//     font-style: italic;
-//   }
+  &.italic {
+    font-style: italic;
+  }
 
-//   &.entity {
-//     cursor: help;
-//   }
-// }
+  &.entity {
+    cursor: help;
+  }
+
+  &.content {
+    display: initial;
+    background: $code-background;
+  }
+}

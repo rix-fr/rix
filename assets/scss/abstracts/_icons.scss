@@ -35,6 +35,10 @@ $icons: (
   twitter: '\e908',
   quotations-left: '\e909',
   quotations-right: '\e90a',
+  website: '\e90c',
+  info: '\e926',
+  danger: '\e927',
+  success: '\928',
 );
 
 @each $icon-name, $icon-character in $icons {

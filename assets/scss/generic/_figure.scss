@@ -1,0 +1,31 @@
+@use '../abstracts' as *;
+
+figure {
+  margin-bottom: 50px;
+
+  img {
+    margin: 0 auto 20px;
+    width: 100%;
+    max-width: 100%;
+    display: block;
+  }
+}
+
+figcaption {
+  margin: 0 auto;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  a {
+    border: none;
+    color: $color-primary;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $color-primary;
+    }
+  }
+}
