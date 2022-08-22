@@ -15,7 +15,7 @@
       width: calc(30% - 25px);
       min-width: calc(30% - 25px);
       background: #fff;
-      border: 1px solid #99b7d1;
+      border: 1px solid $color-border;
       display: flex;
       flex-direction: column;
       padding: 0 0 80px 0;
@@ -72,7 +72,7 @@
 
 .case-study__name {
   font-family: Outfit Semi Bold;
-  color: #eb5050;
+  color: $color-secondary;
   font-size: 1.25rem;
 }
 
