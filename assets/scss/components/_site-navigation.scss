@@ -1,0 +1,37 @@
+@use '../abstracts' as *;
+
+.preview {
+  position: absolute;
+  top: -275px;
+  right: 0;
+  width: 575px;
+  padding: 128px 55px 55px;
+  color: #fff;
+  background: url('../../images/case-studies/case_study_site_vector.svg') no-repeat;
+  background-size: cover;
+  background-position: center top;
+
+  .button {
+    width: 100%;
+
+    &:before {
+      width: 490px;
+    }
+  }
+}
+
+.preview__image {
+  background: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 350px;
+  margin-bottom: 74px;
+}
+
+@media (max-width: $screen-md) {
+  .preview {
+    position: unset;
+    max-width: 100%;
+    width: 100%;
+  }
+}

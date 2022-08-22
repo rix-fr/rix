@@ -16,37 +16,13 @@
         margin-top: 0;
       }
 
-      blockquote {
-        margin: 80px 0;
-        padding: 46px 80px;
-        font-size: toRem(36px);
-        line-height: 1.4;
-        position: relative;
-        border: solid 1px $color-border;
-
-        &::before,
-        &::after {
-          padding: 0 8px;
-          background-color: #fff;
-          color: $color-highlight;
-          font-family: icomoon;
-          position: absolute;
-        }
-
-        &::before {
-          content:'\e909';
-          top: -34px;
-        }
-
-        &::after {
-          content: '\e90a';
-          bottom: -32px;
-          right: 90px;
-        }
-      }
-
       figure {
         margin-left: -125px;
+
+        img {
+          margin: 0 auto 20px;
+          height: 743px;
+        }
 
         figcaption {
           text-align: center;
@@ -60,6 +36,19 @@
 
     .case-study__header {
       width: 50%;
+
+      ul > li {
+        padding-left: 0;
+
+        h3 {
+          margin-bottom: 0;
+        }
+
+        &:before,
+        &:after {
+          content: none;
+        }
+      }
     }
 
     .case-study__image {
@@ -67,125 +56,17 @@
     }
   }
 
-  .site-navigation {
-    position: absolute;
-    top: -275px;
-    right: 125px;
-    width: calc(50% - 145px);
-    padding: 128px 55px 55px;
-    color: #fff;
-    background: transparent url('../../images/case-studies/case_study_site_vector.svg') no-repeat;
-
-    .site-navigation__image {
-      background: $color-light;
-      height: 350px;
-      margin-bottom: 74px;
-    }
-
-    .button {
-      width: 100%;
-
-      &:before {
-        width: 490px;
-      }
-    }
-  }
-
-  .technologies-list {
-    margin: 0 0 60px;
-    position: relative;
-
-    ul {
-      display: flex;
-      margin: 0;
-      padding: 0;
-
-      > li {
-        &:before,
-        &:after {
-          content: none;
-        }
-      }
-    }
-  }
-
-  .technologies-list__title {
-    padding-bottom: 20px;
-  }
-
-  .technologies-list__item {
-    width: 33.3333333333%;
-    min-width: 33.3333333333%;
-    margin-bottom: 0;
-    padding-left: 0;
-    position: relative;
-    text-align: center;
-    border-top: solid 1px $color-border;
-    border-bottom: solid 1px $color-border;
-
-    a {
-      padding-bottom: 20px;
-      display: block;
-      height: 100%;
-      text-decoration: none;
-      border-right: solid 1px $color-border;
-    }
-
-    img {
-      margin-bottom: 20px;
-      padding: 0px 50px;
-      width: 100%;
-      border-bottom: solid 1px $color-border;
-    }
-
-    span {
-      font-weight: 600;
-      font-size: toRem(16px);
-      color: $color-border;
-      white-space: nowrap;
-    }
-
-    &:first-of-type {
-      border-left: solid 1px $color-border;
-    }
-  }
-
-  .iframe-container {
-    position: relative;
-    overflow: hidden;
-    padding-top: 56.25%;
-    .iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
+  iframe {
+    margin: 0 auto;
   }
 }
 
 @media (max-width: $screen-md) {
   .page-case-study {
-
-    figure {
-      display: none;
-    }
-
     .beveled-wrapper__gradient{
       .case-study__header {
         width: 100%;
       }
-    }
-
-    .site-navigation {
-      position: unset;
-      top: 0;
-      right: 0;
-      max-width: 100%;
-      width: 100%;
-      background-position: center top;
-      background-size: cover;
     }
   }
 }
@@ -194,41 +75,9 @@
   .page-case-study {
     .beveled-wrapper__gradient {
       .content {
-        blockquote {
-          font-size: toRem(24px);
-          padding: 35px 30px;
-
-          &::before {
-            top: -23px;
-          }
-
-          &::after {
-            bottom: -23px;
-          }
+        figure {
+          margin: 0;
         }
-      }
-    }
-
-    .technologies-list {
-      ul {
-        display: inline;
-      }
-    }
-
-    .technologies-list__item {
-      width: 100%;
-      border-left: solid 1px $color-border;
-
-      img {
-        padding: 0px 100px;
-      }
-
-      &:first-of-type {
-        border-bottom: unset;
-      }
-
-      &:last-of-type {
-        border-top: unset;
       }
     }
   }
