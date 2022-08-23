@@ -9,8 +9,6 @@
     margin: 0;
     padding: 0;
     flex-wrap: wrap;
-    border-left: solid 1px $color-border;
-    border-top: solid 1px $color-border;
 
     > li {
       &:before,
@@ -28,16 +26,32 @@
 .technologies-list__item {
   width: 33.3333333333%;
   min-width: 33.3333333333%;
-  margin-bottom: 0;
+  margin-bottom: 15px;
   padding-left: 0;
   position: relative;
   text-align: center;
-  border-right: solid 1px $color-border;
+  border: solid 1px $color-border;
+  border-left: none;
+
+  &:nth-of-type(3n+1) {
+    border-left: solid 1px $color-border;
+  }
+
+  &:last-of-type {
+    margin-bottom: 15px;
+  }
 
   a {
     display: block;
     height: 100%;
     text-decoration: none;
+    font-family: $secondary-font;
+    color: $color-border;
+
+    > span {
+      display: block;
+      padding: 20px 0;
+    }
   }
 
   img {
@@ -45,36 +59,15 @@
     width: 100%;
     border-bottom: solid 1px $color-border;
   }
-
-  .term {
-    padding: 20px 0;
-    font-family: $secondary-font;
-    color: $color-border;
-    border-bottom: solid 1px $color-border;
-  }
 }
 
 @media (max-width: $screen-sm) {
-  .technologies-list {
-    ul {
-      border-left: none;
-    }
-  }
-
   .technologies-list__item {
     width: 100%;
     border-left: solid 1px $color-border;
 
     img {
       padding: 0 100px;
-    }
-
-    &:first-of-type {
-      border-top: solid 1px $color-border;
-    }
-
-    &:last-of-type {
-      border-top: unset;
     }
   }
 }
