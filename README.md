@@ -1,25 +1,34 @@
 # Rix
 
-The Elao website.
+The Rix website & blog.
 
 ## Prerequisite
 
 Either:
 
-- Docker
-- or a local Node 16+, PHP 8.1+ & Symfony CLI install
+- a local install, with:
+  - Node 16+, 
+  - PHP 8.1+
+  - [Symfony CLI](https://symfony.com/download)
+- or Docker, thanks to the [`lazy.symfony` Manala recipe](https://manala.github.io/manala-recipes/recipes/lazy.symfony/)
 
 ## Setup
 
-### Local install
+### Local Install
 
-For a local install, simply install the dependencies with:
+Install the dependencies using
 
 ```shell
 make install
 ```
 
-### Docker
+> **Note**
+> You're done! **Next:** see how to [serve the app](#dev).
+
+<details>
+<summary>
+<h3>Using Docker</h3>
+</summary>
 
 If you want to use the Docker stack, setup the project using:
 
@@ -33,27 +42,22 @@ Then, log into the container using
 make sh
 ```
 
+> **Warning**
+> When **using Docker**, you must use `make sh`
+> to log into the container before running any command.
+
 And install the dependencies with
 
 ```shell
 make install
 ```
+</details>
 
-## Commands
+## Dev
 
-When using Docker, use
+### Local Install
 
-```shell
-make sh
-```
-
-to log into the container before running the next commands.
-
-### Start the server
-
-#### Local Install
-
-If you use a local install & Symfony CLI, you can use:
+Start a server using
 
 ```shell
 make serve
@@ -61,15 +65,32 @@ make serve
 
 The Symfony CLI exposes you the URL at which the site is available.
 
-#### Using Docker
+> **Note**
+> When using a local install, `make serve` is enough to serve both PHP app and assets.  
+> You're ready to dev!
 
-When using a Docker install, serve the application using:
+<details>
+<summary>
+<h3>Using Docker</h3>
+</summary>
+
+When using a Docker install, serve the PHP application using:
 
 ```shell
 make up
 ```
 
-The site is now available at: http://localhost:8000, but you need to build or serve the assets (see following sections)
+> **Warning**
+> The site is now available at http://localhost:8000, but you need to build or serve the assets.
+
+For development purposes, start a Webpack dev-server using:
+
+```shell
+make serve.assets
+```
+</details>
+
+## Commands
 
 ### Build assets
 
@@ -79,25 +100,15 @@ Build the assets once using:
 make build.assets
 ```
 
-For development purposes, **on a Docker install**, use a Webpack dev-server using:
-
-```shell
-make serve.assets
-```
-
-**When using a local install, `make serve` is enough to serve both PHP app and assets.**
-
-## Contributing
-
 ### Writing an article
 
-You can generate a new article using:
+Generate a new article using:
 
 ```shell
 make article
 ```
 
-Please, follow the [guidelines](https://rix-fr.github.io/rix/blog/styleguide/example/).
+Please, follow the [guidelines on how to write an article](https://rix-fr.github.io/rix/blog/styleguide/example/).
 
 ## Going further
 
