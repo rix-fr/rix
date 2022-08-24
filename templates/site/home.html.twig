@@ -3,7 +3,7 @@
 
 {% set interval = date('now').diff(date(site.xpDate)) %}
 
-{% block meta_title "Accueil" %}
+{% block meta_title "Rix 🐺 - Expertise Kubernetes & solutions devops sur-mesure" %}
 {% block meta_description "Rix concepteurs d'infrastructures résilientes depuis plus de %d ans par des expert·e·s passionné·e·s, spécialistes Kubernetes et des environnements à fortes contraintes techniques.| Rix"|format(interval.y) %}
 {#{% block og_image asset('social/Rix-home-og2.jpg')  %}#}
 {#{% block twitter_image absolute_url(asset('social/rix-ogimage-twitter2.jpg'))  %}#}
@@ -100,10 +100,9 @@
                             </li>
                             <li class="services-list__item">
                                 <a href="#">
-                                    <img src="{{ asset('build/images/services/conception.svg') }}" alt="">
-                                    <h4>Conception sur-mesure d'infrastructures</h4>
-                                    <p>Étude des contraintes d'exploitation de vos projets (nous n'hésitons pas à mettre le nez dans l'applicatif, nous prenons le temps de comprendre votre métier et vos objectifs) et conception d'infrastructures sur-mesure. </p>
-                                    <p>Kubernetes, Openstack ou bare metal.</p>
+                                    <img src="{{ asset('build/images/services/performance.svg') }}" alt="">
+                                    <h4>Performances et diagnostique</h4>
+                                    <p>Mesure de performances, tirs de charge, estimation des capacités d'une infrastructure. Mise au point de <strong>PRA</strong> et <strong>PCA</strong>.</p>
                                     <span class="sliding-button">
                                         <span class="sliding-button__content">
                                             <i class="icon icon--arrow" aria-hidden="true"></i>
@@ -116,7 +115,7 @@
                                 <a href="#">
                                     <img src="{{ asset('build/images/services/environment.svg') }}" alt="">
                                     <h4>Environnement de développement</h4>
-                                    <p>Grâce de notre (longue) expérience, nous vous accompagnons pour mettre en place des environnements de développement homogènes, pour ne plus perdre de temps à remonter un projet.</p>
+                                    <p>Grâce à notre (longue) expérience, nous vous accompagnons pour mettre en place des environnements de développement homogènes, pour ne plus perdre de temps à «remonter» un projet.</p>
                                     <p>Nous pouvons également vous aider à construire vos plateforme d'intégration continue.</p>
                                     <span class="sliding-button">
                                         <span class="sliding-button__content">
@@ -138,12 +137,11 @@
                         <ul>
                             <li class="services-list__item">
                                 <a href="#">
-                                    <img src="{{ asset('build/images/services/sovereignty.svg') }}" alt="">
-                                    <h4>Pilotage d'infrastructures</h4>
-                                    <p>Supervision active de vos infrastructures, suivi de la montée en charge lors d’événement ponctuels, reprise sur incident.</p>
-                                    <span class="sliding-button sliding-button--replaced">
-                                        <img src="{{ asset('build/images/services/ovh-cloud.svg') }}" alt="OVH Cloud">
-                                        <img src="{{ asset('build/images/services/scaleway.svg') }}" alt="Scaleway">
+                                    <img src="{{ asset('build/images/services/conception.svg') }}" alt="">
+                                    <h4>Conception sur-mesure d'infrastructures</h4>
+                                    <p>Étude des contraintes d'exploitation de vos projets (nous n'hésitons pas à mettre le nez dans l'applicatif, nous prenons le temps de comprendre votre métier et vos objectifs) et conception d'infrastructures sur-mesure. </p>
+                                    <p>Kubernetes, Openstack ou bare metal.</p>
+                                    <span class="sliding-button">
                                         <span class="sliding-button__content">
                                             <i class="icon icon--arrow" aria-hidden="true"></i>
                                             Découvrir les services
@@ -168,10 +166,12 @@
                             </li>
                             <li class="services-list__item">
                                 <a href="#">
-                                    <img src="{{ asset('build/images/services/performance.svg') }}" alt="">
-                                    <h4>Performances et diagnostique</h4>
-                                    <p>Mesure de performances, tirs de charge, estimation des capacités d'une infrastructure. Mise au point de <strong>PRA</strong> et <strong>PCA</strong>.</p>
-                                    <span class="sliding-button">
+                                    <img src="{{ asset('build/images/services/sovereignty.svg') }}" alt="">
+                                    <h4>Pilotage d'infrastructures</h4>
+                                    <p>Supervision active de vos infrastructures, suivi de la montée en charge lors d’événement ponctuels, reprise sur incident.</p>
+                                    <span class="sliding-button sliding-button--replaced">
+                                        <img src="{{ asset('build/images/services/ovh-cloud.svg') }}" alt="OVH Cloud">
+                                        <img src="{{ asset('build/images/services/scaleway.svg') }}" alt="Scaleway">
                                         <span class="sliding-button__content">
                                             <i class="icon icon--arrow" aria-hidden="true"></i>
                                             Découvrir les services

@@ -27,13 +27,14 @@
                 <p>Voici une sélection récente de projets dans lesquels nous avons pu voir se créer une émulation forte avec nos clients et leurs utilisateurs.</p>
                 <div class="case-study">
                     <ul>
+                        {% for caseStudy in caseStudies %}
                         <li class="case-study__item">
-                            <a href="#">
+                            <a href="{{ path('case_study', { caseStudy: caseStudy.slug }) }}">
                                 <div class="case-study__image"></div>
                                 <div class="case-study__content">
-                                    <span class="case-study__name">Nom du projet</span>
-                                    <h3>Nom du projet</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <span class="case-study__name">{{ caseStudy.title }}</span>
+                                    <h3>{{ caseStudy.title }}</h3>
+                                    <p>{{ caseStudy.description }}</p>
                                     <span class="sliding-button sliding-button--mobile">
                                         <span class="sliding-button__content">
                                             <i class="icon icon--arrow" aria-hidden="true"></i>
@@ -43,43 +44,13 @@
                                 </div>
                             </a>
                         </li>
-                        <li class="case-study__item">
-                            <a href="#">
-                                <div class="case-study__image"></div>
-                                <div class="case-study__content">
-                                    <span class="case-study__name">Nom du projet</span>
-                                    <h3>Nom du projet</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    <span class="sliding-button sliding-button--mobile">
-                                        <span class="sliding-button__content">
-                                            <i class="icon icon--arrow" aria-hidden="true"></i>
-                                            Voir l’étude de cas
-                                        </span>
-                                    </span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="case-study__item">
-                            <a href="#">
-                                <div class="case-study__image"></div>
-                                <div class="case-study__content">
-                                    <span class="case-study__name">Nom du projet</span>
-                                    <h3>Nom du projet</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    <span class="sliding-button sliding-button--mobile">
-                                        <span class="sliding-button__content">
-                                            <i class="icon icon--arrow" aria-hidden="true"></i>
-                                            Voir l’étude de cas
-                                        </span>
-                                    </span>
-                                </div>
-                            </a>
-                        </li>
+                        {% endfor %}    
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+    <!--
     <div class="container">
         <div class="case-study">
             <ul>
@@ -133,5 +104,5 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div>-->
 {% endblock %}
