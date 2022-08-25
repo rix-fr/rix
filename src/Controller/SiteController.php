@@ -35,7 +35,7 @@ class SiteController extends AbstractController
 
         return $this->render('site/about.html.twig', [
             'members' => $members,
-            'lastCaseStudies' => $lastCaseStudies
+            'lastCaseStudies' => $lastCaseStudies,
         ]);
     }
 
