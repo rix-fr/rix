@@ -36,7 +36,7 @@
 @use "components/_profile";
 @use "components/_profile-list";
 @use "components/_experience";
-@use "components/_site-navigation";
+@use "components/_preview";
 
 @use "generic/_a";
 // @use "generic/_code";
@@ -54,3 +54,4 @@
 @use "pages/_page-case-study";
 @use "pages/_page-services";
 @use "pages/_page-contact";
+@use "pages/_page-legals";

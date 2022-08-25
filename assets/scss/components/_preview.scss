@@ -3,7 +3,7 @@
 .preview {
   position: absolute;
   top: -275px;
-  right: 0;
+  right: 125px;
   width: 575px;
   padding: 128px 55px 55px;
   color: #fff;
@@ -11,11 +11,17 @@
   background-size: cover;
   background-position: center top;
 
+  .preview__content {
+    text-align: center;
+  }
+
   .button {
+    max-width: 400px;
     width: 100%;
+    margin: 0 auto;
 
     &:before {
-      width: 490px;
+      width: 750px;
     }
   }
 }

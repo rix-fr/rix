@@ -1,12 +1,13 @@
 {% macro backgroundImageSrcset(path, preset, bgColor = '#f1f1f1') -%}
-    background: {{ bgColor }} url('{{ asset(path|glide_image_preset(preset)) }}');
+    background-color: {{ bgColor }};
+    background-image: url('{{ asset(path|glide_image_preset(preset)) }}');
     {% for prefix in ['webkit', 'moz', 'ms'] -%}
-    background: {{ bgColor }} -{{ prefix }}-image-set(
+    background-image: -{{ prefix }}-image-set(
         url('{{ asset(path|glide_image_preset(preset)) }}') 1x,
         url('{{ asset(path|glide_image_preset(preset, { dpr: 2 })) }}') 2x
     );
     {% endfor -%}
-    background: {{ bgColor }} image-set(
+    background-image: image-set(
         url('{{ asset(path|glide_image_preset(preset)) }}') 1x,
         url('{{ asset(path|glide_image_preset(preset, { dpr: 2 })) }}') 2x
     );

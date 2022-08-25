@@ -53,6 +53,7 @@
   display: block;
   padding: 0 40px;
   text-decoration: none;
+  flex: 1;
 
   p {
     margin: 0;
@@ -60,12 +61,14 @@
 
   h3 {
     margin: 0 0 29px;
-    color: #07162f;
+    color: $color-primary;
   }
 }
 
 .case-study__image {
-  background-image: url('../../images/about/values/glow.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   height: 350px;
   margin-bottom: 20px;
 }
