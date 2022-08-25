@@ -11,8 +11,8 @@ shortDescription: "Librairie musicale pour les professionnels"
 clients: Musique & Music
 size: 3 mois
 services: ["Accompagnement", "Développement"]
-terms: ["example"]
-images: ["content/images/case-study/musique-music-banner.jpg"]
+terms: ["aws"]
+images: ["https://picsum.photos/200/300"]
 ---
 
 ## Le contexte du projet
