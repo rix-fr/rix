@@ -65,7 +65,12 @@
     padding-right: 40px;
     padding-bottom: 40px;
 
+    &:before {
+      top: -40px;
+    }
+
     &:after {
+      top: 30px;
       left: 40px;
     }
   }
