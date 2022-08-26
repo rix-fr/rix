@@ -14,30 +14,94 @@
 {% block body_class 'page-case-study' %}
 
 {% block content %}
-    <div class="page-project container">
-        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-            <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="{{ path('homepage') }}">
-                    <span itemprop="name">Accueil</span>
-                </a>
-                <meta itemprop="position" content="1" />
-            </li>
-            <li class="breadcrumb__item"  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="{{ path('case_studies') }}">
-                    <span itemprop="name">Nos études de cas</span>
-                </a>
-                <meta itemprop="position" content="2" />
-            </li>
-            <li class="breadcrumb__item"  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="#">
-                    <span itemprop="name">{{ caseStudy.title }}</span>
-                </a>
-                <meta itemprop="position" content="3" />
-            </li>
-        </ol>
-
+    <div class="banner">
+        <div class="container">
+            <h1>{{ caseStudy.title }}</h1>
+        </div>
+    </div>
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <div class="case-study__header">
+                    <h2 class="case-study__title">{{ caseStudy.title }}</h2>
+                    <p>Musique & Music est un éditeur spécialisé dans la musique de production dédiée aux professionnels. L'application web permet aux monteurs vidéos de chercher facilement des sons afin d'illustrer leurs productions.</p>
+                    <span class="h3--small">Services</span>
+                    <ul>
+                        <li><span class="h3--dark">Infrastructure</span></li>
+                        <li><span class="h3--dark">Développement</span></li>
+                    </ul>
+                </div>
+                <div class="preview">
+                    <div class="preview__image" style="background-image:url(https://picsum.photos/500/200)"></div>
+                    <div class="preview__content">
+                        <a href="https://github.com/manala" class="button button-ghost button-ghost--light"><span>Voir le site</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="container content">
+                <div class="technologies-list">
+                    <div class="technologies-list__title">
+                        <span class="h3--small">Les technos utilisées</span>
+                    </div>
+                    {% include "glossary/term_list.html.twig" with {
+                        terms: caseStudy.terms
+                    } only %}
+                </div>
+                <h2>L'expertise Elao déployée pour l'application Musique Music</h2>
+                <h3>Le contexte du projet</h3>
+                <p>Musique & Music est un éditeur spécialisé dans la musique de production dédiée aux professionnels. L'application web permet aux monteurs vidéos de chercher facilement des sons afin d'illustrer leurs productions. Parmi les atouts de l'application, il y a notamment la richesse du catalogue, la fluidité de la recherche et la pertinence des résultats proposés. Une recherche par similarité permet aux clients de Musique & Music de rechercher finement un style de musique en important des fichiers audio.</p>
+                <ul>
+                    <li>Toute l'équipe est impliquée de manière forte</li>
+                    <li>Aucune perte d'information</li>
+                </ul>
+                <figure>
+                    <img src="https://picsum.photos/200">
+                    <figcaption>Légende</figcaption>
+                </figure>
+                <h2>L'expertise Elao déployée pour l'application Musique Music</h2>
+                <h3>Le contexte du projet</h3>
+                <p>Musique & Music est un éditeur spécialisé dans la musique de production dédiée aux professionnels. L'application web permet aux monteurs vidéos de chercher facilement des sons afin d'illustrer leurs productions. Parmi les atouts de l'application, il y a notamment la richesse du catalogue, la fluidité de la recherche et la pertinence des résultats proposés. Une recherche par similarité permet aux clients de Musique & Music de rechercher finement un style de musique en important des fichiers audio.</p>
+                <blockquote>
+                    Musique & Music est un éditeur spécialisé dans la musique de production dédiée aux professionnels.
+                </blockquote>
+                <h3>Pour les professionnels du montage vidéo : une bibliothèque de musique fluide et dynamique</h3>
+                <p>Musique & Music est un éditeur spécialisé dans la musique de production dédiée aux professionnels. L'application web permet aux monteurs vidéos de chercher facilement des sons afin d'illustrer leurs productions. Parmi les atouts de l'application, il y a notamment la richesse du catalogue, la fluidité de la recherche et la pertinence des résultats proposés. Une recherche par similarité permet aux clients de Musique & Music de rechercher finement un style de musique en important des fichiers audio.</p>
+                <p>Une recherche par similarité permet aux clients de Musique & Music de rechercher finement un style de musique en important des fichiers audio.</p>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/QR1zeImAkvY" frameborder="0" allowfullscreen title="La vidéo Youtube qui fête les 5 ans de PanneauPocket"></iframe>
+            </div>
+        </div>
+        <div class="container">
+            <div class="case-study">
+                <h2 class="h2--large">
+                    <span>Cas client</span>
+                    Études de cas
+                </h2>
+                <ul>
+                    {% for caseStudy in randomStudies %}
+                    <li class="case-study__item">
+                        <a href="{{ path('case_study', { caseStudy: caseStudy.slug }) }}">
+                            <div class="case-study__image" style="{{ macros.backgroundImageSrcset(caseStudy.images|first, 'case_study_thumbnail.lg') }}"></div>
+                            <div class="case-study__content">
+                                <span class="case-study__name">{{ caseStudy.title }}</span>
+                                <h3>{{ caseStudy.title }}</h3>
+                                <p>{{ caseStudy.shortDescription }}</p>
+                                <span class="sliding-button sliding-button--mobile">
+                                    <span class="sliding-button__content">
+                                        <i class="icon icon--arrow" aria-hidden="true"></i>
+                                        Voir l’étude de cas
+                                    </span>
+                                </span>
+                            </div>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+   {#  <div class="page-project container">
         <div class="banner-case-study">
-
             <div class="banner-case-study__content">
                 <div class="highlight">
                     <!--
@@ -47,7 +111,6 @@
                     <p>{{ caseStudy.description }}</p>
                     <i class="icon icon--semicolon" aria-hidden="true"></i>
                 </div>
-
                 <!--
                     3 images de preview maximum dont :
                         - 1 image principale obligatoire
@@ -77,10 +140,8 @@
                         </a>
                     </div>
                 </div>
-
             </div>
         </div>
-
         <div class="page-project__detail">
             <ul class="tile-list">
                 <li>
@@ -108,10 +169,8 @@
                 </li>
             </ul>
         </div>
-
         <div class="page-project__content">
             {{ caseStudy.content|raw }}
-
             <h2 class="h2--dash">D'autres études de cas</h2>
             <ul class="article-list">
                 {% with %}

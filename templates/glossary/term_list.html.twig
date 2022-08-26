@@ -1,11 +1,11 @@
-<ul class="{{ list_class|default('technologies') }}">
+<ul class="{{ list_class|default('technologies-list') }}">
     {% for slug in terms %}
         {% set term = content_get('App\\Model\\Glossary\\Term', slug) %}
-        <li>
-            <div class="{{ item_class|default('technologies__item') }}">
-                <img src="{{ asset(term.logo) }}" alt="Logo {{ term.logo }}">
-                {{ term.name }}
-            </div>
+        <li class="technologies-list__item">
+            <a href="{{ term.link }}">
+                <img src="{{ asset(term.logo) }}" alt="Logo {{ term.logo }}" alt="{{ term.name }}">
+                <span>{{ term.name }}</span>
+            </a>
         </li>
     {% endfor %}
 </ul>
