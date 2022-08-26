@@ -38,6 +38,10 @@
       font-family: $secondary-font;
       color: #fff;
       text-decoration: none;
+
+      &:hover {
+        color: #fff;
+      }
     }
   }
 
