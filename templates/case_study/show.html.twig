@@ -9,6 +9,9 @@
     {{ caseStudy.metaDescription|default(caseStudy.description)|default(parent()) }}
 {%- endblock %}
 
+{% block og_image asset(caseStudy.images|first|glide_image_preset('opengraph_image')) %}
+{% block twitter_image absolute_url(asset(caseStudy.images|first|glide_image_preset('twitter_card'))) %}
+
 {% block body_class 'page-case-study' %}
 
 {% block content %}
