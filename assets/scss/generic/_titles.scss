@@ -26,6 +26,17 @@ h2,
   line-height: 1.3;
 }
 
+h2.anchor-title {
+  a {
+    margin: 30px 0;
+    font-size: toRem(36px);
+    font-family: $secondary-font;
+    font-weight: 400;
+    line-height: 1.3;
+    text-decoration: none;
+  }
+}
+
 h3,
 .h3 {
   margin: 30px 0 23px;
@@ -34,6 +45,18 @@ h3,
   font-weight: 400;
   color: $color-secondary;
   line-height: 1.7;
+}
+
+h3.anchor-title {
+  a {
+    margin: 30px 0 23px;
+    font-size: toRem(28px);
+    font-family: $secondary-font;
+    font-weight: 400;
+    color: $color-secondary;
+    line-height: 1.7;
+    text-decoration: none;
+  }
 }
 
 h4,
@@ -65,6 +88,22 @@ h6,
   }
 }
 
+.h3--small {
+  margin-bottom: 0;
+  font-size: toRem(16px);
+  font-family: $secondary-font;
+  font-weight: 400;
+  color: $color-secondary;
+  line-height: 1.7;
+}
+
+.h3--dark {
+  margin-top: 0;
+  font-size: toRem(28px);
+  font-family: $secondary-font;
+  color: $color-primary;
+}
+
 .image-title {
   margin: 0 0 25px;
 
@@ -88,6 +127,10 @@ h6,
   }
 }
 
+.case-study__title {
+  margin-bottom: 40px !important;
+}
+
 @media (max-width: $screen-sm) {
   h1,
   .h1 {
@@ -95,7 +138,32 @@ h6,
     font-size: toRem(48px);
   }
 
+  h2,
+  .h2 {
+    font-size: toRem(24px);
+  }
+
+  h3,
+  .h3 {
+    font-size: toRem(24px);
+  }
+
   .h2--large {
+    font-size: toRem(36px);
+  }
+
+  .h3--dark {
+    font-size: toRem(24px);
+  }
+
+  .h2,
+  .h2--large {
+    > span {
+      font-size: toRem(20px);
+    }
+  }
+
+  .case-study__title {
     font-size: toRem(36px);
   }
 }

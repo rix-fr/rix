@@ -15,7 +15,7 @@
       width: calc(30% - 25px);
       min-width: calc(30% - 25px);
       background: #fff;
-      border: 1px solid #99b7d1;
+      border: 1px solid $color-border;
       display: flex;
       flex-direction: column;
       padding: 0 0 80px 0;
@@ -53,6 +53,7 @@
   display: block;
   padding: 0 40px;
   text-decoration: none;
+  flex: 1;
 
   p {
     margin: 0;
@@ -60,19 +61,21 @@
 
   h3 {
     margin: 0 0 29px;
-    color: #07162f;
+    color: $color-primary;
   }
 }
 
 .case-study__image {
-  background-image: url('../../images/about/values/glow.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   height: 350px;
   margin-bottom: 20px;
 }
 
 .case-study__name {
   font-family: Outfit Semi Bold;
-  color: #eb5050;
+  color: $color-secondary;
   font-size: 1.25rem;
 }
 

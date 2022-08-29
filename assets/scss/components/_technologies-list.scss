@@ -1,0 +1,73 @@
+@use '../abstracts' as *;
+
+.technologies-list {
+  margin: 0 0 60px;
+  position: relative;
+
+  ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+
+    > li {
+      &:before,
+      &:after {
+        content: none;
+      }
+    }
+  }
+}
+
+.technologies-list__title {
+  padding-bottom: 20px;
+}
+
+.technologies-list__item {
+  width: 33.3333333333%;
+  min-width: 33.3333333333%;
+  margin-bottom: 15px;
+  padding-left: 0;
+  position: relative;
+  text-align: center;
+  border: solid 1px $color-border;
+  border-left: none;
+
+  &:nth-of-type(3n+1) {
+    border-left: solid 1px $color-border;
+  }
+
+  &:last-of-type {
+    margin-bottom: 15px;
+  }
+
+  a {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    font-family: $secondary-font;
+    color: $color-border;
+
+    > span {
+      display: block;
+      padding: 20px 0;
+    }
+  }
+
+  img {
+    padding: 0 50px;
+    width: 100%;
+    border-bottom: solid 1px $color-border;
+  }
+}
+
+@media (max-width: $screen-sm) {
+  .technologies-list__item {
+    width: 100%;
+    border-left: solid 1px $color-border;
+
+    img {
+      padding: 0 100px;
+    }
+  }
+}

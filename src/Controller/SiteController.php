@@ -31,8 +31,12 @@ class SiteController extends AbstractController
     public function about(ContentManagerInterface $manager): Response
     {
         $members = $manager->getContents(Member::class, ['name' => true], ['active' => true]);
+        $lastCaseStudies = \array_slice($manager->getContents(CaseStudy::class, ['date' => false], '_.enabled'), 0, 3);
 
-        return $this->render('site/about.html.twig', ['members' => $members]);
+        return $this->render('site/about.html.twig', [
+            'members' => $members,
+            'lastCaseStudies' => $lastCaseStudies,
+        ]);
     }
 
     #[Route('/services', name: 'services')]

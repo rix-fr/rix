@@ -1,0 +1,45 @@
+@use '../abstracts' as *;
+
+blockquote {
+  margin: 80px 0;
+  padding: 46px 80px;
+  font-size: toRem(36px);
+  line-height: 1.4;
+  position: relative;
+  border: solid 1px $color-border;
+
+  &::before,
+  &::after {
+    padding: 0 8px;
+    background-color: #fff;
+    color: $color-highlight;
+    font-family: icomoon;
+    position: absolute;
+  }
+
+  &::before {
+    content:'\e909';
+    top: -34px;
+  }
+
+  &::after {
+    content: '\e90a';
+    bottom: -32px;
+    right: 90px;
+  }
+}
+
+@media (max-width: $screen-sm) {
+  blockquote {
+    font-size: toRem(24px);
+    padding: 35px 30px;
+
+    &::before {
+      top: -23px;
+    }
+
+    &::after {
+      bottom: -23px;
+    }
+  }
+}
