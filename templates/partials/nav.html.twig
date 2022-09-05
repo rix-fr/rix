@@ -2,7 +2,7 @@
     <ul>
         {% for item in site.menu|filter(item => item.desktop ?? true) %}
             <li class="nav__item {{ app.request.attributes.get( '_route' ) == item.path ? 'nav__item--active' }}">
-                <a href="{{ path(item.path) }}">
+                <a href="{{ nav_item_url(item) }}">
                     <span>{{ item.label }}</span>
                 </a>
             </li>

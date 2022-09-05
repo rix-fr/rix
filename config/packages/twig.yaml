@@ -23,6 +23,13 @@ twig:
             trackers:
                 matomo: "%env(MATOMO_ID)%"
 
+            # Nav items full syntax:
+            # - path: "route-name"
+            #   label: "My label"
+            #   params:
+            #     slug: "my-target"
+            #   anchor: "my-anchor"
+
             menu:
                 - { path: "homepage", label: "Accueil" }
                 - { path: "services", label: "Nos services" }

@@ -11,7 +11,7 @@
     <ul>
         {% for item in site.menu|filter(item => item.mobile ?? true) %}
             <li class="nav-mobile__item {{ app.request.attributes.get( '_route' ) == item.path ? 'nav-mobile__item--active' }} {{ item.mobileClass|default('') }}">
-                <a href="{{ path(item.path) }}">
+                <a href="{{ nav_item_url(item) }}">
                     {{ item.label }}
                 </a>
             </li>
