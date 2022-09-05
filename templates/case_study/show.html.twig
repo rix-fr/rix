@@ -26,11 +26,12 @@
             <div class="container content">
                 <div class="case-study__header">
                     <h2 class="case-study__title">{{ caseStudy.title }}</h2>
-                    <p>Musique & Music est un éditeur spécialisé dans la musique de production dédiée aux professionnels. L'application web permet aux monteurs vidéos de chercher facilement des sons afin d'illustrer leurs productions.</p>
+                    <p>{{ caseStudy.description }}</p>
                     <span class="h3--small">Services</span>
                     <ul>
-                        <li><span class="h3--dark">Infrastructure</span></li>
-                        <li><span class="h3--dark">Développement</span></li>
+                        {% for service in caseStudy.services %}
+                            <li><span class="h3--dark">{{ service }}</span></li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="preview">

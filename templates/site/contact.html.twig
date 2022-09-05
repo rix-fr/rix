@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block og_image asset('social/Rix-home-og2.jpg')  %}
 {% block twitter_image absolute_url(asset('social/rix-ogimage-twitter2.jpg'))  %}
+{% block meta_title "Rix 🐺 - Nous contacter" %}
+{% block meta_description "Besoin d'informations ? Kubernetes, Openstack, Terraform ? Un projet, n'hésitez pas, contactez-nous !" %}
 
 {% block body_class 'page-contact' %}
 
@@ -46,9 +48,36 @@
                         {{ include('partials/location-icon.html.twig') }}
                         Expliquez-nous votre problématique autour d'un ☕ !
                     </span>
-                    <span class="dd">{{ site.contact.address }}</span>
+                    <span class="dd">{{ site.contact.streetAddress }} - {{ site.contact.postalCode }} {{ site.contact.addressLocality }}</span>
                 </div>
             </div>
         </div>
     </div>
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "Corporation",
+        "legalName": "Rix SAS",
+        "url": "https://www.rix.fr",
+        "logo": "https://www.rix.fr/images/rix.svg",
+        "image": "https://www.rix.fr/images/rix.svg",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "{{ site.contact.addressLocality }}",
+            "postalCode": "F-{{ site.contact.postalCode }}",
+            "streetAddress": "{{ site.contact.streetAddress }}"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "{{ site.contact.phone }}",
+            "contactType": "sales",
+            "areaServed": "FR",
+            "availableLanguage": ["en","fr"]
+        },
+        "email": "{{ site.contact.email }}",
+        "name": "Rix",
+        "telephone": "{{ site.contact.phone }}",
+        "sameAs": "https://www.linkedin.com/company/rix-fr/"
+        }
+    </script>
 {% endblock %}

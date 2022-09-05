@@ -1,7 +1,7 @@
 ---
 title: "Musique & Music"
-lastModified: "2021-04-21"
-date: "2021-04-21"
+lastModified: "2022-09-12"
+date: "2023-04-21"
 
 # Params
 metaDescription: "Musique & Music — librairie musicale pour les professionnels"
@@ -10,8 +10,8 @@ websiteUrl: https://www.musique-music.com/
 shortDescription: "Librairie musicale pour les professionnels"
 clients: Musique & Music
 size: 3 mois
-services: ["Accompagnement", "Développement"]
-terms: ["ovh-cloud", "aws"]
+services: ["Conception", "Infrastructure", "Stockage haute dispo.", "Stratégie de déploiement"]
+terms: ["ovh-cloud"]
 images: ["content/images/case-study/headers/musique-music-banner.jpg"]
 ---
 
@@ -19,7 +19,7 @@ images: ["content/images/case-study/headers/musique-music-banner.jpg"]
 
 **Musique & Music est un éditeur spécialisé dans la musique de production dédiée aux professionnels. L'application web permet aux monteurs vidéos de chercher facilement des sons afin d'illustrer leurs productions.** Parmi les atouts de l'application, il y a notamment la richesse du catalogue, la fluidité de la recherche et la pertinence des résultats proposés. Une recherche par similarité permet aux clients de Musique & Music de rechercher finement un style de musique en important des fichiers audio.
 
-**Musique & Music a confié à Elao le développement de son application web ainsi que de son back-office,** permettant d'avoir la main sur tous les aspects de son site.
+**Musique & Music a confié à Rix la conception de son infrastructure et son infogérance,** permettant de s'appuyer sur une équipe rodée à l'exploitation.
 
 ## L'expertise Elao déployée pour l'application Musique Music
 

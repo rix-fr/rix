@@ -13,7 +13,9 @@ twig:
                 jobsEmail: jobs@rix.fr
                 phone: 04 82 53 76 09
                 phoneto: +33482537609
-                address: 34 rue Jean Broquin, 69006 Lyon
+                streetAddress: 34 rue Jean Broquin
+                addressLocality: Lyon, France
+                postalCode: 69006
                 publicationDirector: Guewen FAIVRE
             social:
                 github: https://github.com/rix-fr
@@ -44,13 +46,13 @@ twig:
 
             footerServices:
                 -
-                    - { path: "services", label: "Accompagnement et outillage DevOps" }
-                    - { path: "services", label: "Conception d'infrastructures sur-mesure" }
-                    - { path: "services", label: "Environnement de développement" }
+                    - { path: "services", label: "Accompagnement et outillage DevOps", anchor: "accompagnement_outillage" }
+                    - { path: "services", label: "Expertise Kubernetes", anchor: "experts_kubernetes" }
+                    - { path: "services", label: "Performances et diagnostique", anchor: "performances_diagnostique" }
                 -
-                    - { path: "services", label: "Pilotage d'infrastructures souveraines" }
-                    - { path: "services", label: "Pilotage d'infrastructures cloud" }
-                    - { path: "services", label: "Performances et diagnostique" }
+                    - { path: "services", label: "Conception sur-mesure d'infrastructures", anchor: "conception_infrastructures" }
+                    - { path: "services", label: "Pilotage d'infrastructures", anchor: "pilotage_infrastructures" }
+                    - { path: "services", label: "Environnement de développement", anchor: "environment" }
 
             home:
                 highlights:
