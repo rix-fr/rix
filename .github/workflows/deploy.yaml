@@ -3,9 +3,8 @@ name: Deploy production
 on:
   workflow_dispatch: ~
   push:
-    branches: [main]
-  schedule:
-    - cron: '0 8 * * 1,2,3,4,5' # At 08:30 (UTC, => 09:30 / 10:30 in Europe/Paris depending on the DST), each day of the week.
+    tags:
+      - v2.*
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -23,8 +22,8 @@ jobs:
       matrix:
         include:
           - name: '🚧  Build & deploy 🚀'
-            WEBSITE_URL: https://v2.rix.fr
-            DEPLOY_PATH: /srv/app/v2
+            WEBSITE_URL: https://www.rix.fr
+            DEPLOY_PATH: /srv/app/website
             MATOMO_ID: 1
 
     steps:
