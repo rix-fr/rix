@@ -26,6 +26,7 @@
     align-items: center;
     flex: 1;
     border-right: solid 1px $color-border;
+    background-color: #fff;
 
     &:last-of-type {
       border-right: none;
