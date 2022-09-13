@@ -1,34 +1,35 @@
 @use '../abstracts' as *;
 
+$miniature-gutter: 20px;
+$miniature-width: 100% / 3;
+$miniature-tablet-width: 100% / 2;
+$miniature-mobile-width: 100%;
+
 .case-study {
   ul {
-    align-items: flex-start;
+    margin: 70px (($miniature-gutter + 100px) * -1);
     display: flex;
+    align-items: flex-start;
     flex-wrap: wrap;
     list-style: none;
-    justify-content: center;
-    margin: 70px -180px;
-    padding: 0;
-
-    > li {
-      margin: 0 20px 30px;
-      width: calc(30% - 25px);
-      min-width: calc(30% - 25px);
-      background: #fff;
-      border: 1px solid $color-border;
-      display: flex;
-      flex-direction: column;
-      padding: 0 0 80px 0;
-
-      &:before,
-      &:after {
-        content: none !important;
-      }
-    }
   }
 }
 
 .case-study__item {
+  margin: 0 $miniature-gutter 30px;
+  padding: 0 0 80px 0;
+  width: calc($miniature-width - ($miniature-gutter * 2));
+  min-width: calc($miniature-width - ($miniature-gutter * 2));
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid $color-border;
+
+  &:before,
+  &:after {
+    content: none !important;
+  }
+
   a {
     text-decoration: none;
 
@@ -50,10 +51,10 @@
 }
 
 .case-study__content {
-  display: block;
   padding: 0 40px;
-  text-decoration: none;
+  display: block;
   flex: 1;
+  text-decoration: none;
 
   p {
     margin: 0;
@@ -66,60 +67,43 @@
 }
 
 .case-study__image {
+  margin-bottom: 20px;
+  height: 350px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 350px;
-  margin-bottom: 20px;
 }
 
 .case-study__name {
   font-family: Outfit Semi Bold;
+  font-size: toRem(20px);
   color: $color-secondary;
-  font-size: 1.25rem;
+}
+
+@media (max-width: $screen-xl) {
+  .case-study {
+    ul {
+      margin: 0 ($miniature-gutter * -1);
+    }
+  }
+
+  .case-study__item {
+    margin: 0 $miniature-gutter 30px;
+    width: calc($miniature-tablet-width - ($miniature-gutter * 2));
+    min-width: calc($miniature-tablet-width - ($miniature-gutter * 2));
+  }
 }
 
 @media (max-width: $screen-md) {
   .case-study {
     ul {
-      > li {
-        width: calc(45% - 30px);
-        min-width: calc(45% - 30px);
-      }
+      margin: 0;
     }
   }
-}
 
-@media (max-width: $screen-sm) {
-  .case-study {
-    ul {
-      > li {
-        width: calc(50% - 95px);
-        min-width: calc(50% - 95px);
-      }
-    }
-  }
-}
-
-@media (max-width: $screen-xs) {
-  .case-study {
-    ul {
-      margin: 70px -145px;
-      > li {
-        width: calc(65% - 30px);
-        min-width: calc(65% - 30px);
-      }
-    }
-  }
-}
-
-@media (max-width: $screen-xxs) {
-  .case-study {
-    ul {
-      > li {
-        width: calc(55% - 10px);
-        min-width: calc(55% - 10px);
-      }
-    }
+  .case-study__item {
+    margin: 0 0 30px;
+    width: $miniature-mobile-width;
+    min-width: $miniature-mobile-width;
   }
 }
