@@ -11,7 +11,8 @@
                     <span>
                         <span class="title">Passez nous voir !</span>
                         <span>Nous sommes à Lyon !</span>
-                        <span>{{ site.contact.address }}</span>
+                        <span>{{ site.contact.streetAddress }}</span>
+                        <span>{{ site.contact.postalCode }} {{ site.contact.addressLocality }}</span>
                     </span>
                 </span>
                 <span class="contact-tiles__item">
@@ -62,3 +63,5 @@
         </div>
     </div>
 </footer>
+
+

@@ -2,7 +2,7 @@
 
 {% set interval = date('now').diff(date(site.xpDate)) %}
 
-{% block meta_title "À propos de nous." %}
+{% block meta_title "Rix 🐺 - À propos de nous." %}
 {% block meta_description "Plus de %d ans d'expérience en exploitation et en outillage d'infrastructures orientées DevOps." |format(interval.y) %}
 
 {% block body_class 'page-about' %}
@@ -33,15 +33,15 @@
                     <ul class="timeline">
                         <li class="timeline__item">
                             <h3 class="title">Analyse</h3>
-                            <p>Parce que nous avons évoluer au plus près des équipes de développement, nous savons qu'il est essentiel de bien comprendre le métier et d'assimiler ses contraintes.</p>
+                            <p>Parce que nous avons évolué au plus près des équipes de développement, nous savons qu'il est essentiel de bien comprendre le métier et d'assimiler ses contraintes.</p>
                         </li>
                         <li class="timeline__item">
                             <h3 class="title">Exploitation</h3>
-                            <p>Parce que nous sommes issus de l’exploitation nous avons la prétention d’avoir <strong>une bonne vision</strong> des problématiques de mise en oeuvre d’une application web moderne. Et bien évidemment de son maintient en conditions opérationnelles.</p>
+                            <p>Parce que nous sommes issus de l’exploitation nous avons la prétention d’avoir <strong>une bonne vision</strong> des problématiques de mise en oeuvre d’une application web moderne. Et bien évidemment de son maintien en conditions opérationnelles.</p>
                         </li>
                         <li class="timeline__item">
                             <h3 class="title">Hébergement</h3>
-                            <p>Spécialistes de l’hébergement des applications <strong>PHP/ Symfony métier sur-mesure</strong> nous avons au cours de notre expérience été confrontés à beaucoup des <a href="case-studies">situations</a> que vous rencontrez peut-être aujourd’hui.</p>
+                            <p>Spécialistes de l’hébergement des applications <strong>PHP/ Symfony métier sur-mesure</strong> nous avons au cours de notre expérience été confrontés à beaucoup des situations que vous rencontrez peut-être aujourd’hui.</p>
                         </li>
                     </ul>
                 </section>
@@ -57,14 +57,14 @@
                                     <img src="{{ asset('build/images/about/values/anticipate.svg') }}" alt="">
                                     <h3 class="image-title__content">Anticiper</h3>
                                 </div>
-                                Personne n’aime travailler en plein incident, nous mettons un point d’honneur à essayer d’anticiper les plus courants et quand nous n'y arrivons pas à effectuer un diagnostique rapide.
+                                Personne n’aime travailler en plein incident, nous mettons un point d’honneur à essayer d’anticiper les plus courants et quand nous n'y arrivons pas à effectuer un diagnostique précis et rapide.
                             </li>
                             <li>
                                 <div class="image-title image-title--light">
                                     <img src="{{ asset('build/images/about/values/secure.svg') }}" alt="">
                                     <h3 class="image-title__content">Préserver et sécuriser</h3>
                                 </div>
-                                Vos données sont bien souvent le coeur de votre métier nous nous efforçons de toujours être irréprochable quant à leur conservation, à leur intégrité et à leur sécurité.
+                                Vos données sont le coeur de votre métier. Nous nous efforçons de toujours être irréprochables quant à leur conservation, à leur intégrité et à leur sécurité.
                             </li>
                             <li>
                                 <div class="image-title image-title--light">
