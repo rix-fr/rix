@@ -27,6 +27,8 @@
   }
 
   &:hover {
+    color: #fff;
+
     &:before {
       transform: translateY(0) rotate(10deg);
     }
