@@ -13,6 +13,7 @@ size: 3 mois
 services: ["Accompagnement", "Développement"]
 terms: ["aws"]
 images: ["https://picsum.photos/200/300"]
+enabled: false
 ---
 
 ## Le contexte du projet

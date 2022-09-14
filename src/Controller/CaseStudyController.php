@@ -26,9 +26,11 @@ class CaseStudyController extends AbstractController
     {
         $caseStudies = $this->getActiveCasesStudies();
 
-        return $this->render('case_study/index.html.twig', [
+        $rendered = $this->render('case_study/index.html.twig', [
             'caseStudies' => $caseStudies,
-        ])->setLastModified(ContentUtils::max($caseStudies, 'lastModified'));
+        ]);
+
+        return \sizeof($caseStudies) > 0 ? $rendered->setLastModified(ContentUtils::max($caseStudies, 'lastModified')) : $rendered;
     }
 
     #[Route('/{caseStudy}', name: 'case_study')]
