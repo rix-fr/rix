@@ -7,6 +7,7 @@
   right: 0;
   bottom: 0;
   display: flex;
+  flex-wrap: wrap;
   background: #fff;
   overflow: hidden;
 
@@ -24,9 +25,15 @@
     padding: 0 20px;
     width: 50%;
     border-right: solid 1px $color-border;
+    border-bottom: solid 1px $color-border;
 
-    &:last-of-type {
+    &:nth-of-type(even) {
       border-right: none;
+    }
+
+    &:last-of-type,
+    &:nth-last-of-type(2) {
+      border-bottom: none;
     }
   }
 }
@@ -57,6 +64,18 @@
 
   .sliding-button__content {
     border-top: solid 1px transparent;
+  }
+}
+
+.sliding-button--large {
+  height: 160px;
+
+  &:before {
+    height: 160px;
+  }
+
+  .sliding-button__content {
+    height: 160px;
   }
 }
 
