@@ -1,11 +1,13 @@
 <nav class="nav">
     <ul>
         {% for item in site.menu|filter(item => item.desktop ?? true) %}
-            <li class="nav__item {{ app.request.attributes.get( '_route' ) == item.path ? 'nav__item--active' }}">
-                <a href="{{ nav_item_url(item) }}">
-                    <span>{{ item.label }}</span>
-                </a>
-            </li>
+            {% if (item.path != "case_studies") or site.caseStudies.enabled %}
+                <li class="nav__item {{ app.request.attributes.get( '_route' ) == item.path ? 'nav__item--active' }}">
+                    <a href="{{ nav_item_url(item) }}">
+                        <span>{{ item.label }}</span>
+                    </a>
+                </li>
+            {% endif %}
         {% endfor %}
         <li class="nav__item nav__item--icon">
             <a href="{{ path('contact') }}">
@@ -15,4 +17,3 @@
         </li>
     </ul>
 </nav>
-

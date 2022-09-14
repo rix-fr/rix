@@ -13,6 +13,7 @@ size: 3 mois
 services: ["Conception", "Infrastructure", "Stockage haute dispo.", "Stratégie de déploiement"]
 terms: ["ovh-cloud"]
 images: ["content/images/case-study/headers/musique-music-banner.jpg"]
+enabled: false
 ---
 
 ## Le contexte du projet

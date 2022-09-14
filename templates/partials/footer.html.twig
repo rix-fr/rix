@@ -33,9 +33,11 @@
             <div class="pages">
                 <ul>
                     {% for item in site.footer %}
-                        <li>
-                            <a href="{{ nav_item_url(item) }}">{{ item.label }}</a>
-                        </li>
+                        {% if (item.path != "case_studies") or site.caseStudies.enabled %}
+                            <li>
+                                <a href="{{ nav_item_url(item) }}">{{ item.label }}</a>
+                            </li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             </div>

@@ -13,6 +13,7 @@ size: 3 mois
 services: ["Accompagnement", "Développement"]
 terms: ["aws"]
 images: ["content/images/case-study/headers/panneaupocket-banner.jpg"]
+enabled: false
 ---
 
 ## Le contexte du projet

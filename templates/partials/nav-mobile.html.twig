@@ -10,11 +10,13 @@
     </div>
     <ul>
         {% for item in site.menu|filter(item => item.mobile ?? true) %}
-            <li class="nav-mobile__item {{ app.request.attributes.get( '_route' ) == item.path ? 'nav-mobile__item--active' }} {{ item.mobileClass|default('') }}">
-                <a href="{{ nav_item_url(item) }}">
-                    {{ item.label }}
-                </a>
-            </li>
+            {% if (item.path != "case_studies") or site.caseStudies.enabled %}
+                <li class="nav-mobile__item {{ app.request.attributes.get( '_route' ) == item.path ? 'nav-mobile__item--active' }} {{ item.mobileClass|default('') }}">
+                    <a href="{{ nav_item_url(item) }}">
+                        {{ item.label }}
+                    </a>
+                </li>
+            {% endif %}
         {% endfor %}
         <li class="nav-mobile__item nav-mobile__item--icon">
             <a href="{{ path('contact') }}">

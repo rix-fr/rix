@@ -24,6 +24,9 @@ twig:
 
             trackers:
                 matomo: "%env(MATOMO_ID)%"
+            
+            caseStudies:
+                enabled: false
 
             # Nav items full syntax:
             # - path: "route-name"
@@ -53,11 +56,6 @@ twig:
                     - { path: "services", label: "Conception sur-mesure d'infrastructures", anchor: "conception_infrastructures" }
                     - { path: "services", label: "Pilotage d'infrastructures", anchor: "pilotage_infrastructures" }
                     - { path: "services", label: "Environnement de développement", anchor: "environment" }
-
-            home:
-                highlights:
-                    # Cas d'étude mis en avant :
-                    caseStudy: musique-music
 
 when@test:
     twig:
