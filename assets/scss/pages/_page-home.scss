@@ -2,7 +2,8 @@
 
 .page-home {
   main {
-    padding-bottom: 700px;
+    padding-bottom: 0;
+    background: none;
   }
 }
 
@@ -36,11 +37,19 @@
 
   &:after {
     bottom: 0;
+    background: linear-gradient(to top, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, .5) 50%, rgba(255, 255, 255, 0) 80%);
   }
 
   h2 {
     position: relative;
     z-index: 1;
+  }
+}
+
+.home-clients {
+  .container {
+    padding-top: 117px;
+    background: #fff;
   }
 }
 

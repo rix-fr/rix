@@ -1,0 +1,36 @@
+@use '../abstracts' as *;
+
+.client-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-bottom: 0;
+
+  > li {
+    width: 50%;
+
+    &:before,
+    &:after {
+    content: none;
+    }
+
+    &:nth-child(2n+1) {
+    padding-left: 0;
+    }
+
+    img {
+      margin-bottom: 16px;
+    }
+  }
+}
+
+@media (max-width: $screen-xs) {
+  .client-list {
+    flex-direction: column;
+
+    > li {
+      padding-left: 0;
+      width: 100%;
+    }
+  }
+}
