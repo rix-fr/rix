@@ -1,12 +1,11 @@
 {% import "macros.html.twig" as macros %}
 {% extends 'base.html.twig' %}
-{#
-{% block og_image asset('social/Rix-home-og2.jpg')  %} #}
-{# {% block twitter_image absolute_url(asset('social/rix-ogimage-twitter2.jpg'))  %} #}
 
 {% set interval = date('now').diff(date(site.xpDate)) %}
 {% block meta_title "Réalisations web : revue de nos projets depuis %d ans | Rix"|format(interval.y) %}
 {% block meta_description "Découvrez quelques unes des applications web et mobile réalisées depuis %d ans chez Rix"|format(interval.y) %}
+{% block og_image asset('social/og-default.jpg')  %}
+{% block twitter_image absolute_url(asset('social/twitter-default.jpg'))  %}
 
 {% block body_class 'page-casebook' %}
 
