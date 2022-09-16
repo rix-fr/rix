@@ -21,7 +21,10 @@ class JobController extends AbstractController
         $this->manager = $manager;
     }
 
-    #[Route(name: 'jobs')]
+    #[Route(name: 'jobs',
+        // TODO: remove options.stenope.ignore when job offers are ready
+        options: ['stenope' => ['ignore' => true]])
+    ]
     public function list(): Response
     {
         $jobs = $this->manager->getContents(Job::class, ['date' => false], ['active' => true]);

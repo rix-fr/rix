@@ -1,0 +1,45 @@
+{% import "macros.html.twig" as macros %}
+{% extends 'base.html.twig' %}
+
+{% block meta_title "Les offres d'emploi Rix" %}
+{% block meta_description "Découvrez les offres d'emploi ouvertes chez Rix" %}
+{% block og_image asset('social/og-default.jpg')  %}
+{% block twitter_image absolute_url(asset('social/twitter-default.jpg'))  %}
+
+{% block content %}
+
+    {# TODO: LATER #}
+
+    <ul class="article-list">
+        {% if jobs is not empty %}
+            {% for job in jobs %}
+                <li itemscope itemtype="https://schema.org/JobPosting">
+                    <div>
+                        <a href="{{ path('job', { job: job.slug }) }}" class="title" itemprop="title">
+                            {{ job.fullTitle }}
+                        </a>
+                        <p class="description" itemprop="description">
+                            {{ job.description }}
+                        </p>
+                        <a href="{{ path('job', { job: job.slug }) }}">
+                            <span>
+                                Voir le post
+                            </span>
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li class="miniature-inline miniature-inline--small no-result">
+                <div class="miniature-inline__content">
+                    <span class="title">Nous n'avons aucun poste ouvert en ce moment. Vous souhaitez nous envoyer une candidature spontanée ?</span>
+                    <a href="{{ path('contact') }}" class="btn btn--secondary btn--animated">
+                        <span>
+                            Envoyez nous un message
+                        </span>
+                    </a>
+                </div>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}

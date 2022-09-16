@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block meta_title job.metaTitle ?? job.fullTitle %}
+{% block meta_description job.metaDescription ?? job.description %}
+
+{% block og_image absolute_url(asset(job.ogImage|glide_image_preset('opengraph_image'))) %}
+{% block twitter_image absolute_url(asset(job.twitterImage|glide_image_preset('twitter_card'))) %}
+
+{% block content %}
+    {# TODO: LATER #}
+
+    {% for title in job.title %}
+        {% if loop.first %}
+            {{ title }}
+        {% else %}
+            <span>{{ title }}</span>
+        {% endif %}
+    {% endfor %}
+
+    <p>{{ job.description }}</p>
+
+    <div itemscope itemtype="https://schema.org/JobPosting">
+        <p itemprop="employmentType">{{ job.contractType.readable }}</p>
+        <p itemprop="jobLocation">{{ job.place }}</p>
+        <p itemprop="jobStartDate">
+            {{ job.hiringDate ? job.hiringDate|format_date(pattern='MMMM Y', locale='fr')|capitalize : 'Dès que possible' }}
+        </p>
+        <p itemprop="educationRequirements">{{ job.formation ?? '-' }}</p>
+        <p itemprop="experienceRequirements">{{ job.experience ?? '-' }}</p>
+        <p itemprop="estimatedSalary">{{ job.remuneration ?? '-' }}</p>
+    </div>
+
+    <div>
+        {{ job.content|raw }}
+    </div>
+{% endblock %}
