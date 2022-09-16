@@ -23,14 +23,23 @@
             <link rel="canonical" href="{{ app.request.uri }}" />
 
             <!-- Open Graph / Facebook -->
+            {% set og_type %}{% block og_type %}website{% endblock %}{% endset %}
+            {% if og_type|default(false) %}
+                <meta property="og:type" content="{{ og_type }}">
+            {% endif %}
             <meta property="og:title" content="{% block og_title block('meta_title') %}" />
             <meta property="og:locale" content="{% block og_locale block('meta_locale') %}" />
             <meta property="og:description" content="{% block og_description block('meta_description') %}" />
             <meta property="og:url" content="{{ app.request.uri }}" />
             <meta property="og:site_name" content="rix" />
-            {% set og_image %}{% block og_image %}{% endblock %}{% endset %}
+
+            {% set og_image %}{% block og_image %}{{ absolute_url(asset('social/og-default.jpg')) }}{% endblock %}{% endset %}
             {% if og_image|default(false) %}
                 <meta property="og:image" content="{{ og_image }}">
+            {% endif %}
+            {% set og_image_alt %}{% block og_image_alt %}Rix - Expertise et outillage DevOps{% endblock %}{% endset %}
+            {% if og_image_alt|default(false) %}
+                <meta property="og:image:alt" content="{{ og_image_alt }}">
             {% endif %}
 
             <!-- Twitter -->
@@ -39,7 +48,7 @@
             <meta property="twitter:description" content="{% block twitter_description block('meta_description') %}">
             <meta property="twitter:site" content="@{{ site.social.twitter_user }}">
             <meta property="twitter:creator" content="@{{ site.social.twitter_user }}">
-            {% set twitter_image %}{% block twitter_image %}{% endblock %}{% endset %}
+            {% set twitter_image %}{% block twitter_image %}{{ absolute_url(asset('social/twitter-default.jpg')) }}{% endblock %}{% endset %}
             {% if twitter_image|default(false) %}
                 <meta property="twitter:image" content="{{ twitter_image }}">
             {% endif %}
