@@ -4,6 +4,8 @@
 
 {% block meta_title "Rix 🐺 - À propos de nous." %}
 {% block meta_description "Plus de %d ans d'expérience en exploitation et en outillage d'infrastructures orientées DevOps." |format(interval.y) %}
+{% block og_image asset('social/og-default.jpg')  %}
+{% block twitter_image absolute_url(asset('social/twitter-default.jpg'))  %}
 
 {% block body_class 'page-about' %}
 
