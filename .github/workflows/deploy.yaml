@@ -24,7 +24,7 @@ jobs:
           - name: '🚧  Build & deploy 🚀'
             WEBSITE_URL: https://www.rix.fr
             DEPLOY_PATH: /srv/app/website
-            MATOMO_ID: 1
+            MATOMO_ID: 10
 
     steps:
       - name: 'Checkout'
