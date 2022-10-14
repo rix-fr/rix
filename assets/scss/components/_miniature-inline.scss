@@ -2,7 +2,7 @@
 
 .miniature-inline {
   width: 100%;
-  margin: 0 0 30px;
+  margin: 0 0 40px;
   padding: 0;
   background: #fff;
   display: flex;
@@ -15,21 +15,20 @@
   }
 
   a {
-    border: 1px solid $color-border;
+    width: 100%;
     display: flex;
     text-decoration: none;
+    border: 1px solid $color-border;
 
     &:hover,
     &:active,
     &:focus {
       .sliding-button {
-        height: 80px;
-        border-top: solid 1px $color-border !important;
+        border-top: solid 1px $color-border;
       }
 
       .sliding-button__content,
       .sliding-button:before {
-        height: 80px;
         transform: translateY(0) rotate(0deg);
       }
     }
@@ -46,18 +45,9 @@
   flex: 1;
 
   h3 {
-    margin: 0 0 29px;
+    margin: 0 0 30px;
     color: $color-primary;
-  }
-
-  .sliding-button {
-    &:before {
-      width: 615px;
-    }
-
-    .tags-list__item {
-      margin: 20px 5px !important;
-    }
+    line-height: 1.5;
   }
 }
 
@@ -69,71 +59,37 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-
-  .image {
-    height: 100%;
-    width: 100%;
-    display: block;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    transition: transform ease-in-out .4s;
-  }
 }
 
 .miniature-inline__name {
   font-family: Outfit Semi Bold;
   color: $color-secondary;
-  font-size: 1.25rem;
+  font-size: toRem(20px);
 }
 
 @media (max-width: $screen-md) {
   .miniature-inline {
     a {
-      margin: 0 0 60px;
       flex-direction: column;
-
-      &:hover,
-      &:active,
-      &:focus {
-        .sliding-button {
-          height: 60px;
-          border-top: solid 1px $color-border !important;
-        }
-
-        .sliding-button__content,
-        .sliding-button:before {
-          height: 60px;
-          transform: translateY(0) rotate(0deg);
-        }
-      }
     }
   }
 
   .miniature-inline__image {
-    width: auto !important;
+    width: unset !important;
     min-width: unset !important;
   }
 
   .miniature-inline__content {
-    .sliding-button {
-      height: 60px;
-      left: 0 !important;
-      border-top: solid 1px $color-border !important;
-    }
+    padding: 25px 30px 60px;
 
-    .sliding-button__content {
-      height: 60px;
+    h3 {
+      margin: 0 0 10px;
     }
   }
 }
 
 @media (max-width: $screen-sm) {
   .miniature-inline__image {
-    margin-right: 0;
-    margin-bottom: 35px;
-    min-width: unset;
-    width: 100%;
-    height: 220px;
+    min-height: 260px;
   }
 }

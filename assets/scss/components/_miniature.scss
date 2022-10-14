@@ -1,19 +1,32 @@
 @use '../abstracts' as *;
 
-$miniature-gutter: 20px;
+$miniature-gutter: 15px;
 $miniature-width: 100% / 3;
 $miniature-tablet-width: 100% / 2;
 $miniature-mobile-width: 100%;
 
 .miniature {
-  margin: 0 $miniature-gutter 30px;
+  margin: 0 $miniature-gutter ($miniature-gutter * 2);
   padding: 0 0 80px 0;
-  width: calc($miniature-width - ($miniature-gutter * 2));
-  min-width: calc($miniature-width - ($miniature-gutter * 2));
+  width: calc($miniature-width - 20px);
+  min-width: calc($miniature-width - 20px);
+  position: relative;
   display: flex;
   flex-direction: column;
   background: #fff;
   border: 1px solid $color-border;
+
+  &:nth-child(3n+1) { // 1, 4, 7 ...
+    margin-left: 0;
+  }
+
+  &:nth-child(3n+3) { // 3, 6, 9 ...
+    margin-right: 0;
+  }
+
+  &:last-of-type {
+    margin-bottom: ($miniature-gutter * 2);
+  }
 
   &:before,
   &:after {
@@ -23,19 +36,13 @@ $miniature-mobile-width: 100%;
   a {
     text-decoration: none;
 
-    &:hover,
-    &:active,
-    &:focus {
-      .sliding-button {
-        height: 60px;
-        border-top: solid 1px $color-border !important;
-      }
+    .sliding-button {
+      border-top: solid 1px $color-border;
+    }
 
-      .sliding-button__content,
-      .sliding-button:before {
-        height: 60px;
-        transform: translateY(0) rotate(0deg);
-      }
+    .sliding-button__content,
+    .sliding-button:before {
+      transform: translateY(0) rotate(0deg);
     }
   }
 }
@@ -49,6 +56,7 @@ $miniature-mobile-width: 100%;
   h3 {
     margin: 0 0 29px;
     color: $color-primary;
+    line-height: 1.5;
   }
 }
 
@@ -68,44 +76,37 @@ $miniature-mobile-width: 100%;
 
 @media (max-width: $screen-xl) {
   .miniature {
-    margin: 0 $miniature-gutter 30px;
-    width: calc($miniature-tablet-width - ($miniature-gutter * 2));
-    min-width: calc($miniature-tablet-width - ($miniature-gutter * 2));
+    width: calc($miniature-tablet-width - 15px);
+    min-width: calc($miniature-tablet-width - 15px);
+
+    &:nth-child(3n+1), // 4, 7 ...
+    &:nth-child(3n+3) { // 3, 6 ...
+      margin-left: $miniature-gutter;
+      margin-right: $miniature-gutter;
+    }
+
+    &:nth-child(2n+1) {
+      margin-left: 0;
+    }
+
+    &:nth-child(2n+2) {
+      margin-right: 0;
+    }
   }
 }
 
 @media (max-width: $screen-md) {
-  .miniature {
-    margin: 0 0 30px;
-    width: $miniature-mobile-width;
-    min-width: $miniature-mobile-width;
+  .miniature__content {
+    h3 {
+      margin: 0 0 10px;
+    }
   }
 }
 
 @media (max-width: $screen-sm) {
   .miniature {
-    width: calc(50% - 95px);
-    min-width: calc(50% - 95px);
-  }
-}
-
-@media (max-width: $screen-md) {
-  .miniature {
-    ul {
-      margin: 0;
-    }
-    width: calc(45% - 30px);
-    min-width: calc(45% - 30px);
-  }
-}
-
-@media (max-width: $screen-xxs) {
-  .miniature {
-    ul {
-      > li {
-        width: calc(55% - 10px);
-        min-width: calc(55% - 10px);
-      }
-    }
+    margin: 0 0 30px !important;
+    width: $miniature-mobile-width;
+    min-width: $miniature-mobile-width;
   }
 }

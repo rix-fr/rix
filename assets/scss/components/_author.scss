@@ -1,11 +1,11 @@
 @use '../abstracts' as *;
 
-.article-author {
+.author {
   display: flex;
   flex-wrap: wrap;
   color: $color-primary;
   align-items: center;
-  font-size: 18px;
+  font-size: toRem(18px);
 
   img {
     margin: 0;
@@ -20,20 +20,21 @@
   }
 }
 
-.article-author__image {
+.author__image {
   position: relative;
 
   img {
     margin: 0;
     margin-right: 15px;
     width: 60px;
+    height: 60px;
     max-width: unset;
     border: solid 3px #fff;
     border-radius: 50%;
   }
 }
 
-.article-author__info {
+.author__info {
   display: flex;
   flex-direction: column;
 
@@ -42,17 +43,19 @@
     font-family: $secondary-font;
   }
 
-  a:hover strong {
-    cursor: pointer;
-    color: $color-secondary;
+  a:hover {
+    strong {
+      cursor: pointer;
+      color: $color-secondary;
+    }
   }
 }
 
-.article-author--multi {
+.author--multi {
   align-items: flex-start;
   flex-direction: column;
 
-  .article-author__image {
+  .author__image {
     margin-bottom: 10px;
     position: relative;
     left: -45px;
@@ -66,7 +69,7 @@
     }
   }
 
-  .article-author__info + .article-author__info {
+  .author__info + .author__info {
     margin-top: 20px;
     margin-left: 0;
   }

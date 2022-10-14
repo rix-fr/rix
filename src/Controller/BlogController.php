@@ -26,7 +26,7 @@ class BlogController extends AbstractController
         options: ['stenope' => ['sitemap' => false]]),
     ]
     #[Route('/page/{!page}', name: 'blog_page', requirements: ['page' => '\d+'])]
-    public function index(int $page = 1, int $perPage = 20): Response
+    public function index(int $page = 1, int $perPage = 10): Response
     {
         $articles = $this->manager->getContents(Article::class, ['date' => false]);
         $pageArticles = \array_slice($articles, $perPage * ($page - 1), $perPage);

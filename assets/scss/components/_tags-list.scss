@@ -1,10 +1,19 @@
 @use '../abstracts' as *;
 
 .tags-list {
-  display: flex;
-  flex-wrap: wrap;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  .miniature &,
+  .miniature-inline & {
+    margin-bottom: 35px;
+  }
+
+  .miniature-highlight & {
+    padding: 30px 450px 30px 0;
+  }
 }
 
 .tags-list__item {
@@ -14,7 +23,7 @@
   background-color: $color-light;
   color: $color-primary;
   font-family: $secondary-font;
-  font-size: 14px;
+  font-size: toRem(14px);
   padding: 7px 10px !important;
 
   a {

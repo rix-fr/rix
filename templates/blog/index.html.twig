@@ -16,7 +16,8 @@
 
     <div class="banner">
         <div class="container">
-            <h1>Blog <strong>/</strong>
+            <h1>
+                Blog <strong>/</strong>
             </h1>
         </div>
     </div>
@@ -31,12 +32,11 @@
                             <li class="miniature-highlight">
                                 <div class="miniature-highlight__content">
                                     <a href="{{ path('blog_article', { article: article.slug }) }}" class="details">
-                                        <h2 class="h3">{{ article.date|format_date('medium') }}</h3>
-                                        <h2 class="title">{{ article.title }}</h2>
+                                        <span class="date">{{ article.date|format_date('medium') }}</span>
+                                        <h2>{{ article.title }}</h2>
                                         <p>{{ article.description }}</p>
                                     </a>
-                                    <a href="{{ path('blog_article', { article: article.slug }) }}" class="miniature-highlight__image">
-                                        <span class="image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.lg') }};"></span>
+                                    <a href="{{ path('blog_article', { article: article.slug }) }}" class="miniature-highlight__image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.lg') }};">
                                     </a>
                                 </div>
                                 <div class="miniature-highlight__info">
@@ -50,12 +50,12 @@
                                         {% endfor %}
                                     </ul>
                                     <div class="info">
-                                        <div class="article-author article-author--multi">
-                                            <div class="article-author__image">
+                                        <div class="author author--multi">
+                                            <div class="author__image">
                                                 <a><img src="https://via.placeholder.com/50x50"></a>
                                                 <a><img src="https://via.placeholder.com/50x50"></a>
                                             </div>
-                                            <span class="article-author__info">
+                                            <span class="author__info">
                                                 Écrit par
                                                 <a><strong>Florian Rey</strong></a>
                                                 <a><strong>Guewen Faivre</strong></a>
@@ -67,8 +67,7 @@
                         {% elseif page == minPage and loop.index < 5 %}
                             <li class="miniature-inline">
                                 <a href="{{ path('blog_article', { article: article.slug }) }}">
-                                    <div class="miniature-inline__image">
-                                        <span class="image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.md') }}"></span>
+                                    <div class="miniature-inline__image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.md') }}">
                                     </div>
                                     <div class="miniature-inline__content">
                                         <h3>{{ article.title }}</h3>

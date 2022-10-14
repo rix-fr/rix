@@ -16,11 +16,6 @@
       background-image: url('../../images/case-studies/header_shape.svg');
     }
   }
-
-  .miniature-list {
-    margin: 0 auto;
-    max-width: 1190px;
-  }
 }
 
 @media (max-width: $screen-sm) {
@@ -28,5 +23,3 @@
     margin-left: 0;
   }
 }
-
-
