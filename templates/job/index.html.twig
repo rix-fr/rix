@@ -8,8 +8,8 @@
 
     {# TODO: LATER #}
 
-    <ul class="article-list">
-        {% if jobs is not empty %}
+    {% if jobs is not empty %}
+        <ul class="miniature-list">
             {% for job in jobs %}
                 <li itemscope itemtype="https://schema.org/JobPosting">
                     <div>
@@ -27,7 +27,10 @@
                     </div>
                 </li>
             {% endfor %}
-        {% else %}
+        </ul>
+
+    {% else %}
+        <ul class="miniature-list">
             <li class="miniature-inline miniature-inline--small no-result">
                 <div class="miniature-inline__content">
                     <span class="title">Nous n'avons aucun poste ouvert en ce moment. Vous souhaitez nous envoyer une candidature spontanée ?</span>

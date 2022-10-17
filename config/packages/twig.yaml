@@ -40,7 +40,7 @@ twig:
                 - { path: "services", label: "Nos services" }
                 - { path: "case_studies", label: "Cas clients" }
                 - { path: "about", label: "À propos" }
-                # - { path: "blog", label: "Blog" }
+                - { path: "blog", label: "Blog" }
 
             footer:
                 - { path: "case_studies", label: "Cas clients" }

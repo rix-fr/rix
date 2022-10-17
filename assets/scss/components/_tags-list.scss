@@ -1,0 +1,32 @@
+@use '../abstracts' as *;
+
+.tags-list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+
+  .miniature &,
+  .miniature-inline & {
+    margin-bottom: 35px;
+  }
+
+  .miniature-highlight & {
+    padding: 30px 450px 30px 0;
+  }
+}
+
+.tags-list__item {
+  display: flex;
+  border: none !important;
+  margin: 5px !important;
+  background-color: $color-light;
+  color: $color-primary;
+  font-family: $secondary-font;
+  font-size: toRem(14px);
+  padding: 7px 10px !important;
+
+  a {
+    text-decoration: none;
+  }
+}

@@ -10,98 +10,115 @@
     <link rel="alternate" type="application/rss+xml" href="{{ path('blog_rss') }}" title="Le blog de l'équipe Rix" />
 {% endblock %}
 
-{% block content %}
-    <div class="container">
-    {% block articles %}
-        <ul class="article-list">
-            {% for article in articles %}
-                {% if page == minPage and loop.first %}
-                    <li class="miniature-highlight">
-                        <a href="{{ path('blog_article', { article: article.slug }) }}" class="miniature-highlight__image">
-                            <span class="image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.lg') }}; width: 1170px;height:480px;display:block;"></span>
-                        </a>
-                        <div class="miniature-highlight__content">
-                            <div class="info">
-                                {% set authors = article.authors|length > 5 ? [] : article.authors %}
-                                <div class="article-author {{ authors|length > 1 ? 'article-author--multi' : '' }}">
-                                    <div class="article-author__image">
-                                        {% for author in authors %}
-                                            <a>
-                                                <img {{ macros.imageSrcset(author.avatar(), 'author_avatar') }} />
-                                            </a>
-                                        {% else %}
-                                            <img {{ macros.imageSrcset('images/members/avatars/rix-team.jpg', 'author_avatar') }} />
-                                        {% endfor %}
-                                    </div>
-                                    <span class="article-author__info">
-                                        Écrit par
-                                        {% for author in authors %}
-                                            <a>
-                                                <strong>{{ author.name }}</strong>
-                                            </a>
-                                        {% else %}
-                                            <strong>La team Rix</strong>
-                                        {% endfor %}
-                                    </span>
-                                    <span class="article-author__info">
-                                        Publication
-                                        <strong>{{ article.date|format_date('medium') }}</strong>
-                                    </span>
-                                </div>
-                            </div>
-                            <a href="{{ path('blog_article', { article: article.slug }) }}" class="details">
-                                <h2 class="title">{{ article.title }}</h2>
-                                <p>{{ article.description }}</p>
-                            </a>
-                        </div>
-                    </li>
-                {% elseif page == minPage and loop.index < 5 %}
-                    <li class="miniature-inline">
-                        <a href="{{ path('blog_article', { article: article.slug }) }}" class="miniature-inline__image">
-                            <span class="image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.md') }}"></span>
-                        </a>
-                        <div class="miniature-inline__content">
-                            <span class="date">{{ article.date|format_date('medium')  }}</span>
-                            <a href="{{ path('blog_article', { article: article.slug }) }}" class="title">{{ article.title }}</a>
-                            <p class="description">{{ article.description }}</p>
-                            {% block tags %}
-                                <ul class="tag-list">
-                                    {% for tag in article.tags %}
-                                        <li class="tag-list__item">
-                                            <a href="{{ path('blog_tag', { tag: tag }) }}" rel="nofollow">
-                                                #{{ tag|u.camel.title }}
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% endblock %}
-                            <a href="{{ path('blog_article', { article: article.slug }) }}" class="btn btn--secondary btn--animated">
-                                <span>
-                                    Lire l'article
-                                </span>
-                            </a>
-                        </div>
-                    </li>
-                {% else %}
-                    <li class="miniature">
-                        <a href="{{ path('blog_article', { article: article.slug }) }}" class="miniature__image">
-                            <span class="image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.sm') }}"></span>
-                        </a>
-                        <div class="miniature__content">
-                            <a href="{{ path('blog_article', { article: article.slug }) }}" class="title">{{ article.title }}</a>
-                            <p class="description">{{ article.description }}</p>
-                            {{ block('tags') }}
-                            <a href="{{ path('blog_article', { article: article.slug }) }}" class="link link--brand">Lire l'article</a>
-                        </div>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </div>
-    {% endblock %}
+{% block body_class 'page-blog' %}
 
-    {% include 'blog/pagination.html.twig' with {
-        route: 'blog_page',
-        minPageRoute: 'blog',
-    } %}
+{% block content %}
+
+    <div class="banner">
+        <div class="container">
+            <h1>
+                Blog <strong>/</strong>
+            </h1>
+        </div>
+    </div>
+
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <ul class="miniature-list">
+                    {% for article in articles %}
+                        {% if page == minPage and loop.first %}
+                            <li class="miniature-highlight">
+                                <div class="miniature-highlight__content">
+                                    <a href="{{ path('blog_article', { article: article.slug }) }}" class="details">
+                                        <span class="date">{{ article.date|format_date('medium') }}</span>
+                                        <h2>{{ article.title }}</h2>
+                                        <p>{{ article.description }}</p>
+                                    </a>
+                                    <a href="{{ path('blog_article', { article: article.slug }) }}" class="miniature-highlight__image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.lg') }};">
+                                    </a>
+                                </div>
+                                <div class="miniature-highlight__info">
+                                    <ul class="tags-list">
+                                        {% for tag in article.tags %}
+                                            <li class="tags-list__item">
+                                                <a href="{{ path('blog_tag', { tag: tag }) }}" rel="nofollow">
+                                                    #{{ tag|u.camel.title }}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <div class="info">
+                                        <div class="author author--multi">
+                                            <div class="author__image">
+                                                <a><img src="https://via.placeholder.com/50x50"></a>
+                                                <a><img src="https://via.placeholder.com/50x50"></a>
+                                            </div>
+                                            <span class="author__info">
+                                                Écrit par
+                                                <a><strong>Florian Rey</strong></a>
+                                                <a><strong>Guewen Faivre</strong></a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% elseif page == minPage and loop.index < 5 %}
+                            <li class="miniature-inline">
+                                <a href="{{ path('blog_article', { article: article.slug }) }}">
+                                    <div class="miniature-inline__image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.md') }}">
+                                    </div>
+                                    <div class="miniature-inline__content">
+                                        <h3>{{ article.title }}</h3>
+                                        <p>{{ article.description }}</p>
+                                        <ul class="tags-list">
+                                            {% for tag in article.tags %}
+                                                <li class="tags-list__item">
+                                                    #{{ tag|u.camel.title }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                        <span class="sliding-button sliding-button--mobile">
+                                            <span class="sliding-button__content">
+                                                <i class="icon icon--arrow-right" aria-hidden="true"></i>
+                                                Lire l'article
+                                            </span>
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="miniature">
+                                <a href="{{ path('blog_article', { article: article.slug }) }}">
+                                    <div class="miniature__image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.sm') }}"></div>
+                                    <div class="miniature__content">
+                                        <h3>{{ article.title }}</h3>
+                                        <p>{{ article.description }}</p>
+                                        <ul class="tags-list">
+                                            {% for tag in article.tags %}
+                                                <li class="tags-list__item">
+                                                    #{{ tag|u.camel.title }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                        <span class="sliding-button sliding-button--mobile">
+                                            <span class="sliding-button__content">
+                                                <i class="icon icon--arrow-right" aria-hidden="true"></i>
+                                                Lire l'article
+                                            </span>
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+                {% include 'blog/pagination.html.twig' with {
+                    route: 'blog_page',
+                    minPageRoute: 'blog',
+                } %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

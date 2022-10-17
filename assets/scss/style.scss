@@ -19,10 +19,13 @@
 @use "layout/_footer";
 @use "layout/_beveled-wrapper";
 
+@use "components/_author";
+@use "components/_miniature-list";
 @use "components/_banner";
 @use "components/_button";
 @use "components/_blockquote";
-@use "components/_case-study";
+@use "components/_miniature";
+@use "components/_miniature-inline";
 @use "components/_contact-infos";
 @use "components/_contact-tiles";
 @use "components/_values";
@@ -31,12 +34,15 @@
 @use "components/_services-list";
 @use "components/_sliding-button";
 @use "components/_ecosystem";
+@use "components/_tags-list";
 @use "components/_timeline";
 @use "components/_technologies-list";
 @use "components/_profile";
 @use "components/_profile-list";
+@use "components/_pagination";
 @use "components/_experience";
 @use "components/_preview";
+@use "components/_miniature-highlight";
 
 @use "generic/_a";
 // @use "generic/_code";
@@ -50,6 +56,7 @@
 @use "utilities/_screen-reader";
 
 @use "pages/_page-home";
+@use "pages/_page-blog";
 @use "pages/_page-casebook";
 @use "pages/_page-case-study";
 @use "pages/_page-services";

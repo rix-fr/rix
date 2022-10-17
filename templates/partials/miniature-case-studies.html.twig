@@ -1,17 +1,17 @@
 {% import "macros.html.twig" as macros %}
 
-<ul>
+<ul class="miniature-list">
     {% for caseStudy in lastCaseStudies %}
-    <li class="case-study__item">
+    <li class="miniature">
         <a href="{{ path('case_study', { caseStudy: caseStudy.slug }) }}">
-            <div class="case-study__image" style="{{ macros.backgroundImageSrcset(caseStudy.images|first, 'case_study_thumbnail.lg') }}"></div>
-            <div class="case-study__content">
-                <span class="case-study__name">{{ caseStudy.title }}</span>
+            <div class="miniature__image" style="{{ macros.backgroundImageSrcset(caseStudy.images|first, 'case_study_thumbnail.lg') }}"></div>
+            <div class="miniature__content">
+                <span class="miniature__name">{{ caseStudy.title }}</span>
                 <h3>{{ caseStudy.title }}</h3>
                 <p>{{ caseStudy.shortDescription }}</p>
                 <span class="sliding-button sliding-button--mobile">
                     <span class="sliding-button__content">
-                        <i class="icon icon--arrow" aria-hidden="true"></i>
+                        <i class="icon icon--arrow-right" aria-hidden="true"></i>
                         Voir l’étude de cas
                     </span>
                 </span>

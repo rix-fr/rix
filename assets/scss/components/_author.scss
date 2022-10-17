@@ -1,0 +1,76 @@
+@use '../abstracts' as *;
+
+.author {
+  display: flex;
+  flex-wrap: wrap;
+  color: $color-primary;
+  align-items: center;
+  font-size: toRem(18px);
+
+  img {
+    margin: 0;
+    margin-right: 15px;
+    width: 50px;
+    max-width: unset;
+    border-radius: 50%;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.author__image {
+  position: relative;
+
+  img {
+    margin: 0;
+    margin-right: 15px;
+    width: 60px;
+    height: 60px;
+    max-width: unset;
+    border: solid 3px #fff;
+    border-radius: 50%;
+  }
+}
+
+.author__info {
+  display: flex;
+  flex-direction: column;
+
+  strong {
+    margin-top: 2px;
+    font-family: $secondary-font;
+  }
+
+  a:hover {
+    strong {
+      cursor: pointer;
+      color: $color-secondary;
+    }
+  }
+}
+
+.author--multi {
+  align-items: flex-start;
+  flex-direction: column;
+
+  .author__image {
+    margin-bottom: 10px;
+    position: relative;
+    left: -45px;
+    height: 60px;
+
+    @for $i from 1 through 5 {
+      a:nth-child(#{$i}) {
+        position: absolute;
+        left: #{$i * 45}px;
+      }
+    }
+  }
+
+  .author__info + .author__info {
+    margin-top: 20px;
+    margin-left: 0;
+  }
+}

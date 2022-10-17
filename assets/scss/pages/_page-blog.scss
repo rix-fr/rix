@@ -1,0 +1,88 @@
+@use '../abstracts' as *;
+@use '../components/miniature' as *;
+
+.page-blog {
+  .content {
+    ul {
+      > li {
+        &:first-of-type {
+          border: 1px solid $color-border;
+        }
+
+        &:before,
+        &:after {
+          content: none !important;
+        }
+      }
+    }
+  }
+
+  .banner {
+    height: 1500px;
+    background-image: url('../../images/blog/background.jpg') !important;
+    background-size: contain !important;
+  }
+
+  .beveled-wrapper__gradient {
+    .shape {
+      background-image: url('../../images/case-studies/header_shape.svg');
+    }
+  }
+
+  .miniature {
+    // Overwrite default miniature alignement
+    &:nth-child(3n+1), // 1, 4, 7 ...
+    &:nth-child(3n+3) { // 3, 6, 9 ...
+      margin-left: $miniature-gutter;
+      margin-right: $miniature-gutter;
+    }
+
+    // Remove margins on every third element starting at 5
+    &:nth-child(5),
+    &:nth-child(3n+5) { // 8, 11, 14 ...
+      margin-left: 0;
+    }
+
+    &:nth-child(7),
+    &:nth-child(3n+7) { // 7, 10, 13 ...
+      margin-right: 0;
+    }
+  }
+}
+
+@media (max-width: $screen-xl) {
+  .page-blog {
+    .miniature {
+      // Overwrite default miniature alignement
+      &:nth-child(2n+1),
+      &:nth-child(2n+2) {
+        margin-left: $miniature-gutter;
+        margin-right: $miniature-gutter;
+      }
+
+      &:nth-child(5),
+      &:nth-child(3n+5), // 8, 11 ...
+      &:nth-child(7),
+      &:nth-child(3n+7) { // 10, 13 ...
+        margin-left: $miniature-gutter;
+        margin-right: $miniature-gutter;
+      }
+
+      &:nth-child(5),
+      &:nth-child(2n+5) { // 7, 9 ...
+        margin-left: 0;
+      }
+
+      &:nth-child(6),
+      &:nth-child(2n+6) { // 8, 10 ..
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: $screen-lg) {
+  .sliding-button--mobile {
+    border-top: 1px solid $color-border !important;
+  }
+}
