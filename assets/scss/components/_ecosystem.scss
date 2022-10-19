@@ -12,11 +12,13 @@
 }
 
 .ecosystem__list {
+  position: relative;
   margin: 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
   list-style: none;
+  z-index: 1;
 
   li {
     margin-bottom: 20px;
