@@ -3,7 +3,6 @@
 .page-home {
   main {
     padding-bottom: 0;
-    background: none;
   }
 }
 
@@ -47,10 +46,9 @@
 }
 
 .home-clients {
-  .container {
-    padding-top: 117px;
-    background: #fff;
-  }
+  margin-left: 0;
+  padding-top: 117px;
+  background: #fff;
 }
 
 @media (max-width: $screen-xs) {
