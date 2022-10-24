@@ -17,9 +17,9 @@ body {
 }
 
 main {
-  flex: 1;
   padding-bottom: 350px;
-  background: url('../../images/background.jpg') no-repeat;
+  flex: 1;
+  background: url('../../images/backgrounds/background.jpg') no-repeat;
   background-size: contain;
   background-position: center bottom;
 }
@@ -47,6 +47,10 @@ strong {
 }
 
 @media (max-width: $screen-xs) {
+  main {
+    background: url('../../images/backgrounds/background-mobile.jpg') no-repeat;
+  }
+
   .container {
     padding: 0 20px;
   }

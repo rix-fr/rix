@@ -1,10 +1,8 @@
 @use '../abstracts' as *;
 
 .page-case-study {
-  .banner {
-    height: 1500px;
-    background-image: url('../../images/case-studies/snow_mountain_background.jpg') !important;
-    background-size: contain !important;
+  main {
+    background-image: none; // remove background-image to prevent ugliness when not much content on page
   }
 
   .beveled-wrapper__gradient {

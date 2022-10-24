@@ -2,6 +2,10 @@
 @use '../components/miniature' as *;
 
 .page-blog {
+  main {
+    background-image: none; // remove background-image to prevent ugliness when not much content on page
+  }
+
   .content {
     ul {
       > li {
@@ -15,12 +19,6 @@
         }
       }
     }
-  }
-
-  .banner {
-    height: 1500px;
-    background-image: url('../../images/blog/background.jpg') !important;
-    background-size: contain !important;
   }
 
   .beveled-wrapper__gradient {
