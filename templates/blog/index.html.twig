@@ -51,13 +51,19 @@
                                 <div class="miniature-highlight__author">
                                     <div class="author author--multi">
                                         <div class="author__image">
-                                            <a><img src="https://via.placeholder.com/50x50"></a>
-                                            <a><img src="https://via.placeholder.com/50x50"></a>
+                                            {% for author in article.authors %}
+                                                <img {{ macros.imageSrcset(author.avatar(), 'author_avatar') }} />
+                                            {% else %}
+                                                <img {{ macros.imageSrcset('content/images/members/avatars/rix.png', 'author_avatar') }} />
+                                            {% endfor %}
                                         </div>
                                         <span class="author__info">
                                             Écrit par
-                                            <a><strong>Florian Rey</strong></a>
-                                            <a><strong>Guewen Faivre</strong></a>
+                                            {% for author in article.authors %}
+                                                <strong>{{ author.name }}</strong>
+                                            {% else %}
+                                                <strong>La team Rix</strong>
+                                            {% endfor %}
                                         </span>
                                     </div>
                                 </div>
