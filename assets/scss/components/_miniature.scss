@@ -1,20 +1,31 @@
 @use '../abstracts' as *;
 
-$miniature-gutter: 15px;
 $miniature-width: 100% / 3;
 $miniature-tablet-width: 100% / 2;
 $miniature-mobile-width: 100%;
 
+$miniature-gutter: 20px;
+
+$miniature-img-width: 575px;
+$miniature-img-height: 350px;
+
+$miniature-img-mobile-width: 100%;
+$miniature-img-mobile-height: 260px;
+
 .miniature {
   margin: 0 $miniature-gutter ($miniature-gutter * 2);
-  padding: 0 0 80px 0;
-  width: calc($miniature-width - 20px);
-  min-width: calc($miniature-width - 20px);
-  position: relative;
+  padding: 0;
+  width: calc($miniature-width - ($miniature-gutter * 1.5));
+  min-width: calc($miniature-width - ($miniature-gutter * 1.5));
   display: flex;
   flex-direction: column;
   background: #fff;
   border: 1px solid $color-border;
+
+  &:before,
+  &:after {
+    content: none !important;
+  }
 
   &:nth-child(3n+1) { // 1, 4, 7 ...
     margin-left: 0;
@@ -24,19 +35,18 @@ $miniature-mobile-width: 100%;
     margin-right: 0;
   }
 
-  &:last-of-type {
-    margin-bottom: ($miniature-gutter * 2);
-  }
-
-  &:before,
-  &:after {
-    content: none !important;
+  &:last-of-type { // overwrite lack of margin-bottom on lists last item
+    margin-bottom: $miniature-gutter * 2;
   }
 
   a {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
 
     .sliding-button {
+      margin-top: auto;
       border-top: solid 1px $color-border;
     }
 
@@ -48,24 +58,25 @@ $miniature-mobile-width: 100%;
 }
 
 .miniature__content {
-  padding: 0 40px;
-  display: block;
+  padding: 30px 30px 80px;
+  display: flex;
+  flex-direction: column;
   flex: 1;
+  position: relative;
   text-decoration: none;
 
-  h3 {
-    margin: 0 0 29px;
+  .h3 {
+    margin: 0 0 15px;
     color: $color-primary;
     line-height: 1.5;
   }
 }
 
 .miniature__image {
+  height: $miniature-img-height;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 350px;
-  margin-bottom: 20px;
 }
 
 .miniature__name {
@@ -76,8 +87,8 @@ $miniature-mobile-width: 100%;
 
 @media (max-width: $screen-xl) {
   .miniature {
-    width: calc($miniature-tablet-width - 15px);
-    min-width: calc($miniature-tablet-width - 15px);
+    width: calc($miniature-tablet-width - $miniature-gutter);
+    min-width: calc($miniature-tablet-width - $miniature-gutter);
 
     &:nth-child(3n+1), // 4, 7 ...
     &:nth-child(3n+3) { // 3, 6 ...
@@ -95,18 +106,14 @@ $miniature-mobile-width: 100%;
   }
 }
 
-@media (max-width: $screen-md) {
-  .miniature__content {
-    h3 {
-      margin: 0 0 10px;
-    }
-  }
-}
-
 @media (max-width: $screen-sm) {
   .miniature {
-    margin: 0 0 30px !important;
+    margin: 0 0 ($miniature-gutter * 2) !important;
     width: $miniature-mobile-width;
     min-width: $miniature-mobile-width;
+  }
+
+  .miniature__image {
+    height: $miniature-img-mobile-height;
   }
 }
