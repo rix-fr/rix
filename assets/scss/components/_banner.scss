@@ -2,11 +2,22 @@
 
 .banner {
   height: 1850px;
+  position: relative;
   display: flex;
   background-image: url('../../images/backgrounds/banners/banner-home.jpg'); // homepage is default
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top center;
+
+  &:before {
+    height: 200px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: '';
+    background: linear-gradient(to bottom, transparent, #fff);
+  }
 
   h1 {
     max-width: 950px;

@@ -5,6 +5,10 @@
     background-image: none; // remove background-image to prevent ugliness when not much content on page
   }
 
+  .banner {
+    height: 1650px;
+  }
+
   .beveled-wrapper__gradient {
     .content {
       position: relative;
@@ -76,4 +80,10 @@
   }
 }
 
-
+@media (max-width: $screen-xs) {
+  .page-case-study {
+    .banner {
+      height: 1300px;
+    }
+  }
+}

@@ -15,17 +15,13 @@
 {% block body_class 'page-case-study' %}
 
 {% block content %}
-    <div class="banner banner--case-study">
-        <div class="container">
-            <h1>{{ caseStudy.title }}</h1>
-        </div>
-    </div>
+    <div class="banner banner--case-study"></div>
     <div class="beveled-wrapper">
         <div class="beveled-wrapper__gradient">
             <div class="container shape"><!-- bevel shape --></div>
             <div class="container content">
                 <div class="case-study__header">
-                    <h2 class="case-study__title">{{ caseStudy.title }}</h2>
+                    <h1 class="case-study__title h2">{{ caseStudy.title }}</h1>
                     <p>{{ caseStudy.description }}</p>
                     <span class="h3--small">Services</span>
                     <ul>

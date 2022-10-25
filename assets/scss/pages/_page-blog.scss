@@ -6,6 +6,10 @@
     background-image: none; // remove background-image to prevent ugliness when not much content on page
   }
 
+  .banner {
+    height: 1650px;
+  }
+
   .content {
     ul {
       > li {
@@ -76,5 +80,13 @@
 @media (max-width: $screen-lg) {
   .sliding-button--mobile {
     border-top: 1px solid $color-border !important;
+  }
+}
+
+@media (max-width: $screen-xs) {
+  .page-blog {
+    .banner {
+      height: 1300px;
+    }
   }
 }
