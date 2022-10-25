@@ -21,12 +21,6 @@
     }
   }
 
-  .beveled-wrapper__gradient {
-    .shape {
-      background-image: url('../../images/case-studies/header_shape.svg');
-    }
-  }
-
   .miniature {
     // Overwrite default miniature alignement
     &:nth-child(3n+1), // 1, 4, 7 ...
