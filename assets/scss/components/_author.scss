@@ -14,10 +14,6 @@
     max-width: unset;
     border-radius: 50%;
   }
-
-  a {
-    text-decoration: none;
-  }
 }
 
 .author__image {
@@ -39,15 +35,8 @@
   flex-direction: column;
 
   strong {
-    margin-top: 2px;
     font-family: $secondary-font;
-  }
-
-  a:hover {
-    strong {
-      cursor: pointer;
-      color: $color-secondary;
-    }
+    line-height: 1.6;
   }
 }
 
@@ -62,7 +51,7 @@
     height: 60px;
 
     @for $i from 1 through 5 {
-      a:nth-child(#{$i}) {
+      img:nth-child(#{$i}) {
         position: absolute;
         left: #{$i * 45}px;
       }

@@ -30,37 +30,41 @@
                     {% for article in articles %}
                         {% if page == minPage and loop.first %}
                             <li class="miniature-highlight">
-                                <div class="miniature-highlight__content">
-                                    <a href="{{ path('blog_article', { article: article.slug }) }}" class="details">
+                                <a href="{{ path('blog_article', { article: article.slug }) }}" class="miniature-highlight__content">
+                                    <div class="details">
                                         <span class="date">{{ article.date|format_date('medium') }}</span>
                                         <h2>{{ article.title }}</h2>
                                         <p>{{ article.description }}</p>
-                                    </a>
-                                    <a href="{{ path('blog_article', { article: article.slug }) }}" class="miniature-highlight__image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.lg') }};">
-                                    </a>
-                                </div>
-                                <div class="miniature-highlight__info">
+                                    </div>
+                                    <div class="miniature-highlight__image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.lg') }};">
+                                    </div>
+                                </a>
+                                <div class="miniature-highlight__tags">
                                     <ul class="tags-list">
                                         {% for tag in article.tags %}
                                             <li class="tags-list__item">
-                                                <a href="{{ path('blog_tag', { tag: tag }) }}" rel="nofollow">
-                                                    #{{ tag|u.camel.title }}
-                                                </a>
+                                                <span>#{{ tag|u.camel.title }}</span>
                                             </li>
                                         {% endfor %}
                                     </ul>
-                                    <div class="info">
-                                        <div class="author author--multi">
-                                            <div class="author__image">
-                                                <a><img src="https://via.placeholder.com/50x50"></a>
-                                                <a><img src="https://via.placeholder.com/50x50"></a>
-                                            </div>
-                                            <span class="author__info">
-                                                Écrit par
-                                                <a><strong>Florian Rey</strong></a>
-                                                <a><strong>Guewen Faivre</strong></a>
-                                            </span>
+                                </div>
+                                <div class="miniature-highlight__author">
+                                    <div class="author author--multi">
+                                        <div class="author__image">
+                                            {% for author in article.authors %}
+                                                <img {{ macros.imageSrcset(author.avatar(), 'author_avatar') }} />
+                                            {% else %}
+                                                <img {{ macros.imageSrcset('content/images/members/avatars/rix.png', 'author_avatar') }} />
+                                            {% endfor %}
                                         </div>
+                                        <span class="author__info">
+                                            Écrit par
+                                            {% for author in article.authors %}
+                                                <strong>{{ author.name }}</strong>
+                                            {% else %}
+                                                <strong>La team Rix</strong>
+                                            {% endfor %}
+                                        </span>
                                     </div>
                                 </div>
                             </li>
@@ -70,7 +74,7 @@
                                     <div class="miniature-inline__image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.md') }}">
                                     </div>
                                     <div class="miniature-inline__content">
-                                        <h3>{{ article.title }}</h3>
+                                        <h2 class="h3">{{ article.title }}</h2 class="h3">
                                         <p>{{ article.description }}</p>
                                         <ul class="tags-list">
                                             {% for tag in article.tags %}
@@ -93,7 +97,7 @@
                                 <a href="{{ path('blog_article', { article: article.slug }) }}">
                                     <div class="miniature__image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.sm') }}"></div>
                                     <div class="miniature__content">
-                                        <h3>{{ article.title }}</h3>
+                                        <h2 class="h3">{{ article.title }}</h2>
                                         <p>{{ article.description }}</p>
                                         <ul class="tags-list">
                                             {% for tag in article.tags %}
