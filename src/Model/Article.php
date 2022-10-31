@@ -33,6 +33,8 @@ class Article
      * If provided, the image to use on top of the show article view instead of the thumbnail image.
      */
     public ?string $banner = null;
+
+    /** @var string[] */
     public array $tags = [];
 
     /**
@@ -91,5 +93,15 @@ class Article
     public function isPublished(): bool
     {
         return new \DateTimeImmutable() >= $this->date;
+    }
+
+    /**
+     * Authors array (without keys)
+     *
+     * @return Member[]
+     */
+    public function getAuthorsArray(): array
+    {
+        return array_values($this->authors);
     }
 }
