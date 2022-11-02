@@ -1,25 +1,11 @@
 @use '../abstracts' as *;
 
 .page-casebook {
+  main {
+    background-image: none; // remove background-image to prevent ugliness when not much content on page
+  }
+
   .h3 {
     margin-bottom: 20px;
-  }
-
-  .banner {
-    height: 1500px;
-    background-image: url('../../images/case-studies/snow_mountain_background.jpg') !important;
-    background-size: contain !important;
-  }
-
-  .beveled-wrapper__gradient {
-    .shape {
-      background-image: url('../../images/case-studies/header_shape.svg');
-    }
-  }
-}
-
-@media (max-width: $screen-sm) {
-  .beveled-wrapper {
-    margin-left: 0;
   }
 }

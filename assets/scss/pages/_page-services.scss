@@ -1,10 +1,6 @@
 @use '../abstracts' as *;
 
 .page-services {
-  .banner {
-    background-image: url('../../images/banner-services.jpg') !important;
-  }
-
   .miniature__content {
     h3 {
       margin: 0 0 29px;
@@ -67,11 +63,5 @@
     img {
       width: 60px;
     }
-  }
-}
-
-@media (max-width: $screen-sm) {
-  .banner {
-    background: url('../../images/banner-services-mobile.jpg') no-repeat;
   }
 }

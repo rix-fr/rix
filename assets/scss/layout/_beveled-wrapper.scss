@@ -89,17 +89,29 @@
   }
 }
 
+.beveled-wrapper--wolf {
+  .beveled-wrapper__gradient {
+    .shape {
+      background: url('../../images/bevel-wolf.svg') no-repeat;
+    }
+  }
+}
+
 
 @media (max-width: 1440px) {
+  .beveled-wrapper,
+  .beveled-wrapper--wolf {
+    .beveled-wrapper__gradient {
+      .shape {
+        background: url('../../images/bevel.svg') no-repeat;
+      }
+    }
+  }
   .beveled-wrapper__gradient {
     background: transparent;
 
-    .shape {
-      background: url('../../images/bevel-mobile.svg') no-repeat;
-
-      &:before {
-        display: none;
-      }
+    .shape:before {
+      display: none;
     }
   }
 }
