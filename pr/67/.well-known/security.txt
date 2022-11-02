@@ -1,3 +1,0 @@
-Contact: security@rix.fr
-Expires: Wed, 1 Jan 2030 00:00 +0200
-Encryption: https://keys.openpgp.org/vks/v1/by-fingerprint/67B08D2BE9C8ACC2C40D28F1F69D39C94B03BD79
