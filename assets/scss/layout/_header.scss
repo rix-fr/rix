@@ -5,6 +5,10 @@
   background: #fff;
   border-top: solid 30px $color-primary;
 
+  img {
+    margin: 0;
+  }
+
   .container {
     padding: 0 20px 20px;
     display: flex;

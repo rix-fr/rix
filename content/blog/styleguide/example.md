@@ -14,7 +14,7 @@ credits:            { name: "Jon Tyson", url: "https://unsplash.com/@jontyson" }
 tags:               ["Tag 1", "Tag 2"]
 categories:         ["DevOps", "Docker"]
 authors:            ["gfaivre", "rix"]
-tweetId: "1369737350830583811"
+tweetId:            "1369737350830583811"
 ---
 
 ## Style

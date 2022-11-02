@@ -1,0 +1,109 @@
+@use '../abstracts' as *;
+
+.admonition {
+  margin: 60px 0;
+  padding: 45px 60px 30px;
+  position: relative;
+  font-family: monospace;
+  font-size: toRem(18px);
+  color: $color-primary;
+  line-height: 1.6;
+  background: $color-highlight;
+
+  &:before,
+  &:after {
+    position: absolute;
+  }
+
+  &:before {
+    width: 58px;
+    height: 58px;
+    top: -29px;
+    left: 31px;
+    content: '';
+    background: $color-highlight;
+    border-radius: 50px;
+  }
+
+  &:after {
+    position: absolute;
+    top: -30px;
+    left: 30px;
+    font-family: 'icomoon';
+    content: '\e926';
+    font-size: toRem(60px);
+    line-height: 1;
+    color: #fff;
+  }
+
+  p {
+    margin: 0 0 10px !important;
+
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+
+  a {
+    font-family: monospace;
+    border-bottom-color: $color-primary;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $color-primary;
+    }
+  }
+}
+
+.admonition-title {
+  font-family: monospace;
+  font-weight: 700;
+  font-size: toRem(20px);
+}
+
+.admonition.success {
+  background: $color-success;
+
+  &:before {
+    background: $color-success;
+  }
+
+  &:after {
+    content: '\e928';
+  }
+
+  a {
+    color: darken($color-success, 40%);
+    border-bottom-color: darken($color-success, 40%);
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: darken($color-success, 40%);
+    }
+  }
+}
+
+.admonition.danger {
+  background: $color-danger;
+
+  &:before {
+    background: $color-danger;
+  }
+
+  &:after {
+    content: '\e927';
+  }
+
+  a {
+    color: $color-primary;
+    border-bottom-color: $color-primary;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $color-primary;
+    }
+  }
+}

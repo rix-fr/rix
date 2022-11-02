@@ -1,0 +1,27 @@
+@use '../abstracts' as *;
+@use "sass:color";
+
+.alert {
+  padding: 20px 30px;
+  display: flex;
+  font-family: $primary-font--bold;
+
+  .icon {
+    margin-right: 15px;
+    font-size: toRem(25px);
+  }
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.alert--error {
+  color: color.adjust(#fff, $alpha: -.1);
+  background: $color-danger;
+}
+
+.alert--info {
+  color: color.adjust(#fff, $alpha: -.1);
+  background: $color-info;
+}

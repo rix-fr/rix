@@ -1,0 +1,37 @@
+@use '../abstracts' as *;
+
+.comment {
+  margin: 20px 0;
+  padding: 35px 75px;
+  min-width: 100%;
+  width: 100%;
+  border: 1px solid $color-border;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  .title {
+    font-family: $secondary-font;
+    margin: 20px 0 10px;
+    font-size: toRem(32px);
+  }
+
+  .tweet-container {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: $screen-xs) {
+  .comment {
+    padding: 25px 30px;
+  }
+}
+
+@media (max-width: $screen-xxs) {
+  .comment {
+    .tweet-container {
+      display: none;
+    }
+  }
+}

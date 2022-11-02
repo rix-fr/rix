@@ -22,6 +22,11 @@
   font-size: toRem(14px);
   padding: 7px 10px !important;
 
+  &:before,
+  &:after {
+    display: none;
+  }
+
   a {
     text-decoration: none;
   }

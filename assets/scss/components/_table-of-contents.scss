@@ -1,0 +1,31 @@
+@use '../abstracts' as *;
+
+.table-of-contents {
+  margin: 0;
+  padding: 30px 45px;
+  width: calc(100% - 330px);
+  display: flex;
+  flex-direction: column;
+  font-family: $primary-font--bold;
+  color: $color-secondary;
+  border: 1px solid $color-border;
+}
+
+.table-of-contents__item {
+  padding: 0 15px;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.table-of-contents__sub-level {
+  list-style-type: lower-alpha;
+}
+
+@media (max-width: $screen-md) {
+  .table-of-contents {
+    padding: 20px 25px;
+    width: 100%;
+  }
+}

@@ -20,9 +20,15 @@
 @use "layout/_beveled-wrapper";
 
 @use "components/_author";
+@use "components/_alert";
+@use "components/_admonition";
+@use "components/_article-overview";
+@use "components/_article-info";
+@use "components/_article-footer";
 @use "components/_miniature-list";
 @use "components/_banner";
 @use "components/_button";
+@use "components/_comment";
 @use "components/_blockquote";
 @use "components/_miniature";
 @use "components/_miniature-inline";
@@ -38,6 +44,7 @@
 @use "components/_tags-list";
 @use "components/_timeline";
 @use "components/_technologies-list";
+@use "components/_table-of-contents";
 @use "components/_profile";
 @use "components/_profile-list";
 @use "components/_pagination";
@@ -46,8 +53,9 @@
 @use "components/_miniature-highlight";
 
 @use "generic/_a";
-// @use "generic/_code";
+@use "generic/_code";
 @use "generic/_img";
+@use "generic/_figure";
 @use "generic/_p";
 @use "generic/_titles";
 @use "generic/_ul";
@@ -57,6 +65,7 @@
 @use "utilities/_screen-reader";
 
 @use "pages/_page-home";
+@use "pages/_page-article";
 @use "pages/_page-blog";
 @use "pages/_page-casebook";
 @use "pages/_page-case-study";

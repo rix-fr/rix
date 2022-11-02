@@ -1,0 +1,41 @@
+@use '../abstracts' as *;
+
+.article-info {
+  border: 1px solid $color-border;
+  height: 100%;
+  border-left: 0;
+
+  .author {
+    padding: 30px 35px;
+    border-bottom: 1px solid #99B7D1;
+  }
+}
+
+.article-info__date {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 30px 35px;
+
+  span {
+    margin-right: 35px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  strong {
+    font-family: $secondary-font;
+    margin-top: 2px;
+  }
+}
+
+@media (max-width: $screen-md) {
+  .article-info {
+    border: 1px solid $color-border;
+    border-top: none;
+  }
+
+  .article-info__date {
+    padding-top: 25px;
+  }
+}

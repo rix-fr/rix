@@ -1,0 +1,12 @@
+@use '../abstracts' as *;
+
+.article-overview {
+  display: flex;
+  margin-bottom: 80px;
+}
+
+@media (max-width: $screen-md) {
+  .article-overview {
+    flex-direction: column;
+  }
+}

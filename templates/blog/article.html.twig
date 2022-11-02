@@ -15,224 +15,175 @@
     <link rel="alternate" type="application/rss+xml" href="{{ path('blog_rss') }}" title="Le blog de l'équipe Rix" />
 {% endblock %}
 
+{% block body_class 'page-article' %}
+
 {% block content %}
-    Titre : {{ article.title }}
-
-    Description :
-
-    <p>{{ article.description }}</p>
-
-    Tags :
-
-    <ul class="article-tag-list">
-        {% for tag in article.tags %}
-            <li class="article-tag-list__item">
-                <a href="{{ path('blog_tag', { tag: tag }) }}" rel="nofollow">#{{ tag|u.camel.title }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-
-    Bannière :
-
-    <div
-        style="{{ macros.backgroundImageSrcset(article.banner ?? article.thumbnail, 'article_banner') }}; width: 620px;height:445px;"
-    ></div>
-
-    Auteur(s):
-
-    <div class="article-info">
-        {% set authors = article.authors|length > 5 ? [] : article.authors %}
-        {% block author_header %}
-            <div class="author {{ authors|length > 1 ? 'author--multi' : '' }}">
-                <div class="author__image">
-                    {% for author in authors %}
-                        <a>
-                            <img {{ macros.imageSrcset(author.avatar(), 'author_avatar') }} />
-                        </a>
-                    {% else %}
-                        <img {{ macros.imageSrcset('images/members/avatars/rix-team.jpg', 'author_avatar') }} />
-                    {% endfor %}
-                </div>
-                <span class="author__info">
-                    Écrit par
-                    {% for author in authors %}
-                        <a>
-                            <strong>{{ author.name }}</strong>
-                        </a>
-                    {% else %}
-                        <strong>La team Rix</strong>
-                    {% endfor %}
-                </span>
-            </div>
-        {% endblock %}
+    <div class="banner">
+        <div class="container">
+            <h1>
+                Blog
+                <strong>/</strong>
+            </h1>
+        </div>
     </div>
 
-    Dates:
-
-    <div>
-        <span>Publication <strong>{{ article.date|format_date('long') }}</strong></span>
-        {# Do only display the last modified date if not null and different day than the publication date #}
-        {% if article.lastModified and article.lastModified > article.date|date_modify('+1 day 00:00') %}
-            <span>Modification <strong>{{ article.lastModified|format_date('long') }}</strong></span>
-        {% endif %}
-    </div>
-
-    Table des matières :
-
-    {% if article.tableOfContent is not empty %}
-        <ol class="table-of-content">
-            {% for headline in article.tableOfContent %}
-                <li class="table-of-content__item">
-                    <a href="#{{ headline.id }}">{{ headline.content }}</a>
-
-                    {% if headline.children is not empty %}
-                        <ol class="table-of-content__sub-level">
-                            {% for child in headline.children %}
-                                    <li>
-                                        <a href="#{{ child.id }}">{{ child.content }}</a>
-                                    </li>
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <ul class="tags-list">
+                    {% for tag in article.tags %}
+                        <li class="tags-list__item">
+                            <a href="{{ path('blog_tag', { tag: tag }) }}" rel="nofollow">#{{ tag|u.camel.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <h2 class="h2--large">{{ article.title }}</h2>
+                <p>{{ article.description }}</p>
+                <div class="article-overview">
+                    {% if article.tableOfContent is not empty %}
+                    <ol class="table-of-contents">
+                            {% for headline in article.tableOfContent %}
+                                <li class="table-of-contents__item">
+                                    <a href="#{{ headline.id }}">{{ headline.content }}</a>
+                                    {% if headline.children is not empty %}
+                                        <ol class="table-of-contents__sub-level">
+                                            {% for child in headline.children %}
+                                                <li>
+                                                    <a href="#{{ child.id }}">{{ child.content }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ol>
+                                    {% endif %}
+                                </li>
                             {% endfor %}
                         </ol>
                     {% endif %}
-                </li>
-            {% endfor %}
-        </ol>
-    {% endif %}
-
-    {% if article.outdated %}
-        Warning article obsolète:
-
-        <div class="alert alert--info">
-            <i class="icon icon--info" aria-hidden="true"></i>
-            <div>
-                {% if article.outdated is same as true %}
-                    <p>
-                        Attention, cet article date un peu, il est peut-être obsolète, gardez cela en tête lors de votre lecture !
-                    </p>
-                {% else %}
-                    {{ article.outdated|nl2br|markdownify|raw }}
+                    <div class="article-info">
+                        {% set authors = article.authors|length > 5 ? [] : article.authors %}
+                        {% block author_header %}
+                            <div class="author {{ authors|length > 1 ? 'author--multi' : '' }}">
+                                <div class="author__image">
+                                    {% for author in authors %}
+                                        <img {{ macros.imageSrcset(author.avatar(), 'author_avatar') }} />
+                                    {% else %}
+                                        <img {{ macros.imageSrcset('images/members/avatars/rix-team.jpg', 'author_avatar') }} />
+                                    {% endfor %}
+                                </div>
+                                <span class="author__info">
+                                    Écrit par
+                                    {% for author in authors %}
+                                        <strong>{{ author.name }}</strong>
+                                    {% else %}
+                                        <strong>La team Rix</strong>
+                                    {% endfor %}
+                                </span>
+                            </div>
+                        {% endblock %}
+                        <div class="article-info__date">
+                            <span>Publication <strong>{{ article.date|format_date('long') }}</strong></span>
+                            {# Do only display the last modified date if not null and different day than the publication date #}
+                            {% if article.lastModified and article.lastModified > article.date|date_modify('+1 day 00:00') %}
+                                <span>Modification <strong>{{ article.lastModified|format_date('long') }}</strong></span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <main>
+                    {% if article.outdated %}
+                        <div class="alert alert--info">
+                            <i class="icon icon--info" aria-hidden="true"></i>
+                            <div>
+                                {% if article.outdated is same as true %}
+                                    <p>Attention, cet article date un peu, il est peut-être obsolète, gardez cela en tête lors de votre lecture !</p>
+                                {% else %}
+                                    {{ article.outdated|nl2br|markdownify|raw }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if not article.published %}
+                        <div class="alert alert--error">
+                            <i class="icon icon--danger" aria-hidden="true"></i>
+                            <div>
+                                <p>Cet article n'est pas encore publié. Cet aperçu est disponible uniquement dans cet environnement mais n'apparaîtra en production qu'à partir du {{ article.date|format_date('long') }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {{ article.content|raw }}
+                    {% block credits %}
+                        {% if article.credits %}
+                            <div class="article-credits">
+                                Crédits: photo de couverture par
+                                {% if article.credits.url %}
+                                    <a href="{{ article.credits.url }}">
+                                        {{ article.credits.name }}
+                                    </a>
+                                {% else %}
+                                    {{ article.credits.name }}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                </main>
+                <div class="article-footer" data-aos="fade-in">
+                    {% block author_footer %}
+                        {% for author in article.authors %}
+                            <div class="author">
+                                <div class="author__image">
+                                    <img {{ macros.imageSrcset(author.avatar(), 'author_avatar') }} />
+                                </div>
+                                <span class="author__info">
+                                    {{ loop.first ? 'Écrit par' : 'Co-écrit par' }}
+                                    <strong>{{ author.name }}</strong>
+                                </span>
+                                <div class="author__social">
+                                    {% if author.twitter %}
+                                        <a href="https://twitter.com/{{ author.twitter }}">
+                                            <i class="icon icon--twitter" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte twitter de {{ author.name }}</span>
+                                        </a>
+                                    {% endif %}
+                                    {% if author.github %}
+                                        <a href="https://github.com/{{ author.github }}">
+                                            <i class="icon icon--github" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte github de {{ author.name }}</span>
+                                        </a>
+                                    {% endif %}
+                                    {% if author.website %}
+                                        <a href="{{ author.website }}">
+                                            <i class="icon icon--website" aria-hidden="true"></i>
+                                            <span class="screen-reader">Site personnel de {{ author.name }}</span>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endblock %}
+                </div>
+                {% if article.tweetId is not empty or article.githubEditLink is not empty %}
+                    <div class="comment">
+                        {% if article.tweetId is not empty %}
+                            <p class="title">Commenter</p>
+                            <p>
+                                Des commentaires ?
+                                <a href="{{ external_url('twitter_rix_tweet', { tweetId: article.tweetId }) }}" target="_blank">
+                                    Poursuivons la discussion sur twitter !
+                                </a>
+                            </p>
+                            <div id="tweet-container" class="tweet-container" data-tweet-id="{{ article.tweetId }}"></div>
+                        {% endif %}
+                        {% if article.githubEditLink is not empty %}
+                            <p>
+                                Une typo ?
+                                <a href="{{ article.githubEditLink }}" target="_blank">Modifier cet article sur Github</a>
+                            </p>
+                        {% endif %}
+                    </div>
                 {% endif %}
             </div>
         </div>
-    {% endif %}
-
-    {% if not article.published %}
-        Article en cours de rédaction / publication programmée (visible en staging):
-
-        <div class="alert alert--warning">
-            <i class="icon icon--danger" aria-hidden="true"></i>
-            <div>
-                <p>
-                    Cet article n'est pas encore publié. Cet aperçu est disponible uniquement dans cet environnement mais n'apparaîtra en production qu'à partir du {{ article.date|format_date('long') }}
-                </p>
-            </div>
-        </div>
-    {% endif %}
-
-    Contenu :
-
-    {{ article.content|raw }}
-
-
-    Crédits images:
-
-    {% block credits %}
-        {% if article.credits %}
-            <div class="article-credits">
-                Crédits: photo de couverture par
-                {% if article.credits.url %}
-                    <a href="{{ article.credits.url }}">
-                        {{ article.credits.name }}
-                    </a>
-                {% else %}
-                    {{ article.credits.name }}
-                {% endif %}
-            </div>
-        {% endif %}
-    {% endblock %}
-
-    {% if article.tweetId is not empty %}
-        Lien twitter et kudos :
-
-        <a href="{{ external_url('twitter_like', { tweet_id: article.tweetId }) }}" class="kudo" target="_blank">
-            <span class="kudo__button" aria-hidden="true"></span>
-            <span class="screen-reader">Cet article m’a été utile</span>
-            <span class="kudo__label" aria-hidden="true">Kudos</span>
-        </a>
-    {% endif %}
-
-    Auteurs (fin d'article) :
-
-    {% block author_footer %}
-        {% for author in article.authors %}
-            <div class="author">
-                <div class="author__image">
-                    <a>
-                        <img {{ macros.imageSrcset(author.avatar(), 'author_avatar') }} />
-                    </a>
-                </div>
-                <span class="author__info">
-                    {{ loop.first ? 'Écrit par' : 'Co-écrit par' }}
-                    <a>
-                        <strong>{{ author.name }}</strong>
-                    </a>
-                </span>
-
-                <div class="author__social">
-                    {% if author.twitter %}
-                        <a href="https://twitter.com/{{ author.twitter }}" class="social social--small">
-                            <i class="icon icon--twitter" aria-hidden="true"></i>
-                            <span class="screen-reader">Compte twitter de {{ author.name }}</span>
-                        </a>
-                    {% endif %}
-                    {% if author.github %}
-                        <a href="https://github.com/{{ author.github }} " class="social social--small">
-                            <i class="icon icon--github" aria-hidden="true"></i>
-                            <span class="screen-reader">Compte github de {{ author.name }}</span>
-                        </a>
-                    {% endif %}
-                    {% if author.website %}
-                        <a href="{{ author.website }}" class="social social--small">
-                            <i class="icon icon--website" aria-hidden="true"></i>
-                            <span class="screen-reader">Site personnel de {{ author.name }}</span>
-                        </a>
-                    {% endif %}
-                </div>
-            </div>
-        {% endfor %}
-    {% endblock %}
-
-    {% if article.tweetId is not empty or article.githubEditLink is not empty %}
-
-        Lien Twitter et édition typo via Github:
-
-        <div class="bricks">
-            {% if article.tweetId is not empty %}
-                <div class="brick-comment">
-                    <p class="title">Commenter</p>
-                    <p>
-                        Des commentaires ?
-                        <a href="{{ external_url('twitter_rix_tweet', { tweetId: article.tweetId }) }}" target="_blank" class="animated-link animated-link--light">
-                            Poursuivons la discussion sur twitter !
-                        </a>
-                    </p>
-                    <div id="tweet-container" class="tweet-container" data-tweet-id="{{ article.tweetId }}"></div>
-                </div>
-            {% endif %}
-
-            {% if article.githubEditLink is not empty %}
-                <div class="brick-contribute">
-                    <p>
-                        Une typo ?
-                        <a href="{{ article.githubEditLink }}" target="_blank" class="animated-link animated-link--light">
-                            Modifier cet article sur Github
-                        </a>
-                    </p>
-                </div>
-            {% endif %}
-        </div>
-    {% endif %}
-
+    </div>
 {% endblock content %}
 
 {% block javascripts %}
