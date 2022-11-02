@@ -30,6 +30,13 @@
   .button {
     margin-top: 35px;
   }
+
+  .page-blog &,
+  .page-article &,
+  .page-casebook &,
+  .page-case-study & {
+    height: 1550px;
+  }
 }
 
 $banners: (
@@ -54,6 +61,20 @@ $banners: (
   @each $page, $banner-image in $banners {
     .banner--#{$page} {
       background-image: url('#{$banner-image}-mobile.jpg');
+    }
+  }
+}
+
+@media (max-width: $screen-xs) {
+  .banner {
+    .page-blog &,
+    .page-article &,
+    .page-case-study & {
+      height: 1350px;
+    }
+
+    .page-casebook & {
+      height: 1400px;
     }
   }
 }

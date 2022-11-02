@@ -1,21 +1,9 @@
 @use '../abstracts' as *;
 
 .page-article {
-  .banner {
-    height: 1500px;
-    background-image: url('../../images/blog/background.jpg') !important;
-    background-size: contain !important;
-  }
-
-  .beveled-wrapper__gradient {
-    .shape {
-      background-image: url('../../images/case-studies/header_shape.svg');
-    }
-  }
-
   main {
-    background: transparent;
     padding-bottom: 75px;
+    background-image: none; // remove background-image to prevent ugliness when not much content on page
   }
 
   h2:first-of-type {
