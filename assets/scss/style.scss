@@ -27,6 +27,7 @@
 @use "components/_article-footer";
 @use "components/_miniature-list";
 @use "components/_banner";
+@use "components/_banner-error";
 @use "components/_button";
 @use "components/_comment";
 @use "components/_blockquote";
@@ -72,3 +73,4 @@
 @use "pages/_page-services";
 @use "pages/_page-contact";
 @use "pages/_page-legals";
+@use "pages/_page-error";
