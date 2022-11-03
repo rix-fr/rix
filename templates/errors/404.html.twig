@@ -11,22 +11,16 @@
 
 {% block content %}
     <div class="container">
-        <div class="banner-error">
-            <h1 class="banner-error__title">
+        <div class="error">
+            <h1 class="error__title">
                 Erreur
                 <span>404</span>
             </h1>
-            <div class="banner-error__content">
-                <p>La page que vous recherchez n'existe pas ou a été supprimée.</p>
-                <p><strong>Que voulez-vous faire ?</strong></p>
-            </div>
-            <div class="banner-error__action">
-                <a href="{{ path('homepage') }}" class="button">
-                    Retourner à l'accueil
-                </a>
-                <a href="{{ path('blog') }}" class="button">
-                    Lire nos articles
-                </a>
+            <p>La page que vous recherchez n'existe pas ou a été supprimée.</p>
+            <p><strong>Que voulez-vous faire ?</strong></p>
+            <div class="error__action">
+                <a href="{{ path('homepage') }}" class="button">Retourner à l'accueil</a>
+                <a href="{{ path('blog') }}" class="button">Lire nos articles</a>
             </div>
         </div>
     </div>
