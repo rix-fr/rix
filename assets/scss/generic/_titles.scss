@@ -21,6 +21,13 @@ h1,
     font-family: $tertiary-font;
   }
 
+  span {
+    display: block;
+    font-family: $secondary-font;
+    color: $color-secondary;
+    font-size: toRem(53px);
+  }
+
   strong {
     color: $color-secondary;
   }

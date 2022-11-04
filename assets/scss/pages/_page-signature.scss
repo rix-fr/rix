@@ -1,0 +1,16 @@
+@use '../abstracts' as *;
+
+.page-signature {
+  display: flex;
+  justify-content: space-between;
+
+  main {
+    background-image: none;
+  }
+
+  textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+  }
+}

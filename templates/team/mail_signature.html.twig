@@ -2,6 +2,8 @@
 
 {% set noindex = true %}
 
+{% block body_class 'page-signature' %}
+
 {% block content %}
     <div class="container">
         <h1>
@@ -10,12 +12,11 @@
         </h1>
 
         <div class="page-signature">
-            <div class="page-signature__preview">
+            <div>
                 {{ _self.signatureHtml(member) }}
             </div>
-
-            <div class="page-signature__tutorial">
-                <h2 class="h4">Copie ce code HTML pour créer ta signature mail.</h2>
+            <div>
+                <h2>Copie ce code HTML pour créer ta signature mail.</h2>
                 <textarea readonly="readonly" onclick="this.focus();this.select()">
                     {%- apply spaceless -%}
                         {{- _self.signatureHtml(member) -}}
