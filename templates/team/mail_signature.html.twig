@@ -7,16 +7,16 @@
 {% block content %}
     <div class="container">
         <h1>
-            Signature de
-            <span>{{ member.name }}</span>
+            {{ member.name }}
+            <span>Signature</span>
         </h1>
 
-        <div class="page-signature">
-            <div>
+        <div class="signature">
+            <div class="signature__preview">
                 {{ _self.signatureHtml(member) }}
             </div>
-            <div>
-                <h2>Copie ce code HTML pour créer ta signature mail.</h2>
+            <div class="signature__code">
+                <p>Copie ce code HTML pour créer ta signature mail.</p>
                 <textarea readonly="readonly" onclick="this.focus();this.select()">
                     {%- apply spaceless -%}
                         {{- _self.signatureHtml(member) -}}
