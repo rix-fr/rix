@@ -1,9 +1,10 @@
 @use '../abstracts' as *;
 
 .article-info {
+  margin: 0 0 0 -1px;
   border: 1px solid $color-border;
   height: 100%;
-  border-left: 0;
+  flex: 1;
 
   .author {
     padding: 30px 35px;
@@ -31,8 +32,8 @@
 
 @media (max-width: $screen-md) {
   .article-info {
+    margin: -1px 0 0 0;
     border: 1px solid $color-border;
-    border-top: none;
   }
 
   .article-info__date {
