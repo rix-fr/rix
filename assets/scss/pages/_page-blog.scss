@@ -78,3 +78,11 @@
     border-top: 1px solid $color-border !important;
   }
 }
+
+@media (max-width: $screen-sm) {
+  .page-blog {
+    .content {
+      padding-bottom: 50px;
+    }
+  }
+}
