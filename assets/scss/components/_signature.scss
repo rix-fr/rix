@@ -1,0 +1,31 @@
+@use '../abstracts' as *;
+
+.signature {
+  display: flex;
+  justify-content: space-between;
+
+  textarea {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+  }
+}
+
+.signature__preview {
+  margin-top: 25px;
+  padding-right: 95px;
+}
+
+.signature__code {
+  flex: 1;
+
+  p {
+    margin: 0 0 15px;
+  }
+}
+
+@media (max-width: $screen-md) {
+  .signature {
+    flex-direction: column-reverse;
+  }
+}

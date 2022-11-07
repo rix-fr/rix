@@ -40,6 +40,7 @@
 @use "components/_open-source";
 @use "components/_services-list";
 @use "components/_sliding-button";
+@use "components/_signature";
 @use "components/_ecosystem";
 @use "components/_tags-list";
 @use "components/_timeline";
@@ -73,3 +74,4 @@
 @use "pages/_page-contact";
 @use "pages/_page-legals";
 @use "pages/_page-error";
+@use "pages/_page-signature";
