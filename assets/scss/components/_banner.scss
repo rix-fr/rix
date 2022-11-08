@@ -4,7 +4,8 @@
   height: 1850px;
   position: relative;
   display: flex;
-  background-image: url('../../images/backgrounds/banners/banner-home.jpg'); // homepage is default
+  // default banner is the same as homepage's banner
+  background-image: url('../../images/backgrounds/banners/banner-home.webp');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top center;
@@ -49,18 +50,18 @@ $banners: (
 
 @each $page, $banner-image in $banners {
   .banner--#{$page} {
-    background-image: url('#{$banner-image}.jpg');
+    background-image: url('#{$banner-image}.webp');
   }
 }
 
 @media (max-width: $screen-sm) {
   .banner {
-    background-image: url('../../images/backgrounds/banners/banner-home-mobile.jpg');
+    background-image: url('../../images/backgrounds/banners/banner-home-mobile.webp');
   }
 
   @each $page, $banner-image in $banners {
     .banner--#{$page} {
-      background-image: url('#{$banner-image}-mobile.jpg');
+      background-image: url('#{$banner-image}-mobile.webp');
     }
   }
 }
