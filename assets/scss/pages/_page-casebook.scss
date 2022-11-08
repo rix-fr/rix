@@ -9,3 +9,11 @@
     margin-bottom: 20px;
   }
 }
+
+@media (max-width: $screen-sm) {
+  .page-casebook {
+    .content {
+      padding-bottom: 50px;
+    }
+  }
+}
