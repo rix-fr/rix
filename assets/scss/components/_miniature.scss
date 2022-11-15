@@ -1,7 +1,9 @@
+@use "sass:math";
+
 @use '../abstracts' as *;
 
-$miniature-width: 100% / 3;
-$miniature-tablet-width: 100% / 2;
+$miniature-width: math.div(100%, 3);
+$miniature-tablet-width: 100% * 0.5;
 $miniature-mobile-width: 100%;
 
 $miniature-gutter: 20px;
