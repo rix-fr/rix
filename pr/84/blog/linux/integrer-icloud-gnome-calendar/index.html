@@ -56,7 +56,8 @@
     "keywords": [
         "Linux",
         "Icloud",
-        "Calendar"
+        "Calendar",
+        "Gnome"
     ]
 }
     </script>
@@ -70,7 +71,7 @@
                         document.querySelector('html').classList.remove('no-js');
         </script>
 
-                    <link rel="stylesheet" href="/rix/pr/84/build/305.41d5ebca.css">
+                    <link rel="stylesheet" href="/rix/pr/84/build/305.58c822aa.css">
         
                         <script src="/rix/pr/84/build/runtime.236eedcb.js" defer></script><script src="/rix/pr/84/build/348.64eebf97.js" defer></script><script src="/rix/pr/84/build/app.76a9a073.js" defer></script>
 
@@ -224,6 +225,9 @@
                                             <li class="tags-list__item">
                             <a href="/rix/pr/84/blog/tag/calendar" rel="nofollow">#Calendar</a>
                         </li>
+                                            <li class="tags-list__item">
+                            <a href="/rix/pr/84/blog/tag/gnome" rel="nofollow">#Gnome</a>
+                        </li>
                                     </ul>
                 <h2 class="h2--large">Intégrer des agendas iCloud à Gnome Calendar</h2>
                 <p>Intégrer (relativement) facilement des agendas iCloud à Gnome Calendar</p>
@@ -252,8 +256,8 @@
                                                             <body><p>Contrairement à ce que certains pensent on peut être utilisateur d'un iPhone (ou d'un iPad) sans avoir de mac.</p>
 <p>Et oui c'est mon cas d'ailleurs ;)
 Autant je ne changerais pas mon iPhone contre un Android (même si j'ai aussi un XPeria avec SailfishOS) autant je n'échangerais <del>pas</del> plus mon Linux contre un OSX.</p>
-<p>Oui mais… bien qu'il devrait être très facile de synchroniser ses agendas iCloud avec Gnome (étant donné qu'iCloud propose un format <a href="https://fr.wikipedia.org/wiki/CalDAV" target="_blank">CalDAV</a>), la réalité n'est pas tout aussi simple !</p>
-<p>Petit guide pour vous épargner de grosses galères pour y parvenir.</p>
+<p>Oui mais… bien qu'il devrait être très facile de synchroniser ses <strong>agendas iCloud</strong> avec <strong>Gnome</strong> (étant donné qu'iCloud propose un format <a href="https://fr.wikipedia.org/wiki/CalDAV" target="_blank">CalDAV</a>), la réalité n'est pas tout aussi simple !</p>
+<p>Petit guide pour épargner les arrachages de cheveux pour y parvenir.</p>
 <h2 id="les-pre-requis" class="anchor-title"><a href="#les-pre-requis">Les pré-requis</a></h2>
 <ul>
 <li>Un compte iCloud, et oui…</li>
@@ -269,7 +273,7 @@ Autant je ne changerais pas mon iPhone contre un Android (même si j'ai aussi un
       <span class="figure__legend">Nouvel agenda dans Evolution.</span>
     </figcaption>
 </figure>
-<p>Renseignez vos informations et suivez les étapes ci-dessous:</p>
+<p>Renseignez ensuite vos informations et suivez les étapes ci-dessous:</p>
 <figure>
     <img src="/rix/pr/84/resized/content/images/blog/2022/icloud-sync-with-gnome-calendar/evolution-connexion-icloud.jpg/0f7f8f434b8b8c19862771a6a260297b.jpg" alt="Informations de connexion à iCloud." srcset="/rix/pr/84/resized/content/images/blog/2022/icloud-sync-with-gnome-calendar/evolution-connexion-icloud.jpg/0f7f8f434b8b8c19862771a6a260297b.jpg 1x,
 /rix/pr/84/resized/content/images/blog/2022/icloud-sync-with-gnome-calendar/evolution-connexion-icloud.jpg/e5d189ab24fcbd3857dbf579a7cdc917.jpg 2x," id="informations-de-connexion-a-icloud">
@@ -278,15 +282,15 @@ Autant je ne changerais pas mon iPhone contre un Android (même si j'ai aussi un
     </figcaption>
 </figure>
 <ul>
-<li>Sélectionnez le type d'agenda: CalDAV</li>
-<li>URL: <a href="https://caldav.icloud.com" target="_blank">https://caldav.icloud.com</a> (Elle sera par la suite remplacée par l'adresse de l'agenda sélectionné)</li>
-<li>Dans le champs utilisateur, votre Apple ID (En général votre adresse de courriel)</li>
-<li>Appuyez enfin  sur « Rechercher les agendas » vous devriez avoir la liste des agendas dont vous disposez sur iCloud, sélectionnez l'agenda que vous voulez synchroniser.</li>
-<li>Vous pouvez ensuite sélectionner la couleur de votre agenda (ou conserver celle par défaut)</li>
+<li>Sélectionnez le type d'agenda: CalDAV;</li>
+<li>URL: <a href="https://caldav.icloud.com" target="_blank">https://caldav.icloud.com</a> (Elle sera par la suite remplacée par l'adresse de l'agenda sélectionné);</li>
+<li>Dans le champs utilisateur, votre Apple ID (En général votre adresse de courriel);</li>
+<li>Appuyez enfin  sur « Rechercher les agendas » vous devriez avoir la liste des agendas dont vous disposez sur iCloud, sélectionnez l'agenda que vous voulez synchroniser;</li>
+<li>Vous pouvez ensuite sélectionner la couleur de votre agenda (ou conserver celle par défaut).</li>
 </ul>
 <p>Pour terminer, libre à vous d'activer les options afin de rendre vos agendas disponibles hors ligne et de sélectionner votre agenda par défaut.</p>
 <p><code class="code-inline" id="097cc86b24ec939a19f8783e64fbb4ee">ATTENTION</code> les étapes ci-dessus devront être répétées pour <code class="code-inline" id="e9ef961a708270478bb7f52b81015d34">CHACUN</code> des agendas dont vous disposez, je n'ai pas trouvé mieux pour l'instant.
-Une fois vos agendas synchonisez vous pouvez fermer Evolution, l'agenda de Gnome devrait automatiquement disposer des agendas que vous venez de configurer.</p></body>
+Une fois vos agendas synchronisés vous pouvez fermer Evolution, l'agenda de Gnome devrait automatiquement ajouter les agendas que vous venez de configurer.</p></body>
                                                                         <div class="article-credits">
                                 Crédits: photo de couverture par
                                                                     <a href="https://unsplash.com/@esteejanssens">

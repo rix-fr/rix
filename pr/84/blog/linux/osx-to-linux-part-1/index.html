@@ -28,7 +28,7 @@
             <meta property="og:url" content="https://rix-fr.github.io/rix/pr/84/blog/linux/osx-to-linux-part-1" />
             <meta property="og:site_name" content="rix" />
 
-                                        <meta property="og:image" content="/rix/pr/84/resized/content/images/blog/thumbnails/inside-linux.webp/157faaece3ade70301ce5526c88123c5.webp">
+                                        <meta property="og:image" content="/rix/pr/84/resized/content/images/blog/thumbnails/inside-linux.jpg/cfd86d11514e7101c38ec348b99539c0.jpg">
                                                     <meta property="og:image:alt" content="Rix - Expertise et outillage DevOps">
             
             <!-- Twitter -->
@@ -37,16 +37,16 @@
             <meta property="twitter:description" content="Passer d&#039;OSX à Linux en milieu professionnel, le quotidien, équivalence d&#039;applications, fonctionnement, astuces.">
             <meta property="twitter:site" content="@rix_fr">
             <meta property="twitter:creator" content="@rix_fr">
-                                        <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/84/resized/content/images/blog/thumbnails/inside-linux.webp/aa469726b7371923ef128165d18486ad.webp">
+                                        <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/84/resized/content/images/blog/thumbnails/inside-linux.jpg/f1c0389148b3a3a33cbfff09d577338f.jpg">
                                 <script type="application/ld+json">{
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     "headline": "D'OSX à Linux (en milieu professionnel) - Partie 1 - Le quotidien",
     "image": [
-        "https://rix-fr.github.io/rix/pr/84/blog/linux/content/images/blog/thumbnails/inside-linux.webp"
+        "https://rix-fr.github.io/rix/pr/84/blog/linux/content/images/blog/thumbnails/inside-linux.jpg"
     ],
     "datePublished": "25 octobre 2022",
-    "dateModified": "25 octobre 2022",
+    "dateModified": "18 novembre 2022",
     "author": [
         {
             "@type": "Person",
@@ -69,7 +69,7 @@
                         document.querySelector('html').classList.remove('no-js');
         </script>
 
-                    <link rel="stylesheet" href="/rix/pr/84/build/305.41d5ebca.css">
+                    <link rel="stylesheet" href="/rix/pr/84/build/305.58c822aa.css">
         
                         <script src="/rix/pr/84/build/runtime.236eedcb.js" defer></script><script src="/rix/pr/84/build/348.64eebf97.js" defer></script><script src="/rix/pr/84/build/app.76a9a073.js" defer></script>
 
@@ -269,19 +269,20 @@
                             </div>
                                                 <div class="article-info__date">
                             <span>Publication <strong>25 octobre 2022</strong></span>
-                                                                                </div>
+                                                                                        <span>Modification <strong>18 novembre 2022</strong></span>
+                                                    </div>
                     </div>
                 </div>
                 <main>
                                                             <body><p>Parce que le choix (ou la nécessité) de changer de système d'exploitation remet en cause notre utilisation quotidienne et nos réflèxes applicatifs, il me parait louable de partager <strong>MA</strong> façon d'utiliser Linux après de nombreuses années avec OSX et quelles solutions j'ai « trouvé » pour reprendre mes marques notamment en terme d'équivalence d'applications et d'utilisation au quotidien.</p>
-<p>Post à destination de celles et ceux qui hésitent encore à franchir le pas de peur de se retrouver perdu·e.</p>
+<p>Billet à destination de celles et ceux qui hésitent encore à franchir le pas de peur de se retrouver perdu·e.</p>
 <h2 id="introduction" class="anchor-title"><a href="#introduction">Introduction</a></h2>
 <p>En préambule et pour mieux cerner certaines contraintes que j'ai pu avoir ou choix que j'ai pu faire:</p>
 <ul>
 <li>J'utilise Linux à titre <code class="code-inline" id="3028fd8c58829bf4deee743d35a039d3">pro et perso</code> depuis plus de 20 ans (J'ai commencé avec Debian/Potato);</li>
 <li><code class="code-inline" id="386233f220de79a81b710bb7efb160d0">Je ne prêche pour aucune distribution en particulier</code>, sauf côté serveur, mais ça n'est pas le sujet;
-Il existe aujourd'hui suffisamment de distributions « matures » pour que chacun y trouve son bonheur, il n'y a pas de « meilleure » distro il y a celle qui vous convient. En ce qui me concerne j'ai eu de la Debian (beaucoup), de la Fedora et de l'Ubuntu (un peu pour les deux) et ça fait maintenant 3 ans que j'utilise Manjaro après un rapide passage sur Antergos;</li>
-<li>J'ai passé pas loin de 10 ans avec Mac OSX coté pro avec ses bons et ses mauvais côtés et même si je ne m'y retrouve plus aujourd'hui c'est toujours à mon sens un bon OS;</li>
+<br>Il existe aujourd'hui suffisamment de distributions « matures » pour que chacun y trouve son bonheur, il n'y a pas de « meilleure » distro il y a <strong>celle qui vous convient</strong>. En ce qui me concerne j'ai eu de la <strong>Debian</strong> (beaucoup), de la <strong>Fedora</strong> et de l'<strong>Ubuntu</strong> (un peu pour les deux) et ça fait maintenant 3 ans que j'utilise <strong>Manjaro</strong> après un rapide passage sur <strong>Antergos</strong>;</li>
+<li>J'ai passé pas loin de 10 ans avec OSX coté pro avec ses bons et ses mauvais côtés et même si je ne m'y retrouve plus aujourd'hui, c'est toujours à mon sens un bon OS;</li>
 <li>J'utilise <code class="code-inline" id="1fd967a816834982761258785b9d0b52">Gnome</code> comme environnement graphique;</li>
 <li>Je dispose de plusieurs adresses de messagerie dont pas mal sont gérées par ProtonMail;</li>
 <li>Mon quotidien est celui d'un SysAdmin/Ops/SRE (Je ne sais plus où on en est dans les appellations) bref tout ce qui va toucher à l'administration système et à l'outillage autour.</li>
@@ -293,9 +294,9 @@ Il existe aujourd'hui suffisamment de distributions « matures » pour que chacu
 <li>Le pro (très focalisé sur le métier).</li>
 <li>Le cosmétique</li>
 </ul>
-<p>Sans plus attendre un premier chapitre qui va se concentrer sur l'utilisation que chacun d'entre nous peut avoir d'une machine sous linux.</p>
+<p>Sans plus attendre un premier chapitre qui va se concentrer sur l'utilisation que chacun d'entre nous peut avoir d'une machine.</p>
 <h2 id="les-clients-de-courriels" class="anchor-title"><a href="#les-clients-de-courriels">Les clients de courriels</a></h2>
-<p>L'une des premières utilisation, les courriels !
+<p>L'une des premières utilisation, les courriels !<br>
 J'utilise uniquement les clients de courriel et quasiment jamais un navigateur pour consulter ma messagerie. Avec OSX j'utilisais l'excellent <a href="https://www.postbox-inc.com/" target="_blank"><code class="code-inline" id="e2f16f113b9b09d42dfeb58cca8b1d9a">Postbox</code></a>.</p>
 <p><strong>Du côté de linux j'ai retenu deux candidats:</strong></p>
 <ul>
@@ -309,22 +310,24 @@ J'utilise uniquement les clients de courriel et quasiment jamais un navigateur p
       <span class="figure__legend">L'interface de Mailspring</span>
     </figcaption>
 </figure>
-<p>À noter que j'attends la refonte annoncée de Thunderbird avec impatience tant le fonctionnel de Mailspring reste « relativement » développé.</p>
+<p>À noter que j'attends la refonte annoncée de Thunderbird avec impatience tant le fonctionnel de Mailspring reste « relativement » limité.<br>
+(<strong>Mise à jour du 18 Novembre 2022</strong>: Quelques écrans de la nouvelle interface ont fait leur apparition, ils semblent augurer d'un gros et bon travail d'UI.)</p>
 <h2 id="les-messageries-perso" class="anchor-title"><a href="#les-messageries-perso">Les messageries (perso)</a></h2>
-<p>Au niveau des messageries j'utilise principalement <code class="code-inline" id="085fea7abdc5d904fe69a3081efd7398">Signal</code> et <code class="code-inline" id="82c616385feaa4676e3ef52af346733b">Whatsapp</code> pour les proches, les deux disposent d'intégration des clients comme je l'avais sous OSX rien à signaler à ce niveau on est ISO !</p>
+<p>Au niveau des messageries j'utilise principalement <code class="code-inline" id="085fea7abdc5d904fe69a3081efd7398">Signal</code> et <code class="code-inline" id="82c616385feaa4676e3ef52af346733b">Whatsapp</code> (pour les proches), les deux disposent d'intégration des clients comme je l'avais sous OSX rien à signaler à ce niveau on est ISO !</p>
 <h2 id="les-navigateurs" class="anchor-title"><a href="#les-navigateurs">Les navigateurs</a></h2>
 <p>Probablement la brique la plus standardisée à l'heure actuelle, on retrouve exactement la même chose côté Linux c'est donc plus l'affinité de chacun qui va jouer.
 De mon côté j'en utilise deux principalement <a href="https://brave.com/fr/" target="_blank"><code class="code-inline" id="8d091597127cc044520e13fae3a3af59">Brave</code></a> (sur une base chromium donc) et <a href="https://librewolf.net/" target="_blank"><code class="code-inline" id="41470ad7179e2e6755b8a594b7277521">Librewolf</code></a> (sur une base Firefox).</p>
 <p>À ces derniers vient se greffer <a href="https://www.torproject.org/fr/download/" target="_blank"><code class="code-inline" id="8e53aeadb9b652a2b1e07c61e8d4e310">TorBrowser</code></a>.</p>
 <h2 id="la-bureautique" class="anchor-title"><a href="#la-bureautique">La bureautique</a></h2>
 <h3 id="documents-et-tableurs" class="anchor-title"><a href="#documents-et-tableurs">Documents et tableurs</a></h3>
-<p>Ah la bureautique…
-Point de friction lié principalement à la comptabilité avec les formats propriétaires, je n'ai plus rencontré de problème depuis un moment.</p>
-<p>J'utilise <code class="code-inline" id="b6703c435be20e2c040b934f7c0d75e6">OnlyOffice Desktop</code> pour l'édition de document de type Word et Excel et ça juste marche !</p>
-<p>Point plus embêtant si vous avez des imprimantes réseau un peu ancienne il est probable qu'il vous soit compliqué d'imprimer sans faire un effort de configuration (je ne l'ai pas fait, je n'imprime quasiment jamais).</p>
+<p>Ah ! La bureautique…</p>
+<p>Point de friction lié principalement à la comptabilité avec les formats propriétaires, je n'ai plus rencontré de « vrai » problème depuis un moment.
+J'utilise <code class="code-inline" id="b6703c435be20e2c040b934f7c0d75e6">OnlyOffice Desktop</code> pour l'édition de document de type Word et Excel et ça juste marche !</p>
+<p>Point plus embêtant si vous avez des imprimantes réseau un peu anciennes il est probable qu'il vous soit compliqué d'imprimer sans faire un effort de configuration (je ne l'ai pas fait, je n'imprime quasiment jamais).</p>
 <h3 id="pdf" class="anchor-title"><a href="#pdf">PDF</a></h3>
-<p>Du côté des PDFs, le visionneur de documents de Gnome fait très bien le boulot pour de la lecture, au niveau de l'édition c'est un domaine ou il faut encore bricoler par rapport à OSX qui est très bon nativement pour manipuler les PDFs.
-J'utilise donc <a href="https://framalibre.org/content/xournal" target="_blank">Xournal++</a> dès lors que je dois y insérer des images ou autre élément mais il s'agit d'un projet qui semble être à l'abandon et pour lequel je n'ai pas encore cherché/trouvé d'alternative viable.</p>
+<p>Du côté des PDFs, le visionneur de documents de Gnome fait très bien le boulot pour de la lecture.<br>
+Au niveau de l'édition c'est un domaine ou il faut encore bricoler par rapport à OSX qui est très bon nativement pour manipuler les PDFs.
+J'utilise donc <a href="https://framalibre.org/content/xournal" target="_blank">Xournal++</a> dès lors que je dois y insérer des images ou autres éléments mais il s'agit d'un projet qui semble être à l'abandon et pour lequel je n'ai pas encore cherché/trouvé d'alternative viable.</p>
 <figure>
     <img src="/rix/pr/84/resized/content/images/blog/2022/osx-to-linux/visionneuse-pdf.jpg/8f62ab41cbb5677cff762e39b0aac290.jpg" alt="La visionneuse de Gnome" srcset="/rix/pr/84/resized/content/images/blog/2022/osx-to-linux/visionneuse-pdf.jpg/8f62ab41cbb5677cff762e39b0aac290.jpg 1x,
 /rix/pr/84/resized/content/images/blog/2022/osx-to-linux/visionneuse-pdf.jpg/4f20a6fea1b9fa1bbf2335ee8ddbbf8e.jpg 2x," id="la-visionneuse-de-gnome">
@@ -335,7 +338,7 @@ J'utilise donc <a href="https://framalibre.org/content/xournal" target="_blank">
 <h2 id="les-agendas" class="anchor-title"><a href="#les-agendas">Les agendas</a></h2>
 <p>Là encore l'offre est plétorique, après avoir pas mal utilisé <a href="https://www.thunderbird.net/en-US/calendar/" target="_blank"><code class="code-inline" id="457ba641340a812b28f949a26fca3e7b">Lightning</code></a> (Thunderbird) je suis revenu sur <a href="https://wiki.gnome.org/Apps/Calendar" target="_blank"><code class="code-inline" id="4bb67f9a9363cd3171435b175e85dde5">Gnome Calendar</code></a> qui fait le boulot.</p>
 <p><strong>ATTENTION</strong> toutefois il n'intègre pas la mécanique d'invitations, si vous planifiez beaucoup de réunions il vaut sans doute mieux rester sur Lightning.</p>
-<p>Pour ceux qui disposent d'agendas iCloud (j'en fais partie) leur ajout à Lightning passe par l'utilisation de l'extension <a href="https://addons.thunderbird.net/en-US/thunderbird/addon/tbsync/" target="_blank">TBSync</a> quant à Gnome Calendar il faut passer par une gymnastique assez lourde que je décris ici.</p></body>
+<p>Pour ceux qui disposent d'agendas iCloud (j'en fais partie) leur ajout à Lightning passe par l'utilisation de l'extension <a href="https://addons.thunderbird.net/en-US/thunderbird/addon/tbsync/" target="_blank">TBSync</a> quant à Gnome Calendar il faut passer par une gymnastique assez lourde que je décris <a href="/blog/linux/integrer-icloud-gnome-calendar">ici</a>.</p></body>
                                                                                 </main>
                 <div class="article-footer" data-aos="fade-in">
                                                                         <div class="author">
