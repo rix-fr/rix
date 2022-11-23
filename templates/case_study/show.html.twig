@@ -33,7 +33,7 @@
                 <div class="preview">
                     <div class="preview__image" style="{{ macros.backgroundImageSrcset(caseStudy.images|first, 'case_study_thumbnail.lg') }}"></div>
                     <div class="preview__content">
-                        <a href="https://github.com/manala" class="button button-ghost button-ghost--light"><span>Voir le site</span></a>
+                        <a href="{{ caseStudy.websiteUrl }}" class="button button-ghost button-ghost--light"><span>Voir le site</span></a>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                     <a href="{{ path('case_study', { caseStudy: caseStudy.slug }) }}">
                         <div class="miniature__image" style="{{ macros.backgroundImageSrcset(caseStudy.images|first, 'case_study_thumbnail.lg') }}"></div>
                         <div class="miniature__content">
-                            <span class="miniature__name">{{ caseStudy.title }}</span>
+                            <span class="miniature__name">{{ caseStudy.clients }}</span>
                             <h3>{{ caseStudy.title }}</h3>
                             <p>{{ caseStudy.shortDescription }}</p>
                             <span class="sliding-button sliding-button--mobile">

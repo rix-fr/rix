@@ -1,5 +1,5 @@
 ---
-title: "Musique & Music"
+title: "Stockage résilient et haute disponibilité."
 lastModified: "2022-09-12"
 date: "2023-04-21"
 
@@ -7,13 +7,13 @@ date: "2023-04-21"
 metaDescription: "Musique & Music — librairie musicale pour les professionnels"
 description: "Musique & Music permet aux professionnels de la vidéo d'enrichir leurs productions avec de l'illustration sonore."
 websiteUrl: https://www.musique-music.com/
-shortDescription: "Librairie musicale pour les professionnels"
+shortDescription: "Musique & Music est une librairie musicale pour les professionnels."
 clients: Musique & Music
 size: 3 mois
 services: ["Conception", "Infrastructure", "Stockage haute dispo.", "Stratégie de déploiement"]
-terms: ["ovh-cloud"]
+terms: ["ovh-cloud", "scaleway"]
 images: ["content/images/case-study/headers/musique-music-banner.jpg"]
-enabled: false
+enabled: true
 ---
 
 ## Le contexte du projet
@@ -22,57 +22,56 @@ enabled: false
 
 **Musique & Music a confié à Rix la conception de son infrastructure et son infogérance,** permettant de s'appuyer sur une équipe rodée à l'exploitation.
 
-## L'expertise Elao déployée pour l'application Musique Music
+## L'expertise Rix déployée pour l'application Musique Music
 
-### Ateliers de recueil du besoin
-Musique & Music n'en était pas à sa première version, l'application existait déjà depuis plusieurs années mais la dette technique et l'obsolescence du code existant ont décidé les fondateurs à repartir d'une feuille blanche.
-Il a donc fallu tirer l'essence de l'existant afin de proposer une version que l'on pouvait rapidement mettre en production, tout en assurant que les fonctionnalités clés soient présentes afin que les utilisateurs retrouvent leurs petits.
-À partir de ces ateliers, nous avons été en mesure de proposer une feuille de route fonctionnelle permettant d'arriver à une "nouvelle première version" du projet.
-Très rapidement, outre le front-office, le besoin d'un back-office efficace a émergé, dans le but de rendre plus efficaces les équipes Musique & Music.
+### Analyse de l'existant
 
-### Ateliers UX/UI
-Les développeurs Elao sont avant tout des concepteurs et n'hésitent pas à être force de proposition d'un point de vue fonctionnel.
-Les étapes de conception des parcours utilisateurs (UX) et des maquettes d'interface utilisateurs (UI) ont été réalisées main dans la main avec Mathilde Vandier, designer freelance, avec laquelle nous avons itéré du début à la fin du projet.
+Musique & Music n'en était pas à sa première version, l'application existait déjà depuis plusieurs années mais la dette technique, l'obsolescence du code existant et la contrainte d'exploiter des briques logicielles propriétaires ne donnant plus satisfaction ont décidé les fondateurs à repartir d'une feuille blanche.
+Nous avons dès lors été solicités pour étudier et concevoir une infrastructure destinée à acceuillir la nouvelle application.
+En collaboration avec les équipes de concepteurs **d'[Elao](https://www.elao.com)** nous avons commencé à imaginer ce que pourrait être cette nouvelle infrastructure en fonction des contraintes métiers du projet (disponibilité, performance et résilience).
 
-### Phase de build (développement)
-C'est avec Anne-Laure et Xavier qu'Antoine, CTO de Musique & Music, a mené toute la phase de spécifications fonctionnelles. Il était nécessaire sur ce projet d'apporter une vraie force humaine, car les délais étaient serrés et nous n'étions pas trop de trois. Benjamin, Thomas et Amélie ont eux, mené de front toute la phase de développement : **ils ont ensuite posé les bases techniques, développé chaque fonctionnalité, réalisé les tests automatisés et la recette fonctionnelle, jusqu'à l'intégration HTML / CSS pixel-perfect.** La première mise en production a permis à Musique & Music d'avoir une version déjà très fonctionnelle à proposer à sa base existante d'utilisateurs.
+La première étape étant de récupérer, sécuriser et rendre hautement disponible un peu moins d' **1 To** de données musicales.
 
-### Phase de run (évolutions fonctionnelles et maintenance applicative)
-Depuis la mise en production de ses applications, Musique & Music fait appel à Elao de façon régulière pour faire évoluer son produit en fonction des besoins remontés par ses équipes et ses utilisateurs. Parmi les quelques évolutions, nous avons automatisé un grand nombre d'imports et d'exports, aussi bien pour de l'interne que pour des services tiers.
+### Le stockage
 
-<figure>
-    <img src="../images/case-study/musique-music-homepage.jpg" alt="Accueil de l'application Musique & Music">
-    <figcaption>
-      <span class="figure__legend">Page d'accueil</span>
-    </figcaption>
-</figure>
+C'est la pierre angulaire du métier de Musique & Music, si l'application peut s'autoriser d'exceptionnelles interruptions de service la donnée doit elle, rester disponible.
+Avec la volonté de **rester souverain** sur l'ensemble de la « stack » infra, nous avons opté pour une solution reposant sur CEPH avec le Cloud Disk Array de chez OVH.
 
-## Les applications
+Les points important qui ont permis de retenir cette solution:
 
-### Pour les professionnels du montage vidéo : une bibliothèque de musique fluide et dynamique
+- La distribution du stockage
+- La triple réplication des données
+- La disponibilité
+- Le redimensionnement à chaud
 
-Musique & Music met un point d'honneur à proposer les interfaces les plus fluides possibles et une expérience utilisateur de haut niveau. Il était nécessaire d'aller vers un maximum de réactivité de l'applicatif.
+### La sureté des données
 
-Pour répondre à ces besoins et aux spécifications fonctionnelles du produit Musique & Music, l'équipe technique d'Elao a fait le choix d’utiliser React, un framework JavaScript, couplé à une API GraphQL, afin d'avoir une interface fluide, dynamique et surtout, **agréable à utiliser**.
+Au dela de l'aspect disponibilité des données, nous devions également veiller à disposer des pistes musicales hors infrastructure, en cas d'incident grave sur la brique de stockage.
+Nous avons opté pour une solution de **synchronisation incrémentale** des données sur un NAS Synology en interne à travers un flux SSH sur une instance dédiée à cette tâche.
 
-<figure>
-    <img src="../images/case-study/musique-music-results.jpg" alt="La recherche Musique & Music">
-    <figcaption>
-      <span class="figure__legend">La recherche Musique & Music</span>
-    </figcaption>
-</figure>
+### La brique applicative
 
-Mais cette fluidité d'utilisation ne devait pas se faire au détriment des performances de référencement : c'est pourquoi toute la partie publique de Musique & Music est **pré-rendue coté serveur** avec le même code React piloté, exécuté puis servi par l'application Symfony.
+Elle repose sur une « stack » web assez standard basée sur du public cloud et mettant en oeuvre sur réseau privé:
 
-Ainsi, toutes les pages sont servies avec leurs contenus et leurs méta-données complètes avant-même l'execution du Javascript dans le navigateur du client (ou des robots d'indexation des moteurs de recherche).
+- Un répartiteur de charge de type **HAProxy**
+- Un serveur **Nginx**
+- Un serveur de base de données de type **MariaDB**
 
-### Pour l'équipe Musique & Music, un espace d'administration adapté à leurs besoins
-
-L'équipe de Musique & Music utilise au quotidien l'espace administrateurs : les commerciaux ont un œil sur les nouveaux inscrits, les responsables de production ajoutent quotidiennement de nouvelles playlists et de nouveaux albums. **Il leur fallait un espace d'administration leur permettant d'effectuer toutes ces tâches.**
+Le tout fonctionnant sur un environnement applicatif **PHP/Symfony**.
 
 <figure>
     <img src="../images/case-study/musique-music-playlists.jpg" alt="Les playlists Musique & Music">
     <figcaption>
-      <span class="figure__legend">Les playlists Musique & Music</span>
+      <span class="figure__legend">Musique & Music</span>
     </figcaption>
 </figure>
+
+### Environnement d'exploitation
+
+L'environnement d'exploitation réponds aux standards Rix à savoir:
+
+- Une remontée des métriques dans différents dashboard **Grafana** (Système et applicatif);
+- Un alerting de l'ensemble des services via **messagerie, mail et SMS**;
+- Une exploitation des logs applicatifs et système via le composant Loki (Grafana);
+- Remontée des erreurs aux équipes applicatives via une plateforme **Sentry**;
+- Les secrets applicatifs sont stockés dans un coffre de type **Hashicorp Vault** déployé sur nos infrastructures.
