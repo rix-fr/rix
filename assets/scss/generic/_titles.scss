@@ -21,6 +21,30 @@ h1,
     font-family: $tertiary-font;
   }
 
+  a {
+    text-decoration: none;
+    position: relative;
+
+    &:after {
+      width: 100px;
+      height: 4px;
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      content: '';
+      background: $color-primary;
+      opacity: 0;
+      transition: ease-out .15s;
+    }
+
+    &:hover {
+      &:after {
+        bottom: 13px;
+        opacity: 1;
+      }
+    }
+  }
+
   span {
     display: block;
     font-family: $secondary-font;
