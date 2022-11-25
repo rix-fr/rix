@@ -1,0 +1,29 @@
+@use '../abstracts' as *;
+
+.side-image {
+  margin: 0 0 35px;
+  display: flex;
+  align-items: center;
+
+  figure,
+  > img {
+    margin: 0 50px !important;
+    width: unset !important;
+    max-width: calc(50% - 100px);
+  }
+}
+
+.side-image__content {
+  flex: 1;
+}
+
+@media (max-width: $screen-lg) {
+  .side-image {
+    flex-direction: column;
+
+    figure,
+    > img {
+      margin: 50px 0 !important;
+    }
+  }
+}

@@ -28,3 +28,21 @@ figcaption {
     }
   }
 }
+
+.figure__legend {}
+
+.figure__credits {
+  padding-left: 30px;
+  position: relative;
+
+  &:before {
+    width: 12px;
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+    content: '';
+    background-color: $color-primary;
+  }
+}
