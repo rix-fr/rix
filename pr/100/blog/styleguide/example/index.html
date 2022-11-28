@@ -73,7 +73,7 @@
                         document.querySelector('html').classList.remove('no-js');
         </script>
 
-                    <link rel="stylesheet" href="/rix/pr/100/build/305.1bf4e6c7.css">
+                    <link rel="stylesheet" href="/rix/pr/100/build/305.222be515.css">
         
                         <script src="/rix/pr/100/build/runtime.dad7b9b2.js" defer></script><script src="/rix/pr/100/build/348.64eebf97.js" defer></script><script src="/rix/pr/100/build/app.76a9a073.js" defer></script>
 
@@ -263,6 +263,9 @@
                                                     <a href="#les-images">Les images</a>
                                                 </li>
                                                                                             <li>
+                                                    <a href="#images-alignees-a-gauche-a-droite">Images alignées à gauche / à droite</a>
+                                                </li>
+                                                                                            <li>
                                                     <a href="#le-code">Le code</a>
                                                 </li>
                                                                                             <li>
@@ -394,20 +397,63 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <h3 id="les-images" class="anchor-title"><a href="#les-images">Les images</a></h3>
 <p>Une image (qui a du sens, ça n'inclut pas les gifs rigolos) a toujours une légende, et si possible on crédite son auteur·ice.</p>
 <figure>
-    <img src="https://images.unsplash.com/photo-1530023868717-cdb5554aea96?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=788&amp;q=80" alt="vivamus bibendum" id="vivamus-bibendum">
+    <img src="/rix/pr/100/resized/content/images/blog/styleguide/exemple-image.jpg/6bda512686956a3df0bc5aef03d8e1c0.jpg" srcset="/rix/pr/100/resized/content/images/blog/styleguide/exemple-image.jpg/6bda512686956a3df0bc5aef03d8e1c0.jpg 1x,
+/rix/pr/100/resized/content/images/blog/styleguide/exemple-image.jpg/460bc80c1807a1298f6305e117c1f5b0.jpg 2x," id="6bda512686956a3df0bc5aef03d8e1c0-jpg">
     <figcaption>
-      <span class="figure__legend">David sous l'eau 🐬</span>
-      <span class="figure__credits">Crédit photo : <a href="https://unsplash.com/@jbsinger1970" target="_blank">Jonathan Singer</a></span>
+      <span class="figure__legend">Légende de l'image</span>
+      <span class="figure__credits">Crédit photo : <a href="#">Auteur</a></span>
     </figcaption>
 </figure>
-<pre class="code-multiline language-html"><code class="language-html" id="588334a7cf4453103ebb232a8f3bec6a"><span class="token comment">&lt;!-- Comme ceci --&gt;</span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>figure</span><span class="token punctuation">&gt;</span></span>
+<pre class="code-multiline language-html"><code class="language-html" id="d6784fa12b1e62d84a16c05629fca332"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>figure</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>./../../images/blog/styleguide/photo.png<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>photo de ...<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>figcaption</span><span class="token punctuation">&gt;</span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>figure__legend<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Photo de ...<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>figure__credits<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Crédit photo : <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Nom de l'auteur<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>figcaption</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>figure</span><span class="token punctuation">&gt;</span></span></code></pre>
+<h3 id="images-alignees-a-gauche-a-droite" class="anchor-title"><a href="#images-alignees-a-gauche-a-droite">Images alignées à gauche / à droite</a></h3>
+<div class="side-image">
+  <div class="side-image__content">
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non natus laborum optio provident, ad dolore molestiae ea, labore quo mollitia eaque iste accusantium similique fugit voluptatem nisi asperiores facilis consectetur.</p>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non natus laborum optio provident, ad dolore molestiae ea, labore quo mollitia eaque iste accusantium similique fugit voluptatem nisi asperiores facilis consectetur.</p>
+  </div>
+  <figure>
+      <img src="/rix/pr/100/resized/content/images/blog/styleguide/exemple-image.jpg/6bda512686956a3df0bc5aef03d8e1c0.jpg" srcset="/rix/pr/100/resized/content/images/blog/styleguide/exemple-image.jpg/6bda512686956a3df0bc5aef03d8e1c0.jpg 1x,
+/rix/pr/100/resized/content/images/blog/styleguide/exemple-image.jpg/460bc80c1807a1298f6305e117c1f5b0.jpg 2x," id="6bda512686956a3df0bc5aef03d8e1c0-jpg">
+      <figcaption>
+        <span class="figure__legend">Légende</span>
+        <span class="figure__credits">Crédit photo : <a href="#">Auteur</a></span>
+      </figcaption>
+  </figure>
+</div>
+<div class="side-image">
+  <img src="/rix/pr/100/resized/content/images/blog/styleguide/exemple-image.jpg/6bda512686956a3df0bc5aef03d8e1c0.jpg" srcset="/rix/pr/100/resized/content/images/blog/styleguide/exemple-image.jpg/6bda512686956a3df0bc5aef03d8e1c0.jpg 1x,
+/rix/pr/100/resized/content/images/blog/styleguide/exemple-image.jpg/460bc80c1807a1298f6305e117c1f5b0.jpg 2x," id="6bda512686956a3df0bc5aef03d8e1c0-jpg">
+  <div class="side-image__content">
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non natus laborum optio provident, ad dolore molestiae ea, labore quo mollitia eaque iste accusantium similique fugit voluptatem nisi asperiores facilis consectetur.</p>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non natus laborum optio provident, ad dolore molestiae ea, labore quo.</p>
+  </div>
+</div>
+<pre class="code-multiline language-html"><code class="language-html" id="18e99a469f2524e179ae5d4286da9d5a"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>side-image<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>side-image__content<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non natus laborum optio provident, ad dolore molestiae ea, labore quo mollitia eaque iste accusantium similique fugit voluptatem nisi asperiores facilis consectetur.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>figure</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://upload.wikimedia.org/wikipedia/commons/b/bc/Juvenile_Ragdoll.jpg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>figcaption</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>figure__legend<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Légende<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>figure__credits<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Crédit photo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>figcaption</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>figure</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
+<p>ou si l'image n'a pas besoin de légende / crédit :</p>
+<pre class="code-multiline language-html"><code class="language-html" id="1a831c6d491f2e60f07b434cb82d3ea0"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>side-image<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>content/images/blog/styleguide/exemple-image.jpg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>side-image__content<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non natus laborum optio provident, ad dolore molestiae ea, labore quo mollitia eaque iste accusantium similique fugit voluptatem nisi asperiores facilis consectetur.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non natus laborum optio provident, ad dolore molestiae ea, labore quo.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span></code></pre>
 <p>Pour les autres images, utilisez simplement la syntaxe Markdown classique (<em>cf sections suivantes</em>).</p>
 <h4 id="images-retina" class="anchor-title"><a href="#images-retina">Images retina</a></h4>
 <p>Les images inclues dans un contenu sont automatiquement adaptée et fournies en version rétina et non-rétina lorsque cela le permet.</p>
