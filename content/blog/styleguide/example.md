@@ -86,15 +86,14 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 Une image (qui a du sens, ça n'inclut pas les gifs rigolos) a toujours une légende, et si possible on crédite son auteur·ice.
 
 <figure>
-    <img src="https://images.unsplash.com/photo-1530023868717-cdb5554aea96?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=788&q=80" alt="vivamus bibendum">
+    <img src="content/images/blog/styleguide/exemple-image.jpg">
     <figcaption>
-      <span class="figure__legend">David sous l'eau 🐬</span>
-      <span class="figure__credits">Crédit photo : <a href="https://unsplash.com/@jbsinger1970">Jonathan Singer</a></span>
+      <span class="figure__legend">Légende de l'image</span>
+      <span class="figure__credits">Crédit photo : <a href="#">Auteur</a></span>
     </figcaption>
 </figure>
 
 ```html
-<!-- Comme ceci -->
 <figure>
     <img src="./../../images/blog/styleguide/photo.png" alt="photo de ...">
     <figcaption>
@@ -102,6 +101,57 @@ Une image (qui a du sens, ça n'inclut pas les gifs rigolos) a toujours une lég
       <span class="figure__credits">Crédit photo : <a href="">Nom de l'auteur</a></span>
     </figcaption>
 </figure>
+```
+
+### Images alignées à gauche / à droite
+
+<div class="side-image">
+  <div class="side-image__content">
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non natus laborum optio provident, ad dolore molestiae ea, labore quo mollitia eaque iste accusantium similique fugit voluptatem nisi asperiores facilis consectetur.</p>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non natus laborum optio provident, ad dolore molestiae ea, labore quo mollitia eaque iste accusantium similique fugit voluptatem nisi asperiores facilis consectetur.</p>
+  </div>
+  <figure>
+      <img src="content/images/blog/styleguide/exemple-image.jpg">
+      <figcaption>
+        <span class="figure__legend">Légende</span>
+        <span class="figure__credits">Crédit photo : <a href="#">Auteur</a></span>
+      </figcaption>
+  </figure>
+</div>
+
+<div class="side-image">
+  <img src="content/images/blog/styleguide/exemple-image.jpg">
+  <div class="side-image__content">
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non natus laborum optio provident, ad dolore molestiae ea, labore quo mollitia eaque iste accusantium similique fugit voluptatem nisi asperiores facilis consectetur.</p>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non natus laborum optio provident, ad dolore molestiae ea, labore quo.</p>
+  </div>
+</div>
+
+```html
+<div class="side-image">
+  <div class="side-image__content">
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non natus laborum optio provident, ad dolore molestiae ea, labore quo mollitia eaque iste accusantium similique fugit voluptatem nisi asperiores facilis consectetur.</p>
+  </div>
+  <figure>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Juvenile_Ragdoll.jpg">
+      <figcaption>
+        <span class="figure__legend">Légende</span>
+        <span class="figure__credits">Crédit photo</span>
+      </figcaption>
+  </figure>
+</div>
+```
+
+ou si l'image n'a pas besoin de légende / crédit :
+
+```html
+<div class="side-image">
+  <img src="content/images/blog/styleguide/exemple-image.jpg">
+  <div class="side-image__content">
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non natus laborum optio provident, ad dolore molestiae ea, labore quo mollitia eaque iste accusantium similique fugit voluptatem nisi asperiores facilis consectetur.</p>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non natus laborum optio provident, ad dolore molestiae ea, labore quo.</p>
+  </div>
+</div>
 ```
 
 Pour les autres images, utilisez simplement la syntaxe Markdown classique (_cf sections suivantes_).
