@@ -171,7 +171,7 @@
             <div class="container content">
                 <div class="case-study__header">
                     <h1 class="case-study__title h2">Tenue de charge, disponibilité, scalabilité.</h1>
-                    <p>Panneau Pocket </p>
+                    <p>Panneau Pocket, acteur majeur auprès des collectivités pour l&#039;information de leurs usagés.</p>
                     <span class="h3--small">Services</span>
                     <ul>
                                                     <li><span class="h3--dark">Conception</span></li>
@@ -199,7 +199,7 @@
         url('/rix/pr/100/resized/content/images/case-study/headers/panneaupocket-banner.jpg/baaeaf9426a098c63b345f39f1b1cd04.jpg') 2x
     );"></div>
                     <div class="preview__content">
-                        <a href="https://github.com/manala" class="button button-ghost button-ghost--light"><span>Voir le site</span></a>
+                        <a href="https://www.panneaupocket.com/" class="button button-ghost button-ghost--light"><span>Voir le site</span></a>
                     </div>
                 </div>
             </div>
@@ -225,12 +225,12 @@
                 </div>
                 <body><h2 id="le-contexte-du-projet" class="anchor-title"><a href="#le-contexte-du-projet">Le contexte du projet</a></h2>
 <p><strong>Panneau Pocket</strong> a pour objectif de permettre aux collectivités de mieux communiquer avec leurs administrés et propose à ce titre une application mobile capable d'alerter en temps réel ses utilisateurs d'une nouvelle publication.</p>
-<p>Parmi les contraintes du métier:</p>
+<h3 id="les-objectifs" class="anchor-title"><a href="#les-objectifs">Les objectifs</a></h3>
 <ul>
-<li>une solicitation des infrastructures soutenue;</li>
-<li>des pics de trafic important lors de communication d'envergure;</li>
-<li>l'obligation de disponibilité;</li>
-<li>la sécurité et la confidentialités des données.</li>
+<li>Être capables de tenir une solicitation des infrastructures soutenue;</li>
+<li>Répondre à des pics de trafic importants lors de communications d'envergure;</li>
+<li>Avoir l'obligation de disponibilité;</li>
+<li>Assurer la sécurité, la sureté et la confidentialités des données.</li>
 </ul>
 <h2 id="architecture" class="anchor-title"><a href="#architecture">Architecture</a></h2>
 <p>Panneau pocket répose essentiellement sur de l'API qui permet d'exposer de manière structurée et sécurisée ses données à l'application mobile.
@@ -247,12 +247,28 @@ Nous intervenons en collaboration avec les équipes de développement applicatif
 <ul>
 <li>l'ensemble de l'infrastructure doit être décrite sour forme d'IAC (Infrastructure As Code);</li>
 <li>les environnements applicatifs doivent être « <a href="https://fr.wiktionary.org/wiki/versionner" target="_blank">versionnés</a> » et doivent pouvoir être redéployés de manière automatique et idempotente;</li>
-<li>l'ensemble des secrets applicatifs sont stockés dans un espace chiffré;</li>
+<li>l'ensemble des secrets applicatifs sont stockés dans un espace chiffré, sécurisé;</li>
+<li>les sauvegardes bénéficient d'une triple réplique sur deux fournisseurs différents et sont chiffrées;</li>
 <li>les accès sont controlés et audités.</li>
 </ul>
 <h3 id="mise-en-oeuvre" class="anchor-title"><a href="#mise-en-oeuvre">Mise en oeuvre</a></h3>
-<p>Afin de remplir son contrat nous avons mis</p>
-<p>Ce qui veut dire mettre en place de la supervision active de l'ensemble des évéments.</p></body>
+<p>Afin de remplir ce contrat et répondre aux contraintes métier nous nous sommes appuyés sur du matériel <strong>OVH</strong> et <strong>Scaleway</strong> en proposant une infrastructure redondée classique orchestrée sur un réseau privé intégrant:</p>
+<ul>
+<li>Un répartiteur de charge en frontal (redondé);</li>
+<li>Plusieurs instances applicatives;</li>
+<li>Un répartiteur de charge SQL Maxscale (redondé);</li>
+<li>Plusieurs instances de base de données.</li>
+</ul>
+<p>À cela vient s'ajouter les briques logiques standard (WAF, SG...) que nous ne détaillerons pas ici ainsi que les espaces de stockage reposants sur différentes stratégies mixant NFS, stockage de type bloc et stockage objet (S3).</p>
+<h3 id="environnement-d-exploitation" class="anchor-title"><a href="#environnement-d-exploitation">Environnement d'exploitation</a></h3>
+<p>L'environnement d'exploitation réponds aux standards Rix à savoir:</p>
+<ul>
+<li>Une remontée des métriques dans différents dashboard <strong>Grafana</strong> (Système et applicatif);</li>
+<li>Un alerting de l'ensemble des services via <strong>messagerie, mail et SMS</strong>;</li>
+<li>Une exploitation des logs applicatifs et système via le composant Loki (Grafana);</li>
+<li>Remontée des erreurs aux équipes applicatives via une plateforme <strong>Sentry</strong>;</li>
+<li>Les secrets applicatifs sont stockés dans un coffre de type <strong>Hashicorp Vault</strong> déployé sur nos infrastructures.</li>
+</ul></body>
             </div>
         </div>
         <div class="container">
@@ -282,7 +298,7 @@ Nous intervenons en collaboration avec les équipes de développement applicatif
         url('/rix/pr/100/resized/content/images/case-study/headers/musique-music-banner.jpg/a9958791fa4a222c5d5b17ca3b5b636e.jpg') 2x
     );"></div>
                         <div class="miniature__content">
-                            <span class="miniature__name">Stockage résilient et haute disponibilité.</span>
+                            <span class="miniature__name">Musique &amp; Music</span>
                             <h3>Stockage résilient et haute disponibilité.</h3>
                             <p>Musique &amp; Music est une librairie musicale pour les professionnels.</p>
                             <span class="sliding-button sliding-button--mobile">
