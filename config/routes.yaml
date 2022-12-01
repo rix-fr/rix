@@ -36,7 +36,9 @@ errors_404:
             sitemap: false
 
 controllers:
-    resource: ../src/Controller/
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
     type: attribute
 #mail_template:
 #    path: /mail
