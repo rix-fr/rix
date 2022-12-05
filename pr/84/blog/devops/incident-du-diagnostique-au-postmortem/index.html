@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Intégrer des agendas iCloud à Gnome Calendar</title>
+        <title>Après l&#039;incident, du diagnostique au post-mortem</title>
 
         <!-- Favicon -->
         <link rel="apple-touch-icon" sizes="180x180" href="/rix/pr/84/apple-touch-icon.png">
@@ -17,15 +17,15 @@
         <meta name="msapplication-config" content="/rix/pr/84/browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
 
-                        <meta name="description" content="Intégrer (relativement) facilement des agendas iCloud à Gnome Calendar" />
-            <link rel="canonical" href="https://rix-fr.github.io/rix/pr/84/blog/linux/integrer-icloud-gnome-calendar" />
+                        <meta name="description" content="Une fois l&#039;incident résolu, la recherche de l&#039;origine et la rédaction du post-mortem." />
+            <link rel="canonical" href="https://rix-fr.github.io/rix/pr/84/blog/devops/incident-du-diagnostique-au-postmortem" />
 
             <!-- Open Graph / Facebook -->
                                         <meta property="og:type" content="website">
-                        <meta property="og:title" content="Intégrer des agendas iCloud à Gnome Calendar" />
+                        <meta property="og:title" content="Après l&#039;incident, du diagnostique au post-mortem" />
             <meta property="og:locale" content="fr" />
-            <meta property="og:description" content="Intégrer (relativement) facilement des agendas iCloud à Gnome Calendar" />
-            <meta property="og:url" content="https://rix-fr.github.io/rix/pr/84/blog/linux/integrer-icloud-gnome-calendar" />
+            <meta property="og:description" content="Une fois l&#039;incident résolu, la recherche de l&#039;origine et la rédaction du post-mortem." />
+            <meta property="og:url" content="https://rix-fr.github.io/rix/pr/84/blog/devops/incident-du-diagnostique-au-postmortem" />
             <meta property="og:site_name" content="rix" />
 
                                         <meta property="og:image" content="/rix/pr/84/resized/content/images/blog/thumbnails/calendar.jpg/4045862451ebd1f21a69fbfe1f05408b.jpg">
@@ -33,20 +33,20 @@
             
             <!-- Twitter -->
             <meta property="twitter:card" content="summary_large_image">
-            <meta property="twitter:title" content="Intégrer des agendas iCloud à Gnome Calendar">
-            <meta property="twitter:description" content="Intégrer (relativement) facilement des agendas iCloud à Gnome Calendar">
+            <meta property="twitter:title" content="Après l&#039;incident, du diagnostique au post-mortem">
+            <meta property="twitter:description" content="Une fois l&#039;incident résolu, la recherche de l&#039;origine et la rédaction du post-mortem.">
             <meta property="twitter:site" content="@rix_fr">
             <meta property="twitter:creator" content="@rix_fr">
                                         <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/84/resized/content/images/blog/thumbnails/calendar.jpg/855f4f842396350759226c8041b96f7b.jpg">
                                 <script type="application/ld+json">{
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "headline": "Intégrer des agendas iCloud à Gnome Calendar",
+    "headline": "Après l'incident, du diagnostique au post-mortem",
     "image": [
-        "https://rix-fr.github.io/rix/pr/84/blog/linux/content/images/blog/thumbnails/calendar.jpg"
+        "https://rix-fr.github.io/rix/pr/84/blog/devops/content/images/blog/thumbnails/calendar.jpg"
     ],
-    "datePublished": "25 octobre 2022",
-    "dateModified": "25 octobre 2022",
+    "datePublished": "5 décembre 2022",
+    "dateModified": "5 décembre 2022",
     "author": [
         {
             "@type": "Person",
@@ -54,10 +54,10 @@
         }
     ],
     "keywords": [
-        "Linux",
-        "Icloud",
-        "Calendar",
-        "Gnome"
+        "Devops",
+        "Incident",
+        "Production",
+        "Post mortem"
     ]
 }
     </script>
@@ -217,20 +217,20 @@
             <div class="container content">
                 <ul class="tags-list">
                                             <li class="tags-list__item">
-                            #Linux
+                            #Devops
                         </li>
                                             <li class="tags-list__item">
-                            #Icloud
+                            #Incident
                         </li>
                                             <li class="tags-list__item">
-                            #Calendar
+                            #Production
                         </li>
                                             <li class="tags-list__item">
-                            #Gnome
+                            #PostMortem
                         </li>
                                     </ul>
-                <h2 class="h2--large">Intégrer des agendas iCloud à Gnome Calendar</h2>
-                <p>Intégrer (relativement) facilement des agendas iCloud à Gnome Calendar</p>
+                <h2 class="h2--large">Après l&#039;incident, du diagnostique au post-mortem</h2>
+                <p>Une fois l&#039;incident résolu, la recherche de l&#039;origine et la rédaction du post-mortem.</p>
                 <div class="article-overview">
                                         <div class="article-info">
                                                                             <div class="author ">
@@ -248,51 +248,26 @@
                                                                     </span>
                             </div>
                                                 <div class="article-info__date">
-                            <span>Publication <strong>25 octobre 2022</strong></span>
+                            <span>Publication <strong>5 décembre 2022</strong></span>
                                                                                 </div>
                     </div>
                 </div>
                 <main>
-                                                            <body><p>Contrairement à ce que certains pensent on peut être utilisateur d'un iPhone (ou d'un iPad) sans avoir de mac.</p>
-<p>Et oui c'est mon cas d'ailleurs ;)
-Autant je ne changerais pas mon iPhone contre un Android (même si j'ai aussi un XPeria avec SailfishOS) autant je n'échangerais <del>pas</del> plus mon Linux contre un OSX.</p>
-<p>Oui mais… bien qu'il devrait être très facile de synchroniser ses <strong>agendas iCloud</strong> avec <strong>Gnome</strong> (étant donné qu'iCloud propose un format <a href="https://fr.wikipedia.org/wiki/CalDAV" target="_blank">CalDAV</a>), la réalité n'est pas tout aussi simple !</p>
-<p>Petit guide pour épargner les arrachages de cheveux pour y parvenir.</p>
-<h2 id="les-pre-requis" class="anchor-title"><a href="#les-pre-requis">Les pré-requis</a></h2>
+                                                            <body><h2 id="mise-en-contexte" class="anchor-title"><a href="#mise-en-contexte">Mise en contexte</a></h2>
+<p>Qui dit piloter des infras de production, dit devoir gérer l'incident et parfois « aller au feu ». Même si nos métiers ont justement pour but d'éviter ce cas de figure (on préfère quand même prévoir et anticiper que de devoir résoudre en pleine bérézina), il arrive qu'une infra « prenne l'eau ».</p>
+<p>Les origines peuvent être multiples, complexes et sont souvent (d'expérience) un enchainement de conditions qui amène une dégratation <strong>d'un ou de plusieurs services</strong>, voir dans les cas les plus graves, d'une <strong>interruption</strong>.</p>
+<p>Ce dernier cas de figure étant le pire puisqu'il vous assure d'avoir les équipes de vos clients sur le dos (à juste titre).
+Si jamais une dégradation partielle du service était, par chance, passez inaperçue alors vous êtes maintenance certain que vous avez déjà la pression de résoudre votre incident le plus rapidement possible.</p>
+<p>Nous aborderons dans un autre billet, les comportements à adopter en pleine « crise » tant côté client que prestataire car il ne faut pas se leurrer (oui j'enfonce des portes ouvertes) le temps de rétablissement dépend directement de la bonne entende et de la bonne coopération de l'ensemble des équipes.</p>
+<p>Mais pour l'instant parlons <strong>des jours qui suivent l'incident</strong>. Une fois vos services rétablis il faut identifier l'origine de la perturbation, diagnostiquer correctement le « pourquoi », proposer une solution de résolution pour que <strong>les circonstances de l'incident ne se représentent pas</strong> et enfin <strong>formaliser l'ensemble des évènements</strong> sous la forme d'une « timeline » reprenant à la minute l'ensemble des incidents/actions subis/faits sur votre infrastructure.</p>
+<p>L'exercice n'est pas trivial puisqu'il doit permettre une fois rendu:</p>
 <ul>
-<li>Un compte iCloud, et oui…</li>
-<li>Avoir créé un mot de passe d'application spécifique à votre client à partir de votre AppleID (C'est tout bien expliqué <a href="https://support.apple.com/fr-fr/HT204397" target="_blank">ici</a>)</li>
-<li>Installer Evolution sur votre machine (pas de panique c'est temporaire 😉).</li>
+<li>D'orienter les équipes de développement vers une résolution;</li>
+<li>D'estimer les temps de dégradation et/ou d'indisponibilité du service;</li>
+<li>Éventuellement corriger un point de faiblesse de l'infrastructure;</li>
+<li>Mettre à jour <strong>PRA</strong> et <strong>PCA</strong></li>
 </ul>
-<h2 id="configurer-vos-agendas-dans-evolution" class="anchor-title"><a href="#configurer-vos-agendas-dans-evolution">Configurer vos agendas dans Evolution</a></h2>
-<div class="side-image">
-  <div class="side-image__content">
-    <p>En tout premier lieu, ouvrez l'onglet « Agenda » (vous serez pas défaut sur la vue « courriel ») une fois sur la partie agenda, créer en un nouveau comme ci-contre.</p>
-  </div>
-  <figure>
-      <img src="/rix/pr/84/resized/content/images/blog/2022/icloud-sync-with-gnome-calendar/evolution-new-calendar.jpg/93cbb4c889c42310fd05bf1db5499e38.jpg" alt="Créer un nouvel agenda dans Evolution." srcset="/rix/pr/84/resized/content/images/blog/2022/icloud-sync-with-gnome-calendar/evolution-new-calendar.jpg/93cbb4c889c42310fd05bf1db5499e38.jpg 1x,
-/rix/pr/84/resized/content/images/blog/2022/icloud-sync-with-gnome-calendar/evolution-new-calendar.jpg/cea2561c4f29f52ce74d81d1292d2ddd.jpg 2x," id="creer-un-nouvel-agenda-dans-evolution">
-  </figure>
-</div>
-<div class="side-image">
-  <img src="/rix/pr/84/resized/content/images/blog/2022/icloud-sync-with-gnome-calendar/evolution-connexion-icloud.jpg/0f7f8f434b8b8c19862771a6a260297b.jpg" alt="Informations de connexion à iCloud." srcset="/rix/pr/84/resized/content/images/blog/2022/icloud-sync-with-gnome-calendar/evolution-connexion-icloud.jpg/0f7f8f434b8b8c19862771a6a260297b.jpg 1x,
-/rix/pr/84/resized/content/images/blog/2022/icloud-sync-with-gnome-calendar/evolution-connexion-icloud.jpg/e5d189ab24fcbd3857dbf579a7cdc917.jpg 2x," id="informations-de-connexion-a-icloud">
-  <div class="side-image__content">
-    <p><strong>Renseignez ensuite vos informations et suivez les étapes ci-contre.</strong></p>
-    <p>
-      </p><ul>
-        <li>Sélectionnez le type d'agenda: CalDAV;</li>
-        <li>URL: <strong>https://caldav.icloud.com</strong> (Elle sera par la suite remplacée par l'adresse de l'agenda sélectionné);</li>
-        <li>Dans le champs utilisateur, votre Apple ID (En général votre adresse de courriel);</li>
-        <li>Appuyez enfin  sur « Rechercher les agendas » vous devriez avoir la liste des agendas dont vous disposez sur iCloud, sélectionnez l'agenda que vous voulez synchroniser;</li>
-        <li>Vous pouvez ensuite sélectionner la couleur de votre agenda (ou conserver celle par défaut).</li>
-      </ul>
-    
-  </div>
-</div>
-<p>Pour terminer, libre à vous d'activer les options afin de rendre vos agendas disponibles hors ligne et de sélectionner votre agenda par défaut.</p>
-<p><code class="code-inline" id="097cc86b24ec939a19f8783e64fbb4ee">ATTENTION</code> les étapes ci-dessus devront être répétées pour <code class="code-inline" id="e9ef961a708270478bb7f52b81015d34">CHACUN</code> des agendas dont vous disposez, je n'ai pas trouvé mieux pour l'instant.
-Une fois vos agendas synchronisés vous pouvez fermer Evolution, l'agenda de Gnome devrait automatiquement ajouter les agendas que vous venez de configurer.</p></body>
+<p>Pour en définitive décider de plans d'actions en collaboration avec les équipes clientes si d'aventure un cas de figure similaire devait se représenter.</p></body>
                                                                         <div class="article-credits">
                                 Crédits: photo de couverture par
                                                                     <a href="https://unsplash.com/@esteejanssens">
@@ -333,7 +308,7 @@ Une fois vos agendas synchronisés vous pouvez fermer Evolution, l'agenda de Gno
                                     <div class="comment">
                                                                             <p>
                                 Une typo ?
-                                <a href="https://github.com/rix-fr/rix/edit/blog/linux/content/blog/linux/integrer-icloud-gnome-calendar.md/" target="_blank">Modifier cet article sur Github</a>
+                                <a href="https://github.com/rix-fr/rix/edit/blog/linux/content/blog/devops/incident-du-diagnostique-au-postmortem.md/" target="_blank">Modifier cet article sur Github</a>
                             </p>
                                             </div>
                             </div>

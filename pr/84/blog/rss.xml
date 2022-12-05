@@ -5,7 +5,7 @@
         <description>Découvrez nos articles techniques (ou non), rédigés par les membres de l'équipe Rix !</description>
         <copyright>Rix - L’utilisation des flux RSS de rix.fr est réservée à un usage strictement personnel, non professionnel et non collectif. Toute autre exploitation doit faire l’objet d’une autorisation et donner lieu au versement d’une rémunération. Contact : contact@rix.fr</copyright>
         <link>https://rix-fr.github.io/rix/pr/84/blog</link>
-        <pubDate>Mon, 28 Nov 2022 09:14:55 +0000</pubDate>
+        <pubDate>Mon, 05 Dec 2022 14:23:41 +0000</pubDate>
         <language>fr</language>
         <image>
             <url>https://rix-fr.github.io/rix/pr/84/apple-touch-icon.png</url>
@@ -13,6 +13,23 @@
             <link>https://rix-fr.github.io/rix/pr/84/blog</link>
         </image>
         <atom:link href="https://rix-fr.github.io/rix/pr/84/blog/rss.xml" rel="self" type="application/rss+xml"/>
+                <item>
+            <title>Après l&#039;incident, du diagnostique au post-mortem</title>
+            <pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate>
+            <description>
+                <![CDATA[ Une fois l&#039;incident résolu, la recherche de l&#039;origine et la rédaction du post-mortem. ]]>
+            </description>
+            <guid isPermaLink="true">https://rix-fr.github.io/rix/pr/84/blog/devops/incident-du-diagnostique-au-postmortem</guid>
+            <link>https://rix-fr.github.io/rix/pr/84/blog/devops/incident-du-diagnostique-au-postmortem</link>
+            <media:content url="https://rix-fr.github.io/rix/pr/84/resized/content/images/blog/thumbnails/calendar.jpg/4045862451ebd1f21a69fbfe1f05408b.jpg" width="1200" height="627">
+                <media:description type="plain">Après l&#039;incident, du diagnostique au post-mortem</media:description>
+                                    <media:credit role="photographer" scheme="urn:ebu">Estée Janssens, https://unsplash.com/@esteejanssens</media:credit>
+                            </media:content>
+                            <category>devops</category>
+                            <category>incident</category>
+                            <category>production</category>
+                            <category>post-mortem</category>
+                                </item>
                 <item>
             <title>Intégrer des agendas iCloud à Gnome Calendar</title>
             <pubDate>Tue, 25 Oct 2022 00:00:00 +0000</pubDate>
