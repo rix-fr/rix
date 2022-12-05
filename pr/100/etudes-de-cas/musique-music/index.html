@@ -47,7 +47,7 @@
 
                     <link rel="stylesheet" href="/rix/pr/100/build/305.222be515.css">
         
-                    <script src="/rix/pr/100/build/runtime.dad7b9b2.js" defer></script><script src="/rix/pr/100/build/348.64eebf97.js" defer></script><script src="/rix/pr/100/build/app.76a9a073.js" defer></script>
+                    <script src="/rix/pr/100/build/runtime.dad7b9b2.js" defer></script><script src="/rix/pr/100/build/70.671fda9c.js" defer></script><script src="/rix/pr/100/build/app.e999eb99.js" defer></script>
 
                     
     </head>
@@ -261,8 +261,15 @@ Nous avons opté pour une solution de <strong>synchronisation incrémentale</str
       <span class="figure__legend">Musique &amp; Music</span>
     </figcaption>
 </figure>
-<h3 id="le-run" class="anchor-title"><a href="#le-run">Le run</a></h3>
-<p>Conforme à nos standard d'exploitation l'ensemble de l'infrastructure est suivie de manière active en se basant sur les outils que nous déployons systématiquement sur toutes nos infras à savoir Grafana, Alerting, Logs...</p></body>
+<h3 id="environnement-d-exploitation" class="anchor-title"><a href="#environnement-d-exploitation">Environnement d'exploitation</a></h3>
+<p>L'environnement d'exploitation réponds aux standards Rix à savoir:</p>
+<ul>
+<li>Une remontée des métriques dans différents dashboard <strong>Grafana</strong> (Système et applicatif);</li>
+<li>Un alerting de l'ensemble des services via <strong>messagerie, mail et SMS</strong>;</li>
+<li>Une exploitation des logs applicatifs et système via le composant Loki (Grafana);</li>
+<li>Remontée des erreurs aux équipes applicatives via une plateforme <strong>Sentry</strong>;</li>
+<li>Les secrets applicatifs sont stockés dans un coffre de type <strong>Hashicorp Vault</strong> déployé sur nos infrastructures.</li>
+</ul></body>
             </div>
         </div>
         <div class="container">
