@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Après l&#039;incident, du diagnostique au post-mortem</title>
+        <title>Construire une image Debian pour Raspberry Pi</title>
 
         <!-- Favicon -->
         <link rel="apple-touch-icon" sizes="180x180" href="/rix/pr/84/apple-touch-icon.png">
@@ -17,15 +17,15 @@
         <meta name="msapplication-config" content="/rix/pr/84/browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
 
-                        <meta name="description" content="Une fois l&#039;incident résolu, la recherche de l&#039;origine et la rédaction du post-mortem." />
-            <link rel="canonical" href="https://rix-fr.github.io/rix/pr/84/blog/devops/incident-du-diagnostique-au-postmortem" />
+                        <meta name="description" content="Construire une image source Debian à déployer sur Raspberry Pi en remplacement de Raspberry Pi OS (anciennement Raspbian)." />
+            <link rel="canonical" href="https://rix-fr.github.io/rix/pr/84/blog/linux/construire-image-debian-raspberry" />
 
             <!-- Open Graph / Facebook -->
                                         <meta property="og:type" content="website">
-                        <meta property="og:title" content="Après l&#039;incident, du diagnostique au post-mortem" />
+                        <meta property="og:title" content="Construire une image Debian pour Raspberry Pi" />
             <meta property="og:locale" content="fr" />
-            <meta property="og:description" content="Une fois l&#039;incident résolu, la recherche de l&#039;origine et la rédaction du post-mortem." />
-            <meta property="og:url" content="https://rix-fr.github.io/rix/pr/84/blog/devops/incident-du-diagnostique-au-postmortem" />
+            <meta property="og:description" content="Construire une image source Debian à déployer sur Raspberry Pi en remplacement de Raspberry Pi OS (anciennement Raspbian)." />
+            <meta property="og:url" content="https://rix-fr.github.io/rix/pr/84/blog/linux/construire-image-debian-raspberry" />
             <meta property="og:site_name" content="rix" />
 
                                         <meta property="og:image" content="/rix/pr/84/resized/content/images/blog/thumbnails/calendar.jpg/4045862451ebd1f21a69fbfe1f05408b.jpg">
@@ -33,20 +33,20 @@
             
             <!-- Twitter -->
             <meta property="twitter:card" content="summary_large_image">
-            <meta property="twitter:title" content="Après l&#039;incident, du diagnostique au post-mortem">
-            <meta property="twitter:description" content="Une fois l&#039;incident résolu, la recherche de l&#039;origine et la rédaction du post-mortem.">
+            <meta property="twitter:title" content="Construire une image Debian pour Raspberry Pi">
+            <meta property="twitter:description" content="Construire une image source Debian à déployer sur Raspberry Pi en remplacement de Raspberry Pi OS (anciennement Raspbian).">
             <meta property="twitter:site" content="@rix_fr">
             <meta property="twitter:creator" content="@rix_fr">
                                         <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/84/resized/content/images/blog/thumbnails/calendar.jpg/855f4f842396350759226c8041b96f7b.jpg">
                                 <script type="application/ld+json">{
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "headline": "Après l'incident, du diagnostique au post-mortem",
+    "headline": "Construire une image Debian pour Raspberry Pi",
     "image": [
-        "https://rix-fr.github.io/rix/pr/84/blog/devops/content/images/blog/thumbnails/calendar.jpg"
+        "https://rix-fr.github.io/rix/pr/84/blog/linux/content/images/blog/thumbnails/calendar.jpg"
     ],
-    "datePublished": "5 décembre 2022",
-    "dateModified": "5 décembre 2022",
+    "datePublished": "22 décembre 2022",
+    "dateModified": "22 décembre 2022",
     "author": [
         {
             "@type": "Person",
@@ -55,9 +55,9 @@
     ],
     "keywords": [
         "Devops",
-        "Incident",
-        "Production",
-        "Post mortem"
+        "Linux",
+        "Build",
+        "Raspberry"
     ]
 }
     </script>
@@ -220,17 +220,17 @@
                             #Devops
                         </li>
                                             <li class="tags-list__item">
-                            #Incident
+                            #Linux
                         </li>
                                             <li class="tags-list__item">
-                            #Production
+                            #Build
                         </li>
                                             <li class="tags-list__item">
-                            #PostMortem
+                            #Raspberry
                         </li>
                                     </ul>
-                <h2 class="h2--large">Après l&#039;incident, du diagnostique au post-mortem</h2>
-                <p>Une fois l&#039;incident résolu, la recherche de l&#039;origine et la rédaction du post-mortem.</p>
+                <h2 class="h2--large">Construire une image Debian pour Raspberry Pi</h2>
+                <p>Construire une image source Debian à déployer sur Raspberry Pi en remplacement de Raspberry Pi OS (anciennement Raspbian).</p>
                 <div class="article-overview">
                                         <div class="article-info">
                                                                             <div class="author ">
@@ -248,26 +248,156 @@
                                                                     </span>
                             </div>
                                                 <div class="article-info__date">
-                            <span>Publication <strong>5 décembre 2022</strong></span>
+                            <span>Publication <strong>22 décembre 2022</strong></span>
                                                                                 </div>
                     </div>
                 </div>
                 <main>
-                                                            <body><h2 id="mise-en-contexte" class="anchor-title"><a href="#mise-en-contexte">Mise en contexte</a></h2>
-<p>Qui dit piloter des infras de production, dit devoir gérer l'incident et parfois « aller au feu ». Même si nos métiers ont justement pour but d'éviter ce cas de figure (on préfère quand même prévoir et anticiper que de devoir résoudre en pleine bérézina), il arrive qu'une infra « prenne l'eau ».</p>
-<p>Les origines peuvent être multiples, complexes et sont souvent (d'expérience) un enchainement de conditions qui amène une dégratation <strong>d'un ou de plusieurs services</strong>, voir dans les cas les plus graves, d'une <strong>interruption</strong>.</p>
-<p>Ce dernier cas de figure étant le pire puisqu'il vous assure d'avoir les équipes de vos clients sur le dos (à juste titre).
-Si jamais une dégradation partielle du service était, par chance, passez inaperçue alors vous êtes maintenance certain que vous avez déjà la pression de résoudre votre incident le plus rapidement possible.</p>
-<p>Nous aborderons dans un autre billet, les comportements à adopter en pleine « crise » tant côté client que prestataire car il ne faut pas se leurrer (oui j'enfonce des portes ouvertes) le temps de rétablissement dépend directement de la bonne entende et de la bonne coopération de l'ensemble des équipes.</p>
-<p>Mais pour l'instant parlons <strong>des jours qui suivent l'incident</strong>. Une fois vos services rétablis il faut identifier l'origine de la perturbation, diagnostiquer correctement le « pourquoi », proposer une solution de résolution pour que <strong>les circonstances de l'incident ne se représentent pas</strong> et enfin <strong>formaliser l'ensemble des évènements</strong> sous la forme d'une « timeline » reprenant à la minute l'ensemble des incidents/actions subis/faits sur votre infrastructure.</p>
-<p>L'exercice n'est pas trivial puisqu'il doit permettre une fois rendu:</p>
+                                                            <body><p>Je vous vois venir, quelle idée de vouloir construire sa propre image ?
+Alors même que Raspberry fourni <a href="https://www.raspberrypi.com/software/" target="_blank">un OS ET un utilitaire</a> permettant de créer des cartes SD « bootable » rapidement et quasi sans douleur !</p>
+<p>Oui mais…</p>
+<h2 id="tl-dr" class="anchor-title"><a href="#tl-dr">TL;DR</a></h2>
+<ol>
+<li>Sur une Debian Bulleyes (de préférence VM)</li>
+<li>
+<pre class="code-multiline"><code id="8505ab014a1b9afa10a3bb02e81ca6fb">git clone --recursive https://salsa.debian.org/raspi-team/image-specs.git
+cd image-specs</code></pre>
+</li>
+<li>
+<pre class="code-multiline"><code id="879f883abe12de9e26bb7aa77c9ae8c0">apt install -y vmdb2 dosfstools qemu-utils qemu-user-static debootstrap binfmt-support time kpartx bmap-tools python3
+apt install -y fakemachine</code></pre>
+</li>
+<li><code class="code-inline" id="842198ca332d5c8164d67bfb668629d4">make raspi_4_bullseye.img</code></li>
+<li><code class="code-inline" id="bff57934fc827e5f0b7962ba806657b5">dd if=raspi_4_bullseye.img of=/dev/sdb bs=64k oflag=dsync status=progress</code></li>
+</ol>
+<h2 id="mise-en-contexte" class="anchor-title"><a href="#mise-en-contexte">Mise en contexte</a></h2>
+<p>Avant d'aller plus loin il faut savoir que nous utilisons en interne plusieurs Raspberry Pi afin de faire tourner des services qui nous permettent de piloter la gestion du réseau et/ou de fournir des services basiques et non critiques (Serveurs DNS locaux, VPN, métriques, monitoring…).</p>
+<p>Nous avons également une petite flotte de ces machines qui nous permettent d'aller enseigner quelques trucs à des étudiants (du réseau, du provisioning, linux…) en se reposant dessus.</p>
+<p>Alors bien évidemment le besoin ne tombe pas du ciel, et même si l'exercice reste formateur et amusant (si, si) le but n'est bien évidemment pas juste ludique.
+Raspberry Pi OS a en fait ses limites, particulièrement lorsqu'on va l'utiliser sur d'anciens Raspberry Pi (notamment des 2 ou précédents).</p>
+<p>Pour terminer il faut savoir que Raspbian (dérivé de Debian) a été créé en premier lieu parce que jusqu'à 2018 il n'était pas possible de démarrer un kernel linux sur Raspberry mais également parce que Raspbian arrivait avec des composants non libres contraire à la phylosophie Debian.</p>
+<h2 id="pourquoi-reconstruire-et-pourquoi-debian" class="anchor-title"><a href="#pourquoi-reconstruire-et-pourquoi-debian">Pourquoi reconstruire et pourquoi Debian ?</a></h2>
+<p>En tout premier lieu parce que nous avons besoin d'avoir accès facilement à certains paquets non disponibles sur Raspberry OS dans les versions dont nous avons besoin.
+En second lieu parce que l'intégration de dépôts externes sur une base Raspberry OS est parfois assez chaotique, notamment dû aux différentes architecture utilisée par les processeurs ARM des Raspberry.</p>
+<p>On se retrouve notamment par défaut (il est possible d'aller chercher d'autres versions d'OS dans l'utilitaire de création d'images) avec une version de Raspberry OS commune à toutes les versions et donc <strong>32 bits</strong>…</p>
+<p>Pour rappel les premières architectures 64 bits des Raspberry sont arrivées avec la version 3.
+Debian fait le choix de coller exactement aux différentes archi, mais au prix d'une image pour chacune, celles-ci dont d'ailleurs disponibles <a href="https://raspi.debian.net/tested-images/" target="_blank">ici</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Version Raspberry Pi</th>
+<th>Debian</th>
+<th>Raspberry Pi OS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 / 1</td>
+<td>armel, 32 bit</td>
+<td>armhf, 32 bit</td>
+</tr>
+<tr>
+<td>2</td>
+<td>armhf, 32 bit</td>
+<td>armhf, 32 bit</td>
+</tr>
+<tr>
+<td>3</td>
+<td>arm64, 64 bit</td>
+<td>armhf, 32 bit</td>
+</tr>
+<tr>
+<td>4</td>
+<td>arm64, 64 bit</td>
+<td>armhf, 32 bit</td>
+</tr>
+</tbody>
+</table>
+<p>Il existe d'autres versions d'OS disponibles en version serveur ou desktop (Ubuntu, Manjaro…) mais nous utilisons les roles Ansible du projet <a href="https://github.com/manala/ansible-roles" target="_blank">Manala</a> pour provisionner l'ensemble de nos machines et afin d'assurer au maximum la compatibilité (et nous éviter de la maintenance) nous préferons rester cohérents et utiliser des Debian.</p>
+<p>Pour terminer, les images pré-construites Debian peuvent carrément faire l'affaire mais certains choix de configuration ne nous vont pas et nous avons besoin que nos images soient prêtes à être provisionner et donc disposer de certains paquets, de comptes utilisateurs spécifiques et bien évidemment de nos clés SSH pour l'authentification.</p>
+<h2 id="pre-requis" class="anchor-title"><a href="#pre-requis">Pré-requis</a></h2>
+<p>Ils sont peu nombreux, tant la construction d'images est rendue simple par les contributeurs à la version Raspberry de Debian.
+Vous aurez donc besoin:</p>
 <ul>
-<li>D'orienter les équipes de développement vers une résolution;</li>
-<li>D'estimer les temps de dégradation et/ou d'indisponibilité du service;</li>
-<li>Éventuellement corriger un point de faiblesse de l'infrastructure;</li>
-<li>Mettre à jour <strong>PRA</strong> et <strong>PCA</strong></li>
+<li>Une Debian Bullseye (de préference une machine virtuelle, histoire de garder propre notre machine de travail);</li>
+<li>De récupérer le dépôt contenant les outils <a href="https://salsa.debian.org/raspi-team/image-specs" target="_blank">https://salsa.debian.org/raspi-team/image-specs</a>;</li>
+<li>D'un peu de temps.</li>
 </ul>
-<p>Pour en définitive décider de plans d'actions en collaboration avec les équipes clientes si d'aventure un cas de figure similaire devait se représenter.</p></body>
+<h2 id="let-s-go" class="anchor-title"><a href="#let-s-go">Let's go !</a></h2>
+<p>En tout premier lieu, une fois <strong>sur votre VM Debian Bullseye</strong>, on clone le répertoire d'outils:</p>
+<pre class="code-multiline"><code id="8505ab014a1b9afa10a3bb02e81ca6fb">git clone --recursive https://salsa.debian.org/raspi-team/image-specs.git
+cd image-specs</code></pre>
+<p>Nous aurons également besoin de quelques paquets pour la construction:</p>
+<pre class="code-multiline"><code id="879f883abe12de9e26bb7aa77c9ae8c0">apt install -y vmdb2 dosfstools qemu-utils qemu-user-static debootstrap binfmt-support time kpartx bmap-tools python3
+apt install -y fakemachine</code></pre>
+<p>Le fichier makefile fournit vous permet au choix:</p>
+<ul>
+<li>
+<p>De construire une image <strong>spécifique</strong> à votre Raspberry en utilisant une <strong>configuration par défaut</strong>:</p>
+<p><code class="code-inline" id="7ef439672b04b363ae6291bedb300150">make raspi_&lt;model&gt;_&lt;release&gt;.img</code></p>
+<ul>
+<li><code class="code-inline" id="bbe1cad42a1c1159f76e78e164c718b0">&lt;model&gt;</code> vaut pour la version de votre Raspberry (1,2,3 ou 4 avec 1 utilisé pour les version Pi 0, 0w and 1);</li>
+<li><code class="code-inline" id="43bf3a398d87f2635ff002d4333cb312">&lt;release&gt;</code> pour la version de Debian que vous souhaitez construire.</li>
+</ul>
+<p>Dans notre cas une Bullseye pour un Raspberry Pi 2: <code class="code-inline" id="3836c2d70682d7484a7f35296c9d6370">make raspi_2_bullseye.img</code></p>
+</li>
+<li>
+<p>De construire une image <strong>spécifique</strong> à partir de <strong>VOTRE configuration</strong> (et c'est ce choix qui nous intéresse)</p>
+</li>
+</ul>
+<h3 id="configuration-de-l-image" class="anchor-title"><a href="#configuration-de-l-image">Configuration de l'image</a></h3>
+<p>Alors bien évidemment nous ne partirons pas d'une page blanche mais du fichier de configuration généré par l'outil grâce à la commande:</p>
+<p><code class="code-inline" id="7ce649b01529310283cdfeea6576de4f">make raspi_2_bullseye.yaml</code></p>
+<p>Nous obtenons un fichier de configuration par défaut (celui utilisé pour la construction de l'image avec la commande précédente).
+Il est possible de l'éditer directement mais préférable de le copier pour un fichier qui sera différent de ne pas malencontreusement écraser nos modifications en rejouant la commande précédente.</p>
+<p><code class="code-inline" id="35f90c9582ab2fe0d6fdb9d0fc80297e">cp raspi_2_bullseye.yaml rix_raspi_2_bullseye.yaml</code></p>
+<p>En ce qui nous concerne nous y opérerons plusieurs modifications:</p>
+<ul>
+<li>L'ajout d'un compte utilisateur non privilégié:</li>
+</ul>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="33da9c51697b7b4bbbabe445d8f22c5c"><span class="token punctuation">-</span> <span class="token key atrule">chroot</span><span class="token punctuation">:</span> tag<span class="token punctuation">-</span>root
+    <span class="token key atrule">shell</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+    useradd -g100 -m -s /bin/bash elao</span></code></pre>
+<div class="admonition la directive `chroot`">
+<p class="admonition-title">La</p>
+<p>
+    Elle est essentielle dès lors que vous souhaitez exécuter une commande <strong>dans le contexte du système en cours de construction</strong>.
+</p>
+</div>
+<h3 id="construction-de-l-image" class="anchor-title"><a href="#construction-de-l-image">Construction de l'image</a></h3>
+<p>Une fois l'ensemble de nos instructions ajouté à notre fichier nous pouvons démarrer la construction de notre image:</p>
+<pre class="code-multiline"><code id="b39cb28f5670afd7f075964265aaf77c">vmdb2 --rootfs-tarball=rix_raspi_bullseye.tar.gz --output \
+rix_raspi_bullseye.img rix_raspi_2_bullseye.yaml --log rix_raspi_bullseye.log</code></pre>
+<p>Cette commande devrait nous donner en sortie 3 fichiers:</p>
+<ul>
+<li>Un fichier de logs <code class="code-inline" id="9203a47c8c1ddb7ff690ef47a4066621">rix_raspi_bullseye.log</code></li>
+<li>Un fichier image <code class="code-inline" id="e77b7aad8c7d633f94d5ed365f2c7e59">rix_raspi_bullseye.img</code></li>
+<li>Un fichier image compressé <code class="code-inline" id="69c466c9cef0aa55789bf3635f0f8075">rix_raspi_bullseye.tar.gz</code></li>
+</ul>
+<h3 id="installation-de-l-image" class="anchor-title"><a href="#installation-de-l-image">Installation de l'image</a></h3>
+<p>L'installation de l'image est ensuite assez standard, une fois votre carte SD montée:</p>
+<ul>
+<li>Soit via <code class="code-inline" id="b625714ddc28ab61c0807bdf6f8da052">bmaptool</code> à partir de l'image compressée;</li>
+</ul>
+<p><code class="code-inline" id="9248987582062ab3d85177d1259c1ffa">bmaptool copy rix_raspi_bullseye.tar.gz /dev/mmcblk0</code></p>
+<ul>
+<li>Soit via un bon vieux <code class="code-inline" id="1aabac6d068eef6a7bad3fdf50a05cc8">dd</code>:</li>
+</ul>
+<p><code class="code-inline" id="290b1b520fb9f7e044ca6cd8ac285037">dd if=rix_raspi_bullseye.img of=/dev/sdb bs=64k oflag=dsync status=progress</code></p>
+<div class="admonition danger">
+<p>
+    Attention à la « cible » de l'écriture, en cas de mauvais volume sélectionné vous écraserez son contenu.
+</p>
+</div>
+<h2 id="pour-aller-plus-loin" class="anchor-title"><a href="#pour-aller-plus-loin">Pour aller plus loin</a></h2>
+<p>Vous voilà paré pour déployer du Raspberry Pi en série sur une base Debian à vous !</p>
+<p>Sources:</p>
+<ul>
+<li><a href="https://wiki.debian.org/RaspberryPi" target="_blank">https://wiki.debian.org/RaspberryPi</a></li>
+<li><a href="https://wiki.debian.org/RaspberryPiImages" target="_blank">https://wiki.debian.org/RaspberryPiImages</a></li>
+<li><a href="https://raspi.debian.net/" target="_blank">https://raspi.debian.net/</a></li>
+<li><a href="https://vmdb2.liw.fi/" target="_blank">https://vmdb2.liw.fi/</a></li>
+</ul></body>
                                                                         <div class="article-credits">
                                 Crédits: photo de couverture par
                                                                     <a href="https://unsplash.com/@esteejanssens">
@@ -308,7 +438,7 @@ Si jamais une dégradation partielle du service était, par chance, passez inape
                                     <div class="comment">
                                                                             <p>
                                 Une typo ?
-                                <a href="https://github.com/rix-fr/rix/edit/blog/linux/content/blog/devops/incident-du-diagnostique-au-postmortem.md/" target="_blank">Modifier cet article sur Github</a>
+                                <a href="https://github.com/rix-fr/rix/edit/blog/linux/content/blog/linux/construire-image-debian-raspberry.md/" target="_blank">Modifier cet article sur Github</a>
                             </p>
                                             </div>
                             </div>
