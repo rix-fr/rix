@@ -28,7 +28,7 @@
             <meta property="og:url" content="https://rix-fr.github.io/rix/pr/84/blog/linux/construire-image-debian-raspberry" />
             <meta property="og:site_name" content="rix" />
 
-                                        <meta property="og:image" content="/rix/pr/84/resized/content/images/blog/thumbnails/calendar.jpg/4045862451ebd1f21a69fbfe1f05408b.jpg">
+                                        <meta property="og:image" content="/rix/pr/84/content/images/blog/thumbnails/raspberrypi.jpg">
                                                     <meta property="og:image:alt" content="Rix - Expertise et outillage DevOps">
             
             <!-- Twitter -->
@@ -37,13 +37,13 @@
             <meta property="twitter:description" content="Construire une image source Debian à déployer sur Raspberry Pi en remplacement de Raspberry Pi OS (anciennement Raspbian).">
             <meta property="twitter:site" content="@rix_fr">
             <meta property="twitter:creator" content="@rix_fr">
-                                        <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/84/resized/content/images/blog/thumbnails/calendar.jpg/855f4f842396350759226c8041b96f7b.jpg">
+                                        <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/84/content/images/blog/thumbnails/raspberrypi.jpg">
                                 <script type="application/ld+json">{
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     "headline": "Construire une image Debian pour Raspberry Pi",
     "image": [
-        "https://rix-fr.github.io/rix/pr/84/blog/linux/content/images/blog/thumbnails/calendar.jpg"
+        "https://rix-fr.github.io/rix/pr/84/blog/linux/content/images/blog/thumbnails/raspberrypi.jpg"
     ],
     "datePublished": "22 décembre 2022",
     "dateModified": "22 décembre 2022",
@@ -232,6 +232,37 @@
                 <h2 class="h2--large">Construire une image Debian pour Raspberry Pi</h2>
                 <p>Construire une image source Debian à déployer sur Raspberry Pi en remplacement de Raspberry Pi OS (anciennement Raspbian).</p>
                 <div class="article-overview">
+                                        <ol class="table-of-contents">
+                                                            <li class="table-of-contents__item">
+                                    <a href="#tl-dr">TL;DR</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#mise-en-contexte">Mise en contexte</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#pourquoi-reconstruire-et-pourquoi-debian">Pourquoi reconstruire et pourquoi Debian ?</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#pre-requis">Pré-requis</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#let-s-go">Let&#039;s go !</a>
+                                                                            <ol class="table-of-contents__sub-level">
+                                                                                            <li>
+                                                    <a href="#configuration-de-l-image">Configuration de l&#039;image</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#construction-de-l-image">Construction de l&#039;image</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#installation-de-l-image">Installation de l&#039;image</a>
+                                                </li>
+                                                                                    </ol>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#pour-aller-plus-loin">Pour aller plus loin</a>
+                                                                    </li>
+                                                    </ol>
                                         <div class="article-info">
                                                                             <div class="author ">
                                 <div class="author__image">
@@ -255,33 +286,35 @@
                 <main>
                                                             <body><p>Je vous vois venir, quelle idée de vouloir construire sa propre image ?
 Alors même que Raspberry fourni <a href="https://www.raspberrypi.com/software/" target="_blank">un OS ET un utilitaire</a> permettant de créer des cartes SD « bootable » rapidement et quasi sans douleur !</p>
-<p>Oui mais…</p>
 <h2 id="tl-dr" class="anchor-title"><a href="#tl-dr">TL;DR</a></h2>
 <ol>
-<li>Sur une Debian Bulleyes (de préférence VM)</li>
-<li>
+<li>Pour les opérations à suivre utiliser une Debian Bulleyes (de préférence VM);</li>
+<li>On récupère le dépôt avec les outils pour construire l'image;
 <pre class="code-multiline"><code id="8505ab014a1b9afa10a3bb02e81ca6fb">git clone --recursive https://salsa.debian.org/raspi-team/image-specs.git
-cd image-specs</code></pre>
-</li>
-<li>
+cd image-specs</code></pre></li>
+<li>On installe les différents paquets nécessaires à l'opération;
 <pre class="code-multiline"><code id="879f883abe12de9e26bb7aa77c9ae8c0">apt install -y vmdb2 dosfstools qemu-utils qemu-user-static debootstrap binfmt-support time kpartx bmap-tools python3
-apt install -y fakemachine</code></pre>
-</li>
-<li><code class="code-inline" id="842198ca332d5c8164d67bfb668629d4">make raspi_4_bullseye.img</code></li>
-<li><code class="code-inline" id="bff57934fc827e5f0b7962ba806657b5">dd if=raspi_4_bullseye.img of=/dev/sdb bs=64k oflag=dsync status=progress</code></li>
+apt install -y fakemachine</code></pre></li>
+<li>On construit l'image
+<code class="code-inline" id="842198ca332d5c8164d67bfb668629d4">make raspi_4_bullseye.img</code>;</li>
+<li>On écrit cette image sur une carte SD
+<code class="code-inline" id="138eb7bcd71656c8f1d86fe7070ceba2">dd if=raspi_4_bullseye.img of=/dev/XXX bs=64k oflag=dsync status=progress</code>.</li>
 </ol>
 <h2 id="mise-en-contexte" class="anchor-title"><a href="#mise-en-contexte">Mise en contexte</a></h2>
-<p>Avant d'aller plus loin il faut savoir que nous utilisons en interne plusieurs Raspberry Pi afin de faire tourner des services qui nous permettent de piloter la gestion du réseau et/ou de fournir des services basiques et non critiques (Serveurs DNS locaux, VPN, métriques, monitoring…).</p>
-<p>Nous avons également une petite flotte de ces machines qui nous permettent d'aller enseigner quelques trucs à des étudiants (du réseau, du provisioning, linux…) en se reposant dessus.</p>
+<p>Oui mais…</p>
+<p>Avant d'aller plus loin il faut savoir que nous utilisons en interne plusieurs Raspberry Pi afin de faire tourner des services qui nous permettent de piloter la gestion du réseau local de nos bureaux et/ou d'y fournir des services basiques et non critiques (Serveurs DNS locaux, VPN, métriques, monitoring…).</p>
+<p>Nous avons également une petite flotte de ces machines qui nous permettent d'aller enseigner « quelques trucs » à des étudiants (du réseau, du provisioning, linux…) en se reposant dessus.</p>
 <p>Alors bien évidemment le besoin ne tombe pas du ciel, et même si l'exercice reste formateur et amusant (si, si) le but n'est bien évidemment pas juste ludique.
 Raspberry Pi OS a en fait ses limites, particulièrement lorsqu'on va l'utiliser sur d'anciens Raspberry Pi (notamment des 2 ou précédents).</p>
-<p>Pour terminer il faut savoir que Raspbian (dérivé de Debian) a été créé en premier lieu parce que jusqu'à 2018 il n'était pas possible de démarrer un kernel linux sur Raspberry mais également parce que Raspbian arrivait avec des composants non libres contraire à la phylosophie Debian.</p>
+<p>Pour terminer il faut savoir que Raspbian (dérivé de Debian) a été créé en premier lieu parce que jusqu'à 2018 il n'était <strong>pas possible de démarrer</strong> un kernel linux sur Raspberry mais également parce que Raspbian arrivait avec des composants <strong>non libres</strong> contraires à la philosophie Debian.</p>
 <h2 id="pourquoi-reconstruire-et-pourquoi-debian" class="anchor-title"><a href="#pourquoi-reconstruire-et-pourquoi-debian">Pourquoi reconstruire et pourquoi Debian ?</a></h2>
-<p>En tout premier lieu parce que nous avons besoin d'avoir accès facilement à certains paquets non disponibles sur Raspberry OS dans les versions dont nous avons besoin.
-En second lieu parce que l'intégration de dépôts externes sur une base Raspberry OS est parfois assez chaotique, notamment dû aux différentes architecture utilisée par les processeurs ARM des Raspberry.</p>
-<p>On se retrouve notamment par défaut (il est possible d'aller chercher d'autres versions d'OS dans l'utilitaire de création d'images) avec une version de Raspberry OS commune à toutes les versions et donc <strong>32 bits</strong>…</p>
-<p>Pour rappel les premières architectures 64 bits des Raspberry sont arrivées avec la version 3.
-Debian fait le choix de coller exactement aux différentes archi, mais au prix d'une image pour chacune, celles-ci dont d'ailleurs disponibles <a href="https://raspi.debian.net/tested-images/" target="_blank">ici</a>.</p>
+<ul>
+<li>En tout premier lieu parce que nous avons besoin d'avoir accès <strong>facilement</strong> à certains paquets non disponibles sur Raspberry OS dans les versions dont nous avons besoin;</li>
+<li>En second lieu parce que l'intégration de dépôts externes sur une base Raspberry Pi OS est parfois <strong>assez chaotique</strong>, notamment dû aux <strong>différentes architectures</strong> utilisées par les processeurs ARM des Raspberry Pi.</li>
+</ul>
+<p>On se retrouve notamment par défaut (il est possible d'aller chercher d'autres versions d'OS dans l'utilitaire de création d'images) avec une version de Raspberry Pi OS commune à toutes les versions et donc <strong>32 bits</strong>…</p>
+<p>Pour rappel les premières architectures 64 bits des Raspberry Pi sont arrivées avec la version 3.
+Debian fait le choix de coller exactement aux différentes archi, mais au prix d'une image pour chacune, celles-ci sont d'ailleurs disponibles <a href="https://raspi.debian.net/tested-images/" target="_blank">ici</a>.</p>
 <table>
 <thead>
 <tr>
@@ -313,10 +346,15 @@ Debian fait le choix de coller exactement aux différentes archi, mais au prix d
 </tr>
 </tbody>
 </table>
-<p>Il existe d'autres versions d'OS disponibles en version serveur ou desktop (Ubuntu, Manjaro…) mais nous utilisons les roles Ansible du projet <a href="https://github.com/manala/ansible-roles" target="_blank">Manala</a> pour provisionner l'ensemble de nos machines et afin d'assurer au maximum la compatibilité (et nous éviter de la maintenance) nous préferons rester cohérents et utiliser des Debian.</p>
-<p>Pour terminer, les images pré-construites Debian peuvent carrément faire l'affaire mais certains choix de configuration ne nous vont pas et nous avons besoin que nos images soient prêtes à être provisionner et donc disposer de certains paquets, de comptes utilisateurs spécifiques et bien évidemment de nos clés SSH pour l'authentification.</p>
+<p>Il existe d'autres versions d'OS disponibles en <strong>version serveur ou desktop</strong> (Ubuntu, Manjaro…) mais nous utilisons les roles Ansible du projet <a href="https://github.com/manala/ansible-roles" target="_blank">Manala</a> pour provisionner l'ensemble de nos machines et afin d'<strong>assurer au maximum la compatibilité</strong> (et nous éviter de la maintenance) nous préferons rester cohérents et utiliser des Debian.</p>
+<p>Pour terminer, les images pré-construites Debian peuvent carrément faire l'affaire mais certains choix de configuration ne nous vont pas et nous avons besoin que nos images soient prêtes à être « provisionnées » et donc disposer:</p>
+<ul>
+<li>de certains paquets;</li>
+<li>de comptes utilisateurs spécifiques;</li>
+<li>et bien évidemment de nos clés SSH pour l'authentification.</li>
+</ul>
 <h2 id="pre-requis" class="anchor-title"><a href="#pre-requis">Pré-requis</a></h2>
-<p>Ils sont peu nombreux, tant la construction d'images est rendue simple par les contributeurs à la version Raspberry de Debian.
+<p>Ils sont peu nombreux, tant la construction d'images est rendue <strong>très simple</strong> par les contributeurs à la version Raspberry Pi de Debian.
 Vous aurez donc besoin:</p>
 <ul>
 <li>Une Debian Bullseye (de préference une machine virtuelle, histoire de garder propre notre machine de travail);</li>
@@ -330,13 +368,13 @@ cd image-specs</code></pre>
 <p>Nous aurons également besoin de quelques paquets pour la construction:</p>
 <pre class="code-multiline"><code id="879f883abe12de9e26bb7aa77c9ae8c0">apt install -y vmdb2 dosfstools qemu-utils qemu-user-static debootstrap binfmt-support time kpartx bmap-tools python3
 apt install -y fakemachine</code></pre>
-<p>Le fichier makefile fournit vous permet au choix:</p>
+<p><strong>Le fichier makefile fournit vous permet ensuite, au choix:</strong></p>
 <ul>
 <li>
 <p>De construire une image <strong>spécifique</strong> à votre Raspberry en utilisant une <strong>configuration par défaut</strong>:</p>
 <p><code class="code-inline" id="7ef439672b04b363ae6291bedb300150">make raspi_&lt;model&gt;_&lt;release&gt;.img</code></p>
 <ul>
-<li><code class="code-inline" id="bbe1cad42a1c1159f76e78e164c718b0">&lt;model&gt;</code> vaut pour la version de votre Raspberry (1,2,3 ou 4 avec 1 utilisé pour les version Pi 0, 0w and 1);</li>
+<li><code class="code-inline" id="bbe1cad42a1c1159f76e78e164c718b0">&lt;model&gt;</code> vaut pour la version de votre Raspberry (1,2,3 ou 4 avec 1 utilisé pour les versions Pi 0, 0w and 1);</li>
 <li><code class="code-inline" id="43bf3a398d87f2635ff002d4333cb312">&lt;release&gt;</code> pour la version de Debian que vous souhaitez construire.</li>
 </ul>
 <p>Dans notre cas une Bullseye pour un Raspberry Pi 2: <code class="code-inline" id="3836c2d70682d7484a7f35296c9d6370">make raspi_2_bullseye.img</code></p>
@@ -355,9 +393,23 @@ Il est possible de l'éditer directement mais préférable de le copier pour un 
 <ul>
 <li>L'ajout d'un compte utilisateur non privilégié:</li>
 </ul>
-<pre class="code-multiline language-yaml"><code class="language-yaml" id="33da9c51697b7b4bbbabe445d8f22c5c"><span class="token punctuation">-</span> <span class="token key atrule">chroot</span><span class="token punctuation">:</span> tag<span class="token punctuation">-</span>root
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="27942dc4b3a02b04eaff03cdd73ad18c"><span class="token punctuation">-</span> <span class="token key atrule">chroot</span><span class="token punctuation">:</span> tag<span class="token punctuation">-</span>root
     <span class="token key atrule">shell</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
-    useradd -g100 -m -s /bin/bash elao</span></code></pre>
+    useradd -g100 -m -s /bin/bash rix</span></code></pre>
+<ul>
+<li>L'ajout des clés publiques SSH</li>
+</ul>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="ac1e11ed3a4774dd3ddaa5fab83923be"><span class="token punctuation">-</span> <span class="token key atrule">create-dir</span><span class="token punctuation">:</span> /home/rix/.ssh
+    <span class="token key atrule">uid</span><span class="token punctuation">:</span> <span class="token number">1000</span>
+    <span class="token key atrule">gid</span><span class="token punctuation">:</span> <span class="token number">100</span></code></pre>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="cb1ca0fd9412038d697e0790cb5ed344"><span class="token punctuation">-</span> <span class="token key atrule">create-file</span><span class="token punctuation">:</span> /home/rix/.ssh/authorized_keys
+    <span class="token key atrule">contents</span><span class="token punctuation">:</span> <span class="token punctuation">|</span>+
+      ssh<span class="token punctuation">-</span>ed25519 AAAAC3XXXXXXXXXXXXXXXXXXXX</code></pre>
+<ul>
+<li>La suppression de la connexion <code class="code-inline" id="63a9f0ea7bb98050796b649e85481845">root</code> locale sans mot de passe.</li>
+</ul>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="55f876ee7849fe09cdcda47c886d8e7d"><span class="token punctuation">-</span> <span class="token comment"># Allow root logins locally with no password</span>
+<span class="token punctuation">-</span> sed <span class="token punctuation">-</span>i 's<span class="token punctuation">,</span>root<span class="token punctuation">:</span><span class="token punctuation">[</span>^<span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token important">*:</span><span class="token punctuation">,</span>root<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token punctuation">,</span>' "$<span class="token punctuation">{</span>ROOT<span class="token punctuation">?</span><span class="token punctuation">}</span>/etc/shadow"</code></pre>
 <div class="admonition la directive `chroot`">
 <p class="admonition-title">La</p>
 <p>
@@ -400,8 +452,8 @@ rix_raspi_bullseye.img rix_raspi_2_bullseye.yaml --log rix_raspi_bullseye.log</c
 </ul></body>
                                                                         <div class="article-credits">
                                 Crédits: photo de couverture par
-                                                                    <a href="https://unsplash.com/@esteejanssens">
-                                        Estée Janssens
+                                                                    <a href="https://unsplash.com/@jainath">
+                                        Jainath Ponnala
                                     </a>
                                                             </div>
                                                             </main>
