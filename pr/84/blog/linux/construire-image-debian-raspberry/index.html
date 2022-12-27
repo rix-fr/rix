@@ -284,33 +284,31 @@
                     </div>
                 </div>
                 <main>
-                                                            <body><p>Je vous vois venir, quelle idée de vouloir construire sa propre image ?
-Alors même que Raspberry fourni <a href="https://www.raspberrypi.com/software/" target="_blank">un OS ET un utilitaire</a> permettant de créer des cartes SD « bootable » rapidement et quasi sans douleur !</p>
+                                                            <body><p>Je vous vois venir ! Quelle idée de vouloir construire sa propre image ?
+Alors même que Raspberry fourni <a href="https://www.raspberrypi.com/software/" target="_blank">un OS ET un utilitaire</a> permettant de créer des cartes SD « bootables » rapidement et quasi sans douleur !</p>
 <h2 id="tl-dr" class="anchor-title"><a href="#tl-dr">TL;DR</a></h2>
+<p><em>Pour les opérations à suivre utilisez une Debian Bulleyes (de préférence VM)</em></p>
 <ol>
-<li>Pour les opérations à suivre utiliser une Debian Bulleyes (de préférence VM);</li>
-<li>On récupère le dépôt avec les outils pour construire l'image;
+<li>Récupérer le dépôt avec les outils pour construire l'image;
 <pre class="code-multiline"><code id="8505ab014a1b9afa10a3bb02e81ca6fb">git clone --recursive https://salsa.debian.org/raspi-team/image-specs.git
 cd image-specs</code></pre></li>
-<li>On installe les différents paquets nécessaires à l'opération;
+<li>Installer les différents paquets nécessaires à l'opération;
 <pre class="code-multiline"><code id="879f883abe12de9e26bb7aa77c9ae8c0">apt install -y vmdb2 dosfstools qemu-utils qemu-user-static debootstrap binfmt-support time kpartx bmap-tools python3
 apt install -y fakemachine</code></pre></li>
-<li>On construit l'image
-<code class="code-inline" id="842198ca332d5c8164d67bfb668629d4">make raspi_4_bullseye.img</code>;</li>
-<li>On écrit cette image sur une carte SD
-<code class="code-inline" id="138eb7bcd71656c8f1d86fe7070ceba2">dd if=raspi_4_bullseye.img of=/dev/XXX bs=64k oflag=dsync status=progress</code>.</li>
+<li>Construire l'image (Pour l'exemple à destination d'un Raspberry Pi 4): <code class="code-inline" id="842198ca332d5c8164d67bfb668629d4">make raspi_4_bullseye.img</code>;</li>
+<li>Écrire cette image sur une carte SD: <code class="code-inline" id="138eb7bcd71656c8f1d86fe7070ceba2">dd if=raspi_4_bullseye.img of=/dev/XXX bs=64k oflag=dsync status=progress</code>.</li>
 </ol>
 <h2 id="mise-en-contexte" class="anchor-title"><a href="#mise-en-contexte">Mise en contexte</a></h2>
 <p>Oui mais…</p>
-<p>Avant d'aller plus loin il faut savoir que nous utilisons en interne plusieurs Raspberry Pi afin de faire tourner des services qui nous permettent de piloter la gestion du réseau local de nos bureaux et/ou d'y fournir des services basiques et non critiques (Serveurs DNS locaux, VPN, métriques, monitoring…).</p>
-<p>Nous avons également une petite flotte de ces machines qui nous permettent d'aller enseigner « quelques trucs » à des étudiants (du réseau, du provisioning, linux…) en se reposant dessus.</p>
-<p>Alors bien évidemment le besoin ne tombe pas du ciel, et même si l'exercice reste formateur et amusant (si, si) le but n'est bien évidemment pas juste ludique.
+<p>Avant d'aller plus loin il faut savoir que nous utilisons en interne plusieurs Raspberry Pi afin de faire tourner des services qui nous permettent de piloter la gestion du <strong>réseau local</strong> de nos bureaux et/ou d'y fournir des services <strong>basiques et non critiques</strong> (Serveurs DNS locaux, VPN, métriques, monitoring…).</p>
+<p>Nous avons également une petite flotte de ces machines qui nous permettent <strong>d'aller enseigner</strong> « quelques trucs » à des étudiants (du réseau, du provisioning, linux…) en se reposant dessus.</p>
+<p>Alors bien évidemment le besoin ne tombe pas du ciel, et même si l'exercice reste formateur et amusant (si, si) le but n'est bien évidemment pas « juste ludique ».
 Raspberry Pi OS a en fait ses limites, particulièrement lorsqu'on va l'utiliser sur d'anciens Raspberry Pi (notamment des 2 ou précédents).</p>
-<p>Pour terminer il faut savoir que Raspbian (dérivé de Debian) a été créé en premier lieu parce que jusqu'à 2018 il n'était <strong>pas possible de démarrer</strong> un kernel linux sur Raspberry mais également parce que Raspbian arrivait avec des composants <strong>non libres</strong> contraires à la philosophie Debian.</p>
+<p>Pour terminer il faut savoir que Raspbian (dérivé de Debian) a été créé en premier lieu parce que jusqu'à 2018 il n'était <strong>pas possible de démarrer</strong> un kernel linux sur Raspberry Pi mais également parce que Raspbian arrivait avec des composants <strong>non libres</strong> contraires à la philosophie Debian.</p>
 <h2 id="pourquoi-reconstruire-et-pourquoi-debian" class="anchor-title"><a href="#pourquoi-reconstruire-et-pourquoi-debian">Pourquoi reconstruire et pourquoi Debian ?</a></h2>
 <ul>
-<li>En tout premier lieu parce que nous avons besoin d'avoir accès <strong>facilement</strong> à certains paquets non disponibles sur Raspberry OS dans les versions dont nous avons besoin;</li>
-<li>En second lieu parce que l'intégration de dépôts externes sur une base Raspberry Pi OS est parfois <strong>assez chaotique</strong>, notamment dû aux <strong>différentes architectures</strong> utilisées par les processeurs ARM des Raspberry Pi.</li>
+<li>En tout premier lieu parce que nous avons besoin d'avoir accès <strong>facilement</strong> à certains paquets non disponibles sur Raspberry Pi OS dans les versions dont nous avons besoin;</li>
+<li>En second lieu parce que l'intégration de dépôts externes sur une base Raspberry Pi OS est parfois <strong>assez chaotique</strong>, notamment dû aux <strong>différentes architectures</strong> utilisées par les processeurs ARM des Raspberry Pi et de leur disponibilité (ou pas) dans ces mêmes dépôts.</li>
 </ul>
 <p>On se retrouve notamment par défaut (il est possible d'aller chercher d'autres versions d'OS dans l'utilitaire de création d'images) avec une version de Raspberry Pi OS commune à toutes les versions et donc <strong>32 bits</strong>…</p>
 <p>Pour rappel les premières architectures 64 bits des Raspberry Pi sont arrivées avec la version 3.
@@ -346,18 +344,18 @@ Debian fait le choix de coller exactement aux différentes archi, mais au prix d
 </tr>
 </tbody>
 </table>
-<p>Il existe d'autres versions d'OS disponibles en <strong>version serveur ou desktop</strong> (Ubuntu, Manjaro…) mais nous utilisons les roles Ansible du projet <a href="https://github.com/manala/ansible-roles" target="_blank">Manala</a> pour provisionner l'ensemble de nos machines et afin d'<strong>assurer au maximum la compatibilité</strong> (et nous éviter de la maintenance) nous préferons rester cohérents et utiliser des Debian.</p>
-<p>Pour terminer, les images pré-construites Debian peuvent carrément faire l'affaire mais certains choix de configuration ne nous vont pas et nous avons besoin que nos images soient prêtes à être « provisionnées » et donc disposer:</p>
+<p>Il existe d'autres versions d'OS disponibles en <strong>version serveur ou desktop</strong> (Ubuntu, Manjaro…) mais comme nous utilisons les roles Ansible du projet <a href="https://github.com/manala/ansible-roles" target="_blank">Manala</a> pour provisionner l'ensemble de nos machines et afin d'<strong>assurer au maximum la compatibilité</strong> (et nous éviter de la maintenance), nous préferons rester cohérents et utiliser Debian.</p>
+<p>Pour terminer, les images pré-construites Debian <strong>peuvent carrément faire l'affaire</strong> mais certains choix de configuration ne nous vont pas et nous avons besoin que nos images soient prêtes à être « provisionnées » et donc disposer:</p>
 <ul>
 <li>de certains paquets;</li>
 <li>de comptes utilisateurs spécifiques;</li>
 <li>et bien évidemment de nos clés SSH pour l'authentification.</li>
 </ul>
 <h2 id="pre-requis" class="anchor-title"><a href="#pre-requis">Pré-requis</a></h2>
-<p>Ils sont peu nombreux, tant la construction d'images est rendue <strong>très simple</strong> par les contributeurs à la version Raspberry Pi de Debian.
-Vous aurez donc besoin:</p>
+<p>Ils sont peu nombreux, tant la construction d'images est rendue <strong>très simple</strong> par les contributeurs à la version Raspberry Pi de Debian.</p>
+<p>Vous aurez besoin:</p>
 <ul>
-<li>Une Debian Bullseye (de préference une machine virtuelle, histoire de garder propre notre machine de travail);</li>
+<li>D'une Debian Bullseye (de préference une machine virtuelle, histoire de garder propre notre machine de travail);</li>
 <li>De récupérer le dépôt contenant les outils <a href="https://salsa.debian.org/raspi-team/image-specs" target="_blank">https://salsa.debian.org/raspi-team/image-specs</a>;</li>
 <li>D'un peu de temps.</li>
 </ul>
@@ -371,7 +369,7 @@ apt install -y fakemachine</code></pre>
 <p><strong>Le fichier makefile fournit vous permet ensuite, au choix:</strong></p>
 <ul>
 <li>
-<p>De construire une image <strong>spécifique</strong> à votre Raspberry en utilisant une <strong>configuration par défaut</strong>:</p>
+<p>De construire une image <strong>spécifique</strong> à votre Raspberry Pi en utilisant une <strong>configuration par défaut</strong>:</p>
 <p><code class="code-inline" id="7ef439672b04b363ae6291bedb300150">make raspi_&lt;model&gt;_&lt;release&gt;.img</code></p>
 <ul>
 <li><code class="code-inline" id="bbe1cad42a1c1159f76e78e164c718b0">&lt;model&gt;</code> vaut pour la version de votre Raspberry (1,2,3 ou 4 avec 1 utilisé pour les versions Pi 0, 0w and 1);</li>
@@ -387,15 +385,15 @@ apt install -y fakemachine</code></pre>
 <p>Alors bien évidemment nous ne partirons pas d'une page blanche mais du fichier de configuration généré par l'outil grâce à la commande:</p>
 <p><code class="code-inline" id="7ce649b01529310283cdfeea6576de4f">make raspi_2_bullseye.yaml</code></p>
 <p>Nous obtenons un fichier de configuration par défaut (celui utilisé pour la construction de l'image avec la commande précédente).
-Il est possible de l'éditer directement mais préférable de le copier pour un fichier qui sera différent de ne pas malencontreusement écraser nos modifications en rejouant la commande précédente.</p>
+Il est possible de l'éditer directement mais préférable de le nommer différemment histoire de ne pas malencontreusement écraser nos prochaines modifications en rejouant la commande précédente.</p>
 <p><code class="code-inline" id="35f90c9582ab2fe0d6fdb9d0fc80297e">cp raspi_2_bullseye.yaml rix_raspi_2_bullseye.yaml</code></p>
 <p>En ce qui nous concerne nous y opérerons plusieurs modifications:</p>
 <ul>
 <li>L'ajout d'un compte utilisateur non privilégié:</li>
 </ul>
-<pre class="code-multiline language-yaml"><code class="language-yaml" id="27942dc4b3a02b04eaff03cdd73ad18c"><span class="token punctuation">-</span> <span class="token key atrule">chroot</span><span class="token punctuation">:</span> tag<span class="token punctuation">-</span>root
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="e10604f34c196fb217602fc5d5f3f3a3"><span class="token punctuation">-</span> <span class="token key atrule">chroot</span><span class="token punctuation">:</span> tag<span class="token punctuation">-</span>root
     <span class="token key atrule">shell</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
-    useradd -g100 -m -s /bin/bash rix</span></code></pre>
+      useradd -g100 -Gsudo -m -s /bin/bash rix</span></code></pre>
 <ul>
 <li>L'ajout des clés publiques SSH</li>
 </ul>
@@ -406,44 +404,50 @@ Il est possible de l'éditer directement mais préférable de le copier pour un 
     <span class="token key atrule">contents</span><span class="token punctuation">:</span> <span class="token punctuation">|</span>+
       ssh<span class="token punctuation">-</span>ed25519 AAAAC3XXXXXXXXXXXXXXXXXXXX</code></pre>
 <ul>
+<li>L'ajout des droits sudo à notre utilisateur</li>
+</ul>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="0c905c409ad6f37cbc6403d4bb279ebf"><span class="token punctuation">-</span> <span class="token key atrule">create-file</span><span class="token punctuation">:</span> /etc/sudoers.d/rix<span class="token punctuation">-</span>default
+    <span class="token key atrule">contents</span><span class="token punctuation">:</span> <span class="token punctuation">|</span>+
+      <span class="token key atrule">rix ALL=(ALL) NOPASSWD</span><span class="token punctuation">:</span> ALL</code></pre>
+<ul>
 <li>La suppression de la connexion <code class="code-inline" id="63a9f0ea7bb98050796b649e85481845">root</code> locale sans mot de passe.</li>
 </ul>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="55f876ee7849fe09cdcda47c886d8e7d"><span class="token punctuation">-</span> <span class="token comment"># Allow root logins locally with no password</span>
 <span class="token punctuation">-</span> sed <span class="token punctuation">-</span>i 's<span class="token punctuation">,</span>root<span class="token punctuation">:</span><span class="token punctuation">[</span>^<span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token important">*:</span><span class="token punctuation">,</span>root<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token punctuation">,</span>' "$<span class="token punctuation">{</span>ROOT<span class="token punctuation">?</span><span class="token punctuation">}</span>/etc/shadow"</code></pre>
-<div class="admonition la directive `chroot`">
-<p class="admonition-title">La</p>
+<div class="admonition info">
+<p class="admonition-title">La directive <code class="code-inline" id="466673de471fac1f97ef0cac4eb9a272">chroot</code></p>
 <p>
     Elle est essentielle dès lors que vous souhaitez exécuter une commande <strong>dans le contexte du système en cours de construction</strong>.
 </p>
 </div>
 <h3 id="construction-de-l-image" class="anchor-title"><a href="#construction-de-l-image">Construction de l'image</a></h3>
-<p>Une fois l'ensemble de nos instructions ajouté à notre fichier nous pouvons démarrer la construction de notre image:</p>
-<pre class="code-multiline"><code id="b39cb28f5670afd7f075964265aaf77c">vmdb2 --rootfs-tarball=rix_raspi_bullseye.tar.gz --output \
-rix_raspi_bullseye.img rix_raspi_2_bullseye.yaml --log rix_raspi_bullseye.log</code></pre>
+<p>Une fois l'ensemble de nos instructions ajoutées à notre fichier nous pouvons démarrer la construction de notre image:</p>
+<pre class="code-multiline"><code id="dae9b95b166a637016da4067016ee9df">vmdb2 --rootfs-tarball=rix_raspi_2_bullseye.tar.gz --output \
+rix_raspi_2_bullseye.img rix_raspi_2_bullseye.yaml --log rix_raspi_bullseye.log</code></pre>
 <p>Cette commande devrait nous donner en sortie 3 fichiers:</p>
 <ul>
 <li>Un fichier de logs <code class="code-inline" id="9203a47c8c1ddb7ff690ef47a4066621">rix_raspi_bullseye.log</code></li>
-<li>Un fichier image <code class="code-inline" id="e77b7aad8c7d633f94d5ed365f2c7e59">rix_raspi_bullseye.img</code></li>
-<li>Un fichier image compressé <code class="code-inline" id="69c466c9cef0aa55789bf3635f0f8075">rix_raspi_bullseye.tar.gz</code></li>
+<li>Un fichier image <code class="code-inline" id="319a4a827203e919183eed429eb31f66">rix_raspi_2_bullseye.img</code></li>
+<li>Un fichier image compressé <code class="code-inline" id="0585cec32e85d1d110999339b0f7b1fa">rix_raspi_2_bullseye.tar.gz</code></li>
 </ul>
 <h3 id="installation-de-l-image" class="anchor-title"><a href="#installation-de-l-image">Installation de l'image</a></h3>
 <p>L'installation de l'image est ensuite assez standard, une fois votre carte SD montée:</p>
 <ul>
 <li>Soit via <code class="code-inline" id="b625714ddc28ab61c0807bdf6f8da052">bmaptool</code> à partir de l'image compressée;</li>
 </ul>
-<p><code class="code-inline" id="9248987582062ab3d85177d1259c1ffa">bmaptool copy rix_raspi_bullseye.tar.gz /dev/mmcblk0</code></p>
+<p><code class="code-inline" id="43371e85f5addffbacb3b1f4a29fa81b">bmaptool copy rix_raspi_2_bullseye.tar.gz /dev/mmcblk0</code></p>
 <ul>
 <li>Soit via un bon vieux <code class="code-inline" id="1aabac6d068eef6a7bad3fdf50a05cc8">dd</code>:</li>
 </ul>
-<p><code class="code-inline" id="290b1b520fb9f7e044ca6cd8ac285037">dd if=rix_raspi_bullseye.img of=/dev/sdb bs=64k oflag=dsync status=progress</code></p>
+<p><code class="code-inline" id="b1fc773a17d8185a2425a2cf512d6211">dd if=rix_raspi_2_bullseye.img of=/dev/XXX bs=64k oflag=dsync status=progress</code></p>
 <div class="admonition danger">
 <p>
     Attention à la « cible » de l'écriture, en cas de mauvais volume sélectionné vous écraserez son contenu.
 </p>
 </div>
+<p>Vous voilà paré·e·s pour déployer du Raspberry Pi en série sur une base Debian !</p>
 <h2 id="pour-aller-plus-loin" class="anchor-title"><a href="#pour-aller-plus-loin">Pour aller plus loin</a></h2>
-<p>Vous voilà paré pour déployer du Raspberry Pi en série sur une base Debian à vous !</p>
-<p>Sources:</p>
+<p><strong>Sources:</strong></p>
 <ul>
 <li><a href="https://wiki.debian.org/RaspberryPi" target="_blank">https://wiki.debian.org/RaspberryPi</a></li>
 <li><a href="https://wiki.debian.org/RaspberryPiImages" target="_blank">https://wiki.debian.org/RaspberryPiImages</a></li>
