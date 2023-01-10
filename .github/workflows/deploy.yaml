@@ -13,13 +13,22 @@ concurrency:
 jobs:
 
   deploy-production:
-    name: '🚧  Build & deploy 🚀'
+    name: ${{ matrix.name }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     environment:
       name: production
-      url: ${{ vars.WEBSITE_URL }}
+      url: https://www.rix.fr
+
+    # Expose some Github Workflow variables using a matrix, to be used in next steps:
+    strategy:
+      matrix:
+        include:
+          - name: '🚧  Build & deploy 🚀'
+            WEBSITE_URL: https://www.rix.fr
+            DEPLOY_PATH: /srv/app/website
+            MATOMO_ID: 10
 
     steps:
       - name: 'Checkout'
@@ -89,14 +98,14 @@ jobs:
         run: bin/console stenope:build --no-interaction -vv --ansi --ignore-content-not-found
         env:
           APP_ENV: prod
-          ROUTER_DEFAULT_URI: ${{ vars.WEBSITE_URL }}
+          ROUTER_DEFAULT_URI: ${{ matrix.WEBSITE_URL }}
           INCLUDE_SAMPLES: 0
           SHOW_UNPUBLISHED_ARTICLES: 0
-          MATOMO_ID: ${{ vars.MATOMO_ID }}
+          MATOMO_ID: ${{ matrix.MATOMO_ID }}
 
       - name: '🚀 Deploy'
         run: |
-          rsync build/ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ vars.DEPLOY_PATH }} \
+          rsync build/ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:${{ matrix.DEPLOY_PATH }} \
             --human-readable \
             --compress \
             --archive \
