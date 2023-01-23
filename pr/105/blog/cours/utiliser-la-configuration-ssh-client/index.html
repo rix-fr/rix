@@ -248,6 +248,9 @@
                                     <a href="#priorite-des-instructions">Priorité des instructions</a>
                                                                     </li>
                                                             <li class="table-of-contents__item">
+                                    <a href="#separer-et-inclure-ses-fichiers-de-configuration">Séparer et inclure ses fichiers de configuration</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
                                     <a href="#les-instructions-les-plus-courantes-utiles">Les instructions les plus courantes / utiles</a>
                                                                     </li>
                                                             <li class="table-of-contents__item">
@@ -363,6 +366,23 @@ L'équivalent sans fichier de configuration serait <code class="code-inline" id=
     User rix
     IdentityFile ~/.ssh/ed_25519.key</code></pre>
 <p>Il est possible de vous connecter avec un autre utilisateur que celui défini dans votre fichier en surchargeant la clé <code class="code-inline" id="8f9bfe9d1345237cb3b2b205864da075">User</code>, soit avec <code class="code-inline" id="6af98adb38828857fc08d14dcf8bd0f5">ssh root@server-hostname-1</code> ou encore <code class="code-inline" id="f6e4ab8713b4219b45ee6c9804cde8bb">ssh -o "User=root" server-hostname-1</code>.</p>
+<h2 id="separer-et-inclure-ses-fichiers-de-configuration" class="anchor-title"><a href="#separer-et-inclure-ses-fichiers-de-configuration">Séparer et inclure ses fichiers de configuration</a></h2>
+<p>Il est également possible, notamment lorsque le contenu des fichiers devient conséquent ou tout simplement pour organiser ses configurations entre différents contextes (clients, perso, pro...) de séparer la configuration dans plusieurs fichiers.</p>
+<p>Il est ainsi possible d'avoir autant de fichiers de configuration que de contextes pour ensuite les inclure dans notre fichier principal.</p>
+<p><strong>Exemple:</strong></p>
+<pre class="code-multiline language-ini"><code class="language-ini" id="f19b8d7ae84727645a8481cffd422b32"><span class="token comment"># Contenu de ~/.ssh/config</span>
+Host server-hostname-1
+    HostName server.tld
+    User rix
+    IdentityFile ~/.ssh/ed_25519.key
+
+Include ~/.ssh/config_alternative</code></pre>
+<pre class="code-multiline language-ini"><code class="language-ini" id="a219e909acb4da1bc29b19493dc91094"><span class="token comment"># Contenu de ~/.ssh/config_alternative</span>
+Host 192.168.140.*
+    User debian
+    IdentityFile ~/.ssh/id_rsa.key
+    AddKeysToAgent yes
+    UseKeychain yes</code></pre>
 <h2 id="les-instructions-les-plus-courantes-utiles" class="anchor-title"><a href="#les-instructions-les-plus-courantes-utiles">Les instructions les plus courantes / utiles</a></h2>
 <p>Le fichier <code class="code-inline" id="2245023265ae4cf87d02c8b6ba991139">config</code> supporte nombre d'options de configuration, celles-ci sont consultables <a href="https://linux.die.net/man/5/ssh_config" target="_blank">ici</a>.
 Il va de soi que dans l'activité quotidienne, les mêmes instructions sont souvent utilisées, ci-dessous une liste des plus courantes:</p>
