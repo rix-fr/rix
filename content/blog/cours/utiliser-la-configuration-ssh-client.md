@@ -40,7 +40,7 @@ Host *
 
 Comme abordé dans l'introduction, il existe autant de manières de se connecter à un serveur avec SSH qu'il n'en existe (de serveurs), les principaux bénéfices que l'on peut retirer de cette utilsation:
 - Ajouter de la **cohérence** dans votre façon de vous connecter à vos différentes machines ( et on aime ça la cohérence ! ) il est en effet possible de créer une configuration spécifique à un serveur ou alors propre à différentes machines partageant les mêmes spécifités de connexion.
-- Faciliter les connexions multiples, en créant des configurations aux contextes différents. Il est par exemple possible d'avoir une configuration utilisant une clé différentes pour un groupe de machines données.
+- Faciliter les connexions multiples, en créant des configurations aux contextes différents. Il est par exemple possible d'avoir une configuration utilisant une clé différente pour un groupe de machines données.
 
 ## Le fichier de configuration
 
