@@ -325,7 +325,7 @@
 </p>
 </div>
 <h2 id="les-instructions-de-configuration" class="anchor-title"><a href="#les-instructions-de-configuration">Les instructions de configuration</a></h2>
-<p>Le fichier <code class="code-inline" id="2245023265ae4cf87d02c8b6ba991139">config</code> fonctionne à base d'un système simple de <strong>clé/valeur</strong> organisées par section, une structure minimal d'un fichier de configuration pourrait être la suivante:</p>
+<p>Le fichier <code class="code-inline" id="2245023265ae4cf87d02c8b6ba991139">config</code> est basé sur un système de paires <strong>clé/valeur</strong> organisées par section, une structure minimal d'un fichier de configuration pourrait être la suivante:</p>
 <pre class="code-multiline language-javascript"><code class="language-javascript" id="02101d8599cab35f8abea3c06292b93d"><span class="token maybe-class-name">Host</span> server<span class="token operator">-</span>hostname<span class="token operator">-</span><span class="token number">1</span>
     <span class="token constant">KEY</span> value
     <span class="token constant">KEY</span> value</code></pre>
@@ -350,7 +350,7 @@ L'équivalent sans fichier de configuration serait <code class="code-inline" id=
 <p class="admonition-title">Organisation et structure du fichier</p>
 <p>
     Le fichier de configuration SSH n'impose pas d'indentation, il est toutefois fortement recommandé de l'organiser afin de faciliter sa lecture et sa maintenance.
-    Il faut également noté que les instructions sont appliquées dans leur ordre d'apparition il est donc préférable de commencer par les sections très spécifiques et de terminer par les plus génériques.
+    Il faut également noter que les instructions sont appliquées dans leur ordre d'apparition il est donc préférable de commencer par les sections très spécifiques et de terminer par les plus génériques.
 </p>
 </div>
 <h2 id="priorite-des-instructions" class="anchor-title"><a href="#priorite-des-instructions">Priorité des instructions</a></h2>
@@ -367,7 +367,7 @@ L'équivalent sans fichier de configuration serait <code class="code-inline" id=
     IdentityFile ~/.ssh/ed_25519.key</code></pre>
 <p>Il est possible de vous connecter avec un autre utilisateur que celui défini dans votre fichier en surchargeant la clé <code class="code-inline" id="8f9bfe9d1345237cb3b2b205864da075">User</code>, soit avec <code class="code-inline" id="6af98adb38828857fc08d14dcf8bd0f5">ssh root@server-hostname-1</code> ou encore <code class="code-inline" id="f6e4ab8713b4219b45ee6c9804cde8bb">ssh -o "User=root" server-hostname-1</code>.</p>
 <h2 id="separer-et-inclure-ses-fichiers-de-configuration" class="anchor-title"><a href="#separer-et-inclure-ses-fichiers-de-configuration">Séparer et inclure ses fichiers de configuration</a></h2>
-<p>Il est également possible, notamment lorsque le contenu des fichiers devient conséquent ou tout simplement pour organiser ses configurations entre différents contextes (clients, perso, pro...) de séparer la configuration dans plusieurs fichiers.</p>
+<p>Il est également possible, notamment lorsque le contenu des fichiers devient conséquent ou tout simplement pour organiser ses configurations entre différents contextes (clients, perso, pro...), de séparer la configuration dans plusieurs fichiers.</p>
 <p>Il est ainsi possible d'avoir autant de fichiers de configuration que de contextes pour ensuite les inclure dans notre fichier principal.</p>
 <p><strong>Exemple:</strong></p>
 <pre class="code-multiline language-ini"><code class="language-ini" id="f19b8d7ae84727645a8481cffd422b32"><span class="token comment"># Contenu de ~/.ssh/config</span>
@@ -403,7 +403,8 @@ Il va de soi que dans l'activité quotidienne, les mêmes instructions sont souv
 <pre class="code-multiline"><code id="3e6d63cf57a2f7b5bdc0364502e073d9">StrictHostKeyChecking no
 UserKnownHostsFile /dev/null</code></pre>
 <h2 id="multiplexer-ses-connexions-ssh" class="anchor-title"><a href="#multiplexer-ses-connexions-ssh">Multiplexer ses connexions SSH</a></h2>
-<p>Le principe du multiplexage réside dans le fait de <strong>« partager » la même connexion</strong> entre les différentes sessions ouvertes sur une même machine. Dans le cas d'SSH de réutiliser une connexion TCP déjà ouverte vers un serveur distant.</p>
+<p>Le principe du multiplexage réside dans le fait de <strong>« partager » la même connexion</strong> entre les différentes sessions ouvertes sur une même machine.
+Cette stratégie permet, dans le cas d'SSH de réutiliser une connexion TCP déjà ouverte vers un serveur distant.</p>
 <p>Le but ? S'épargner le délai d'ouverture d'une connexion TCP ainsi que celui de la réauthentification.
 Cette fonctionnalité peut-être particulièrement utile lors du transfert de nombreux fichiers d'une machine à une autre, elle réside principalement en l'utilisation de <strong>3 options de configuration</strong>:</p>
 <ul>
