@@ -196,7 +196,7 @@ Host server-hostname-1
     On remarquera son utilisation dans l'exemple ci-dessus. Il s'agit du **hash [SHA1](https://en.wikipedia.org/wiki/SHA-1)** des tokens %l%h%p%r (Respectivement le nom d'hôte local (`%l`), le nom d'hôte distant (`%h`), le port de connexion distant (`%p`) et pour finir le nom d'utilisateur distant utilisé (`%r`)).
     L'utilisation du token `%C` assurant à la fois, l'unicité de la connexion et l'obfuscation de ses détails sur le système de fichiers.
 
-## Pour aller plus loin:
+## Aller plus loin avec les sources
 
 - Recommandations pour un usage sécurisé d'OpenSSH par l'ANSSI: [https://www.ssi.gouv.fr/uploads/2014/01/NT_OpenSSH.pdf](https://www.ssi.gouv.fr/uploads/2014/01/NT_OpenSSH.pdf)
 - https://man.openbsd.org/ssh_config
