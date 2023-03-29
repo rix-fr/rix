@@ -1,5 +1,5 @@
 ---
-title: "Stockage résilient et haute disponibilité."
+title: "Stockage résilient à haute disponibilité."
 lastModified: "2022-09-12"
 date: "2023-04-21"
 
@@ -11,7 +11,7 @@ shortDescription: "Musique & Music est une librairie musicale pour les professio
 clients: Musique & Music
 size: 3 mois
 services: ["Conception", "Infrastructure", "Stockage haute dispo.", "Stratégie de déploiement"]
-terms: ["ovh-cloud", "scaleway"]
+terms: ["ovh-cloud"]
 images: ["content/images/case-study/headers/musique-music-banner.jpg"]
 enabled: true
 ---
@@ -26,16 +26,16 @@ enabled: true
 
 ### Analyse de l'existant
 
-Musique & Music n'en était pas à sa première version, l'application existait déjà depuis plusieurs années mais la dette technique, l'obsolescence du code existant et la contrainte d'exploiter des briques logicielles propriétaires ne donnant plus satisfaction ont décidé les fondateurs à repartir d'une feuille blanche.
+Musique & Music n'en était pas à sa première version, l'application existait déjà depuis plusieurs années mais la dette technique, l'obsolescence du code existant et la contrainte d'exploiter des briques logicielles propriétaires ne donnant plus satisfaction, ont décidé les fondateurs à repartir d'une feuille blanche.
 Nous avons dès lors été solicités pour étudier et concevoir une infrastructure destinée à acceuillir la nouvelle application.
-En collaboration avec les équipes de concepteurs **d'[Elao](https://www.elao.com)** nous avons commencé à imaginer ce que pourrait être cette nouvelle infrastructure en fonction des contraintes métiers du projet (disponibilité, performance et résilience).
+En collaboration avec [les équipes de concepteurs **d'Elao**](https://www.elao.com) nous avons commencé à imaginer ce que pourrait être cette nouvelle infrastructure en fonction des contraintes métiers du projet (disponibilité, performance et résilience).
 
-La première étape étant de récupérer, sécuriser et rendre hautement disponible un peu moins d' **1 To** de données musicales.
+La première étape étant de récupérer, sécuriser et rendre hautement disponible les données musicales.
 
 ### Le stockage
 
 C'est la pierre angulaire du métier de Musique & Music, si l'application peut s'autoriser d'exceptionnelles interruptions de service la donnée doit elle, rester disponible.
-Avec la volonté de **rester souverain** sur l'ensemble de la « stack » infra, nous avons opté pour une solution reposant sur CEPH avec le Cloud Disk Array de chez OVH.
+Avec la volonté de **rester souverain** sur l'ensemble de son infrastructure, nous avons opté pour une solution reposant sur CEPH avec le Cloud Disk Array de chez OVH.
 
 Les points important qui ont permis de retenir cette solution:
 
@@ -46,8 +46,8 @@ Les points important qui ont permis de retenir cette solution:
 
 ### La sureté des données
 
-Au dela de l'aspect disponibilité des données, nous devions également veiller à disposer des pistes musicales hors infrastructure, en cas d'incident grave sur la brique de stockage.
-Nous avons opté pour une solution de **synchronisation incrémentale** des données sur un NAS Synology en interne à travers un flux SSH sur une instance dédiée à cette tâche.
+Au dela de l'aspect disponibilité des données, nous devions également veiller à disposer des pistes musicales hors infrastructure, en cas d'incident grave sur la brique de stockage entrainant son indisponibilité.
+Nous avons opté pour une solution de **synchronisation incrémentale** des données sur un NAS Synology à travers un flux chiffré sur une instance dédiée à cette tâche.
 
 ### La brique applicative
 
@@ -60,18 +60,26 @@ Elle repose sur une « stack » web assez standard basée sur du public cloud et
 Le tout fonctionnant sur un environnement applicatif **PHP/Symfony**.
 
 <figure>
-    <img src="../images/case-study/musique-music-playlists.jpg" alt="Les playlists Musique & Music">
+    <img src="../images/case-study/schemas/m_and_m/case_studies_m_and_m.png" alt="Étude de cas - Schema d'infrastructure">
     <figcaption>
-      <span class="figure__legend">Musique & Music</span>
+      <span class="figure__legend">Musique & Music - Schema d'infrastructure</span>
     </figcaption>
 </figure>
+
+### Conception de l'infrastructure
+
+Comme pour l'ensemble de nos infras, nous appuyons fortement sur l'automatisation, à la fois des déploiements applicatifs via CI/CD mais également de l'infrastructure avec différents outils:
+
+- [**Terraform**](https://www.terraform.io/) pour l'IaC (Infrastructure as Code) afin de déployer nos différentes briques;
+- [**Ansible**](https://www.ansible.com/) pour la construction des environnements d'exécution applicatif;
+- [**Helm**](https://helm.sh/) pour le déploiement des infrastructures de type Kubernetes.
 
 ### Environnement d'exploitation
 
 L'environnement d'exploitation réponds aux standards Rix à savoir:
 
-- Une remontée des métriques dans différents dashboard **Grafana** (Système et applicatif);
 - Un alerting de l'ensemble des services via **messagerie, mail et SMS**;
-- Une exploitation des logs applicatifs et système via le composant Loki (Grafana);
-- Remontée des erreurs aux équipes applicatives via une plateforme **Sentry**;
-- Les secrets applicatifs sont stockés dans un coffre de type **Hashicorp Vault** déployé sur nos infrastructures.
+- Une remontée des métriques dans différents dashboard **Grafana** (Système et applicatif) hébergé et infogéré sur nos infrastructures 🇫🇷;
+- Une exploitation des logs applicatifs et système via le composant Loki (Grafana) hébergé et infogéré sur nos infrastructures 🇫🇷;
+- Remontée des erreurs aux équipes applicatives via une plateforme **Sentry** (SaaS);
+- Les secrets applicatifs sont stockés dans un coffre de type [**Hashicorp Vault**](https://www.vaultproject.io/) hébergé et infogéré sur nos infrastructures 🇫🇷.
