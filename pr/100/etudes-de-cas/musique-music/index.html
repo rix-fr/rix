@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Stockage résilient et haute disponibilité. | Rix 🐺 - Expertise &amp; solutions devops sur-mesure</title>
+        <title>Stockage résilient à haute disponibilité. | Rix 🐺 - Expertise &amp; solutions devops sur-mesure</title>
 
         <!-- Favicon -->
         <link rel="apple-touch-icon" sizes="180x180" href="/rix/pr/100/apple-touch-icon.png">
@@ -22,7 +22,7 @@
 
             <!-- Open Graph / Facebook -->
                                         <meta property="og:type" content="website">
-                        <meta property="og:title" content="Stockage résilient et haute disponibilité. | Rix 🐺 - Expertise &amp; solutions devops sur-mesure" />
+                        <meta property="og:title" content="Stockage résilient à haute disponibilité. | Rix 🐺 - Expertise &amp; solutions devops sur-mesure" />
             <meta property="og:locale" content="fr" />
             <meta property="og:description" content="Musique &amp; Music — librairie musicale pour les professionnels" />
             <meta property="og:url" content="https://rix-fr.github.io/rix/pr/100/etudes-de-cas/musique-music" />
@@ -33,7 +33,7 @@
             
             <!-- Twitter -->
             <meta property="twitter:card" content="summary_large_image">
-            <meta property="twitter:title" content="Stockage résilient et haute disponibilité. | Rix 🐺 - Expertise &amp; solutions devops sur-mesure">
+            <meta property="twitter:title" content="Stockage résilient à haute disponibilité. | Rix 🐺 - Expertise &amp; solutions devops sur-mesure">
             <meta property="twitter:description" content="Musique &amp; Music — librairie musicale pour les professionnels">
             <meta property="twitter:site" content="@rix_fr">
             <meta property="twitter:creator" content="@rix_fr">
@@ -170,7 +170,7 @@
             <div class="container shape"><!-- bevel shape --></div>
             <div class="container content">
                 <div class="case-study__header">
-                    <h1 class="case-study__title h2">Stockage résilient et haute disponibilité.</h1>
+                    <h1 class="case-study__title h2">Stockage résilient à haute disponibilité.</h1>
                     <p>Musique &amp; Music permet aux professionnels de la vidéo d&#039;enrichir leurs productions avec de l&#039;illustration sonore.</p>
                     <span class="h3--small">Services</span>
                     <ul>
@@ -216,12 +216,6 @@
                 <span>OVH Cloud</span>
             </a>
         </li>
-                    <li class="technologies-list__item">
-            <a href="https://www.scaleway.com/fr/">
-                <img src="/rix/pr/100/build/images/services/scaleway.d2dc5698.svg" alt="Logo build/images/services/scaleway.svg" alt="Scaleway">
-                <span>Scaleway</span>
-            </a>
-        </li>
     </ul>
                 </div>
                 <body><h2 id="le-contexte-du-projet" class="anchor-title"><a href="#le-contexte-du-projet">Le contexte du projet</a></h2>
@@ -229,13 +223,13 @@
 <p><strong>Musique &amp; Music a confié à Rix la conception de son infrastructure et son infogérance,</strong> permettant de s'appuyer sur une équipe rodée à l'exploitation.</p>
 <h2 id="l-expertise-rix-deployee-pour-l-application-musique-music" class="anchor-title"><a href="#l-expertise-rix-deployee-pour-l-application-musique-music">L'expertise Rix déployée pour l'application Musique Music</a></h2>
 <h3 id="analyse-de-l-existant" class="anchor-title"><a href="#analyse-de-l-existant">Analyse de l'existant</a></h3>
-<p>Musique &amp; Music n'en était pas à sa première version, l'application existait déjà depuis plusieurs années mais la dette technique, l'obsolescence du code existant et la contrainte d'exploiter des briques logicielles propriétaires ne donnant plus satisfaction ont décidé les fondateurs à repartir d'une feuille blanche.
+<p>Musique &amp; Music n'en était pas à sa première version, l'application existait déjà depuis plusieurs années mais la dette technique, l'obsolescence du code existant et la contrainte d'exploiter des briques logicielles propriétaires ne donnant plus satisfaction, ont décidé les fondateurs à repartir d'une feuille blanche.
 Nous avons dès lors été solicités pour étudier et concevoir une infrastructure destinée à acceuillir la nouvelle application.
-En collaboration avec les équipes de concepteurs <strong>d'<a href="https://www.elao.com" target="_blank">Elao</a></strong> nous avons commencé à imaginer ce que pourrait être cette nouvelle infrastructure en fonction des contraintes métiers du projet (disponibilité, performance et résilience).</p>
-<p>La première étape étant de récupérer, sécuriser et rendre hautement disponible un peu moins d' <strong>1 To</strong> de données musicales.</p>
+En collaboration avec <a href="https://www.elao.com" target="_blank">les équipes de concepteurs <strong>d'Elao</strong></a>** nous avons commencé à imaginer ce que pourrait être cette nouvelle infrastructure en fonction des contraintes métiers du projet (disponibilité, performance et résilience).</p>
+<p>La première étape étant de récupérer, sécuriser et rendre hautement disponible les données musicales.</p>
 <h3 id="le-stockage" class="anchor-title"><a href="#le-stockage">Le stockage</a></h3>
 <p>C'est la pierre angulaire du métier de Musique &amp; Music, si l'application peut s'autoriser d'exceptionnelles interruptions de service la donnée doit elle, rester disponible.
-Avec la volonté de <strong>rester souverain</strong> sur l'ensemble de la « stack » infra, nous avons opté pour une solution reposant sur CEPH avec le Cloud Disk Array de chez OVH.</p>
+Avec la volonté de <strong>rester souverain</strong> sur l'ensemble de son infrastructure, nous avons opté pour une solution reposant sur CEPH avec le Cloud Disk Array de chez OVH.</p>
 <p>Les points important qui ont permis de retenir cette solution:</p>
 <ul>
 <li>La distribution du stockage</li>
@@ -244,8 +238,8 @@ Avec la volonté de <strong>rester souverain</strong> sur l'ensemble de la « st
 <li>Le redimensionnement à chaud</li>
 </ul>
 <h3 id="la-surete-des-donnees" class="anchor-title"><a href="#la-surete-des-donnees">La sureté des données</a></h3>
-<p>Au dela de l'aspect disponibilité des données, nous devions également veiller à disposer des pistes musicales hors infrastructure, en cas d'incident grave sur la brique de stockage.
-Nous avons opté pour une solution de <strong>synchronisation incrémentale</strong> des données sur un NAS Synology en interne à travers un flux SSH sur une instance dédiée à cette tâche.</p>
+<p>Au dela de l'aspect disponibilité des données, nous devions également veiller à disposer des pistes musicales hors infrastructure, en cas d'incident grave sur la brique de stockage entrainant son indisponibilité.
+Nous avons opté pour une solution de <strong>synchronisation incrémentale</strong> des données sur un NAS Synology à travers un flux chiffré sur une instance dédiée à cette tâche.</p>
 <h3 id="la-brique-applicative" class="anchor-title"><a href="#la-brique-applicative">La brique applicative</a></h3>
 <p>Elle repose sur une « stack » web assez standard basée sur du public cloud et mettant en oeuvre sur réseau privé:</p>
 <ul>
@@ -264,11 +258,11 @@ Nous avons opté pour une solution de <strong>synchronisation incrémentale</str
 <h3 id="environnement-d-exploitation" class="anchor-title"><a href="#environnement-d-exploitation">Environnement d'exploitation</a></h3>
 <p>L'environnement d'exploitation réponds aux standards Rix à savoir:</p>
 <ul>
-<li>Une remontée des métriques dans différents dashboard <strong>Grafana</strong> (Système et applicatif);</li>
 <li>Un alerting de l'ensemble des services via <strong>messagerie, mail et SMS</strong>;</li>
-<li>Une exploitation des logs applicatifs et système via le composant Loki (Grafana);</li>
-<li>Remontée des erreurs aux équipes applicatives via une plateforme <strong>Sentry</strong>;</li>
-<li>Les secrets applicatifs sont stockés dans un coffre de type <strong>Hashicorp Vault</strong> déployé sur nos infrastructures.</li>
+<li>Une remontée des métriques dans différents dashboard <strong>Grafana</strong> (Système et applicatif) hébergé et infogéré sur nos infrastructures 🇫🇷;</li>
+<li>Une exploitation des logs applicatifs et système via le composant Loki (Grafana) hébergé et infogéré sur nos infrastructures 🇫🇷;</li>
+<li>Remontée des erreurs aux équipes applicatives via une plateforme <strong>Sentry</strong> (SaaS);</li>
+<li>Les secrets applicatifs sont stockés dans un coffre de type <a href="https://www.vaultproject.io/" target="_blank"><strong>Hashicorp Vault</strong></a> hébergé et infogéré sur nos infrastructures 🇫🇷.</li>
 </ul></body>
             </div>
         </div>
@@ -389,7 +383,7 @@ Nous avons opté pour une solution de <strong>synchronisation incrémentale</str
             </div>
         </nav>
         <div class="footer__legals">
-            <span>©2022 - Rix - Tous droits réservés</span>
+            <span>©2023 - Rix - Tous droits réservés</span>
             -
             <a href="/rix/pr/100/legal">Mentions légales</a>
             -
