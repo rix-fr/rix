@@ -249,12 +249,19 @@ Nous avons opté pour une solution de <strong>synchronisation incrémentale</str
 </ul>
 <p>Le tout fonctionnant sur un environnement applicatif <strong>PHP/Symfony</strong>.</p>
 <figure>
-    <img src="/rix/pr/100/resized/content/images/case-study/schemas/m_and_m/case_studies_m_and_m.png/00a5c051980fc70656aa8fcbdb772f4b.png" alt="Étude de cas - Schema infrastructure" srcset="/rix/pr/100/resized/content/images/case-study/schemas/m_and_m/case_studies_m_and_m.png/00a5c051980fc70656aa8fcbdb772f4b.png 1x,
-/rix/pr/100/resized/content/images/case-study/schemas/m_and_m/case_studies_m_and_m.png/297b7509f9acc565f5a7edfa13f25857.png 2x," id="etude-de-cas-schema-infrastructure">
+    <img src="/rix/pr/100/resized/content/images/case-study/schemas/m_and_m/case_studies_m_and_m.png/00a5c051980fc70656aa8fcbdb772f4b.png" alt="Étude de cas - Schema d'infrastructure" srcset="/rix/pr/100/resized/content/images/case-study/schemas/m_and_m/case_studies_m_and_m.png/00a5c051980fc70656aa8fcbdb772f4b.png 1x,
+/rix/pr/100/resized/content/images/case-study/schemas/m_and_m/case_studies_m_and_m.png/297b7509f9acc565f5a7edfa13f25857.png 2x," id="etude-de-cas-schema-d-infrastructure">
     <figcaption>
-      <span class="figure__legend">Musique &amp; Music</span>
+      <span class="figure__legend">Musique &amp; Music - Schema d'infrastructure</span>
     </figcaption>
 </figure>
+<h3 id="conception-de-l-infrastructure" class="anchor-title"><a href="#conception-de-l-infrastructure">Conception de l'infrastructure</a></h3>
+<p>Comme pour l'ensemble de nos infras, nous appuyons fortement sur l'automatisation, à la fois des déploiements applicatifs via CI/CD mais également de l'infrastructure avec différents outils:</p>
+<ul>
+<li><a href="https://www.terraform.io/" target="_blank"><strong>Terraform</strong></a> pour l'IaC (Infrastructure as Code) afin de déployer nos différentes briques;</li>
+<li><a href="https://www.ansible.com/" target="_blank"><strong>Ansible</strong></a> pour la construction des environnements d'exécution applicatif;</li>
+<li><a href="https://helm.sh/" target="_blank"><strong>Helm</strong></a> pour le déploiement des infrastructures de type Kubernetes.</li>
+</ul>
 <h3 id="environnement-d-exploitation" class="anchor-title"><a href="#environnement-d-exploitation">Environnement d'exploitation</a></h3>
 <p>L'environnement d'exploitation réponds aux standards Rix à savoir:</p>
 <ul>
