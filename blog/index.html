@@ -172,29 +172,29 @@
             <div class="container content">
                 <ul class="miniature-list">
                                                                         <li class="miniature-highlight">
-                                <a href="/rix/blog/cours/utiliser-la-configuration-ssh-client" class="miniature-highlight__content">
+                                <a href="/rix/blog/cours/docker-avec-windows-et-wsl" class="miniature-highlight__content">
                                     <div class="details">
-                                        <span class="date">2 janv. 2023</span>
-                                        <h2>Utiliser le fichier de configuration SSH pour ses connexions distantes.</h2>
-                                        <p>Apprendre à utiliser le fichier de configuration SSH pour organiser ses options de connexion.</p>
+                                        <span class="date">11 avr. 2023</span>
+                                        <h2>Faire fonctionner des conteneurs Docker dans WSL.</h2>
+                                        <p>Avec l&#039;intégration WSL2 de Windows et Docker Desktop, comment utiliser des conteneurs Docker dans une machine virtuelle WSL ?</p>
                                     </div>
                                     <div class="miniature-highlight__image" style="background-color: #f1f1f1;
-    background-image: url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/988db683207b8c5a5a71bffb9c127150.jpg');
+    background-image: url('/rix/resized/content/images/blog/thumbnails/nature.jpg/7fd9cf2a618a4be37a288a7808a9f5cd.jpg');
     background-image: -webkit-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/988db683207b8c5a5a71bffb9c127150.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/87739e3bdb978b6ee248afd13f765fc3.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/nature.jpg/7fd9cf2a618a4be37a288a7808a9f5cd.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/nature.jpg/4d07baa7c2790600545591ddcc0ba201.jpg') 2x
     );
     background-image: -moz-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/988db683207b8c5a5a71bffb9c127150.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/87739e3bdb978b6ee248afd13f765fc3.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/nature.jpg/7fd9cf2a618a4be37a288a7808a9f5cd.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/nature.jpg/4d07baa7c2790600545591ddcc0ba201.jpg') 2x
     );
     background-image: -ms-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/988db683207b8c5a5a71bffb9c127150.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/87739e3bdb978b6ee248afd13f765fc3.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/nature.jpg/7fd9cf2a618a4be37a288a7808a9f5cd.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/nature.jpg/4d07baa7c2790600545591ddcc0ba201.jpg') 2x
     );
     background-image: image-set(
-        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/988db683207b8c5a5a71bffb9c127150.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/87739e3bdb978b6ee248afd13f765fc3.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/nature.jpg/7fd9cf2a618a4be37a288a7808a9f5cd.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/nature.jpg/4d07baa7c2790600545591ddcc0ba201.jpg') 2x
     );;">
                                     </div>
                                 </a>
@@ -204,29 +204,76 @@
                                                 <span>#Cours</span>
                                             </li>
                                                                                     <li class="tags-list__item">
-                                                <span>#Ssh</span>
+                                                <span>#Windows</span>
                                             </li>
                                                                                     <li class="tags-list__item">
-                                                <span>#HowTo</span>
+                                                <span>#Docker</span>
+                                            </li>
+                                                                                    <li class="tags-list__item">
+                                                <span>#Conteneur</span>
                                             </li>
                                                                             </ul>
                                 </div>
                                 <div class="miniature-highlight__author">
                                     <div class="author author--multi">
                                         <div class="author__image">
-                                                                                            <img     src="/rix/resized/content/images/member/avatars/rix.png/7bdb9f34d8b53f82d37c01fd92196263.png"
+                                                                                            <img     src="/rix/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg"
     srcset="
-        /rix/resized/content/images/member/avatars/rix.png/7bdb9f34d8b53f82d37c01fd92196263.png 1x,
-        /rix/resized/content/images/member/avatars/rix.png/4f7bb694753bd129601b986c5bdaabdb.png 2x
+        /rix/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg 1x,
+        /rix/resized/content/images/member/avatars/gfaivre.jpg/d2d8af0b210c37c677635983f1c02d6d.jpg 2x
     "
  />
                                                                                     </div>
                                         <span class="author__info">
                                             Écrit par
-                                                                                            <strong>La team Rix</strong>
+                                                                                            <strong>Guewen Faivre</strong>
                                                                                     </span>
                                     </div>
                                 </div>
+                            </li>
+                                                                                                <li class="miniature-inline">
+                                <a href="/rix/blog/cours/utiliser-la-configuration-ssh-client">
+                                    <div class="miniature-inline__image" style="background-color: #f1f1f1;
+    background-image: url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/3e17127815b0b2d86da6377f5a93f0e3.jpg');
+    background-image: -webkit-image-set(
+        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/3e17127815b0b2d86da6377f5a93f0e3.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/4b1f480c3cf794ed4261fc8ffac6599e.jpg') 2x
+    );
+    background-image: -moz-image-set(
+        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/3e17127815b0b2d86da6377f5a93f0e3.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/4b1f480c3cf794ed4261fc8ffac6599e.jpg') 2x
+    );
+    background-image: -ms-image-set(
+        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/3e17127815b0b2d86da6377f5a93f0e3.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/4b1f480c3cf794ed4261fc8ffac6599e.jpg') 2x
+    );
+    background-image: image-set(
+        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/3e17127815b0b2d86da6377f5a93f0e3.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/zsh.jpg/4b1f480c3cf794ed4261fc8ffac6599e.jpg') 2x
+    );">
+                                    </div>
+                                    <div class="miniature-inline__content">
+                                        <h2 class="miniature-inline__title">Utiliser le fichier de configuration SSH pour ses connexions distantes.</h2>
+                                        <p>Apprendre à utiliser le fichier de configuration SSH pour organiser ses options de connexion.</p>
+                                        <ul class="tags-list">
+                                                                                            <li class="tags-list__item">
+                                                    #Cours
+                                                </li>
+                                                                                            <li class="tags-list__item">
+                                                    #Ssh
+                                                </li>
+                                                                                            <li class="tags-list__item">
+                                                    #HowTo
+                                                </li>
+                                                                                    </ul>
+                                        <span class="sliding-button sliding-button--mobile">
+                                            <span class="sliding-button__content">
+                                                <i class="icon icon--arrow-right" aria-hidden="true"></i>
+                                                Lire l'article
+                                            </span>
+                                        </span>
+                                    </div>
+                                </a>
                             </li>
                                                                                                 <li class="miniature-inline">
                                 <a href="/rix/blog/linux/construire-image-debian-raspberry">
@@ -322,29 +369,28 @@
                                     </div>
                                 </a>
                             </li>
-                                                                                                <li class="miniature-inline">
+                                                                                                <li class="miniature">
                                 <a href="/rix/blog/linux/osx-to-linux-part-1">
-                                    <div class="miniature-inline__image" style="background-color: #f1f1f1;
-    background-image: url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/f9e75c9aff7ade34bd4f36bd4e9c8d08.jpg');
+                                    <div class="miniature__image" style="background-color: #f1f1f1;
+    background-image: url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/54e9b51481250743bf2b4dc8403b4442.jpg');
     background-image: -webkit-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/f9e75c9aff7ade34bd4f36bd4e9c8d08.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/3c7acb3547fd0e1c6ac80a11dbdecc3e.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/54e9b51481250743bf2b4dc8403b4442.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/20e08dbd8a74450ab6b73fea6ce37bb3.jpg') 2x
     );
     background-image: -moz-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/f9e75c9aff7ade34bd4f36bd4e9c8d08.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/3c7acb3547fd0e1c6ac80a11dbdecc3e.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/54e9b51481250743bf2b4dc8403b4442.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/20e08dbd8a74450ab6b73fea6ce37bb3.jpg') 2x
     );
     background-image: -ms-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/f9e75c9aff7ade34bd4f36bd4e9c8d08.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/3c7acb3547fd0e1c6ac80a11dbdecc3e.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/54e9b51481250743bf2b4dc8403b4442.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/20e08dbd8a74450ab6b73fea6ce37bb3.jpg') 2x
     );
     background-image: image-set(
-        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/f9e75c9aff7ade34bd4f36bd4e9c8d08.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/3c7acb3547fd0e1c6ac80a11dbdecc3e.jpg') 2x
-    );">
-                                    </div>
-                                    <div class="miniature-inline__content">
-                                        <h2 class="miniature-inline__title">D&#039;OSX à Linux (en milieu professionnel) - Partie 1 - Le quotidien</h2>
+        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/54e9b51481250743bf2b4dc8403b4442.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/inside-linux.jpg/20e08dbd8a74450ab6b73fea6ce37bb3.jpg') 2x
+    );"></div>
+                                    <div class="miniature__content">
+                                        <h2 class="h3">D&#039;OSX à Linux (en milieu professionnel) - Partie 1 - Le quotidien</h2>
                                         <p>Passer d&#039;OSX à Linux en milieu professionnel, le quotidien, équivalence d&#039;applications, fonctionnement, astuces.</p>
                                         <ul class="tags-list">
                                                                                             <li class="tags-list__item">
