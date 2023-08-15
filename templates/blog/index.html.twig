@@ -36,7 +36,8 @@
                                         <h2>{{ article.title }}</h2>
                                         <p>{{ article.description }}</p>
                                     </div>
-                                    <div class="miniature-highlight__image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.lg') }};">
+                                    <div class="miniature-highlight__image">
+                                        <div class="image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.lg') }};"></div>
                                     </div>
                                 </a>
                                 <div class="miniature-highlight__tags">
@@ -71,7 +72,8 @@
                         {% elseif page == minPage and loop.index < 5 %}
                             <li class="miniature-inline">
                                 <a href="{{ path('blog_article', { article: article.slug }) }}">
-                                    <div class="miniature-inline__image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.md') }}">
+                                    <div class="miniature-inline__image">
+                                        <span class="image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.md') }}"></span>
                                     </div>
                                     <div class="miniature-inline__content">
                                         <h2 class="miniature-inline__title">{{ article.title }}</h2>
@@ -95,7 +97,9 @@
                         {% else %}
                             <li class="miniature">
                                 <a href="{{ path('blog_article', { article: article.slug }) }}">
-                                    <div class="miniature__image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.sm') }}"></div>
+                                    <div class="miniature__image">
+                                        <span class="image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.sm') }}"></span>
+                                    </div>
                                     <div class="miniature__content">
                                         <h2 class="h3">{{ article.title }}</h2>
                                         <p>{{ article.description }}</p>
