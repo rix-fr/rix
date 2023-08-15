@@ -56,7 +56,9 @@ $banners: (
 
 @media (max-width: $screen-sm) {
   .banner {
-    background-image: url('../../images/backgrounds/banners/banner-home-mobile.webp');
+    .page-home & {
+      height: 1950px;
+    }
   }
 
   @each $page, $banner-image in $banners {
