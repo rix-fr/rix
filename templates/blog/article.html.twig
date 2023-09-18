@@ -191,6 +191,9 @@
                 </div>
                 {% if article.tweetId is not empty or article.githubEditLink is not empty %}
                     <div class="comment">
+                        {% if article.comments %}
+                            <div id="comentario"></div>
+                        {% endif %}
                         {% if article.tweetId is not empty %}
                             <p class="title">Commenter</p>
                             <p>

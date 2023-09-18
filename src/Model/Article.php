@@ -68,6 +68,9 @@ class Article
 
     public ?string $tweetId = null;
 
+    /** Allow comments with comentario */
+    public ?bool $comments = true;
+
     /** @see GithubEditLinkProcessor */
     public ?string $githubEditLink = null;
 
