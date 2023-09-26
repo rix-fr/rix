@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>D&#039;OSX à Linux (en milieu professionnel) - Partie 1 - Le quotidien</title>
+
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/rix/pr/116/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/rix/pr/116/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/rix/pr/116/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/rix/pr/116/favicon-16x16.png">
+        <link rel="manifest" href="/rix/pr/116/site.webmanifest">
+                <link rel="shortcut icon" href="/rix/pr/116/favicon.ico">
+        <meta name="msapplication-TileColor" content="#ff4344">
+        <meta name="msapplication-config" content="/rix/pr/116/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+                        <meta name="description" content="Passer d&#039;OSX à Linux en milieu professionnel, le quotidien, équivalence d&#039;applications, fonctionnement, astuces." />
+            <link rel="canonical" href="https://rix-fr.github.io/rix/pr/116/blog/linux/osx-to-linux-part-1" />
+
+            <!-- Open Graph / Facebook -->
+                                        <meta property="og:type" content="website">
+                        <meta property="og:title" content="D&#039;OSX à Linux (en milieu professionnel) - Partie 1 - Le quotidien" />
+            <meta property="og:locale" content="fr" />
+            <meta property="og:description" content="Passer d&#039;OSX à Linux en milieu professionnel, le quotidien, équivalence d&#039;applications, fonctionnement, astuces." />
+            <meta property="og:url" content="https://rix-fr.github.io/rix/pr/116/blog/linux/osx-to-linux-part-1" />
+            <meta property="og:site_name" content="rix" />
+
+                                        <meta property="og:image" content="https://rix-fr.github.io/rix/pr/116/resized/content/images/blog/thumbnails/inside-linux.jpg/cfd86d11514e7101c38ec348b99539c0.jpg">
+                                                    <meta property="og:image:alt" content="Rix - Expertise et outillage DevOps">
+            
+            <!-- Twitter -->
+            <meta property="twitter:card" content="summary_large_image">
+            <meta property="twitter:title" content="D&#039;OSX à Linux (en milieu professionnel) - Partie 1 - Le quotidien">
+            <meta property="twitter:description" content="Passer d&#039;OSX à Linux en milieu professionnel, le quotidien, équivalence d&#039;applications, fonctionnement, astuces.">
+            <meta property="twitter:site" content="@rix_fr">
+            <meta property="twitter:creator" content="@rix_fr">
+                                        <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/116/resized/content/images/blog/thumbnails/inside-linux.jpg/f1c0389148b3a3a33cbfff09d577338f.jpg">
+                                <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": "D'OSX à Linux (en milieu professionnel) - Partie 1 - Le quotidien",
+    "image": [
+        "https://rix-fr.github.io/rix/pr/116/blog/linux/content/images/blog/thumbnails/inside-linux.jpg"
+    ],
+    "datePublished": "25 octobre 2022",
+    "dateModified": "18 novembre 2022",
+    "author": [
+        {
+            "@type": "Person",
+            "name": "Guewen Faivre"
+        }
+    ],
+    "keywords": [
+        "Linux",
+        "Osx"
+    ]
+}
+    </script>
+            
+
+    <link rel="alternate" type="application/rss+xml" href="/rix/pr/116/blog/rss.xml" title="Le blog de l'équipe Rix" />
+
+                            <meta name="robots" content="noindex" />
+        
+        <script>
+                        document.querySelector('html').classList.remove('no-js');
+        </script>
+
+                    <link rel="stylesheet" href="/rix/pr/116/build/305.c5162d56.css">
+        
+                    <script src="/rix/pr/116/build/runtime.f616dc94.js" defer></script><script src="/rix/pr/116/build/70.671fda9c.js" defer></script><script src="/rix/pr/116/build/app.e999eb99.js" defer></script>
+
+                    
+    </head>
+    <body class="page-article">
+                    <header class="header">
+                <div class="container">
+                    <a href="/rix/pr/116/">
+                        <img src="/rix/pr/116/build/images/logos/logo-horizontal.ae7b8485.svg" alt="" class="logo">
+                        <span class="screen-reader">Retour à l'accueil</span>
+                    </a>
+
+                                            <nav class="nav">
+    <ul>
+                                    <li class="nav__item ">
+                    <a href="/rix/pr/116/">
+                        <span>Accueil</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/116/services">
+                        <span>Nos services</span>
+                    </a>
+                </li>
+                                                                    <li class="nav__item ">
+                    <a href="/rix/pr/116/a-propos">
+                        <span>À propos</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/116/blog">
+                        <span>Blog</span>
+                    </a>
+                </li>
+                            <li class="nav__item nav__item--icon">
+            <a href="/rix/pr/116/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                <span>Contactez-nous</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+                    
+                                            <nav class="nav-mobile">
+    <div class="nav-mobile__header">
+        <a href="/rix/pr/116/">
+            <img src="/rix/pr/116/build/images/logos/logo-horizontal-white.901392b9.svg" alt="" class="logo">
+        </a>
+        <button class="nav-toggle nav-toggle--close">
+            <i class="icon icon--close" aria-hidden="true"></i>
+            <span class="screen-reader">Fermer le menu</span>
+        </button>
+    </div>
+    <ul>
+                                    <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/116/">
+                        Accueil
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/116/services">
+                        Nos services
+                    </a>
+                </li>
+                                                                    <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/116/a-propos">
+                        À propos
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/116/blog">
+                        Blog
+                    </a>
+                </li>
+                            <li class="nav-mobile__item nav-mobile__item--icon">
+            <a href="/rix/pr/116/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                Contactez-nous
+            </a>
+        </li>
+    </ul>
+</nav>
+<button class="nav-toggle nav-toggle--open">
+    <i class="icon icon--hamburger" aria-hidden="true"></i>
+    <span class="screen-reader">Ouvrir le menu</span>
+</button>
+
+                                    </div>
+            </header>
+                <main>
+                <div class="banner banner--blog">
+        <div class="container">
+            <h1>
+                <a href="/rix/pr/116/blog">Blog</a>
+                <strong>/</strong>
+            </h1>
+        </div>
+    </div>
+
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <ul class="tags-list">
+                                            <li class="tags-list__item">
+                            #Linux
+                        </li>
+                                            <li class="tags-list__item">
+                            #Osx
+                        </li>
+                                    </ul>
+                <h2 class="h2--large">D&#039;OSX à Linux (en milieu professionnel) - Partie 1 - Le quotidien</h2>
+                <p>Passer d&#039;OSX à Linux en milieu professionnel, le quotidien, équivalence d&#039;applications, fonctionnement, astuces.</p>
+                <div class="article-overview">
+                                        <ol class="table-of-contents">
+                                                            <li class="table-of-contents__item">
+                                    <a href="#introduction">Introduction</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#les-clients-de-courriels">Les clients de courriels</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#les-messageries-perso">Les messageries (perso)</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#les-navigateurs">Les navigateurs</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#la-bureautique">La bureautique</a>
+                                                                            <ol class="table-of-contents__sub-level">
+                                                                                            <li>
+                                                    <a href="#documents-et-tableurs">Documents et tableurs</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#pdf">PDF</a>
+                                                </li>
+                                                                                    </ol>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#les-agendas">Les agendas</a>
+                                                                    </li>
+                                                    </ol>
+                                        <div class="article-info">
+                                                                            <div class="author ">
+                                <div class="author__image">
+                                                                            <img     src="/rix/pr/116/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg"
+    srcset="
+        /rix/pr/116/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg 1x,
+        /rix/pr/116/resized/content/images/member/avatars/gfaivre.jpg/d2d8af0b210c37c677635983f1c02d6d.jpg 2x
+    "
+ />
+                                                                    </div>
+                                <span class="author__info">
+                                    Écrit par
+                                                                            <strong>Guewen Faivre</strong>
+                                                                    </span>
+                            </div>
+                                                <div class="article-info__date">
+                            <span>Publication <strong>25 octobre 2022</strong></span>
+                                                                                        <span>Modification <strong>18 novembre 2022</strong></span>
+                                                    </div>
+                    </div>
+                </div>
+                <main>
+                                                            <body><p>Parce que le choix (ou la nécessité) de changer de système d'exploitation remet en cause notre utilisation quotidienne et nos réflèxes applicatifs, il me parait louable de partager <strong>MA</strong> façon d'utiliser Linux après de nombreuses années avec OSX et quelles solutions j'ai « trouvé » pour reprendre mes marques notamment en terme d'équivalence d'applications et d'utilisation au quotidien.</p>
+<p>Billet à destination de celles et ceux qui hésitent encore à franchir le pas de peur de se retrouver perdu·e.</p>
+<h2 id="introduction" class="anchor-title"><a href="#introduction">Introduction</a></h2>
+<p>En préambule et pour mieux cerner certaines contraintes que j'ai pu avoir ou choix que j'ai pu faire:</p>
+<ul>
+<li>J'utilise Linux à titre <code class="code-inline" id="3028fd8c58829bf4deee743d35a039d3">pro et perso</code> depuis plus de 20 ans (J'ai commencé avec Debian/Potato);</li>
+<li><code class="code-inline" id="386233f220de79a81b710bb7efb160d0">Je ne prêche pour aucune distribution en particulier</code>, sauf côté serveur, mais ça n'est pas le sujet;
+<br>Il existe aujourd'hui suffisamment de distributions « matures » pour que chacun y trouve son bonheur, il n'y a pas de « meilleure » distro il y a <strong>celle qui vous convient</strong>. En ce qui me concerne j'ai eu de la <strong>Debian</strong> (beaucoup), de la <strong>Fedora</strong> et de l'<strong>Ubuntu</strong> (un peu pour les deux) et ça fait maintenant 3 ans que j'utilise <strong>Manjaro</strong> après un rapide passage sur <strong>Antergos</strong>;</li>
+<li>J'ai passé pas loin de 10 ans avec OSX coté pro avec ses bons et ses mauvais côtés et même si je ne m'y retrouve plus aujourd'hui, c'est toujours à mon sens un bon OS;</li>
+<li>J'utilise <code class="code-inline" id="1fd967a816834982761258785b9d0b52">Gnome</code> comme environnement graphique;</li>
+<li>Je dispose de plusieurs adresses de messagerie dont pas mal sont gérées par ProtonMail;</li>
+<li>Mon quotidien est celui d'un SysAdmin/Ops/SRE (Je ne sais plus où on en est dans les appellations) bref tout ce qui va toucher à l'administration système et à l'outillage autour.</li>
+</ul>
+<p>Je séparerai cet article en plusieurs parties en fonction des différentes utilisations:</p>
+<ul>
+<li>Le quotidien (qui pourra intéresser tout un chacun);</li>
+<li>Le spécifique (qui relève de mon utilisation);</li>
+<li>Le pro (très focalisé sur le métier).</li>
+<li>Le cosmétique</li>
+</ul>
+<p>Sans plus attendre un premier chapitre qui va se concentrer sur l'utilisation que chacun d'entre nous peut avoir d'une machine.</p>
+<h2 id="les-clients-de-courriels" class="anchor-title"><a href="#les-clients-de-courriels">Les clients de courriels</a></h2>
+<p>L'une des premières utilisation, les courriels !<br>
+J'utilise uniquement les clients de courriel et quasiment jamais un navigateur pour consulter ma messagerie. Avec OSX j'utilisais l'excellent <a href="https://www.postbox-inc.com/" target="_blank"><code class="code-inline" id="e2f16f113b9b09d42dfeb58cca8b1d9a">Postbox</code></a>.</p>
+<p><strong>Du côté de linux j'ai retenu deux candidats:</strong></p>
+<ul>
+<li>L'incontournable Thunderbird qui reste, fonctionnellement et de très loin le plus complet. Son ergonomie est toutefois très datée et on ne va pas se le cacher, l'organisation de ses menus est tout de même un sacré bordel ! À son crédit c'est un des rares à supporter GPG nativement.</li>
+<li>Celui que j'utilise depuis quelques temps, <a href="https://getmailspring.com/" target="_blank"><code class="code-inline" id="4e4c18b0255235b949e0cc8679cf3657">Mailspring</code></a> qui dispose d'une interface beaucoup plus simple et accessible et fonctionne très bien avec le bridge de chez <a href="https://proton.me/fr/mail" target="_blank"><code class="code-inline" id="d8905e8b7e5af773ecd3a9213bdab9f0">ProtonMail</code></a>.</li>
+</ul>
+<figure>
+    <img src="/rix/pr/116/resized/content/images/blog/2022/osx-to-linux/mailspring-screenshot-01.jpg/43afa9f7916f18f63bf34bc3e03aa0e5.jpg" alt="L'interface de Mailspring" srcset="/rix/pr/116/resized/content/images/blog/2022/osx-to-linux/mailspring-screenshot-01.jpg/43afa9f7916f18f63bf34bc3e03aa0e5.jpg 1x,
+/rix/pr/116/resized/content/images/blog/2022/osx-to-linux/mailspring-screenshot-01.jpg/9b445763b027f4a80d28d4f7af9b4555.jpg 2x," id="l-interface-de-mailspring">
+    <figcaption>
+      <span class="figure__legend">L'interface de Mailspring</span>
+    </figcaption>
+</figure>
+<p>À noter que j'attends la refonte annoncée de Thunderbird avec impatience tant le fonctionnel de Mailspring reste « relativement » limité.<br>
+(<strong>Mise à jour du 18 Novembre 2022</strong>: Quelques écrans de la nouvelle interface ont fait leur apparition, ils semblent augurer d'un gros et bon travail d'UI.)</p>
+<h2 id="les-messageries-perso" class="anchor-title"><a href="#les-messageries-perso">Les messageries (perso)</a></h2>
+<p>Au niveau des messageries j'utilise principalement <code class="code-inline" id="085fea7abdc5d904fe69a3081efd7398">Signal</code> et <code class="code-inline" id="82c616385feaa4676e3ef52af346733b">Whatsapp</code> (pour les proches), les deux disposent d'intégration des clients comme je l'avais sous OSX rien à signaler à ce niveau on est ISO !</p>
+<h2 id="les-navigateurs" class="anchor-title"><a href="#les-navigateurs">Les navigateurs</a></h2>
+<p>Probablement la brique la plus standardisée à l'heure actuelle, on retrouve exactement la même chose côté Linux c'est donc plus l'affinité de chacun qui va jouer.
+De mon côté j'en utilise deux principalement <a href="https://brave.com/fr/" target="_blank"><code class="code-inline" id="8d091597127cc044520e13fae3a3af59">Brave</code></a> (sur une base chromium donc) et <a href="https://librewolf.net/" target="_blank"><code class="code-inline" id="41470ad7179e2e6755b8a594b7277521">Librewolf</code></a> (sur une base Firefox).</p>
+<p>À ces derniers vient se greffer <a href="https://www.torproject.org/fr/download/" target="_blank"><code class="code-inline" id="8e53aeadb9b652a2b1e07c61e8d4e310">TorBrowser</code></a>.</p>
+<h2 id="la-bureautique" class="anchor-title"><a href="#la-bureautique">La bureautique</a></h2>
+<h3 id="documents-et-tableurs" class="anchor-title"><a href="#documents-et-tableurs">Documents et tableurs</a></h3>
+<p>Ah ! La bureautique…</p>
+<p>Point de friction lié principalement à la comptabilité avec les formats propriétaires, je n'ai plus rencontré de « vrai » problème depuis un moment.
+J'utilise <code class="code-inline" id="b6703c435be20e2c040b934f7c0d75e6">OnlyOffice Desktop</code> pour l'édition de document de type Word et Excel et ça juste marche !</p>
+<p>Point plus embêtant si vous avez des imprimantes réseau un peu anciennes il est probable qu'il vous soit compliqué d'imprimer sans faire un effort de configuration (je ne l'ai pas fait, je n'imprime quasiment jamais).</p>
+<h3 id="pdf" class="anchor-title"><a href="#pdf">PDF</a></h3>
+<p>Du côté des PDFs, le visionneur de documents de Gnome fait très bien le boulot pour de la lecture.<br>
+Au niveau de l'édition c'est un domaine ou il faut encore bricoler par rapport à OSX qui est très bon nativement pour manipuler les PDFs.
+J'utilise donc <a href="https://framalibre.org/content/xournal" target="_blank">Xournal++</a> dès lors que je dois y insérer des images ou autres éléments mais il s'agit d'un projet qui semble être à l'abandon et pour lequel je n'ai pas encore cherché/trouvé d'alternative viable.</p>
+<figure>
+    <img src="/rix/pr/116/resized/content/images/blog/2022/osx-to-linux/visionneuse-pdf.jpg/8f62ab41cbb5677cff762e39b0aac290.jpg" alt="La visionneuse de Gnome" srcset="/rix/pr/116/resized/content/images/blog/2022/osx-to-linux/visionneuse-pdf.jpg/8f62ab41cbb5677cff762e39b0aac290.jpg 1x,
+/rix/pr/116/resized/content/images/blog/2022/osx-to-linux/visionneuse-pdf.jpg/4f20a6fea1b9fa1bbf2335ee8ddbbf8e.jpg 2x," id="la-visionneuse-de-gnome">
+    <figcaption>
+      <span class="figure__legend">La visionneuse de Gnome</span>
+    </figcaption>
+</figure>
+<h2 id="les-agendas" class="anchor-title"><a href="#les-agendas">Les agendas</a></h2>
+<p>Là encore l'offre est plétorique, après avoir pas mal utilisé <a href="https://www.thunderbird.net/en-US/calendar/" target="_blank"><code class="code-inline" id="457ba641340a812b28f949a26fca3e7b">Lightning</code></a> (Thunderbird) je suis revenu sur <a href="https://wiki.gnome.org/Apps/Calendar" target="_blank"><code class="code-inline" id="4bb67f9a9363cd3171435b175e85dde5">Gnome Calendar</code></a> qui fait le boulot.</p>
+<p><strong>ATTENTION</strong> toutefois il n'intègre pas la mécanique d'invitations, si vous planifiez beaucoup de réunions il vaut sans doute mieux rester sur Lightning.</p>
+<p>Pour ceux qui disposent d'agendas iCloud (j'en fais partie) leur ajout à Lightning passe par l'utilisation de l'extension <a href="https://addons.thunderbird.net/en-US/thunderbird/addon/tbsync/" target="_blank">TBSync</a> quant à Gnome Calendar il faut passer par une gymnastique assez lourde que je décris <a href="/blog/linux/integrer-icloud-gnome-calendar">ici</a>.</p></body>
+                                                                                </main>
+                <div class="article-footer" data-aos="fade-in">
+                                                                        <div class="author">
+                                <div class="author__image">
+                                    <img     src="/rix/pr/116/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg"
+    srcset="
+        /rix/pr/116/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg 1x,
+        /rix/pr/116/resized/content/images/member/avatars/gfaivre.jpg/d2d8af0b210c37c677635983f1c02d6d.jpg 2x
+    "
+ />
+                                </div>
+                                <span class="author__info">
+                                    Écrit par
+                                    <strong>Guewen Faivre</strong>
+                                </span>
+                                <div class="author__social">
+                                                                            <a href="https://twitter.com/guewen_faivre">
+                                            <i class="icon icon--twitter" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte twitter de Guewen Faivre</span>
+                                        </a>
+                                                                                                                <a href="https://github.com/gfaivre">
+                                            <i class="icon icon--github" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte github de Guewen Faivre</span>
+                                        </a>
+                                                                                                                <a href="http://www.elao.com">
+                                            <i class="icon icon--website" aria-hidden="true"></i>
+                                            <span class="screen-reader">Site personnel de Guewen Faivre</span>
+                                        </a>
+                                                                    </div>
+                            </div>
+                                                            </div>
+                                    <div class="comment">
+                                                                            <p>
+                                Une typo ?
+                                <a href="https://github.com/rix-fr/rix/edit/content/sre/content/blog/linux/osx-to-linux-part-1.md/" target="_blank">Modifier cet article sur Github</a>
+                            </p>
+                                            </div>
+                            </div>
+        </div>
+    </div>
+        </main>
+                    <footer class="footer">
+    <div class="container">
+        <div class="footer__contact">
+            <div class="catchphrase">
+                <p class="h1">Le monde du DevOps vous semble obscur ?</p>
+                <p>Contactez-nous, nous vous aiderons à y <strong>voir plus clair</strong>.</p>
+            </div>
+            <div class="contact-tiles">
+                <span class="contact-tiles__item">
+                    <i class="icon icon--location" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Passez nous voir !</span>
+                        <span>Nous sommes à Lyon !</span>
+                        <span>34 rue Jean Broquin</span>
+                        <span>69006 Lyon, France</span>
+                    </span>
+                </span>
+                <span class="contact-tiles__item">
+                    <i class="icon icon--message" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Par téléphone ou par mail</span>
+                        <a href="tel:33482537609">04 82 53 76 09</a>
+                        <a href="mailto:contact@rix.fr">contact@rix.fr</a>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="footer__brand">
+            <img src="/rix/pr/116/build/images/logos/logo-horizontal-white.901392b9.svg" alt="Rix">
+            <span>Expertise et outilllage DevOps</span>
+        </div>
+        <nav class="footer__links">
+            <div class="pages">
+                <ul>
+                                                                                                                    <li>
+                                <a href="/rix/pr/116/a-propos">À propos</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/116/contact">Contact</a>
+                            </li>
+                                                            </ul>
+            </div>
+            <div class="services">
+                <a href="/rix/pr/116/services">Nos services</a>
+                <div>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/116/services#accompagnement_outillage">Accompagnement et outillage DevOps</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/116/services#experts_kubernetes">Expertise Kubernetes</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/116/services#performances_diagnostique">Performances et diagnostique</a>
+                                </li>
+                                                    </ul>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/116/services#conception_infrastructures">Conception sur-mesure d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/116/services#pilotage_infrastructures">Pilotage d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/116/services#environment">Environnement de développement</a>
+                                </li>
+                                                    </ul>
+                                    </div>
+            </div>
+        </nav>
+        <div class="footer__legals">
+            <span>©2023 - Rix - Tous droits réservés</span>
+            -
+            <a href="/rix/pr/116/legal">Mentions légales</a>
+            -
+            <a href="/rix/pr/116/confidentialite">Données personnelles</a>
+        </div>
+    </div>
+</footer>
+
+
+
+            </body>
+</html>
