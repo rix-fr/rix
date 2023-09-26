@@ -3,7 +3,7 @@
 
 {% set interval = date('now').diff(date(site.xpDate)) %}
 
-{% block meta_title "Rix 🐺 - Expertise Kubernetes & solutions devops sur-mesure" %}
+{% block meta_title "Rix 🐺 - Expertise Kubernetes & SRE" %}
 {% block meta_description "Rix concepteurs d'infrastructures résilientes depuis plus de %d ans par des expert·e·s passionné·e·s, spécialistes Kubernetes et des environnements à fortes contraintes techniques."|format(interval.y) %}
 
 {% block meta %}
@@ -16,9 +16,13 @@
 
     <div class="banner banner--home">
         <div class="container">
-            <h1>Infrastructures <strong>sur-mesure</strong> et outillage DevOps.</h1>
+            <h1>Infrastructures <strong>sur-mesure</strong> et SRE*.</h1>
+            <p><i>* Site Reliability Engineering</i><p>
+
             <p>Grâce à nos cultures DevOps et SecOps, nous assurons le dialogue avec les équipes techniques afin d'apporter notre expertise dans l'analyse des comportements des applications web.</p>
-            <p><strong>L'objectif ?</strong> Apporter un maximum d'information à vos équipes pour faciliter leur quotidien.</p>
+            <p>Nous intervenons comme support des équipes de développement en tant que SRE (Site Reliability Engineering).</p>
+            <p><strong>L'objectif ?</strong> Apporter un maximum d'informations qualifiées à vos équipes pour piloter au mieux vos applications.</p>
+
             <p>Cerise sur le gâteau, Rix est <strong>agréé <a target="_blank" href="https://www.entreprises.gouv.fr/fr/entrepreneuriat/aides-et-financement/credit-d-impot-innovation">CII</a></strong></p>
             <a href="{{ path('contact') }}" class="button">Contactez-nous !</a>
         </div>
@@ -72,7 +76,7 @@
                 <section class="home-services">
                     <h2 class="h2--large">
                         <span>Nos services</span>
-                        Nous concevons des infrastructures sur-mesure et de l'outillage DevOps
+                        Apporter un maximum de valeur aux équipes techniques.
                     </h2>
                     <p>Nous accompagnons vos équipes dans la mise en place de la culture et des outils orientés Ops en nous appuyant sur notre expérience de plus de <strong>15 ans d'exploitation</strong> d'applications web.</p>
 
@@ -80,7 +84,7 @@
                         <div class="services-list__title">
                             <h3>
                                 <span>Services</span>
-                                Conseils DevOps
+                                Conseils DevOps, SRE
                             </h3>
                         </div>
                         <ul>

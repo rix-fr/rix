@@ -76,7 +76,7 @@ clean:
 	$(manala_docker) images \
 		--filter reference='rix:*' \
 		--format "{{.ID}}" \
-			| xargs $(manala_docker) rmi --force
+			| xargs -r $(manala_docker) rmi --force
 	@$(call manala_log, Delete cache dir…)
 	rm -Rf $(MANALA_DIR)/$(MANALA_CACHE_DIR)
 .PHONY: clean

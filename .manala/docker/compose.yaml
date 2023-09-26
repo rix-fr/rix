@@ -11,7 +11,7 @@ services:
         build:
             context: ..
             dockerfile: docker/Dockerfile
-        image: rix:20230331131309
+        image: rix:20230926093256
         restart: always
         ports:
             - 8000:80
