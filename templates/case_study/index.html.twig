@@ -21,7 +21,7 @@
             <div class="container shape"><!-- bevel shape --></div>
             <div class="container content">
                 <h2>La réalité du terrain</h2>
-                <p>Voici une sélection récente de projets dans lesquels nous avons pu voir se créer une émulation forte avec nos clients et leurs utilisateurs.</p>
+                <p>Voici une sélection récente de projets auquels nous avons eu la chance de participer et de répondre aux problématiques exposées.</p>
                 <ul class="miniature-list">
                     {% for caseStudy in caseStudies %}
                     <li class="miniature-inline">
@@ -29,7 +29,7 @@
                             <div class="miniature-inline__image" style="{{ macros.backgroundImageSrcset(caseStudy.images|first, 'case_study_thumbnail.md') }}">
                             </div>
                             <div class="miniature-inline__content">
-                                <span class="miniature-inline__name">{{ caseStudy.title }}</span>
+                                <span class="miniature-inline__name">{{ caseStudy.clients }}</span>
                                 <h3 class="miniature-inline__title">{{ caseStudy.title }}</h3>
                                 <p>{{ caseStudy.shortDescription }}</p>
                                 <span class="sliding-button sliding-button--mobile">

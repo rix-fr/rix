@@ -1,78 +1,69 @@
 ---
-title: "Panneau Pocket"
+title: "Tenue de charge, disponibilité, scalabilité."
 lastModified: "2021-04-21"
 date: "2021-04-21"
 
 # Params
-metaDescription: "Musique & Music — librairie musicale pour les professionnels"
-description: "Musique & Music permet aux professionnels de la vidéo d'enrichir leurs productions avec de l'illustration sonore."
-websiteUrl: https://www.musique-music.com/
-shortDescription: "Librairie musicale pour les professionnels"
-clients: Musique & Music
+metaDescription: "Panneau Pocket — L'application d'informations et d'alertes N°1 en France"
+description: "Panneau Pocket, acteur majeur auprès des collectivités pour l'information de leurs usagés."
+websiteUrl: https://www.panneaupocket.com/
+shortDescription: "L'application d'informations et d'alertes N°1 à destination des collectivités."
+clients: Panneau Pocket
 size: 3 mois
-services: ["Accompagnement", "Développement"]
-terms: ["aws"]
+services: ["Conception", "Accompagnement", "Pilotage"]
+terms: ["ovh-cloud", "scaleway"]
 images: ["content/images/case-study/headers/panneaupocket-banner.jpg"]
-enabled: false
+enabled: true
 ---
 
 ## Le contexte du projet
 
-**Musique & Music est un éditeur spécialisé dans la musique de production dédiée aux professionnels. L'application web permet aux monteurs vidéos de chercher facilement des sons afin d'illustrer leurs productions.** Parmi les atouts de l'application, il y a notamment la richesse du catalogue, la fluidité de la recherche et la pertinence des résultats proposés. Une recherche par similarité permet aux clients de Musique & Music de rechercher finement un style de musique en important des fichiers audio.
+**Panneau Pocket** a pour objectif de permettre aux collectivités de mieux communiquer avec leurs administrés et propose à ce titre une application mobile capable d'alerter en temps réel ses utilisateurs d'une nouvelle publication.
 
-**Musique & Music a confié à Elao le développement de son application web ainsi que de son back-office,** permettant d'avoir la main sur tous les aspects de son site.
+### Les objectifs
+- Être capables de tenir une solicitation des infrastructures soutenue;
+- Répondre à des pics de trafic importants lors de communications d'envergure;
+- Avoir l'obligation de disponibilité;
+- Assurer la sécurité, la sureté et la confidentialités des données.
 
-## L'expertise Elao déployée pour l'application Musique Music
+## Architecture
 
-### Ateliers de recueil du besoin
-Musique & Music n'en était pas à sa première version, l'application existait déjà depuis plusieurs années mais la dette technique et l'obsolescence du code existant ont décidé les fondateurs à repartir d'une feuille blanche.
-Il a donc fallu tirer l'essence de l'existant afin de proposer une version que l'on pouvait rapidement mettre en production, tout en assurant que les fonctionnalités clés soient présentes afin que les utilisateurs retrouvent leurs petits.
-À partir de ces ateliers, nous avons été en mesure de proposer une feuille de route fonctionnelle permettant d'arriver à une "nouvelle première version" du projet.
-Très rapidement, outre le front-office, le besoin d'un back-office efficace a émergé, dans le but de rendre plus efficaces les équipes Musique & Music.
+Panneau pocket répose essentiellement sur de l'API qui permet d'exposer de manière structurée et sécurisée ses données à l'application mobile.
+Nous intervenons en collaboration avec les équipes de développement applicatif afin de trouver les meilleures solutions pour répondre au besoin exposé par les équipes de PanneauPocket.
 
-### Ateliers UX/UI
-Les développeurs Elao sont avant tout des concepteurs et n'hésitent pas à être force de proposition d'un point de vue fonctionnel.
-Les étapes de conception des parcours utilisateurs (UX) et des maquettes d'interface utilisateurs (UI) ont été réalisées main dans la main avec Mathilde Vandier, designer freelance, avec laquelle nous avons itéré du début à la fin du projet.
+### Métier et contraintes
 
-### Phase de build (développement)
-C'est avec Anne-Laure et Xavier qu'Antoine, CTO de Musique & Music, a mené toute la phase de spécifications fonctionnelles. Il était nécessaire sur ce projet d'apporter une vraie force humaine, car les délais étaient serrés et nous n'étions pas trop de trois. Benjamin, Thomas et Amélie ont eux, mené de front toute la phase de développement : **ils ont ensuite posé les bases techniques, développé chaque fonctionnalité, réalisé les tests automatisés et la recette fonctionnelle, jusqu'à l'intégration HTML / CSS pixel-perfect.** La première mise en production a permis à Musique & Music d'avoir une version déjà très fonctionnelle à proposer à sa base existante d'utilisateurs.
+Le travail de Rix est de faire en sorte que 3 points essentiels soient au rendez-vous:
+- les temps de réponses doivent être bons (Ne pas oublier que nos utilisateurs sont souvent sur de l'itinérance et loin des infrastructures des grandes métropoles);
+- l'application doit mettre en oeuvre une tolérance à la panne resposant sur de la redondance et assurer, même en cas d'incident, une qualité de service minimum;
+- les incidents dans la mesure du possible, doivent être anticipés.
 
-### Phase de run (évolutions fonctionnelles et maintenance applicative)
-Depuis la mise en production de ses applications, Musique & Music fait appel à Elao de façon régulière pour faire évoluer son produit en fonction des besoins remontés par ses équipes et ses utilisateurs. Parmi les quelques évolutions, nous avons automatisé un grand nombre d'imports et d'exports, aussi bien pour de l'interne que pour des services tiers.
+À cela vient s'ajouter les contraintes de **sureté des données personnelles** et bien évidemment les données des utilisateurs **ne doivent pas** quitter l'union européenne.
 
-<figure>
-    <img src="../images/case-study/panneaupocket-adminmairie.png" alt="Accueil de l'application Musique & Music">
-    <figcaption>
-      <span class="figure__legend">Page d'accueil</span>
-    </figcaption>
-</figure>
+__Auquel nous ajoutons bien évidemment nos propres contraintes de qualité/supervision:__
+- l'ensemble de l'infrastructure doit être décrite sour forme d'IAC (Infrastructure As Code);
+- les environnements applicatifs doivent être « [versionnés](https://fr.wiktionary.org/wiki/versionner) » et doivent pouvoir être redéployés de manière automatique et idempotente;
+- l'ensemble des secrets applicatifs sont stockés dans un espace chiffré, sécurisé;
+- les sauvegardes bénéficient d'une triple réplique sur deux fournisseurs différents et sont chiffrées;
+- les accès sont controlés et audités.
 
-## Les applications
+### Mise en oeuvre
 
-### Pour les professionnels du montage vidéo : une bibliothèque de musique fluide et dynamique
+Afin de remplir ce contrat et répondre aux contraintes métier nous nous sommes appuyés sur du matériel **OVH** et **Scaleway** en proposant une infrastructure redondée classique orchestrée sur un réseau privé intégrant:
 
-Musique & Music met un point d'honneur à proposer les interfaces les plus fluides possibles et une expérience utilisateur de haut niveau. Il était nécessaire d'aller vers un maximum de réactivité de l'applicatif.
+- Un répartiteur de charge en frontal (redondé);
+- Plusieurs instances applicatives;
+- Un répartiteur de charge SQL Maxscale (redondé);
+- Plusieurs instances de base de données.
 
-Pour répondre à ces besoins et aux spécifications fonctionnelles du produit Musique & Music, l'équipe technique d'Elao a fait le choix d’utiliser React, un framework JavaScript, couplé à une API GraphQL, afin d'avoir une interface fluide, dynamique et surtout, **agréable à utiliser**.
+À cela vient s'ajouter les briques logiques standard (WAF, SG...) que nous ne détaillerons pas ici ainsi que les espaces de stockage reposants sur différentes stratégies mixant NFS, stockage de type bloc et stockage objet (S3).
 
-<figure>
-    <img src="../images/case-study/panneaupocket-mobile.png" alt="La recherche Musique & Music">
-    <figcaption>
-      <span class="figure__legend">La recherche Musique & Music</span>
-    </figcaption>
-</figure>
+### Environnement d'exploitation
 
-Mais cette fluidité d'utilisation ne devait pas se faire au détriment des performances de référencement : c'est pourquoi toute la partie publique de Musique & Music est **pré-rendue coté serveur** avec le même code React piloté, exécuté puis servi par l'application Symfony.
+L'environnement d'exploitation réponds aux standards Rix à savoir:
 
-Ainsi, toutes les pages sont servies avec leurs contenus et leurs méta-données complètes avant-même l'execution du Javascript dans le navigateur du client (ou des robots d'indexation des moteurs de recherche).
-
-### Pour l'équipe Musique & Music, un espace d'administration adapté à leurs besoins
-
-L'équipe de Musique & Music utilise au quotidien l'espace administrateurs : les commerciaux ont un œil sur les nouveaux inscrits, les responsables de production ajoutent quotidiennement de nouvelles playlists et de nouveaux albums. **Il leur fallait un espace d'administration leur permettant d'effectuer toutes ces tâches.**
-
-<figure>
-    <img src="../images/case-study/panneaupocket-admin.png" alt="Les playlists Musique & Music">
-    <figcaption>
-      <span class="figure__legend">Les playlists Musique & Music</span>
-    </figcaption>
-</figure>
+- Une remontée des métriques dans différents dashboard **Grafana** (Système et applicatif);
+- Un alerting de l'ensemble des services via **messagerie, mail et SMS**;
+- Une exploitation des logs applicatifs et système via le composant Loki (Grafana);
+- Remontée des erreurs aux équipes applicatives via une plateforme **Sentry**;
+- Les secrets applicatifs sont stockés dans un coffre de type **Hashicorp Vault** déployé sur nos infrastructures.
