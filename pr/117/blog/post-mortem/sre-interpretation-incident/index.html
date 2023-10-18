@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Interprétation et diagnostic d&#039;un incident en production.</title>
+        <title>Interprétation et diagnostique d&#039;un incident en production.</title>
 
         <!-- Favicon -->
         <link rel="apple-touch-icon" sizes="180x180" href="/rix/pr/117/apple-touch-icon.png">
@@ -22,7 +22,7 @@
 
             <!-- Open Graph / Facebook -->
                                         <meta property="og:type" content="website">
-                        <meta property="og:title" content="Interprétation et diagnostic d&#039;un incident en production." />
+                        <meta property="og:title" content="Interprétation et diagnostique d&#039;un incident en production." />
             <meta property="og:locale" content="fr" />
             <meta property="og:description" content="Interprétation pas à pas d&#039;un incident sur infrastructures applicatives, cas pratique d&#039;un incident vécu." />
             <meta property="og:url" content="https://rix-fr.github.io/rix/pr/117/blog/post-mortem/sre-interpretation-incident" />
@@ -33,7 +33,7 @@
             
             <!-- Twitter -->
             <meta property="twitter:card" content="summary_large_image">
-            <meta property="twitter:title" content="Interprétation et diagnostic d&#039;un incident en production.">
+            <meta property="twitter:title" content="Interprétation et diagnostique d&#039;un incident en production.">
             <meta property="twitter:description" content="Interprétation pas à pas d&#039;un incident sur infrastructures applicatives, cas pratique d&#039;un incident vécu.">
             <meta property="twitter:site" content="@rix_fr">
             <meta property="twitter:creator" content="@rix_fr">
@@ -41,7 +41,7 @@
                                 <script type="application/ld+json">{
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "headline": "Interprétation et diagnostic d'un incident en production.",
+    "headline": "Interprétation et diagnostique d'un incident en production.",
     "image": [
         "https://rix-fr.github.io/rix/pr/117/blog/post-mortem/content/images/blog/thumbnails/thisisengineering.jpg"
     ],
@@ -218,7 +218,7 @@
                             #PostMortem
                         </li>
                                     </ul>
-                <h2 class="h2--large">Interprétation et diagnostic d&#039;un incident en production.</h2>
+                <h2 class="h2--large">Interprétation et diagnostique d&#039;un incident en production.</h2>
                 <p>Interprétation pas à pas d&#039;un incident sur infrastructures applicatives, cas pratique d&#039;un incident vécu.</p>
                 <div class="article-overview">
                                         <ol class="table-of-contents">
@@ -277,20 +277,20 @@
                 </div>
                 <main>
                                                             <body><h2 id="preambule" class="anchor-title"><a href="#preambule">Préambule</a></h2>
-<p>Premier article concernant la résolution d'incidents, toujours à but de formation.</p>
-<p>N'ayant pas eu l'occasion de voir beaucoup d'articles traitant du sujet il nous parait intéressant de mettre en avant la <strong>démarche qui nous permet d'investiguer</strong> et de résoudre une défaillance soit de l'infrastructure, soit de l'applicatif.
-C'est également cette démarche qui nous sert par la suite à rédiger les « post-mortem » à destination de nos clients.
-Enfin c'est à notre avis, une bonne façon (si ce n'est la meilleure) d'expliquer pourquoi le DevOps est important dans les métiers SRE, à quoi il sert et comment nous utilisons les <strong>outils d'observabilité</strong> que l'on met en place.</p>
-<p>Avant toutes choses gardez à l'esprit que <strong>chaque applicatif est unique</strong> (même si l'on retrouve des comportements types) et que l'un des meilleurs indices d'anomalie est <strong>« l'écart par rapport à la moyenne normale »</strong>, autrement dit un comportement qui <strong>diffère fortement</strong> de ce que vous avez l'habitude de voir.</p>
-<p>Pour finir, c'est l'exercice le moins « confortable » du métier car en fonction de sa gravité, un incident peut très bien passer inaperçu comme <strong>impacter de manière significative</strong> l'activité d'un client. <strong>L'expérience des équipes</strong> est souvent un facteur clé pour la rapidité de la résolution.</p>
+<p>Premier article concernant la résolution d'incidents, toujours à but de formation.
+N'ayant jamais vu beaucoup d'articles traitant du sujet il nous parait intéressant d'expliquer et commenter les post-mortems qu'il nous arrive d'envoyer à nos clients.
+C'est aussi, à notre avis, une bonne façon (si ce n'est la meilleure) d'expliquer pourquoi le DevOps est important dans les métiers SRE, à quoi il sert et comment nous utilisons les outils que l'on met en place.</p>
+<p>Gardez à l'esprit que <strong>chaque applicatif est unique</strong> (même si l'on retrouve des comportements type) et que l'un des meilleurs indices d'anomalie et <strong>« l'écart par rapport à la moyenne normale »</strong>, autrement dit un comportement qui <strong>diffère fortement</strong> de ce que vous avez l'habitude de voir.</p>
+<p>Pour finir, c'est l'exercice le moins « confortable » du métier.
+En fonction de sa gravité, l'incident infra peut passer inaperçu comme <strong>impacter de manière significative</strong> l'activité d'un client, <strong>l'expérience des équipes</strong> dans ce cas de figure est souvent un facteur clé pour la rapidité de la résolution.</p>
 <h2 id="contexte" class="anchor-title"><a href="#contexte">Contexte</a></h2>
 <p>Le contexte est assez classique pour de l'application web.</p>
 <ul>
 <li>Un applicatif métier « relativement » pas mal utilisé en journée recevant environ <strong>240 requêtes/s</strong> (Réparties à <strong>80% sur l'API</strong>, <strong>les 20% restant</strong> étant dédié à du <strong>back-office</strong>);</li>
 <li>6 frontaux web (Nginx / PHP-FPM);</li>
 <li>1 répartiteur de charge managé;</li>
-<li>2 instances Maxscale;</li>
-<li>2 instances MariaDB en configuration « Master / Slave ».</li>
+<li>1 répartiteur de charge SQL MaxScale;</li>
+<li>2 instances MariaDB en configuration « Primary / Replica ».</li>
 </ul>
 <p><strong>En complément:</strong></p>
 <ul>
@@ -300,29 +300,29 @@ Enfin c'est à notre avis, une bonne façon (si ce n'est la meilleure) d'expliqu
 <h2 id="deroule-de-l-incident" class="anchor-title"><a href="#deroule-de-l-incident">Déroulé de l'incident</a></h2>
 <ul>
 <li><strong>Durée totale de l'incident:</strong> 1h20</li>
+<li><strong>Impact:</strong> Significatif</li>
 <li><strong>Type:</strong> Indisponibilité complète</li>
-<li><strong>Impact:</strong> Critique</li>
 </ul>
 <p><strong>Comme tous les incidents, nous sommes alertés par nos sondes infra:</strong></p>
 <div class="side-image">
   <div class="side-image__content">
-    <p>Il n'est pas rare d'avoir des alertes isolées dues à une défaillance d'un hyperviseur ou à une panne réseau, dans notre cas de figure l'effondrement de l'infrastructure est très rapide (inférieure à 3 minutes), aucun doute donc sur un « gros pépin ».</p>
-    <p>Cela se termine par une alerte d'indisponibilité <a href="https://www.statuscake.com/" target="_blank">StatusCake</a> du « endpoint » applicatif HTTP configuré.</p>
+    <p>Il n'est pas rare d'avoir des alertes isolées dues à une défaillance d'un hyperviseur ou à une panne réseau, dans notre cas de figure l'effondrement de l'infrastructure est très rapide (inférieure à 3 minutes), aucun doute donc sur « un gros pépin ».</p>
+    <p>Les alertes infras se terminent par une alerte <a href="https://www.statuscake.com/" target="_blank">StatusCake</a> sur le « endpoint » applicatif HTTP configuré.</p>
   </div>
   <figure>
       <img src="/rix/pr/117/resized/content/images/blog/2023/post-mortem/alerts.jpg/d8e4282a1f0b7b26dd76e70ffc584939.jpg" alt="Déclenchement des alertes." srcset="/rix/pr/117/resized/content/images/blog/2023/post-mortem/alerts.jpg/d8e4282a1f0b7b26dd76e70ffc584939.jpg 1x,
 /rix/pr/117/resized/content/images/blog/2023/post-mortem/alerts.jpg/8bcbbffcadbef7f75fde9d5075fff6c7.jpg 2x," id="declenchement-des-alertes">
   </figure>
 </div>
-<p>À ce stade nous <strong>notifions à notre client</strong> le début de l'incident et le début d'analyse pour remédiation.</p>
+<p>Nous <strong>notifions à notre client</strong> le début de l'incident et le début d'analyse pour remédiation.</p>
 <h3 id="diagnostique-infra" class="anchor-title"><a href="#diagnostique-infra">Diagnostique infra</a></h3>
-<p>Il est <strong>systématique</strong> en cas d'incident et consiste en une « checklist » assez simple:</p>
+<p>Elles sont <strong>systématiques</strong> en cas d'incident et consistes en une checklist assez simple:</p>
 <ul>
 <li>Vérification de l'état des instances;</li>
 <li>Vérification d'un incident déclaré chez le fournisseur de cloud (ici OVHCloud);</li>
 <li>Vérification de la connectivité des réseaux privés.</li>
 </ul>
-<p><strong>En seconde étape</strong> nous procédons à une<strong> première analyse</strong> des « graphs » sur quelques unes des instances applicatives pour constater une saturation des processus PHP-FPM qui ne parviennent plus à répondre:</p>
+<p><strong>En seconde étape</strong> nous procédons à une<strong> première analyse</strong> des « graphs » sur quelques unes des instances applicatives:</p>
 <figure>
     <img src="/rix/pr/117/resized/content/images/blog/2023/post-mortem/graphs_php_down.jpg/9adc412824436ea11dc0efeb47ffa049.jpg" srcset="/rix/pr/117/resized/content/images/blog/2023/post-mortem/graphs_php_down.jpg/9adc412824436ea11dc0efeb47ffa049.jpg 1x,
 /rix/pr/117/resized/content/images/blog/2023/post-mortem/graphs_php_down.jpg/87da498e177900e1315617b6158da966.jpg 2x," id="9adc412824436ea11dc0efeb47ffa049-jpg">
@@ -334,23 +334,23 @@ Enfin c'est à notre avis, une bonne façon (si ce n'est la meilleure) d'expliqu
 <div class="side-image">
   <img src="/rix/pr/117/resized/content/images/blog/2023/post-mortem/global_charge.jpg/436e0eacf0a0486949f8f44a7b32572f.jpg" srcset="/rix/pr/117/resized/content/images/blog/2023/post-mortem/global_charge.jpg/436e0eacf0a0486949f8f44a7b32572f.jpg 1x,
 /rix/pr/117/resized/content/images/blog/2023/post-mortem/global_charge.jpg/a53cd6721cba36d54e19dc82b424f187.jpg 2x," id="436e0eacf0a0486949f8f44a7b32572f-jpg">
-  <p>Sur l'ensemble des instances nous ne constatons <strong>pas d'augmentation</strong> de la consommation des ressources, de même <strong>le traffic n'explose pas </strong>, nous ne sommes donc pas dans le cas d'un afflux massif de connexions (légitimes ou non d'ailleurs), ni  <strong>d'une charge anormale </strong> du à un script mal conçu par exemple.</p>
+  <p>Sur l'ensemble des instances nous ne constatons pas d'augmentation de la consommation des ressources, de même le traffic n'explose pas, nous ne sommes donc pas dans le cas d'un afflux massif de connexions (légitimes ou non d'ailleurs), ni d'une charge anormale du à un script mal conçu.</p>
 </div>
 <div class="side-image">
   <img src="/rix/pr/117/resized/content/images/blog/2023/post-mortem/netstat.jpg/2be0fdc956da99803fe72b8d43ba31ef.jpg" srcset="/rix/pr/117/resized/content/images/blog/2023/post-mortem/netstat.jpg/2be0fdc956da99803fe72b8d43ba31ef.jpg 1x,
 /rix/pr/117/resized/content/images/blog/2023/post-mortem/netstat.jpg/0047ca9060a60a16a5c470387107e90f.jpg 2x," id="2be0fdc956da99803fe72b8d43ba31ef-jpg">
-  <p>Nous disposons toutefois d'un premier indice <strong>au niveau réseau</strong>, puisque nous constatons une  <strong>augmentation des connexions « ouvertes »</strong> et une <strong>chute flagrante des connexions en attentes</strong>.</p>
+  <p>Nous disposons toutefois d'un premier indice <strong>au niveau réseau</strong>, puisque nous constatons une augmentation des connexions « ouvertes » et une chute flagrante des connexions en attente de fermeture.</p>
 </div>
-<p>Nous avons également constaté que les médias applicatifs sont biens disponibles et que nous n'avons <strong>pas de coupure vers les espaces de stockage distants</strong>.</p>
+<p>Nous avons également constaté que les médias applicatifs sont biens disponibles et que nous n'avons pas de coupure vers les espaces de stockage distants.</p>
 <p>À ce stade nous avons donc une infra fonctionnelle mais une application « dans les choux ».
 Nous tentons une première approche en redémarrant les services PHP-FPM sur l'ensemble des instances, ceux-ci se retrouvent rapidement à nouveau saturés et hors service, comportement qui semble confirmer un soucis d'ordre applicatif.</p>
 <h3 id="diagnostique-applicatif" class="anchor-title"><a href="#diagnostique-applicatif">Diagnostique applicatif</a></h3>
-<p>Il est temps d'aller jeter un oeil aux logs applicatifs qui donne rapidement un résultat puisque nous relevons l'erreur suivante:</p>
+<p>Il est temps d'aller jeter un oeil aux logs applicatifs qui donne rapidement un résultat puisque nous avons l'erreur suivante:</p>
 <pre class="code-multiline"><code id="b4141f08740e45984785c4371a60ccb9">SQLSTATE[HY000]: General error: 2006 MySQL server has gone away at XXXXXXX {"device_os":"android","device_app_version":"5.12.1"}</code></pre>
 <p>Nous avons donc bien une perturbation au niveau de la connectivité entre les instances applicatives et les instances de base de données, reste à déterminer la raison !</p>
 <p>À ce stade nous prenons contact avec l'équipe de développement applicatif afin de disposer de sa connaissance métier et fonctionnelle.</p>
 <h3 id="analyse-des-metriques" class="anchor-title"><a href="#analyse-des-metriques">Analyse des métriques</a></h3>
-<p>Nous poursuivons nos investigations à l'aide de nos métriques infra / applicatif plus spécifiquement sur <strong>le réseau privé</strong>, zone d'échanges entre les instances applicatives et données pour y trouver ceci:</p>
+<p>Nous poursuivons nos investigations à l'aide de nos métriques infra / applicatif plus spécifiquement sur le réseau privé, zone d'échange entre les instances applives et données pour y trouver ceci:</p>
 <figure>
     <img src="/rix/pr/117/resized/content/images/blog/2023/post-mortem/network_web.jpg/bdb0e53c8e7700cd7fb63eb069c1b9d8.jpg" srcset="/rix/pr/117/resized/content/images/blog/2023/post-mortem/network_web.jpg/bdb0e53c8e7700cd7fb63eb069c1b9d8.jpg 1x,
 /rix/pr/117/resized/content/images/blog/2023/post-mortem/network_web.jpg/8cce76c7e7bf1df3c864a3a66bd2271e.jpg 2x," id="bdb0e53c8e7700cd7fb63eb069c1b9d8-jpg">
@@ -365,13 +365,6 @@ Nous tentons une première approche en redémarrant les services PHP-FPM sur l'e
       <span class="figure__legend">Bande passante - Instance base de données</span>
     </figcaption>
 </figure>
-<p><strong>Enfin du concret !</strong> On constate à l'aide de ces deux graphs une volumétrie de données d'échange <strong>anormalement élevée</strong> entre les instances applicatives et les instances de base de données.</p>
-<p><strong>Constat:</strong></p>
-<ul>
-<li>En entrée des instances applicatives nous avons un <strong>débit x20</strong> et <strong>une volumétrie qui passe de ~20/25MB en moyenne à 400MB</strong>;</li>
-<li>En sortie des instances de base de données un débit moyen <strong>x3</strong> et <strong>une volumétrie qui explose pour s'installer à hauteur d'1GB</strong>.</li>
-</ul>
-<p>On constate surtout que cette volumétrie vient saturer la bande passante avec un bel <strong>« effet plafond »</strong> du graph concerné.</p>
 <figure>
     <img src="/rix/pr/117/resized/content/images/blog/2023/post-mortem/network_db_2.jpg/bd89ffdb7e4f9955ac21af37b9e23b3e.jpg" srcset="/rix/pr/117/resized/content/images/blog/2023/post-mortem/network_db_2.jpg/bd89ffdb7e4f9955ac21af37b9e23b3e.jpg 1x,
 /rix/pr/117/resized/content/images/blog/2023/post-mortem/network_db_2.jpg/3155bb88a4cac88509c3b717e9475e8d.jpg 2x," id="bd89ffdb7e4f9955ac21af37b9e23b3e-jpg">
@@ -379,36 +372,42 @@ Nous tentons une première approche en redémarrant les services PHP-FPM sur l'e
       <span class="figure__legend">Bande passante - Instance base de données (Saturation de la bande passante)</span>
     </figcaption>
 </figure>
-<p>Nous avons donc <strong>la cause de l'incident  d'un point de vue infra</strong> ou plutôt <strong>le principal symptôme</strong> à savoir, la <strong>saturation de la bande passante entre les instances applicatives et les instances de base de données</strong>, ce qui conduit à une grosse attente au niveau PHP-FPM qui se retrouve dans <strong>l'incapacité de prendre de nouvelles connexions</strong> entrantes.</p>
-<p>Au passage, on voit ici l'importance de <strong>« caper » le nombre de connexions maximum</strong> que l'on autorise à PHP-FPM, dans le cas ou ce travail n'est pas et/ou mal fait ou si aucun seuil n'est fixé, nous pouvons avoir potentiellement <strong>une perte complète de la connectivité à l'instance applicative</strong> qui peut impacter de manière significative le temps de rétablissement.</p>
-<p>Nous avons l'origine du blocage, il nous faut à présent comprendre <strong>la cause réelle</strong> de cette augmentation, nous passons donc du côté serveur de base de données.</p>
+<p><strong>Enfin du concret !</strong> On constate à l'aide de ces deux graphs une volumétrie de données d'échange <strong>anormalement élevée</strong> entre les instances applicatives et les instances de base de données.</p>
+<p><strong>Constat:</strong></p>
+<ul>
+<li>En entrée des instances applicatives nous avons un <strong>débit x20</strong> et <strong>une volumétrie qui passe de ~20/25MB en moyenne à 400MB</strong>;</li>
+<li>En sortie des instances de base de données un débit moyen <strong>x3</strong> et <strong>une volumétrie qui explose pour s'installer à hauteur d'1GB</strong>.</li>
+</ul>
+<p>On constate surtout que cette volumétrie vient saturer la bande passante avec un bel « effet plafond » du graph concerné.</p>
+<p>Nous avons donc <strong>la cause de l'incident</strong> à savoir, la <strong>saturation de la bande passante entre les instances applicatives et les instances de base de données</strong>, ce qui conduit à une grosse attente au niveau PHP-FPM qui se retrouve dans <strong>l'incapacité de prendre de nouvelles connexions</strong> entrantes.</p>
+<p>Au passage, on voit ici l'importance de « caper » le nombre de connexions maximum que l'on autorise à PHP-FPM, dans le cas ou ce travail n'est pas/mal fait ou si aucun seuil n'est fixé, nous pouvons avoir potentiellement une perte complète de la connectivité à l'instance applicative qui peut impacter de manière significative le temps de rétablissement.</p>
+<p>Nous avons l'origine du blocage, il nous faut à présent comprendre d'où cela vient, nous passons donc du côté serveur de base de données.</p>
 <h3 id="analyse-des-requetes-sql" class="anchor-title"><a href="#analyse-des-requetes-sql">Analyse des requêtes SQL</a></h3>
 <p>Afin d'identifier d'éventuelles requêtes problématiques nous jouons un <code class="code-inline" id="f58ea0ea6dd587b31c573ecd593c4ad3">SHOW PROCESSLIST</code> sur notre serveur de base de données et isolons les requêtes en cours d'exécution depuis <strong>plusieurs secondes</strong>.
-En rejouant l'une de ces requêtes nous constatons que le résultat qu'elle renvoie est anormalement volumineux (taille supérieure à <strong>5Mo</strong>).</p>
-<p>Plus spécifiquement elle « ramène » un champ d'une table bien précise qui nous semble bien trop « gros » et après échange avec les équipes applicatives il semble correspondre à l'ajout d'un « relativement nouveau » fonctionnel, relativement parce qu'il a tout de même quelques semaines mais n'a, à priori pas été utilisé tout de suite par les utilisateurs finaux.</p>
-<p>Le champ en question permet de <strong>stocker du contenu libre saisi par l'utilisateur</strong> à l'aide d'un <strong>éditeur de contenu</strong> (Cela doit mettre la puce à l'oreille de certain(e)s d'entre vous ;)).</p>
-<p>Nous décidons de passer la publication concernée en « draft »... ce qui est <strong>sans influence directe</strong> sur la saturation de la bande passante.</p>
-<p>Nous élargissons donc notre champ de recherche, cette fois-ci en recherchant les lignes disposant d'un champ de contenu dont la taille est supérieure au Mo (<code class="code-inline" id="ac0b2369fb39729d9804a8b1fa31774e">SELECT id ... WHERE CHAR_LENGTH(content) &gt; 10000</code>), pour finalement identifier une centaine de lignes présentant la même problématique.</p>
-<p>Vu la <strong>gravité de la situation</strong> (indisponibilité complète de l'application) et <strong>en concertation avec les équipes applicatives</strong> nous « dépublions » l'ensemble des contenus problématiques, ce qui a pour effet de faire revenir les échanges de données à un seuil normal et de facto rendre <strong>à nouveau disponible l'applicatif</strong>.</p>
+En rejouant l'une de ces requêtes nous constatons qu'elle est anormalement volumineuse (taille supérieure à <strong>5Mo</strong>).</p>
+<p>Plus spécifiquement elle « ramène » un champ d'une table bien précise et après échange avec les équipes applicatives il correspond à l'ajout d'un « relativement nouveau » fonctionnel, relativement parce qu'il a tout de même quelques semaines mais n'a, à priori pas été utilisé tout de suite par les utilisateurs finaux.</p>
+<p>Le champs en question permet de stocker du contenu libre saisi par l'utilisteur à l'aide d'un éditeur de contenu (À ce moment là, certains d'entre vous doivent avoir une idée de ce qu'il se passe ;)).</p>
+<p>Nous décidons de passer la publication concernée en « draft »... ce qui est sans influence directe sur la saturation de la bande passante.</p>
+<p>Nous élargissons notre champs de recherche, cette fois-ci en recherchant les lignes disposant d'un champ de contenu dont la taille est supérieure au Mo (<code class="code-inline" id="ac0b2369fb39729d9804a8b1fa31774e">SELECT id ... WHERE CHAR_LENGTH(content) &gt; 10000</code>), pour finalement identifier une centaine de lignes présentant la même problématique.</p>
+<p>Vu la <strong>gravité de la situation</strong> (indisponibilité complète de l'application) et <strong>en concertation avec les équipes applicatives</strong> nous « dépublions » l'ensemble des contenus problématiques ce qui a pour effet de faire revenir les échanges de données à un seuil normal et de facto rendre <strong>à nouveau disponible l'applicatif</strong>.</p>
 <p>Dans le même temps les équipes applicatives auront préparé un « quick fix » désactivant la fonctionnalité, le temps de la retravailler.</p>
 <h3 id="le-fin-mot-de-l-histoire" class="anchor-title"><a href="#le-fin-mot-de-l-histoire">Le fin mot de l'histoire</a></h3>
-<p>Il s'avère que l'application proposait <strong>un module de publication</strong> à ses utilisateurs, embarquant un <strong>éditeur de contenus riches</strong> qui autorisait l'insertion d'images <strong>directement dans les contenus HTML</strong> (sans passer par un stockage sur le système de fichiers et donc directement en base de données).
-Les utilisateurs utilisant bien souvent des images « brutes », celles-ci « pèsent » aisément <strong>plusieurs Mo</strong>.</p>
+<p>Il s'avère que l'application proposait un module de publication à ses utilisateurs embarquant un éditeur de contenus riches qui autorisait l'insertion d'images directement dans les contenus HTML (sans passer par un stockage sur le système de fichiers et donc directement en base de données).
+Cerise sur le gateau, nous sommes en 2023 et les images « brutes » pèsent souvent plusieurs Mo.</p>
 <h2 id="conclusion" class="anchor-title"><a href="#conclusion">Conclusion</a></h2>
-<p>Ce cas est une parfaite illustration d'incident d'application web qui trouve souvent ses origines (pas toujours hein !) dans la capacité des utilisateurs à modifier des contenus.</p>
-<p>Son origine reste toutefois assez sournoise, en effet il n'est pas déclenché par une mise à jour récente mais par un fonctionnel développé <strong>il y a plusieurs semaines</strong> qui a passé la « review », et qui n'est mis en avant que récemment.
-De plus, en première lecture, l'incident n'est pas flagrant puisqu'il ne se traduit, ni par une charge anormale des instances, ni par une indisponibilité du réseau (deux causes que l'on voit relativement souvent).</p>
-<p>Les logs applicatifs permettent de s'orienter vers une cause probable de l'indisponibilité mais<strong> ne sont pas suffisant</strong> pour identifier de manière précise son origine, c'est leur <strong>corrélation avec la lecture des métriques</strong> qui permet de gagner énormément de temps sur le diagnostic et ainsi cerner le problème.</p>
-<p>Les équipes applicatives sont un renfort précieux, pour dans un premier temps, fournir les informations de dernières mises à jour ou d'arrivée de nouveau fonctionnel (et surtout de mettre en relation un fonctionnel et un schéma de données) et dans un second temps pour corriger (même temporairement) le code, afin d'éviter une rechute inévitable si on le laisse en l'état.</p>
+<p>Ce cas est une parfaite illustration de ce que l'on peut avoir comme incident avec une application web, bien que l'origine soit assez sournoise, en effet il n'est pas déclenché par une mise à jour récente mais par un fonctionnel développé il y a plusieurs semaines, mais mis en avant que récemment.
+De plus, en première lecture, il n'y a pas d'incident apparant, ni charge anormale des instances, ni pépin réseau.</p>
+<p>Les logs applicatifs permettent de s'orienter vers une cause probable de l'indisponibilité mais ne sont pas suffisant pour identifier de manière précise son origine, c'est leur corrélation avec la lecture des métriques qui permet de gagner énormément de temps sur le diagnostic et ainsi cerner le problème.</p>
+<p>Les équipes applicatives sont un renfort précieux, pour dans un premier temps, fournir les informations de dernières mises à jour ou d'arrivée de nouveau fonctionnel (et surtout de mettre en relation un fonctionnel et un schéma de données) et dans un second temps pour corriger (même temporairement) le code, afin d'éviter une rechute inévitable.</p>
 <h2 id="ce-qu-il-faut-en-retenir" class="anchor-title"><a href="#ce-qu-il-faut-en-retenir">Ce qu'il faut en retenir</a></h2>
 <ul>
 <li>Éviter de stocker des médias en base de données qui plus est dans un champs « texte »</li>
 <li>Méfiez-vous des éditeurs de contenus riches et prenez le temps de bien les intégrer / configurer. Entre les potentiels dépôts de fichiers sauvages qui peuvent mettre en cause la sécurité applicative, l'injection de scripts et l'ajout de médias non optimisés c'est une source d'ennuis sans fin</li>
 <li>Monitorez vos infras !</li>
-<li>Intégrez les équipes applicatives au diagnostic, tout le monde y gagne</li>
+<li>Intégrer les équipes applicatives au diagnostique</li>
 <li>Si vous en avez la possibilité, faites des tirs de charge !</li>
-</ul>
-<p><cite>Profile ! Don't assume.</cite></p></body>
+<li>« Profile ! Don't assume.»</li>
+</ul></body>
                                                                         <div class="article-credits">
                                 Crédits: photo de couverture par
                                                                     <a href="https://unsplash.com/@thisisengineering">
