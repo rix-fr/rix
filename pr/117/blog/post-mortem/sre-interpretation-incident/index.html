@@ -346,7 +346,7 @@ En fonction de sa gravité, l'incident infra peut passer inaperçu comme <strong
 Nous tentons une première approche en redémarrant les services PHP-FPM sur l'ensemble des instances, ceux-ci se retrouvent rapidement à nouveau saturés et hors service, comportement qui semble confirmer un soucis d'ordre applicatif.</p>
 <h3 id="diagnostique-applicatif" class="anchor-title"><a href="#diagnostique-applicatif">Diagnostique applicatif</a></h3>
 <p>Il est temps d'aller jeter un oeil aux logs applicatifs qui donne rapidement un résultat puisque nous avons l'erreur suivante:</p>
-<pre class="code-multiline"><code id="b4141f08740e45984785c4371a60ccb9">SQLSTATE[HY000]: General error: 2006 MySQL server has gone away at XXXXXXX {"device_os":"android","device_app_version":"5.12.1"}</code></pre>
+<pre class="code-multiline"><code id="a10462d863e7bdf24fd21978eff20e72">SQLSTATE[HY000]: General error: 2006 MySQL server has gone away at XXXXXXX</code></pre>
 <p>Nous avons donc bien une perturbation au niveau de la connectivité entre les instances applicatives et les instances de base de données, reste à déterminer la raison !</p>
 <p>À ce stade nous prenons contact avec l'équipe de développement applicatif afin de disposer de sa connaissance métier et fonctionnelle.</p>
 <h3 id="analyse-des-metriques" class="anchor-title"><a href="#analyse-des-metriques">Analyse des métriques</a></h3>
