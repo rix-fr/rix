@@ -355,40 +355,40 @@ Nous tentons une première approche en redémarrant les services PHP-FPM sur l'e
     <img src="/rix/pr/117/resized/content/images/blog/2023/post-mortem/network_web.jpg/bdb0e53c8e7700cd7fb63eb069c1b9d8.jpg" srcset="/rix/pr/117/resized/content/images/blog/2023/post-mortem/network_web.jpg/bdb0e53c8e7700cd7fb63eb069c1b9d8.jpg 1x,
 /rix/pr/117/resized/content/images/blog/2023/post-mortem/network_web.jpg/8cce76c7e7bf1df3c864a3a66bd2271e.jpg 2x," id="bdb0e53c8e7700cd7fb63eb069c1b9d8-jpg">
     <figcaption>
-      <span class="figure__legend">Bande passante - Instance applicative</span>
+      <span class="figure__legend">1.- Bande passante - Instance applicative</span>
     </figcaption>
 </figure>
 <figure>
     <img src="/rix/pr/117/resized/content/images/blog/2023/post-mortem/network_db.jpg/c9853f03496f05e254f1e692784ff9c5.jpg" srcset="/rix/pr/117/resized/content/images/blog/2023/post-mortem/network_db.jpg/c9853f03496f05e254f1e692784ff9c5.jpg 1x,
 /rix/pr/117/resized/content/images/blog/2023/post-mortem/network_db.jpg/412cb9cf6da17be08defe32ae888d3f5.jpg 2x," id="c9853f03496f05e254f1e692784ff9c5-jpg">
     <figcaption>
-      <span class="figure__legend">Bande passante - Instance base de données</span>
+      <span class="figure__legend">2.- Bande passante - Instance base de données</span>
     </figcaption>
 </figure>
 <figure>
     <img src="/rix/pr/117/resized/content/images/blog/2023/post-mortem/network_db_2.jpg/bd89ffdb7e4f9955ac21af37b9e23b3e.jpg" srcset="/rix/pr/117/resized/content/images/blog/2023/post-mortem/network_db_2.jpg/bd89ffdb7e4f9955ac21af37b9e23b3e.jpg 1x,
 /rix/pr/117/resized/content/images/blog/2023/post-mortem/network_db_2.jpg/3155bb88a4cac88509c3b717e9475e8d.jpg 2x," id="bd89ffdb7e4f9955ac21af37b9e23b3e-jpg">
     <figcaption>
-      <span class="figure__legend">Bande passante - Instance base de données (Saturation de la bande passante)</span>
+      <span class="figure__legend">3.- Bande passante - Instance base de données (Saturation de la bande passante)</span>
     </figcaption>
 </figure>
 <p><strong>Enfin du concret !</strong> On constate à l'aide de ces deux graphs une volumétrie de données d'échange <strong>anormalement élevée</strong> entre les instances applicatives et les instances de base de données.</p>
 <p><strong>Constat:</strong></p>
 <ul>
-<li>En entrée des instances applicatives nous avons un <strong>débit x20</strong> et <strong>une volumétrie qui passe de ~20/25MB en moyenne à 400MB</strong>;</li>
-<li>En sortie des instances de base de données un débit moyen <strong>x3</strong> et <strong>une volumétrie qui explose pour s'installer à hauteur d'1GB</strong>.</li>
+<li>En entrée des instances applicatives <strong>(1)</strong> nous avons un <strong>débit x20 qui passe de 2~2,5MB/s en moyenne à 45MB/s</strong> pour ensuite se stabiliser à hauteur de <strong>20~25MB/s</strong>;</li>
+<li>En sortie des instances de base de données <strong>(2)</strong> un débit moyen <strong>qui explose (x7) pour s'installer à hauteur de 150 MB/s</strong>.</li>
 </ul>
-<p>On constate surtout que cette volumétrie vient saturer la bande passante avec un bel « effet plafond » du graph concerné.</p>
+<p>On constate surtout que cette volumétrie vient saturer la bande passante avec un bel « effet plafond » du graph concerné <strong>(3)</strong>.</p>
 <p>Nous avons donc <strong>la cause de l'incident</strong> à savoir, la <strong>saturation de la bande passante entre les instances applicatives et les instances de base de données</strong>, ce qui conduit à une grosse attente au niveau PHP-FPM qui se retrouve dans <strong>l'incapacité de prendre de nouvelles connexions</strong> entrantes.</p>
-<p>Au passage, on voit ici l'importance de « caper » le nombre de connexions maximum que l'on autorise à PHP-FPM, dans le cas ou ce travail n'est pas/mal fait ou si aucun seuil n'est fixé, nous pouvons avoir potentiellement une perte complète de la connectivité à l'instance applicative qui peut impacter de manière significative le temps de rétablissement.</p>
+<p>Au passage, on voit ici l'importance de <strong>« caper » le nombre de connexions maximum</strong> que l'on autorise à PHP-FPM, dans le cas ou ce travail n'est pas et/ou mal fait ou si aucun seuil n'est fixé, nous pouvons avoir potentiellement une perte complète de la connectivité à l'instance applicative qui peut impacter de manière significative le temps de rétablissement.</p>
 <p>Nous avons l'origine du blocage, il nous faut à présent comprendre d'où cela vient, nous passons donc du côté serveur de base de données.</p>
 <h3 id="analyse-des-requetes-sql" class="anchor-title"><a href="#analyse-des-requetes-sql">Analyse des requêtes SQL</a></h3>
 <p>Afin d'identifier d'éventuelles requêtes problématiques nous jouons un <code class="code-inline" id="f58ea0ea6dd587b31c573ecd593c4ad3">SHOW PROCESSLIST</code> sur notre serveur de base de données et isolons les requêtes en cours d'exécution depuis <strong>plusieurs secondes</strong>.
 En rejouant l'une de ces requêtes nous constatons qu'elle est anormalement volumineuse (taille supérieure à <strong>5Mo</strong>).</p>
 <p>Plus spécifiquement elle « ramène » un champ d'une table bien précise et après échange avec les équipes applicatives il correspond à l'ajout d'un « relativement nouveau » fonctionnel, relativement parce qu'il a tout de même quelques semaines mais n'a, à priori pas été utilisé tout de suite par les utilisateurs finaux.</p>
-<p>Le champs en question permet de stocker du contenu libre saisi par l'utilisteur à l'aide d'un éditeur de contenu (À ce moment là, certains d'entre vous doivent avoir une idée de ce qu'il se passe ;)).</p>
+<p>Le champs en question permet de stocker du contenu libre saisi par l'utilisateur à l'aide d'un éditeur de contenu (À ce moment là, certain(e)s d'entre vous doivent avoir une idée de ce qu'il se passe ;)).</p>
 <p>Nous décidons de passer la publication concernée en « draft »... ce qui est sans influence directe sur la saturation de la bande passante.</p>
-<p>Nous élargissons notre champs de recherche, cette fois-ci en recherchant les lignes disposant d'un champ de contenu dont la taille est supérieure au Mo (<code class="code-inline" id="ac0b2369fb39729d9804a8b1fa31774e">SELECT id ... WHERE CHAR_LENGTH(content) &gt; 10000</code>), pour finalement identifier une centaine de lignes présentant la même problématique.</p>
+<p>Nous élargissons notre champs de recherche, cette fois-ci en recherchant les lignes disposant d'un champ de contenu <strong>dont la taille est supérieure au Mo</strong> (<code class="code-inline" id="ac0b2369fb39729d9804a8b1fa31774e">SELECT id ... WHERE CHAR_LENGTH(content) &gt; 10000</code>), pour finalement identifier une centaine de lignes présentant la même problématique.</p>
 <p>Vu la <strong>gravité de la situation</strong> (indisponibilité complète de l'application) et <strong>en concertation avec les équipes applicatives</strong> nous « dépublions » l'ensemble des contenus problématiques ce qui a pour effet de faire revenir les échanges de données à un seuil normal et de facto rendre <strong>à nouveau disponible l'applicatif</strong>.</p>
 <p>Dans le même temps les équipes applicatives auront préparé un « quick fix » désactivant la fonctionnalité, le temps de la retravailler.</p>
 <h3 id="le-fin-mot-de-l-histoire" class="anchor-title"><a href="#le-fin-mot-de-l-histoire">Le fin mot de l'histoire</a></h3>
