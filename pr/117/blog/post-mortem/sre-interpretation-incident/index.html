@@ -232,10 +232,10 @@
                                     <a href="#deroule-de-l-incident">Déroulé de l&#039;incident</a>
                                                                             <ol class="table-of-contents__sub-level">
                                                                                             <li>
-                                                    <a href="#diagnostique-infra">Diagnostique infra</a>
+                                                    <a href="#diagnostic-infra">Diagnostic infra</a>
                                                 </li>
                                                                                             <li>
-                                                    <a href="#diagnostique-applicatif">Diagnostique applicatif</a>
+                                                    <a href="#diagnostic-applicatif">Diagnostic applicatif</a>
                                                 </li>
                                                                                             <li>
                                                     <a href="#analyse-des-metriques">Analyse des métriques</a>
@@ -295,7 +295,7 @@ En fonction de sa gravité, l'incident infra peut passer inaperçu comme <strong
 <p><strong>En complément:</strong></p>
 <ul>
 <li>L'API répond principalement à une application mobile;</li>
-<li>Le back-office déclenche de l'envoi de notifications (parfois massives) vers ces mêmes applications.</li>
+<li>Le back-office déclenche l'envoi de notifications (~ 800 000/jour) vers ces mêmes applications.</li>
 </ul>
 <h2 id="deroule-de-l-incident" class="anchor-title"><a href="#deroule-de-l-incident">Déroulé de l'incident</a></h2>
 <ul>
@@ -315,8 +315,8 @@ En fonction de sa gravité, l'incident infra peut passer inaperçu comme <strong
   </figure>
 </div>
 <p>Nous <strong>notifions à notre client</strong> le début de l'incident et le début d'analyse pour remédiation.</p>
-<h3 id="diagnostique-infra" class="anchor-title"><a href="#diagnostique-infra">Diagnostique infra</a></h3>
-<p>Elles sont <strong>systématiques</strong> en cas d'incident et consistes en une checklist assez simple:</p>
+<h3 id="diagnostic-infra" class="anchor-title"><a href="#diagnostic-infra">Diagnostic infra</a></h3>
+<p>Elles sont <strong>systématiques</strong> en cas d'incident et consistent en une checklist assez simple:</p>
 <ul>
 <li>Vérification de l'état des instances;</li>
 <li>Vérification d'un incident déclaré chez le fournisseur de cloud (ici OVHCloud);</li>
@@ -341,11 +341,11 @@ En fonction de sa gravité, l'incident infra peut passer inaperçu comme <strong
 /rix/pr/117/resized/content/images/blog/2023/post-mortem/netstat.jpg/0047ca9060a60a16a5c470387107e90f.jpg 2x," id="2be0fdc956da99803fe72b8d43ba31ef-jpg">
   <p>Nous disposons toutefois d'un premier indice <strong>au niveau réseau</strong>, puisque nous constatons une augmentation des connexions « ouvertes » et une chute flagrante des connexions en attente de fermeture.</p>
 </div>
-<p>Nous avons également constaté que les médias applicatifs sont biens disponibles et que nous n'avons pas de coupure vers les espaces de stockage distants.</p>
+<p>Nous avons également constaté que les médias applicatifs sont bien disponibles et que nous n'avons pas de coupure vers les espaces de stockage distants.</p>
 <p>À ce stade nous avons donc une infra fonctionnelle mais une application « dans les choux ».
-Nous tentons une première approche en redémarrant les services PHP-FPM sur l'ensemble des instances, ceux-ci se retrouvent rapidement à nouveau saturés et hors service, comportement qui semble confirmer un soucis d'ordre applicatif.</p>
-<h3 id="diagnostique-applicatif" class="anchor-title"><a href="#diagnostique-applicatif">Diagnostique applicatif</a></h3>
-<p>Il est temps d'aller jeter un oeil aux logs applicatifs qui donne rapidement un résultat puisque nous avons l'erreur suivante:</p>
+Nous tentons une première approche en redémarrant les services PHP-FPM sur l'ensemble des instances, ceux-ci se retrouvent rapidement à nouveau saturés et hors service, comportement qui semble confirmer un souci d'ordre applicatif.</p>
+<h3 id="diagnostic-applicatif" class="anchor-title"><a href="#diagnostic-applicatif">Diagnostic applicatif</a></h3>
+<p>Il est temps d'aller jeter un oeil aux logs applicatifs qui donnent rapidement un résultat puisque nous avons l'erreur suivante:</p>
 <pre class="code-multiline"><code id="a10462d863e7bdf24fd21978eff20e72">SQLSTATE[HY000]: General error: 2006 MySQL server has gone away at XXXXXXX</code></pre>
 <p>Nous avons donc bien une perturbation au niveau de la connectivité entre les instances applicatives et les instances de base de données, reste à déterminer la raison !</p>
 <p>À ce stade nous prenons contact avec l'équipe de développement applicatif afin de disposer de sa connaissance métier et fonctionnelle.</p>
@@ -386,9 +386,9 @@ Nous tentons une première approche en redémarrant les services PHP-FPM sur l'e
 <p>Afin d'identifier d'éventuelles requêtes problématiques nous jouons un <code class="code-inline" id="f58ea0ea6dd587b31c573ecd593c4ad3">SHOW PROCESSLIST</code> sur notre serveur de base de données et isolons les requêtes en cours d'exécution depuis <strong>plusieurs secondes</strong>.
 En rejouant l'une de ces requêtes nous constatons qu'elle est anormalement volumineuse (taille supérieure à <strong>5Mo</strong>).</p>
 <p>Plus spécifiquement elle « ramène » un champ d'une table bien précise et après échange avec les équipes applicatives il correspond à l'ajout d'un « relativement nouveau » fonctionnel, relativement parce qu'il a tout de même quelques semaines mais n'a, à priori pas été utilisé tout de suite par les utilisateurs finaux.</p>
-<p>Le champs en question permet de stocker du contenu libre saisi par l'utilisateur à l'aide d'un éditeur de contenu (À ce moment là, certain(e)s d'entre vous doivent avoir une idée de ce qu'il se passe ;)).</p>
+<p>Le champ en question permet de stocker du contenu libre saisi par l'utilisateur à l'aide d'un éditeur de contenu (À ce moment là, certain(e)s d'entre vous doivent avoir une idée de ce qu'il se passe ;)).</p>
 <p>Nous décidons de passer la publication concernée en « draft »... ce qui est sans influence directe sur la saturation de la bande passante.</p>
-<p>Nous élargissons notre champs de recherche, cette fois-ci en recherchant les lignes disposant d'un champ de contenu <strong>dont la taille est supérieure au Mo</strong> (<code class="code-inline" id="ac0b2369fb39729d9804a8b1fa31774e">SELECT id ... WHERE CHAR_LENGTH(content) &gt; 10000</code>), pour finalement identifier une centaine de lignes présentant la même problématique.</p>
+<p>Nous élargissons notre champ de recherche, cette fois-ci en recherchant les lignes disposant d'un champ de contenu <strong>dont la taille est supérieure au Mo</strong> (<code class="code-inline" id="ac0b2369fb39729d9804a8b1fa31774e">SELECT id ... WHERE CHAR_LENGTH(content) &gt; 10000</code>), pour finalement identifier une centaine de lignes présentant la même problématique.</p>
 <p>Vu la <strong>gravité de la situation</strong> (indisponibilité complète de l'application) et <strong>en concertation avec les équipes applicatives</strong> nous « dépublions » l'ensemble des contenus problématiques ce qui a pour effet de faire revenir les échanges de données à un seuil normal et de facto rendre <strong>à nouveau disponible l'applicatif</strong>.</p>
 <p>Dans le même temps les équipes applicatives auront préparé un « quick fix » désactivant la fonctionnalité, le temps de la retravailler.</p>
 <h3 id="le-fin-mot-de-l-histoire" class="anchor-title"><a href="#le-fin-mot-de-l-histoire">Le fin mot de l'histoire</a></h3>
@@ -396,12 +396,12 @@ En rejouant l'une de ces requêtes nous constatons qu'elle est anormalement volu
 Cerise sur le gateau, nous sommes en 2023 et les images « brutes » pèsent souvent plusieurs Mo.</p>
 <h2 id="conclusion" class="anchor-title"><a href="#conclusion">Conclusion</a></h2>
 <p>Ce cas est une parfaite illustration de ce que l'on peut avoir comme incident avec une application web, bien que l'origine soit assez sournoise, en effet il n'est pas déclenché par une mise à jour récente mais par un fonctionnel développé il y a plusieurs semaines, mais mis en avant que récemment.
-De plus, en première lecture, il n'y a pas d'incident apparant, ni charge anormale des instances, ni pépin réseau.</p>
-<p>Les logs applicatifs permettent de s'orienter vers une cause probable de l'indisponibilité mais ne sont pas suffisant pour identifier de manière précise son origine, c'est leur corrélation avec la lecture des métriques qui permet de gagner énormément de temps sur le diagnostic et ainsi cerner le problème.</p>
+De plus, en première lecture, il n'y a pas d'incident apparent, ni charge anormale des instances, ni pépin réseau.</p>
+<p>Les logs applicatifs permettent de s'orienter vers une cause probable de l'indisponibilité mais ne sont pas suffisants pour identifier de manière précise son origine, c'est leur corrélation avec la lecture des métriques qui permet de gagner énormément de temps sur le diagnostic et ainsi cerner le problème.</p>
 <p>Les équipes applicatives sont un renfort précieux, pour dans un premier temps, fournir les informations de dernières mises à jour ou d'arrivée de nouveau fonctionnel (et surtout de mettre en relation un fonctionnel et un schéma de données) et dans un second temps pour corriger (même temporairement) le code, afin d'éviter une rechute inévitable.</p>
 <h2 id="ce-qu-il-faut-en-retenir" class="anchor-title"><a href="#ce-qu-il-faut-en-retenir">Ce qu'il faut en retenir</a></h2>
 <ul>
-<li>Éviter de stocker des médias en base de données qui plus est dans un champs « texte »</li>
+<li>Éviter de stocker des médias en base de données qui plus est dans un champ « texte »</li>
 <li>Méfiez-vous des éditeurs de contenus riches et prenez le temps de bien les intégrer / configurer. Entre les potentiels dépôts de fichiers sauvages qui peuvent mettre en cause la sécurité applicative, l'injection de scripts et l'ajout de médias non optimisés c'est une source d'ennuis sans fin</li>
 <li>Monitorez vos infras !</li>
 <li>Intégrer les équipes applicatives au diagnostic</li>
