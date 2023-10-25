@@ -5,7 +5,7 @@
         <description>Découvrez nos articles techniques (ou non), rédigés par les membres de l'équipe Rix !</description>
         <copyright>Rix - L’utilisation des flux RSS de rix.fr est réservée à un usage strictement personnel, non professionnel et non collectif. Toute autre exploitation doit faire l’objet d’une autorisation et donner lieu au versement d’une rémunération. Contact : contact@rix.fr</copyright>
         <link>https://rix-fr.github.io/rix/pr/118/blog</link>
-        <pubDate>Tue, 24 Oct 2023 14:34:02 +0000</pubDate>
+        <pubDate>Wed, 25 Oct 2023 16:19:49 +0000</pubDate>
         <language>fr</language>
         <image>
             <url>https://rix-fr.github.io/rix/pr/118/apple-touch-icon.png</url>
@@ -13,6 +13,23 @@
             <link>https://rix-fr.github.io/rix/pr/118/blog</link>
         </image>
         <atom:link href="https://rix-fr.github.io/rix/pr/118/blog/rss.xml" rel="self" type="application/rss+xml"/>
+                <item>
+            <title>Ansible - Un environnement de travail clé en main avec Lazy Ansible.</title>
+            <pubDate>Tue, 24 Oct 2023 00:00:00 +0000</pubDate>
+            <description>
+                <![CDATA[ Utilisation de la recipe Lazy Ansible du projet Manala pour mettre en oeuvre un environnement de travail dédié Ansible. ]]>
+            </description>
+            <guid isPermaLink="true">https://rix-fr.github.io/rix/pr/118/blog/cours/ansible/ansible-environnement-cle-en-main</guid>
+            <link>https://rix-fr.github.io/rix/pr/118/blog/cours/ansible/ansible-environnement-cle-en-main</link>
+            <media:content url="https://rix-fr.github.io/rix/pr/118/resized/content/images/blog/thumbnails/keep-it-easy.jpg/b2f82e9b71553306093e52a8fa7212dd.jpg" width="1200" height="627">
+                <media:description type="plain">Ansible - Un environnement de travail clé en main avec Lazy Ansible.</media:description>
+                                    <media:credit role="photographer" scheme="urn:ebu">Claudio Schwarz, https://unsplash.com/@purzlbaum</media:credit>
+                            </media:content>
+                            <category>cours</category>
+                            <category>ansible</category>
+                            <category>automation</category>
+                            <category>manala</category>
+                                </item>
                 <item>
             <title>Ansible - Découverte et premiers pas.</title>
             <pubDate>Tue, 24 Oct 2023 00:00:00 +0000</pubDate>
@@ -36,9 +53,9 @@
             </description>
             <guid isPermaLink="true">https://rix-fr.github.io/rix/pr/118/blog/cours/cle-ssh-principes-de-base</guid>
             <link>https://rix-fr.github.io/rix/pr/118/blog/cours/cle-ssh-principes-de-base</link>
-            <media:content url="https://rix-fr.github.io/rix/pr/118/resized/content/images/blog/thumbnails/zsh.jpg/985de3f6cb7e319c4763d6fd2c992f0d.jpg" width="1200" height="627">
+            <media:content url="https://rix-fr.github.io/rix/pr/118/resized/content/images/blog/thumbnails/matrix.jpg/9a8de98a2ee52d05899111990f8e4aa6.jpg" width="1200" height="627">
                 <media:description type="plain">Principes de base de l&#039;utilisation de clés SSH.</media:description>
-                                    <media:credit role="photographer" scheme="urn:ebu">Mohammad Rahmani, https://unsplash.com/@afgprogrammer</media:credit>
+                                    <media:credit role="photographer" scheme="urn:ebu">Markus Spiske, https://unsplash.com/@markusspiske</media:credit>
                             </media:content>
                             <category>cours</category>
                             <category>ssh</category>
