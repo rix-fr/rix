@@ -285,17 +285,17 @@
 <pre class="code-multiline"><code id="b1a1b175ea0d1dfb453161746a5f9877">ssh -i ~/.ssh/id25519 user@server_address</code></pre>
 <h2 id="generation-d-une-paire-de-cles" class="anchor-title"><a href="#generation-d-une-paire-de-cles">Génération d'une paire de clés</a></h2>
 <p>Le principe de l'authentification par clés repose, comme explicité sur les différents liens ci-dessus, par la création d'une paire de clés asymétriques.
-L'un de ces clés sera votre clé <strong>publique</strong> à déployer sur les machines auxquelles vous avez le droit de vous connecter, l'autre votre clé <strong>privée</strong> et comme son nom l'indique, celle-ci est à vous et rien qu'à vous, elle ne se partage pas, <strong>jamais</strong>.</p>
+L'un de ces clés sera votre clé <strong>publique</strong> à déployer sur les machines auxquelles vous avez le droit de vous connecter, l'autre votre clé <strong>privée</strong> et comme son nom l'indique, celle-ci est à vous et rien qu'à vous, elle ne se partage pas, <strong>JAMAIS</strong>.</p>
 <p>Deux notions de base avant de se lancer pour bien comprendre ce que l'on fait:</p>
 <ul>
-<li>Il existe plusieurs types d'<strong>algorithmes de signature numérique</strong>, les plus répandus étant <strong><a href="https://fr.wikipedia.org/wiki/Chiffrement_RSA" target="_blank">RSA</a></strong> et <strong><a href="https://fr.wikipedia.org/wiki/EdDSA" target="_blank">Ed25519</a></strong>.</li>
-<li>Il est possible de spécifier la longueur de vos clés, ce paramètre est essentiel à leur <strong>robustesse</strong></li>
+<li>Il existe plusieurs types d'<strong>algorithmes de signature numérique</strong>, les plus répandus étant <strong><a href="https://fr.wikipedia.org/wiki/Chiffrement_RSA" target="_blank">RSA</a></strong> et <strong><a href="https://fr.wikipedia.org/wiki/EdDSA" target="_blank">Ed25519</a></strong>;</li>
+<li>Il est possible de spécifier la longueur de vos clés, ce paramètre est essentiel à leur <strong>robustesse</strong>.</li>
 </ul>
-<p>Il est recommandé, à la date de rédaction de cet article, d'utiliser une longueur de clé de <strong>4096 bits</strong> ainsi que l'algorithme <strong>Ed25519</strong> qui a plusieurs avantages comparativement à RSA:</p>
+<p>Il est recommandé, à la date de rédaction de cet article, d'utiliser l'algorithme <strong>Ed25519</strong> qui a plusieurs avantages comparativement à RSA:</p>
 <ul>
-<li>Robustesse accrue</li>
-<li>Plus petite taille de clés</li>
-<li>Génération des clés plus rapide</li>
+<li>Robustesse accrue;</li>
+<li>Plus petite taille de clés;</li>
+<li>Génération des clés plus rapide.</li>
 </ul>
 <pre class="code-multiline"><code id="413fac48b924f9817b9e9fd4c73e32c6">ssh-keygen -t ed25519 -a 150 -C "courriel@example.com"</code></pre>
 <figure>
@@ -313,13 +313,13 @@ L'un de ces clés sera votre clé <strong>publique</strong> à déployer sur les
 </div>
 <p>Cette commande vous aura généré deux fichiers dans le répertoire <code class="code-inline" id="f5f67a065f758bf3e6bae82fd34ab3a2">~/.ssh/</code> (sauf si vous l'avez modifié bien évidemment):</p>
 <ul>
-<li><code class="code-inline" id="488bdb839a21688d6126300d9f09fbe9">id_ed25519.pub</code> (comme son extension l'indique c'est votre clé <strong>publique</strong>)</li>
-<li><code class="code-inline" id="6e20e3f5ea6fcfc0bca06bf93c1b7aeb">id_ed25519</code> votre clé <strong>privée</strong> (on remarquera les droits qui lui sont appliqués <code class="code-inline" id="bf8eba0d2a296e4e801f774cf5deb67f">0600</code>, en effet seul votre utilisateur doit y avoir accès)</li>
+<li><code class="code-inline" id="488bdb839a21688d6126300d9f09fbe9">id_ed25519.pub</code> (comme son extension l'indique c'est votre clé <strong>publique</strong>);</li>
+<li><code class="code-inline" id="6e20e3f5ea6fcfc0bca06bf93c1b7aeb">id_ed25519</code> votre clé <strong>privée</strong> (on remarquera les droits qui lui sont appliqués <code class="code-inline" id="bf8eba0d2a296e4e801f774cf5deb67f">0600</code>, en effet seul votre utilisateur doit y avoir accès).</li>
 </ul>
 <div class="admonition info">
 <p class="admonition-title">Générer une clé RSA</p>
 <p>
-    Ed25519 n'étant de temps en temps pas supporté (surtout par les anciens systèmes) il est parfois nécessaire de générer une paire de clé RSA:
+    Ed25519 n'étant de temps en temps pas supporté (surtout par les anciens systèmes) il est parfois nécessaire de générer une paire de clé RSA (on remarquera la longueur de clé de <strong>4096 bits</strong> recommandée à date de rédaction de l'article):
     <code class="code-inline" id="349e1e9e559f33c91688c962f613aacf">ssh-keygen -t rsa -a 150 -b 4096</code>
 </p>
 </div>
@@ -344,7 +344,7 @@ Imaginons un serveur pour lequel votre clé est authorisée à se connecter (pou
 <p>Si vous disposez de plusieurs clés SSH et que vous ne souhaitez pas que l'ensemble de vos clés privées soient soumises au serveur distant vous pouvez spécifier quelle clé utiliser en utilisant l'option <code class="code-inline" id="20f011826070657b0f0092278d65ec74">-i</code>.</p>
 <pre class="code-multiline"><code id="1447b20008cc99325cebf30676ffa256">ssh -i ~/.ssh/id25519 debian@146.59.243.95</code></pre>
 <p>Il est possible d'utiliser <strong>des syntaxes différentes</strong> en fonction de votre <a href="/blog/cours/utiliser-la-configuration-ssh-client">fichier de configuration SSH</a>.</p>
-<p>Vous pouvez ainsi agir sur les comportements par défaut de votre client SSH et notamment quel clé utiliser en fonction de tel ou tel serveur.</p>
+<p>Vous pouvez ainsi agir sur les comportements par défaut de votre client SSH et notamment sur la clé à utiliser en fonction de tel ou tel serveur.</p>
 <h2 id="aller-plus-loin-avec-les-sources" class="anchor-title"><a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a></h2>
 <ul>
 <li><a href="https://fr.wikipedia.org/wiki/Secure_Shell" target="_blank">https://fr.wikipedia.org/wiki/Secure_Shell</a></li>
