@@ -34,9 +34,6 @@ class Member
 
     public ?string $phone = null;
 
-    /** @var string[] */
-    public array $certifications = [];
-
     public ?array $emojis = [];
 
     // Flags

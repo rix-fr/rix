@@ -1,0 +1,69 @@
+{% import "macros.html.twig" as macros %}
+
+{% extends 'base.html.twig' %}
+
+{% block meta_title -%}
+    Glossaire | {{ parent() }}
+{%- endblock %}
+
+{% block meta_description -%}
+    {# TODO #}
+{%- endblock %}
+
+{% block body_class 'page-glossary' %}
+
+{% block content %}
+    <div class="container">
+        <div class="banner-glossary">
+            <div class="banner-glossary__content">
+                <h1>
+                    Glossaire
+                    <span>des projets web</span>
+                </h1>
+                <p>Notre quotidien est fait de termes qui le rendent parfois un peu inaccessible. Si c’est un peu comme notre deuxième langue (et encore, il n’est pas impossible qu’on n’arrive pas toujours à se comprendre 🙈), ce n’est pas nécessairement le cas de nos clients.</p>
+            </div>
+            <img src="{{ asset('build/images/pages/glossary/glossary-banner.svg') }}" class="banner-glossary__image" alt="">
+        </div>
+        <!-- Todo : remove placeholder inline-style ⬆ -->
+
+        <div class="glossary">
+            {% for column in glossary %}
+                <ul class="glossary-list">
+                    {% for letter, group in column %}
+                        {% for term in group %}
+                            <li class="glossary-list__item {{ loop.first ? 'glossary-list__item--' ~ letter : '' }}">
+                                <a href="{{ path('glossary_term', { term: term.slug })}}">
+                                    {{ term.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </div>
+
+        <h2 class="h2--dash">Pour aller encore plus loin dans le quotidien d'un projet web, découvrez notre blog</h2>
+
+        <ul class="article-list">
+            {% for article in articles %}
+                {% set url = path('blog_article', { article: article.slug }) %}
+                <li class="miniature aos-init aos-animate fade-in" data-aos="fade-in" data-aos-delay="{{ (loop.index / loop.length)|round(0, 'ceil') * 150 }}">
+                    <a href="{{ url }}" class="miniature__image">
+                        <span class="image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.sm') }}">
+                        </span>
+                    </a>
+                    <div class="miniature__content">
+                        <a href="{{ url }}" class="title">{{ article.title }}</a>
+                        <p class="description">{{ article.description }}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{{ path('blog') }}" class="btn btn--secondary btn--animated">
+            <span>
+                Tous les articles
+            </span>
+        </a>
+    </div>
+{% endblock %}

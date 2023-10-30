@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% import "macros.html.twig" as macros %}
+
+{% block meta_title term.metaTitle ?? term.name %}
+{% block meta_description term.metaDescription ?? term.description ?? term.name %}
+
+{% block body_class 'page-glossary-term' %}
+
+{% block content %}
+    {# TODO: breadcrumb or link to tet back to glossary page ? #}
+
+    <div class="container" style="background: white">
+        <div>
+            <h1>
+                {{ term.name }}
+            </h1>
+
+            {% if term.logo is not empty %}
+                <div>
+                    <img src="{{ asset(term.logo) }}" alt="logo de {{ term.name }}">
+                </div>
+            {% endif %}
+
+
+            {% if term.externalLink is not empty %}
+                <div>
+                    <a href="{{ term.externalLink }}">Lien vers le site officiel</a>
+                </div>
+            {% endif %}
+        </div>
+
+        <div>
+            {{ term.content|raw }}
+
+            <hr/>
+
+            {# Related case-studies #}
+            {% if caseStudies is not empty %}
+                <h2 class="h2--dash">Projets créés avec {{ term.name }}</h2>
+                <ul class="article-list">
+                    {% for caseStudy in caseStudies %}
+                        {% set url = path('case_study', { caseStudy: caseStudy.slug }) %}
+                        <li class="miniature">
+                            <a href="{{ url }}" class="miniature__image">
+                                <span class="image" style="{{ macros.backgroundImageSrcset(caseStudy.images|first, 'case_study_thumbnail.md') }}"></span>
+                            </a>
+                            <div class="miniature__content">
+                                <a href="{{ url }}" class="title">{{ caseStudy.title }}</a>
+                                <p class="description">{{ caseStudy.description }}</p>
+                                <a href="{{ url }}" class="link link--brand">Lire l'étude de cas</a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {# Related articles #}
+            {% if articles is not empty %}
+                <h2 class="h2--dash">Articles liés à {{ term.name }}</h2>
+                <ul class="article-list">
+                    {% for article in articles %}
+                        {% set url = path('blog_article', { article: article.slug }) %}
+                        <li class="miniature">
+                        <a href="{{ url }}" class="miniature__image">
+                            <span class="image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.sm') }}"></span>
+                        </a>
+                        <div class="miniature__content">
+                            <a href="{{ url }}" class="title">{{ article.title }}</a>
+                            <a href="{{ url }}" class="link link--brand">Lire l'article</a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}
