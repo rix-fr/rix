@@ -87,7 +87,7 @@ Encore
         options.liveReload = true;
         options.watchFiles = [
             'templates/**/*.twig',
-            'content/**/*.yaml',
+            'content/**/*.{yaml,md}',
         ];
     })
 ;

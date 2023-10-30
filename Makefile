@@ -1,6 +1,13 @@
 .SILENT:
 .PHONY: build
 
+PORT_PREFIX = 429
+PROJECT_DOMAIN = www.rix.ela.ooo
+
+define manala_project_host
+$(PROJECT_DOMAIN)$(if $(1),:$(PORT_PREFIX)$(shell printf "%02d" $(1)))
+endef
+
 -include .manala/Makefile
 
 ###########
@@ -25,12 +32,19 @@ serve:
 	npx concurrently "make serve.php" "make serve.assets" --names="Symfony,Webpack" --prefix=name --kill-others --kill-others-on-fail
 
 ## Dev - Start Symfony server
+serve.php: export SYMFONY_PORT ?= $(PORT_PREFIX)80
 serve.php:
-	symfony server:start --no-tls
+	$(call manala_message, Will be available at http://$(call manala_project_host):$(SYMFONY_PORT) )
+	-open http://www.rix.ela.ooo:$(SYMFONY_PORT)
+	symfony server:start --no-tls --port=$(SYMFONY_PORT)
 
 ## Dev - Start webpack dev server with HMR (Hot reload)
+serve.assets: export WEBPACK_PORT ?= $(PORT_PREFIX)81
 serve.assets:
-	npx encore dev-server --mode=development
+	npx encore dev-server \
+		--mode=development \
+		--port=$(WEBPACK_PORT) \
+		--host=$(PROJECT_DOMAIN)
 
 ## Dev - Watch assets
 watch.assets:
