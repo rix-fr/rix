@@ -21,10 +21,7 @@ class BlogController extends AbstractController
         $this->manager = $manager;
     }
 
-    #[Route(name: 'blog',
-        // TODO: remove options.stenope.sitemap: false when blog is ready
-        options: ['stenope' => ['sitemap' => false]]),
-    ]
+    #[Route(name: 'blog')]
     #[Route('/page/{!page}', name: 'blog_page', requirements: ['page' => '\d+'])]
     public function index(int $page = 1, int $perPage = 10): Response
     {
@@ -39,14 +36,8 @@ class BlogController extends AbstractController
         ])->setLastModified(\count($pageArticles) > 0 ? ContentUtils::max($pageArticles, 'lastModifiedOrCreated') : null);
     }
 
-    #[Route('/tag/{tag}', name: 'blog_tag',
-        // TODO: remove options.stenope.ignore when blog is ready
-        options: ['stenope' => ['ignore' => true]]),
-    ]
-    #[Route('/tag/{tag}/{!page}', name: 'blog_tag_page', requirements: ['page' => '\d+'],
-        // TODO: remove options.stenope.ignore when blog is ready
-        options: ['stenope' => ['ignore' => true]]),
-    ]
+    #[Route('/tag/{tag}', name: 'blog_tag')]
+    #[Route('/tag/{tag}/{!page}', name: 'blog_tag_page', requirements: ['page' => '\d+'])]
     public function tag(string $tag, int $page = 1, int $perPage = 20): Response
     {
         $articles = $this->manager->getContents(
@@ -66,10 +57,7 @@ class BlogController extends AbstractController
         ])->setLastModified(\count($pageArticles) > 0 ? ContentUtils::max($pageArticles, 'lastModifiedOrCreated') : null);
     }
 
-    #[Route('/{article}', name: 'blog_article', requirements: ['article' => '.+'],
-        // TODO: remove options.stenope.sitemap: false when blog is ready
-        options: ['stenope' => ['sitemap' => false]])
-    ]
+    #[Route('/{article}', name: 'blog_article', requirements: ['article' => '.+'])]
     public function article(Article $article): Response
     {
         return $this->render('blog/article.html.twig', [
