@@ -1,0 +1,22 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/rix/pr/120/build/runtime.1f38ba08.js",
+        "/rix/pr/120/build/70.671fda9c.js",
+        "/rix/pr/120/build/app.e999eb99.js"
+      ],
+      "css": [
+        "/rix/pr/120/build/305.c723b333.css"
+      ]
+    },
+    "style": {
+      "js": [
+        "/rix/pr/120/build/runtime.1f38ba08.js"
+      ],
+      "css": [
+        "/rix/pr/120/build/305.c723b333.css"
+      ]
+    }
+  }
+}
