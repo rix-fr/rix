@@ -13,57 +13,73 @@
 {% block body_class 'page-glossary' %}
 
 {% block content %}
-    <div class="container">
-        <div class="banner-glossary">
-            <div class="banner-glossary__content">
-                <h1>
-                    Glossaire
-                    <span>des projets web</span>
-                </h1>
-                <p>Notre quotidien est fait de termes qui le rendent parfois un peu inaccessible. Si c’est un peu comme notre deuxième langue (et encore, il n’est pas impossible qu’on n’arrive pas toujours à se comprendre 🙈), ce n’est pas nécessairement le cas de nos clients.</p>
-            </div>
-            <img src="{{ asset('build/images/pages/glossary/glossary-banner.svg') }}" class="banner-glossary__image" alt="">
+    <div class="banner banner--blog">
+        <div class="container">
+            <h1>Glossaire <strong>/</strong></h1>
+            <p>Notre quotidien est fait de termes qui le rendent parfois un peu inaccessible.</p>
+            <p>Si c’est un peu comme notre deuxième langue (et encore, il n’est pas impossible qu’on n’arrive pas toujours à se comprendre), ce n’est pas nécessairement le cas de nos clients.</p>
         </div>
-        <!-- Todo : remove placeholder inline-style ⬆ -->
+    </div>
 
-        <div class="glossary">
-            {% for column in glossary %}
-                <ul class="glossary-list">
-                    {% for letter, group in column %}
-                        {% for term in group %}
-                            <li class="glossary-list__item {{ loop.first ? 'glossary-list__item--' ~ letter : '' }}">
-                                <a href="{{ path('glossary_term', { term: term.slug })}}">
-                                    {{ term.name }}
-                                </a>
-                            </li>
-                        {% endfor %}
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- bevel shape --></div>
+            <div class="container content">
+                <div class="glossary">
+                    {% for column in glossary %}
+                        <ul class="glossary-list">
+                            {% for letter, group in column %}
+                                {% for term in group %}
+                                    <li class="glossary-list__item {{ loop.first ? 'glossary-list__item--' ~ letter : '' }}">
+                                        <a href="{{ path('glossary_term', { term: term.slug })}}">
+                                            {{ term.name }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+                </div>
+
+                <h2 class="h2--large"><span>Jetez un oeil à</span> notre blog</h2>
+                <p>Pour aller encore plus loin dans le quotidien d'un projet web, en apprendre plus sur notre métier, sur nos retours d'expérience.</p>
+                <ul class="miniature-list">
+                    {% for article in articles %}
+                        {% set url = path('blog_article', { article: article.slug }) %}
+                        <li class="miniature">
+                            <a href="{{ path('blog_article', { article: article.slug }) }}">
+                                <div class="miniature__image">
+                                    <span class="image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.sm') }}"></span>
+                                </div>
+                                <div class="miniature__content">
+                                    <h2 class="h3">{{ article.title }}</h2>
+                                    <p>{{ article.description }}</p>
+                                    <ul class="tags-list">
+                                        {% for tag in article.tags %}
+                                            <li class="tags-list__item">
+                                                #{{ tag|u.camel.title }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <span class="sliding-button sliding-button--mobile">
+                                        <span class="sliding-button__content">
+                                            <i class="icon icon--arrow-right" aria-hidden="true"></i>
+                                            Lire l'article
+                                        </span>
+                                    </span>
+                                </div>
+                            </a>
+                        </li>
                     {% endfor %}
                 </ul>
-            {% endfor %}
-        </div>
-
-        <h2 class="h2--dash">Pour aller encore plus loin dans le quotidien d'un projet web, découvrez notre blog</h2>
-
-        <ul class="article-list">
-            {% for article in articles %}
-                {% set url = path('blog_article', { article: article.slug }) %}
-                <li class="miniature aos-init aos-animate fade-in" data-aos="fade-in" data-aos-delay="{{ (loop.index / loop.length)|round(0, 'ceil') * 150 }}">
-                    <a href="{{ url }}" class="miniature__image">
-                        <span class="image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.sm') }}">
+                <div>
+                    <a href="{{ path('blog') }}" class="button">
+                        <span>
+                            Tous les articles
                         </span>
                     </a>
-                    <div class="miniature__content">
-                        <a href="{{ url }}" class="title">{{ article.title }}</a>
-                        <p class="description">{{ article.description }}</p>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-
-        <a href="{{ path('blog') }}" class="btn btn--secondary btn--animated">
-            <span>
-                Tous les articles
-            </span>
-        </a>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

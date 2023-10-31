@@ -1,0 +1,11 @@
+@use '../abstracts' as *;
+
+.page-glossary {
+  .banner {
+    height: 1550px;
+  }
+
+  main {
+    background-image: none; // remove background-image to prevent ugliness when not much content on page
+  }
+}
