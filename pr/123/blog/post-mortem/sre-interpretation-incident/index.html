@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Interprétation et diagnostic d&#039;un incident en production.</title>
+
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/rix/pr/123/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/rix/pr/123/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/rix/pr/123/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/rix/pr/123/favicon-16x16.png">
+        <link rel="manifest" href="/rix/pr/123/site.webmanifest">
+                <link rel="shortcut icon" href="/rix/pr/123/favicon.ico">
+        <meta name="msapplication-TileColor" content="#ff4344">
+        <meta name="msapplication-config" content="/rix/pr/123/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+                        <meta name="description" content="Interprétation pas à pas d&#039;un incident sur infrastructures applicatives, cas pratique d&#039;un incident vécu." />
+            <link rel="canonical" href="https://rix-fr.github.io/rix/pr/123/blog/post-mortem/sre-interpretation-incident" />
+
+            <!-- Open Graph / Facebook -->
+                                        <meta property="og:type" content="website">
+                        <meta property="og:title" content="Interprétation et diagnostic d&#039;un incident en production." />
+            <meta property="og:locale" content="fr" />
+            <meta property="og:description" content="Interprétation pas à pas d&#039;un incident sur infrastructures applicatives, cas pratique d&#039;un incident vécu." />
+            <meta property="og:url" content="https://rix-fr.github.io/rix/pr/123/blog/post-mortem/sre-interpretation-incident" />
+            <meta property="og:site_name" content="rix" />
+
+                                        <meta property="og:image" content="https://rix-fr.github.io/rix/pr/123/resized/content/images/blog/thumbnails/thisisengineering.jpg/ed9effd75cf35b088fcedcd589759c7b.jpg">
+                                                    <meta property="og:image:alt" content="Rix - Expertise et outillage DevOps">
+            
+            <!-- Twitter -->
+            <meta property="twitter:card" content="summary_large_image">
+            <meta property="twitter:title" content="Interprétation et diagnostic d&#039;un incident en production.">
+            <meta property="twitter:description" content="Interprétation pas à pas d&#039;un incident sur infrastructures applicatives, cas pratique d&#039;un incident vécu.">
+            <meta property="twitter:site" content="@rix_fr">
+            <meta property="twitter:creator" content="@rix_fr">
+                                        <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/123/resized/content/images/blog/thumbnails/thisisengineering.jpg/01fb9421473fc2004327195b8776f337.jpg">
+                                <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": "Interprétation et diagnostic d'un incident en production.",
+    "image": [
+        "https://rix-fr.github.io/rix/pr/123/blog/post-mortem/content/images/blog/thumbnails/thisisengineering.jpg"
+    ],
+    "datePublished": "16 octobre 2023",
+    "dateModified": "16 octobre 2023",
+    "author": [
+        {
+            "@type": "Person",
+            "name": "La team Rix"
+        }
+    ],
+    "keywords": [
+        "Sre",
+        "Devops",
+        "Incident",
+        "Post mortem"
+    ]
+}
+    </script>
+            
+
+    <link rel="alternate" type="application/rss+xml" href="/rix/pr/123/blog/rss.xml" title="Le blog de l'équipe Rix" />
+
+                            <meta name="robots" content="noindex" />
+        
+        <script>
+                        document.querySelector('html').classList.remove('no-js');
+        </script>
+
+                    <link rel="stylesheet" href="/rix/pr/123/build/305.deb5b298.css">
+        
+                    <script src="/rix/pr/123/build/runtime.1f34a8d9.js" defer></script><script src="/rix/pr/123/build/70.671fda9c.js" defer></script><script src="/rix/pr/123/build/app.e999eb99.js" defer></script>
+
+                        <script defer src="https://comments.rix.fr/comentario.js"></script>
+        
+    </head>
+    <body class="page-article">
+                    <header class="header">
+                <div class="container">
+                    <a href="/rix/pr/123/">
+                        <img src="/rix/pr/123/build/images/logos/logo-horizontal.ae7b8485.svg" alt="" class="logo">
+                        <span class="screen-reader">Retour à l'accueil</span>
+                    </a>
+
+                                            <nav class="nav">
+    <ul>
+                                    <li class="nav__item ">
+                    <a href="/rix/pr/123/">
+                        <span>Accueil</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/123/services">
+                        <span>Nos services</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/123/etudes-de-cas">
+                        <span>Cas clients</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/123/a-propos">
+                        <span>À propos</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/123/blog">
+                        <span>Blog</span>
+                    </a>
+                </li>
+                            <li class="nav__item nav__item--icon">
+            <a href="/rix/pr/123/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                <span>Contactez-nous</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+                    
+                                            <nav class="nav-mobile">
+    <div class="nav-mobile__header">
+        <a href="/rix/pr/123/">
+            <img src="/rix/pr/123/build/images/logos/logo-horizontal-white.901392b9.svg" alt="" class="logo">
+        </a>
+        <button class="nav-toggle nav-toggle--close">
+            <i class="icon icon--close" aria-hidden="true"></i>
+            <span class="screen-reader">Fermer le menu</span>
+        </button>
+    </div>
+    <ul>
+                                    <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/123/">
+                        Accueil
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/123/services">
+                        Nos services
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/123/etudes-de-cas">
+                        Cas clients
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/123/a-propos">
+                        À propos
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/123/blog">
+                        Blog
+                    </a>
+                </li>
+                            <li class="nav-mobile__item nav-mobile__item--icon">
+            <a href="/rix/pr/123/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                Contactez-nous
+            </a>
+        </li>
+    </ul>
+</nav>
+<button class="nav-toggle nav-toggle--open">
+    <i class="icon icon--hamburger" aria-hidden="true"></i>
+    <span class="screen-reader">Ouvrir le menu</span>
+</button>
+
+                                    </div>
+            </header>
+                <main>
+                <div class="banner banner--blog">
+        <div class="container">
+            <h1>
+                <a href="/rix/pr/123/blog">Blog</a>
+                <strong>/</strong>
+            </h1>
+        </div>
+    </div>
+
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <ul class="tags-list">
+                                            <li class="tags-list__item">
+                            #Sre
+                        </li>
+                                            <li class="tags-list__item">
+                            #Devops
+                        </li>
+                                            <li class="tags-list__item">
+                            #Incident
+                        </li>
+                                            <li class="tags-list__item">
+                            #PostMortem
+                        </li>
+                                    </ul>
+                <h2 class="h2--large">Interprétation et diagnostic d&#039;un incident en production.</h2>
+                <p>Interprétation pas à pas d&#039;un incident sur infrastructures applicatives, cas pratique d&#039;un incident vécu.</p>
+                <div class="article-overview">
+                                        <ol class="table-of-contents">
+                                                            <li class="table-of-contents__item">
+                                    <a href="#preambule">Préambule</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#contexte">Contexte</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#deroule-de-l-incident">Déroulé de l&#039;incident</a>
+                                                                            <ol class="table-of-contents__sub-level">
+                                                                                            <li>
+                                                    <a href="#diagnostic-infra">Diagnostic infra</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#diagnostic-applicatif">Diagnostic applicatif</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#analyse-des-metriques">Analyse des métriques</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#analyse-des-requetes-sql">Analyse des requêtes SQL</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#le-fin-mot-de-l-histoire">Le fin mot de l&#039;histoire</a>
+                                                </li>
+                                                                                    </ol>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#conclusion">Conclusion</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#ce-qu-il-faut-en-retenir">Ce qu&#039;il faut en retenir</a>
+                                                                    </li>
+                                                    </ol>
+                                        <div class="article-info">
+                                                                            <div class="author ">
+                                <div class="author__image">
+                                                                            <img     src="/rix/pr/123/resized/content/images/member/avatars/rix.png/7bdb9f34d8b53f82d37c01fd92196263.png"
+    srcset="
+        /rix/pr/123/resized/content/images/member/avatars/rix.png/7bdb9f34d8b53f82d37c01fd92196263.png 1x,
+        /rix/pr/123/resized/content/images/member/avatars/rix.png/4f7bb694753bd129601b986c5bdaabdb.png 2x
+    "
+ />
+                                                                    </div>
+                                <span class="author__info">
+                                    Écrit par
+                                                                            <strong>La team Rix</strong>
+                                                                    </span>
+                            </div>
+                                                <div class="article-info__date">
+                            <span>Publication <strong>16 octobre 2023</strong></span>
+                                                                                </div>
+                    </div>
+                </div>
+                <main>
+                                                            <body><h2 id="preambule" class="anchor-title"><a href="#preambule">Préambule</a></h2>
+<p>Premier article concernant la résolution d'incidents, toujours à but de formation.
+N'ayant jamais vu beaucoup d'articles traitant du sujet il nous parait intéressant d'expliquer et commenter les post-mortems qu'il nous arrive d'envoyer à nos clients.
+C'est aussi, à notre avis, une bonne façon (si ce n'est la meilleure) d'expliquer pourquoi le DevOps est important dans les métiers SRE, à quoi il sert et comment nous utilisons les outils que l'on met en place.</p>
+<p>Gardez à l'esprit que <strong>chaque applicatif est unique</strong> (même si l'on retrouve des comportements type) et que l'un des meilleurs indices d'anomalie et <strong>« l'écart par rapport à la moyenne normale »</strong>, autrement dit un comportement qui <strong>diffère fortement</strong> de ce que vous avez l'habitude de voir.</p>
+<p>Pour finir, c'est l'exercice le moins « confortable » du métier.
+En fonction de sa gravité, l'incident infra peut passer inaperçu comme <strong>impacter de manière significative</strong> l'activité d'un client, <strong>l'expérience des équipes</strong> dans ce cas de figure est souvent un facteur clé pour la rapidité de la résolution.</p>
+<h2 id="contexte" class="anchor-title"><a href="#contexte">Contexte</a></h2>
+<p>Le contexte est assez classique pour de l'application web.</p>
+<ul>
+<li>Un applicatif métier « relativement » pas mal utilisé en journée recevant environ <strong>240 requêtes/s</strong> (Réparties à <strong>80% sur l'API</strong>, <strong>les 20% restant</strong> étant dédié à du <strong>back-office</strong>);</li>
+<li>6 frontaux web (Nginx / PHP-FPM);</li>
+<li>1 répartiteur de charge managé;</li>
+<li>1 répartiteur de charge SQL MaxScale;</li>
+<li>2 instances MariaDB en configuration « Primary / Replica ».</li>
+</ul>
+<p><strong>En complément:</strong></p>
+<ul>
+<li>L'API répond principalement à une application mobile;</li>
+<li>Le back-office déclenche l'envoi de notifications (~ 800 000/jour) vers ces mêmes applications.</li>
+</ul>
+<h2 id="deroule-de-l-incident" class="anchor-title"><a href="#deroule-de-l-incident">Déroulé de l'incident</a></h2>
+<ul>
+<li><strong>Durée totale de l'incident:</strong> 1h20</li>
+<li><strong>Impact:</strong> Significatif</li>
+<li><strong>Type:</strong> Indisponibilité complète</li>
+</ul>
+<p><strong>Comme tous les incidents, nous sommes alertés par nos sondes infra:</strong></p>
+<div class="side-image">
+  <div class="side-image__content">
+    <p>Il n'est pas rare d'avoir des alertes isolées dues à une défaillance d'un hyperviseur ou à une panne réseau, dans notre cas de figure l'effondrement de l'infrastructure est très rapide (inférieure à 3 minutes), aucun doute donc sur « un gros pépin ».</p>
+    <p>Les alertes infras se terminent par une alerte <a href="https://www.statuscake.com/" target="_blank">StatusCake</a> sur le « endpoint » applicatif HTTP configuré.</p>
+  </div>
+  <figure>
+      <img src="/rix/pr/123/resized/content/images/blog/2023/post-mortem/alerts.jpg/d8e4282a1f0b7b26dd76e70ffc584939.jpg" alt="Déclenchement des alertes." srcset="/rix/pr/123/resized/content/images/blog/2023/post-mortem/alerts.jpg/d8e4282a1f0b7b26dd76e70ffc584939.jpg 1x,
+/rix/pr/123/resized/content/images/blog/2023/post-mortem/alerts.jpg/8bcbbffcadbef7f75fde9d5075fff6c7.jpg 2x," id="declenchement-des-alertes">
+  </figure>
+</div>
+<p>Nous <strong>notifions à notre client</strong> le début de l'incident et le début d'analyse pour remédiation.</p>
+<h3 id="diagnostic-infra" class="anchor-title"><a href="#diagnostic-infra">Diagnostic infra</a></h3>
+<p>Elles sont <strong>systématiques</strong> en cas d'incident et consistent en une checklist assez simple:</p>
+<ul>
+<li>Vérification de l'état des instances;</li>
+<li>Vérification d'un incident déclaré chez le fournisseur de cloud (ici OVHCloud);</li>
+<li>Vérification de la connectivité des réseaux privés.</li>
+</ul>
+<p><strong>En seconde étape</strong> nous procédons à une<strong> première analyse</strong> des « graphs » sur quelques unes des instances applicatives:</p>
+<figure>
+    <img src="/rix/pr/123/resized/content/images/blog/2023/post-mortem/graphs_php_down.jpg/9adc412824436ea11dc0efeb47ffa049.jpg" srcset="/rix/pr/123/resized/content/images/blog/2023/post-mortem/graphs_php_down.jpg/9adc412824436ea11dc0efeb47ffa049.jpg 1x,
+/rix/pr/123/resized/content/images/blog/2023/post-mortem/graphs_php_down.jpg/87da498e177900e1315617b6158da966.jpg 2x," id="9adc412824436ea11dc0efeb47ffa049-jpg">
+    <figcaption>
+      <span class="figure__legend">Effondrement des processus PHP</span>
+    </figcaption>
+</figure>
+<p>Pour autant les instances <strong>n'apparaissent pas « chargées »</strong> outre mesure.</p>
+<div class="side-image">
+  <img src="/rix/pr/123/resized/content/images/blog/2023/post-mortem/global_charge.jpg/436e0eacf0a0486949f8f44a7b32572f.jpg" srcset="/rix/pr/123/resized/content/images/blog/2023/post-mortem/global_charge.jpg/436e0eacf0a0486949f8f44a7b32572f.jpg 1x,
+/rix/pr/123/resized/content/images/blog/2023/post-mortem/global_charge.jpg/a53cd6721cba36d54e19dc82b424f187.jpg 2x," id="436e0eacf0a0486949f8f44a7b32572f-jpg">
+  <p>Sur l'ensemble des instances nous ne constatons pas d'augmentation de la consommation des ressources, de même le traffic n'explose pas, nous ne sommes donc pas dans le cas d'un afflux massif de connexions (légitimes ou non d'ailleurs), ni d'une charge anormale du à un script mal conçu.</p>
+</div>
+<div class="side-image">
+  <img src="/rix/pr/123/resized/content/images/blog/2023/post-mortem/netstat.jpg/2be0fdc956da99803fe72b8d43ba31ef.jpg" srcset="/rix/pr/123/resized/content/images/blog/2023/post-mortem/netstat.jpg/2be0fdc956da99803fe72b8d43ba31ef.jpg 1x,
+/rix/pr/123/resized/content/images/blog/2023/post-mortem/netstat.jpg/0047ca9060a60a16a5c470387107e90f.jpg 2x," id="2be0fdc956da99803fe72b8d43ba31ef-jpg">
+  <p>Nous disposons toutefois d'un premier indice <strong>au niveau réseau</strong>, puisque nous constatons une augmentation des connexions « ouvertes » et une chute flagrante des connexions en attente de fermeture.</p>
+</div>
+<p>Nous avons également constaté que les médias applicatifs sont bien disponibles et que nous n'avons pas de coupure vers les espaces de stockage distants.</p>
+<p>À ce stade nous avons donc une infra fonctionnelle mais une application « dans les choux ».
+Nous tentons une première approche en redémarrant les services PHP-FPM sur l'ensemble des instances, ceux-ci se retrouvent rapidement à nouveau saturés et hors service, comportement qui semble confirmer un souci d'ordre applicatif.</p>
+<h3 id="diagnostic-applicatif" class="anchor-title"><a href="#diagnostic-applicatif">Diagnostic applicatif</a></h3>
+<p>Il est temps d'aller jeter un oeil aux logs applicatifs qui donnent rapidement un résultat puisque nous avons l'erreur suivante:</p>
+<pre class="code-multiline"><code id="a10462d863e7bdf24fd21978eff20e72">SQLSTATE[HY000]: General error: 2006 MySQL server has gone away at XXXXXXX</code></pre>
+<p>Nous avons donc bien une perturbation au niveau de la connectivité entre les instances applicatives et les instances de base de données, reste à déterminer la raison !</p>
+<p>À ce stade nous prenons contact avec l'équipe de développement applicatif afin de disposer de sa connaissance métier et fonctionnelle.</p>
+<h3 id="analyse-des-metriques" class="anchor-title"><a href="#analyse-des-metriques">Analyse des métriques</a></h3>
+<p>Nous poursuivons nos investigations à l'aide de nos métriques infra / applicatif plus spécifiquement sur le réseau privé, zone d'échange entre les instances applives et données pour y trouver ceci:</p>
+<figure>
+    <img src="/rix/pr/123/resized/content/images/blog/2023/post-mortem/network_web.jpg/bdb0e53c8e7700cd7fb63eb069c1b9d8.jpg" srcset="/rix/pr/123/resized/content/images/blog/2023/post-mortem/network_web.jpg/bdb0e53c8e7700cd7fb63eb069c1b9d8.jpg 1x,
+/rix/pr/123/resized/content/images/blog/2023/post-mortem/network_web.jpg/8cce76c7e7bf1df3c864a3a66bd2271e.jpg 2x," id="bdb0e53c8e7700cd7fb63eb069c1b9d8-jpg">
+    <figcaption>
+      <span class="figure__legend">1.- Bande passante - Instance applicative</span>
+    </figcaption>
+</figure>
+<figure>
+    <img src="/rix/pr/123/resized/content/images/blog/2023/post-mortem/network_db.jpg/c9853f03496f05e254f1e692784ff9c5.jpg" srcset="/rix/pr/123/resized/content/images/blog/2023/post-mortem/network_db.jpg/c9853f03496f05e254f1e692784ff9c5.jpg 1x,
+/rix/pr/123/resized/content/images/blog/2023/post-mortem/network_db.jpg/412cb9cf6da17be08defe32ae888d3f5.jpg 2x," id="c9853f03496f05e254f1e692784ff9c5-jpg">
+    <figcaption>
+      <span class="figure__legend">2.- Bande passante - Instance base de données</span>
+    </figcaption>
+</figure>
+<figure>
+    <img src="/rix/pr/123/resized/content/images/blog/2023/post-mortem/network_db_2.jpg/bd89ffdb7e4f9955ac21af37b9e23b3e.jpg" srcset="/rix/pr/123/resized/content/images/blog/2023/post-mortem/network_db_2.jpg/bd89ffdb7e4f9955ac21af37b9e23b3e.jpg 1x,
+/rix/pr/123/resized/content/images/blog/2023/post-mortem/network_db_2.jpg/3155bb88a4cac88509c3b717e9475e8d.jpg 2x," id="bd89ffdb7e4f9955ac21af37b9e23b3e-jpg">
+    <figcaption>
+      <span class="figure__legend">3.- Bande passante - Instance base de données (Saturation de la bande passante)</span>
+    </figcaption>
+</figure>
+<p><strong>Enfin du concret !</strong> On constate à l'aide de ces deux graphs une volumétrie de données d'échange <strong>anormalement élevée</strong> entre les instances applicatives et les instances de base de données.</p>
+<p><strong>Constat:</strong></p>
+<ul>
+<li>En entrée des instances applicatives <strong>(1)</strong> nous avons un <strong>débit x20 qui passe de 2~2,5MB/s en moyenne à 45MB/s</strong> pour ensuite se stabiliser à hauteur de <strong>20~25MB/s</strong>;</li>
+<li>En sortie des instances de base de données <strong>(2)</strong> un débit moyen <strong>qui explose (x7) pour s'installer à hauteur de 150 MB/s</strong>.</li>
+</ul>
+<p>On constate surtout que cette volumétrie vient saturer la bande passante avec un bel « effet plafond » du graph concerné <strong>(3)</strong>.</p>
+<p>Nous avons donc <strong>la cause de l'incident</strong> à savoir, la <strong>saturation de la bande passante entre les instances applicatives et les instances de base de données</strong>, ce qui conduit à une grosse attente au niveau PHP-FPM qui se retrouve dans <strong>l'incapacité de prendre de nouvelles connexions</strong> entrantes.</p>
+<p>Au passage, on voit ici l'importance de <strong>« caper » le nombre de connexions maximum</strong> que l'on autorise à PHP-FPM, dans le cas ou ce travail n'est pas et/ou mal fait ou si aucun seuil n'est fixé, nous pouvons avoir potentiellement une perte complète de la connectivité à l'instance applicative qui peut impacter de manière significative le temps de rétablissement.</p>
+<p>Nous avons l'origine du blocage, il nous faut à présent comprendre d'où cela vient, nous passons donc du côté serveur de base de données.</p>
+<h3 id="analyse-des-requetes-sql" class="anchor-title"><a href="#analyse-des-requetes-sql">Analyse des requêtes SQL</a></h3>
+<p>Afin d'identifier d'éventuelles requêtes problématiques nous jouons un <code class="code-inline" id="f58ea0ea6dd587b31c573ecd593c4ad3">SHOW PROCESSLIST</code> sur notre serveur de base de données et isolons les requêtes en cours d'exécution depuis <strong>plusieurs secondes</strong>.
+En rejouant l'une de ces requêtes nous constatons qu'elle est anormalement volumineuse (taille supérieure à <strong>5Mo</strong>).</p>
+<p>Plus spécifiquement elle « ramène » un champ d'une table bien précise et après échange avec les équipes applicatives il correspond à l'ajout d'un « relativement nouveau » fonctionnel, relativement parce qu'il a tout de même quelques semaines mais n'a, à priori pas été utilisé tout de suite par les utilisateurs finaux.</p>
+<p>Le champ en question permet de stocker du contenu libre saisi par l'utilisateur à l'aide d'un éditeur de contenu (À ce moment là, certain(e)s d'entre vous doivent avoir une idée de ce qu'il se passe ;)).</p>
+<p>Nous décidons de passer la publication concernée en « draft »... ce qui est sans influence directe sur la saturation de la bande passante.</p>
+<p>Nous élargissons notre champ de recherche, cette fois-ci en recherchant les lignes disposant d'un champ de contenu <strong>dont la taille est supérieure au Mo</strong> (<code class="code-inline" id="ac0b2369fb39729d9804a8b1fa31774e">SELECT id ... WHERE CHAR_LENGTH(content) &gt; 10000</code>), pour finalement identifier une centaine de lignes présentant la même problématique.</p>
+<p>Vu la <strong>gravité de la situation</strong> (indisponibilité complète de l'application) et <strong>en concertation avec les équipes applicatives</strong> nous « dépublions » l'ensemble des contenus problématiques ce qui a pour effet de faire revenir les échanges de données à un seuil normal et de facto rendre <strong>à nouveau disponible l'applicatif</strong>.</p>
+<p>Dans le même temps les équipes applicatives auront préparé un « quick fix » désactivant la fonctionnalité, le temps de la retravailler.</p>
+<h3 id="le-fin-mot-de-l-histoire" class="anchor-title"><a href="#le-fin-mot-de-l-histoire">Le fin mot de l'histoire</a></h3>
+<p>Il s'avère que l'application proposait un module de publication à ses utilisateurs embarquant un éditeur de contenus riches qui autorisait l'insertion d'images directement dans les contenus HTML (sans passer par un stockage sur le système de fichiers et donc directement en base de données).
+Cerise sur le gateau, nous sommes en 2023 et les images « brutes » pèsent souvent plusieurs Mo.</p>
+<h2 id="conclusion" class="anchor-title"><a href="#conclusion">Conclusion</a></h2>
+<p>Ce cas est une parfaite illustration de ce que l'on peut avoir comme incident avec une application web, bien que l'origine soit assez sournoise, en effet il n'est pas déclenché par une mise à jour récente mais par un fonctionnel développé il y a plusieurs semaines, mais mis en avant que récemment.
+De plus, en première lecture, il n'y a pas d'incident apparent, ni charge anormale des instances, ni pépin réseau.</p>
+<p>Les logs applicatifs permettent de s'orienter vers une cause probable de l'indisponibilité mais ne sont pas suffisants pour identifier de manière précise son origine, c'est leur corrélation avec la lecture des métriques qui permet de gagner énormément de temps sur le diagnostic et ainsi cerner le problème.</p>
+<p>Les équipes applicatives sont un renfort précieux, pour dans un premier temps, fournir les informations de dernières mises à jour ou d'arrivée de nouveau fonctionnel (et surtout de mettre en relation un fonctionnel et un schéma de données) et dans un second temps pour corriger (même temporairement) le code, afin d'éviter une rechute inévitable.</p>
+<h2 id="ce-qu-il-faut-en-retenir" class="anchor-title"><a href="#ce-qu-il-faut-en-retenir">Ce qu'il faut en retenir</a></h2>
+<ul>
+<li>Éviter de stocker des médias en base de données qui plus est dans un champ « texte »</li>
+<li>Méfiez-vous des éditeurs de contenus riches et prenez le temps de bien les intégrer / configurer. Entre les potentiels dépôts de fichiers sauvages qui peuvent mettre en cause la sécurité applicative, l'injection de scripts et l'ajout de médias non optimisés c'est une source d'ennuis sans fin</li>
+<li>Monitorez vos infras !</li>
+<li>Intégrer les équipes applicatives au diagnostic</li>
+<li>Si vous en avez la possibilité, faites des tirs de charge !</li>
+<li>« Profile ! Don't assume.»</li>
+</ul></body>
+                                                                        <div class="article-credits">
+                                Crédits: photo de couverture par
+                                                                    <a href="https://unsplash.com/@thisisengineering">
+                                        ThisisEngineering RAEng
+                                    </a>
+                                                            </div>
+                                                            </main>
+                <div class="article-footer" data-aos="fade-in">
+                                                                        <div class="author">
+                                <div class="author__image">
+                                    <img     src="/rix/pr/123/resized/content/images/member/avatars/rix.png/7bdb9f34d8b53f82d37c01fd92196263.png"
+    srcset="
+        /rix/pr/123/resized/content/images/member/avatars/rix.png/7bdb9f34d8b53f82d37c01fd92196263.png 1x,
+        /rix/pr/123/resized/content/images/member/avatars/rix.png/4f7bb694753bd129601b986c5bdaabdb.png 2x
+    "
+ />
+                                </div>
+                                <span class="author__info">
+                                    Écrit par
+                                    <strong>La team Rix</strong>
+                                </span>
+                                <div class="author__social">
+                                                                            <a href="https://twitter.com/rix_fr">
+                                            <i class="icon icon--twitter" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte twitter de La team Rix</span>
+                                        </a>
+                                                                                                                <a href="https://github.com/rix-fr">
+                                            <i class="icon icon--github" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte github de La team Rix</span>
+                                        </a>
+                                                                                                                <a href="http://www.elao.com">
+                                            <i class="icon icon--website" aria-hidden="true"></i>
+                                            <span class="screen-reader">Site personnel de La team Rix</span>
+                                        </a>
+                                                                    </div>
+                            </div>
+                                                            </div>
+                                    <div class="comment">
+                                                    <div id="comentario"></div>
+                                                                                                    <p>
+                                Une typo ?
+                                <a href="https://github.com/rix-fr/rix/edit/blog-image-alignment/content/blog/post-mortem/sre-interpretation-incident.md/" target="_blank">Modifier cet article sur Github</a>
+                            </p>
+                                            </div>
+                            </div>
+        </div>
+    </div>
+        </main>
+                    <footer class="footer">
+    <div class="container">
+        <div class="footer__contact">
+            <div class="catchphrase">
+                <p class="h1">Le monde du DevOps vous semble obscur ?</p>
+                <p>Contactez-nous, nous vous aiderons à y <strong>voir plus clair</strong>.</p>
+            </div>
+            <div class="contact-tiles">
+                <span class="contact-tiles__item">
+                    <i class="icon icon--location" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Passez nous voir !</span>
+                        <span>Nous sommes à Lyon !</span>
+                        <span>34 rue Jean Broquin</span>
+                        <span>69006 Lyon, France</span>
+                    </span>
+                </span>
+                <span class="contact-tiles__item">
+                    <i class="icon icon--message" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Par téléphone ou par mail</span>
+                        <a href="tel:33482537609">04 82 53 76 09</a>
+                        <a href="mailto:contact@rix.fr">contact@rix.fr</a>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="footer__brand">
+            <img src="/rix/pr/123/build/images/logos/logo-horizontal-white.901392b9.svg" alt="Rix">
+            <span>Expertise et outilllage DevOps</span>
+        </div>
+        <nav class="footer__links">
+            <div class="pages">
+                <ul>
+                                                                        <li>
+                                <a href="/rix/pr/123/etudes-de-cas">Cas clients</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/123/a-propos">À propos</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/123/contact">Contact</a>
+                            </li>
+                                                            </ul>
+            </div>
+            <div class="services">
+                <a href="/rix/pr/123/services">Nos services</a>
+                <div>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/123/services#accompagnement_outillage">Accompagnement et outillage DevOps</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/123/services#experts_kubernetes">Expertise Kubernetes</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/123/services#performances_diagnostique">Performances et diagnostique</a>
+                                </li>
+                                                    </ul>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/123/services#conception_infrastructures">Conception sur-mesure d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/123/services#pilotage_infrastructures">Pilotage d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/123/services#environment">Environnement de développement</a>
+                                </li>
+                                                    </ul>
+                                    </div>
+            </div>
+        </nav>
+        <div class="footer__legals">
+            <span>©2023 - Rix - Tous droits réservés</span>
+            -
+            <a href="/rix/pr/123/legal">Mentions légales</a>
+            -
+            <a href="/rix/pr/123/confidentialite">Données personnelles</a>
+        </div>
+    </div>
+</footer>
+
+
+
+            </body>
+</html>
