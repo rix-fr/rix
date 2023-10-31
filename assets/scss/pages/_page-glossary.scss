@@ -8,4 +8,13 @@
   main {
     background-image: none; // remove background-image to prevent ugliness when not much content on page
   }
+
+  .glossary-logo {
+    margin: 0 auto 50px;
+    max-width: 400px;
+  }
+
+  .content-links {
+    margin-top: 300px;
+  }
 }

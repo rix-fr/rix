@@ -5,74 +5,96 @@
 {% block meta_title term.metaTitle ?? term.name %}
 {% block meta_description term.metaDescription ?? term.description ?? term.name %}
 
-{% block body_class 'page-glossary-term' %}
+{% block body_class 'page-glossary' %}
 
 {% block content %}
     {# TODO: breadcrumb or link to tet back to glossary page ? #}
 
-    <div class="container" style="background: white">
-        <div>
-            <h1>
-                {{ term.name }}
-            </h1>
-
-            {% if term.logo is not empty %}
-                <div>
-                    <img src="{{ asset(term.logo) }}" alt="logo de {{ term.name }}">
-                </div>
-            {% endif %}
-
-
-            {% if term.externalLink is not empty %}
-                <div>
-                    <a href="{{ term.externalLink }}">Lien vers le site officiel</a>
-                </div>
-            {% endif %}
+    <div class="banner banner--blog">
+        <div class="container">
+            <h1>{{ term.name }} <strong>/</strong></h1>
         </div>
+    </div>
 
-        <div>
-            {{ term.content|raw }}
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- bevel shape --></div>
+            <div class="container content">
+                {% if term.logo is not empty %}
+                    <img src="{{ asset(term.logo) }}" alt="logo de {{ term.name }}" class="glossary-logo">
+                {% endif %}
 
-            <hr/>
+                {{ term.content|raw }}
 
-            {# Related case-studies #}
-            {% if caseStudies is not empty %}
-                <h2 class="h2--dash">Projets créés avec {{ term.name }}</h2>
-                <ul class="article-list">
-                    {% for caseStudy in caseStudies %}
-                        {% set url = path('case_study', { caseStudy: caseStudy.slug }) %}
-                        <li class="miniature">
-                            <a href="{{ url }}" class="miniature__image">
-                                <span class="image" style="{{ macros.backgroundImageSrcset(caseStudy.images|first, 'case_study_thumbnail.md') }}"></span>
-                            </a>
-                            <div class="miniature__content">
-                                <a href="{{ url }}" class="title">{{ caseStudy.title }}</a>
-                                <p class="description">{{ caseStudy.description }}</p>
-                                <a href="{{ url }}" class="link link--brand">Lire l'étude de cas</a>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
+                <div>
+                    {% if term.externalLink is not empty %}
+                        <a href="{{ term.externalLink }}" class="button">Voir la documentation officielle</a>
+                    {% endif %}
+                </div>
 
-            {# Related articles #}
-            {% if articles is not empty %}
-                <h2 class="h2--dash">Articles liés à {{ term.name }}</h2>
-                <ul class="article-list">
-                    {% for article in articles %}
-                        {% set url = path('blog_article', { article: article.slug }) %}
-                        <li class="miniature">
-                        <a href="{{ url }}" class="miniature__image">
-                            <span class="image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.sm') }}"></span>
-                        </a>
-                        <div class="miniature__content">
-                            <a href="{{ url }}" class="title">{{ article.title }}</a>
-                            <a href="{{ url }}" class="link link--brand">Lire l'article</a>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
+                <div class="content-links">
+                    {# Related case-studies #}
+                    {% if caseStudies is not empty %}
+                        <h2 class="h2--large"><span>Son utilisation dans</span> nos projets</h2>
+                        <ul class="miniature-list">
+                            {% for caseStudy in caseStudies %}
+                                {% set url = path('case_study', { caseStudy: caseStudy.slug }) %}
+                                <li class="miniature">
+                                    <a href="{{ url }}">
+                                        <div class="miniature__image">
+                                            <span class="image" style="{{ macros.backgroundImageSrcset(caseStudy.images|first, 'case_study_thumbnail.md') }}"></span>
+                                        </div>
+                                        <div class="miniature__content">
+                                            <h2 class="h3">{{ caseStudy.title }}</h2>
+                                            <p>{{ caseStudy.description }}</p>
+                                            <span class="sliding-button sliding-button--mobile">
+                                                <span class="sliding-button__content">
+                                                    <i class="icon icon--arrow-right" aria-hidden="true"></i>
+                                                    Lire l'étude de cas
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    {# Related articles #}
+                    {% if articles is not empty %}
+                        <h2 class="h2--large"><span>Nos articles liés</span> à {{ term.name }}</h2>
+                        <ul class="miniature-list">
+                            {% for article in articles %}
+                                {% set url = path('blog_article', { article: article.slug }) %}
+                                <li class="miniature">
+                                    <a href="{{ path('blog_article', { article: article.slug }) }}">
+                                        <div class="miniature__image">
+                                            <span class="image" style="{{ macros.backgroundImageSrcset(article.thumbnail, 'article_thumbnail.sm') }}"></span>
+                                        </div>
+                                        <div class="miniature__content">
+                                            <h2 class="h3">{{ article.title }}</h2>
+                                            <p>{{ article.description }}</p>
+                                            <ul class="tags-list">
+                                                {% for tag in article.tags %}
+                                                    <li class="tags-list__item">
+                                                        #{{ tag|u.camel.title }}
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <span class="sliding-button sliding-button--mobile">
+                                                <span class="sliding-button__content">
+                                                    <i class="icon icon--arrow-right" aria-hidden="true"></i>
+                                                    Lire l'article
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock content %}
