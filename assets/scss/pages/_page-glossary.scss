@@ -18,3 +18,11 @@
     margin-top: 300px;
   }
 }
+
+@media (max-width: $screen-md) {
+  .page-glossary {
+    .content-links {
+      margin-top: 100px;
+    }
+  }
+}
