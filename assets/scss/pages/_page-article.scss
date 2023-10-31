@@ -11,21 +11,7 @@
     margin-top: 0;
   }
 
-  figure {
-    margin-left: -120px;
-    width: calc(100% + 120px);
-  }
-
   .alert {
     margin: 0 0 40px;
-  }
-}
-
-@media (max-width: $screen-md) {
-  .page-article {
-    figure {
-      margin-left: 0;
-      width: 100%;
-    }
   }
 }
