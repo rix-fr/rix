@@ -70,7 +70,7 @@
                         document.querySelector('html').classList.remove('no-js');
         </script>
 
-                    <link rel="stylesheet" href="/rix/pr/119/build/305.8ebb58df.css">
+                    <link rel="stylesheet" href="/rix/pr/119/build/305.d7ed609b.css">
         
                     <script src="/rix/pr/119/build/runtime.19af09ad.js" defer></script><script src="/rix/pr/119/build/70.671fda9c.js" defer></script><script src="/rix/pr/119/build/app.e999eb99.js" defer></script>
 
@@ -279,13 +279,13 @@
 <li>Une ligne de commande ( le truc noir dans lequel on tape du texte ;) )</li>
 </ul>
 <h2 id="tl-dr" class="anchor-title"><a href="#tl-dr">TL;DR</a></h2>
-<p><strong>Génération d'une paire de clé:</strong></p>
+<p><strong>Génération d'une paire de clés:</strong></p>
 <pre class="code-multiline"><code id="4e41757ebf6ff993d02688213be943d9">ssh-keygen -t ed25519 -a 150</code></pre>
 <p><strong>Se connecter à un serveur distant</strong></p>
 <pre class="code-multiline"><code id="b1a1b175ea0d1dfb453161746a5f9877">ssh -i ~/.ssh/id25519 user@server_address</code></pre>
 <h2 id="generation-d-une-paire-de-cles" class="anchor-title"><a href="#generation-d-une-paire-de-cles">Génération d'une paire de clés</a></h2>
 <p>Le principe de l'authentification par clés repose, comme explicité sur les différents liens ci-dessus, par la création d'une paire de clés asymétriques.
-L'un de ces clés sera votre clé <strong>publique</strong> à déployer sur les machines auxquelles vous avez le droit de vous connecter, l'autre votre clé <strong>privée</strong> et comme son nom l'indique, celle-ci est à vous et rien qu'à vous, elle ne se partage pas, <strong>JAMAIS</strong>.</p>
+L'une de ces clés sera votre clé <strong>publique</strong> à déployer sur les machines auxquelles vous avez le droit de vous connecter, l'autre, votre clé <strong>privée</strong>. Et comme son nom l'indique, celle-ci est à vous et rien qu'à vous ; elle ne se partage pas. <strong>JAMAIS</strong>.</p>
 <p>Deux notions de base avant de se lancer pour bien comprendre ce que l'on fait:</p>
 <ul>
 <li>Il existe plusieurs types d'<strong>algorithmes de signature numérique</strong>, les plus répandus étant <strong><a href="https://fr.wikipedia.org/wiki/Chiffrement_RSA" target="_blank">RSA</a></strong> et <strong><a href="https://fr.wikipedia.org/wiki/EdDSA" target="_blank">Ed25519</a></strong>;</li>
@@ -325,7 +325,7 @@ L'un de ces clés sera votre clé <strong>publique</strong> à déployer sur les
 </div>
 <h2 id="se-connecter-a-un-serveur-distant" class="anchor-title"><a href="#se-connecter-a-un-serveur-distant">Se connecter à un serveur distant</a></h2>
 <p>C'est un peu la finalité.
-Imaginons un serveur pour lequel votre clé est authorisée à se connecter (pour rappel fichier <code class="code-inline" id="c0274e5607f75f22497b2ec116e41842">authorized_keys</code>), nous pouvons initier une connexion à l'aide de la commande:</p>
+Imaginons un serveur pour lequel votre clé est autorisée à se connecter (pour rappel fichier <code class="code-inline" id="c0274e5607f75f22497b2ec116e41842">authorized_keys</code>), nous pouvons initier une connexion à l'aide de la commande:</p>
 <p><code class="code-inline" id="a7fe85f59db939469192c32deef402b4">ssh user@server_address</code></p>
 <p>Cette commande aura donc pour effet « d'ouvrir » une connexion sur un serveur distant via le protocol SSH vous permettant de saisir des lignes de commande <strong>directement</strong> sur ce serveur et donc de <strong>l'administrer</strong>.</p>
 <figure>
