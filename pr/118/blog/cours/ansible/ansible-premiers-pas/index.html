@@ -283,6 +283,7 @@ Bien que très axé débutants il peut également représenté une possibilité 
 <li><strong><a href="https://docs.docker.com/engine/install/" target="_blank">Docker et Docker compose</a></strong> installés sur la machine de travail (Docker Desktop pour <a href="https://docs.docker.com/desktop/install/windows-install/" target="_blank">Windows</a> et <a href="https://docs.docker.com/desktop/install/mac-install/" target="_blank">OSX</a>);</li>
 <li>D'une installation d'Ansible récente (2.15.5), s'il est possible de l'installer localement je recommanderai plutôt d'utiliser le <a href="/blog/cours/ansible/ansible-environnement-cle-en-main"><strong>Lazy Ansible</strong></a> du projet <a href="https://github.com/manala/" target="_blank"><strong>Manala</strong></a> comme expliqué <strong><a href="#">ici</a></strong>.</li>
 <li>D'une paire de clé de SSH que vous aurez pris soin de générer (voir <a href="/blog/cours/cle-ssh-principes-de-base">ici</a>) si vous n'en disposez pas déjà.</li>
+<li>D'un répertoire de travail, de mon côté ça sera <code class="code-inline" id="2f56b2c4e169e525b08cdbdbfc1a4543">workspace/ansible</code> (très original oui), son nom importe peu l'idée et que vous sachiez vous y retrouver;</li>
 </ul>
 <p>En fonction de votre environnement de travail la mise en place des différents outils est décrite <strong><a href="#">ici</a></strong>.</p>
 <h2 id="mise-en-route" class="anchor-title"><a href="#mise-en-route">Mise en route</a></h2>
@@ -340,6 +341,9 @@ Afin de vérifier que votre clé a bien été ajoutée à votre agent vous pouve
     Dans la terminologie Ansible, les « modules » sont des morceaux de code pouvant être utilisés soit directement dans la ligne de commande (avec l'option <code class="code-inline" id="67dd1c0d4e68c367b980f8723c781cb1">-m</code>, soit dans une section <code class="code-inline" id="478f3a4c51824ad23cb50c1c60670c0f">task</code> d'un « playbook »). Ils peuvent prendre en charge des arguments avec une syntaxe classique <code class="code-inline" id="ef176a6c424f954fa42d4cde03949897">key=value</code>.
 </p>
 </div>
+<p>À partir de ce moment sauf spécification contraire nous partirons du principe que nous évoluons à l'intérieur de notre répertoire de travail pour saisir nos commandes et créer notre arborescence de projet.</p>
+<p>Pour pouvoir effectuer notre premier test nous allons donc créer un fichier que nous appelerons <code class="code-inline" id="d4bbb8582b29b42818a341b53996b81b">hosts.yml</code> contenant: </p>
+<p><code class="code-inline" id="214b1741759d3b0b9a89333d2ec3e1d3">ansible -i hosts.yml all -m ping</code></p>
 <p>Avant toute chose il va falloir indiquer à Ansible les serveurs que nous allons « piloter », ce qui me permet d'introduire la notion « d'inventaire ».</p>
 <h4 id="l-inventaire" class="anchor-title"><a href="#l-inventaire">L'inventaire</a></h4>
 <h2 id="aller-plus-loin-avec-les-sources" class="anchor-title"><a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources:</a></h2>
