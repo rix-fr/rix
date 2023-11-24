@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ansible - Les inventaires statiques</title>
+
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/rix/pr/125/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/rix/pr/125/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/rix/pr/125/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/rix/pr/125/favicon-16x16.png">
+        <link rel="manifest" href="/rix/pr/125/site.webmanifest">
+                <link rel="shortcut icon" href="/rix/pr/125/favicon.ico">
+        <meta name="msapplication-TileColor" content="#ff4344">
+        <meta name="msapplication-config" content="/rix/pr/125/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+                        <meta name="description" content="Première étape vers l&#039;utilisation d&#039;Ansible, les inventaires. Ils sont le point d&#039;entrée vers vos infras et sont donc central au pilotage de vos instances / serveurs." />
+            <link rel="canonical" href="https://rix-fr.github.io/rix/pr/125/blog/cours/ansible/ansible-les-inventaires-statiques" />
+
+            <!-- Open Graph / Facebook -->
+                                        <meta property="og:type" content="website">
+                        <meta property="og:title" content="Ansible - Les inventaires statiques" />
+            <meta property="og:locale" content="fr" />
+            <meta property="og:description" content="Première étape vers l&#039;utilisation d&#039;Ansible, les inventaires. Ils sont le point d&#039;entrée vers vos infras et sont donc central au pilotage de vos instances / serveurs." />
+            <meta property="og:url" content="https://rix-fr.github.io/rix/pr/125/blog/cours/ansible/ansible-les-inventaires-statiques" />
+            <meta property="og:site_name" content="rix" />
+
+                                        <meta property="og:image" content="https://rix-fr.github.io/rix/pr/125/resized/content/images/blog/thumbnails/ansible-inventaires.jpg/4732fe8d636842a2ea03f8ad353db53f.jpg">
+                                                    <meta property="og:image:alt" content="Rix - Expertise et outillage DevOps">
+            
+            <!-- Twitter -->
+            <meta property="twitter:card" content="summary_large_image">
+            <meta property="twitter:title" content="Ansible - Les inventaires statiques">
+            <meta property="twitter:description" content="Première étape vers l&#039;utilisation d&#039;Ansible, les inventaires. Ils sont le point d&#039;entrée vers vos infras et sont donc central au pilotage de vos instances / serveurs.">
+            <meta property="twitter:site" content="@rix_fr">
+            <meta property="twitter:creator" content="@rix_fr">
+                                        <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/125/resized/content/images/blog/thumbnails/ansible-inventaires.jpg/0f3e2929e3240f1b72631c47486c48b3.jpg">
+                                <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": "Ansible - Les inventaires statiques",
+    "image": [
+        "https://rix-fr.github.io/rix/pr/125/blog/cours/ansible/content/images/blog/thumbnails/ansible-inventaires.jpg"
+    ],
+    "datePublished": "27 novembre 2023",
+    "dateModified": "27 novembre 2023",
+    "author": [
+        {
+            "@type": "Person",
+            "name": "Guewen Faivre"
+        }
+    ],
+    "keywords": [
+        "Cours",
+        "Ansible",
+        "Automation"
+    ]
+}
+    </script>
+            
+
+    <link rel="alternate" type="application/rss+xml" href="/rix/pr/125/blog/rss.xml" title="Le blog de l'équipe Rix" />
+
+                            <meta name="robots" content="noindex" />
+        
+        <script>
+                        document.querySelector('html').classList.remove('no-js');
+        </script>
+
+                    <link rel="stylesheet" href="/rix/pr/125/build/305.91aa97ab.css">
+        
+                    <script src="/rix/pr/125/build/runtime.7198d86d.js" defer></script><script src="/rix/pr/125/build/70.671fda9c.js" defer></script><script src="/rix/pr/125/build/app.e999eb99.js" defer></script>
+
+                        <script defer src="https://comments.rix.fr/comentario.js"></script>
+        
+    </head>
+    <body class="page-article">
+                    <header class="header">
+                <div class="container">
+                    <a href="/rix/pr/125/">
+                        <img src="/rix/pr/125/build/images/logos/logo-horizontal.ae7b8485.svg" alt="" class="logo">
+                        <span class="screen-reader">Retour à l'accueil</span>
+                    </a>
+
+                                            <nav class="nav">
+    <ul>
+                                    <li class="nav__item ">
+                    <a href="/rix/pr/125/">
+                        <span>Accueil</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/125/services">
+                        <span>Nos services</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/125/etudes-de-cas">
+                        <span>Cas clients</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/125/a-propos">
+                        <span>À propos</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/125/blog">
+                        <span>Blog</span>
+                    </a>
+                </li>
+                            <li class="nav__item nav__item--icon">
+            <a href="/rix/pr/125/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                <span>Contactez-nous</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+                    
+                                            <nav class="nav-mobile">
+    <div class="nav-mobile__header">
+        <a href="/rix/pr/125/">
+            <img src="/rix/pr/125/build/images/logos/logo-horizontal-white.901392b9.svg" alt="" class="logo">
+        </a>
+        <button class="nav-toggle nav-toggle--close">
+            <i class="icon icon--close" aria-hidden="true"></i>
+            <span class="screen-reader">Fermer le menu</span>
+        </button>
+    </div>
+    <ul>
+                                    <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/125/">
+                        Accueil
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/125/services">
+                        Nos services
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/125/etudes-de-cas">
+                        Cas clients
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/125/a-propos">
+                        À propos
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/125/blog">
+                        Blog
+                    </a>
+                </li>
+                            <li class="nav-mobile__item nav-mobile__item--icon">
+            <a href="/rix/pr/125/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                Contactez-nous
+            </a>
+        </li>
+    </ul>
+</nav>
+<button class="nav-toggle nav-toggle--open">
+    <i class="icon icon--hamburger" aria-hidden="true"></i>
+    <span class="screen-reader">Ouvrir le menu</span>
+</button>
+
+                                    </div>
+            </header>
+                <main>
+                <div class="banner banner--blog">
+        <div class="container">
+            <h1>
+                <a href="/rix/pr/125/blog">Blog</a>
+                <strong>/</strong>
+            </h1>
+        </div>
+    </div>
+
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <ul class="tags-list">
+                                            <li class="tags-list__item">
+                            #Cours
+                        </li>
+                                            <li class="tags-list__item">
+                            #Ansible
+                        </li>
+                                            <li class="tags-list__item">
+                            #Automation
+                        </li>
+                                    </ul>
+                <h2 class="h2--large">Ansible - Les inventaires statiques</h2>
+                <p>Première étape vers l&#039;utilisation d&#039;Ansible, les inventaires. Ils sont le point d&#039;entrée vers vos infras et sont donc central au pilotage de vos instances / serveurs.</p>
+                <div class="article-overview">
+                                        <ol class="table-of-contents">
+                                                            <li class="table-of-contents__item">
+                                    <a href="#preambule">Préambule</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#pre-requis">Pré-requis</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#introduction">Introduction</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#structurer-ses-inventaires">Structurer ses inventaires</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#la-configuration-d-un-inventaire">La configuration d&#039;un inventaire</a>
+                                                                            <ol class="table-of-contents__sub-level">
+                                                                                            <li>
+                                                    <a href="#cles-generiques">Clés génériques</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#cles-specifiques-a-ssh">Clés spécifiques à SSH</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#cles-specifiques-a-l-escalade-de-privileges">Clés spécifiques à l&#039;escalade de privilèges</a>
+                                                </li>
+                                                                                    </ol>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#enrichir-son-inventaire">Enrichir son inventaire</a>
+                                                                            <ol class="table-of-contents__sub-level">
+                                                                                            <li>
+                                                    <a href="#definir-des-groupes-de-machines">Définir des groupes de machines</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#la-commande-ansible-inventory">La commande « ansible-inventory »</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#ordre-de-chargement-des-inventaires">Ordre de chargement des inventaires</a>
+                                                </li>
+                                                                                    </ol>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#exercices">Exercices</a>
+                                                                            <ol class="table-of-contents__sub-level">
+                                                                                            <li>
+                                                    <a href="#exercice-1">Exercice 1</a>
+                                                </li>
+                                                                                    </ol>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#aller-plus-loins-avec-les-sources">Aller plus loins avec les sources</a>
+                                                                    </li>
+                                                    </ol>
+                                        <div class="article-info">
+                                                                            <div class="author ">
+                                <div class="author__image">
+                                                                            <img     src="/rix/pr/125/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg"
+    srcset="
+        /rix/pr/125/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg 1x,
+        /rix/pr/125/resized/content/images/member/avatars/gfaivre.jpg/d2d8af0b210c37c677635983f1c02d6d.jpg 2x
+    "
+ />
+                                                                    </div>
+                                <span class="author__info">
+                                    Écrit par
+                                                                            <strong>Guewen Faivre</strong>
+                                                                    </span>
+                            </div>
+                                                <div class="article-info__date">
+                            <span>Publication <strong>27 novembre 2023</strong></span>
+                                                                                </div>
+                    </div>
+                </div>
+                <main>
+                                                                <div class="alert alert--error">
+                            <i class="icon icon--danger" aria-hidden="true"></i>
+                            <div>
+                                <p>Cet article n'est pas encore publié. Cet aperçu est disponible uniquement dans cet environnement mais n'apparaîtra en production qu'à partir du 27 novembre 2023</p>
+                            </div>
+                        </div>
+                                        <body><h2 id="preambule" class="anchor-title"><a href="#preambule">Préambule</a></h2>
+<p>Ce cours est utilisé dans le cadre de TP au sein de l'IUT Lyon 1. Il est notamment dispensé à des étudiants peu ou pas familiers avec les stratégies d'automatisation et de déploiement des infrastructures.
+Bien que très axé débutants il peut également représenté une possibilité de monter « rapidement » pour certaines équipes sur les principes fondamentaux d'Ansible afin de disposer du bagage minimal nécessaire à son utilisation.</p>
+<p>Il s'agit bien évidemment de supports à vocation pédagogique qui <strong>ne sont pas toujours transposables</strong> à une activité professionnelle.</p>
+<h2 id="pre-requis" class="anchor-title"><a href="#pre-requis">Pré-requis</a></h2>
+<p>Disposer d'un environnement de travail Ansible fonctionnel, si ça n'est pas encore le cas vous pouvez jeter un oeil <a href="/blog/cours/ansible/ansible-premiers-pas">ici</a> !</p>
+<h2 id="introduction" class="anchor-title"><a href="#introduction">Introduction</a></h2>
+<p>Afin de pouvoir attaquer nos différents machines, Ansible a besoin d'un référentiel de celles-ci avec un minimum d'informations les concernants (histoire de savoir comment s'y connecter par exemple ;)).</p>
+<p>C'est là qu'entre en jeux les inventaires. Il existe deux façons de constituer des inventaires, la première est manuelle, et consiste à écrire ni plus ni moins la liste des machines que l'on souhaites manager on parle dans ce cas d'<strong>inventaire statique</strong>.
+La deuxième méthode introduit un principe de « reconnaissance » des machines disponibles, dans ce cas de figure on constituera nos inventaires de manière automatique, on parle dans ce cas d'<strong>inventaire dynamiques</strong> que nous verrons plus tard.</p>
+<p>Les inventaires, on le verra permettre également de structurer / hiérarchiser nos machines en utilisant une notion de groupe.
+Ansible propose plusieurs plugins capablent de gérer des inventaires de machines, ils sont consultables à l'aide la commande: </p>
+<pre class="code-multiline"><code id="4065451a82c7fe5dead02aa5635c1ed1">ansible-doc -t inventory -l</code></pre>
+<p>Qui devrait vous renvoyer la liste suivante: </p>
+<pre class="code-multiline"><code id="6edfe64e0ae2193e6bb28c2b4990489d">02:48:02 lazy@ansible_env lazy → ansible-doc -t inventory -l
+ansible.builtin.advanced_host_list Parses a 'host list' with ranges                                                                    
+ansible.builtin.auto               Loads and executes an inventory plugin specified in a YAML config                                   
+ansible.builtin.constructed        Uses Jinja2 to construct vars and groups based on existing inventory                                
+ansible.builtin.generator          Uses Jinja2 to construct hosts and groups from patterns                                             
+ansible.builtin.host_list          Parses a 'host list' string                                                                         
+ansible.builtin.ini                Uses an Ansible INI file as inventory source                                                        
+ansible.builtin.script             Executes an inventory script that returns JSON                                                      
+ansible.builtin.toml               Uses a specific TOML file as an inventory source                                                    
+ansible.builtin.yaml               Uses a specific YAML file as an inventory source  </code></pre>
+<p>Dans notre cas nous nous appuyerons essentiellemen sur le plugin <code class="code-inline" id="6eedc03a68a69933c763e674f2d7c42f">yaml</code>.</p>
+<h2 id="structurer-ses-inventaires" class="anchor-title"><a href="#structurer-ses-inventaires">Structurer ses inventaires</a></h2>
+<p>Un inventaire n'est en fait ni plus ni moins d'un ou plusieurs fichiers spécifiant des informations concernant le parc de machines que l'on souhaite piloter.
+En terme de structure vous rencontrerez énormément de façons de faire, celles-ci étant guider par le besoin métier bien éviemment on pourra citer comme contraintes par exemple:</p>
+<ul>
+<li>La taille des infrastructures (le nombre de machines)</li>
+<li>Leur localisation géographique (Pays, ville...)</li>
+<li>Le besoin d'adresser finement un groupe de machines et pas un autre...</li>
+</ul>
+<p>Bref tout est imaginable à ce niveau.
+En ce qui nous concerne nous interviendrons sur un parc plutôt modeste puisque pour nos travaux nous utiliserons au maximum 4 machines.</p>
+<p>Nous allons donc commencer par créer un répertoire qui leur sera dédié appelé <code class="code-inline" id="9d8e9044cc215163080743136fcb7fd5">inventories</code> nous déplacerons ensuite le fichier <code class="code-inline" id="d4bbb8582b29b42818a341b53996b81b">hosts.yml</code> que nous avions créé <a href="http://localhost:8000/blog/cours/ansible/ansible-premiers-pas#communication-ansible-serveurs-distants" target="_blank">précédemment</a>.</p>
+<p><strong>Vous devriez donc disposer d'une arborence similaire à la suivante:</strong> </p>
+<pre class="code-multiline"><code id="abed01ff2f4f23ffb7d240db14af6a06">ansible/
+├── inventories
+│   └── hosts.yml
+└── Makefile</code></pre>
+<h2 id="la-configuration-d-un-inventaire" class="anchor-title"><a href="#la-configuration-d-un-inventaire">La configuration d'un inventaire</a></h2>
+<p>Pour rappel le contenu de votre fichier <code class="code-inline" id="d4bbb8582b29b42818a341b53996b81b">hosts.yml</code> doit pour l'heure être le suivant:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="a60bfc9b04c8c441f6647281e3878fc1"><span class="token key atrule">all</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.XXX
+      <span class="token key atrule">ansible_user</span><span class="token punctuation">:</span> debian</code></pre>
+<h3 id="cles-generiques" class="anchor-title"><a href="#cles-generiques">Clés génériques</a></h3>
+<p>La structure du fichier nous permet de mettre en évidence deux clés essentielles:</p>
+<ul>
+<li><code class="code-inline" id="e15cba2a55d1c830968665125de5abf6">ansible_host</code>: Le nom résolvable ou l'adresse IP de la machine distante;</li>
+<li><code class="code-inline" id="6410e7f930b2aeb0c84b0bda2d1beefc">ansible_user</code>: L'utilisateur à utilisé pour ouvrire une session sur cette même machine.</li>
+</ul>
+<p>Il est toutefois possible d'utiliser d'autre clé de configuration pour enrichir la définition de notre machine, parmi les plus utiles:</p>
+<ul>
+<li><code class="code-inline" id="74a5edb379a6a38c427ba24ab3bff19b">ansible_port</code>: Permet de spécifier le port de connexion SSH (si différent du port standard, pour rappel le port par défaut est 22)</li>
+</ul>
+<h3 id="cles-specifiques-a-ssh" class="anchor-title"><a href="#cles-specifiques-a-ssh">Clés spécifiques à SSH</a></h3>
+<ul>
+<li><code class="code-inline" id="4daad07dc9ff6da97bf97eb9fc6ec55f">ansible_ssh_pass</code>: </li>
+<li><code class="code-inline" id="67638c28e4955b62a91e68ee28e2ce97">ansible_ssh_private_key_file</code>:</li>
+<li><code class="code-inline" id="7e27f110c7215a70b65fc240f0c77899">ansible_ssh_extra_args</code></li>
+</ul>
+<h3 id="cles-specifiques-a-l-escalade-de-privileges" class="anchor-title"><a href="#cles-specifiques-a-l-escalade-de-privileges">Clés spécifiques à l'escalade de privilèges</a></h3>
+<ul>
+<li><code class="code-inline" id="c91d5bd5143e35ffd5fdbd6c18a7fb99">ansible_become</code>:</li>
+<li><code class="code-inline" id="51bef64291b9daa3aca0d85634e6c290">ansible_become_method</code>:</li>
+<li><code class="code-inline" id="06cd308b1f1bcfefec87cc12150415c7">ansible_become_user</code>:</li>
+<li><code class="code-inline" id="55c17a0b743bf76b2165c6abab1cbc0d">ansible_become_pass</code>:</li>
+</ul>
+<h2 id="enrichir-son-inventaire" class="anchor-title"><a href="#enrichir-son-inventaire">Enrichir son inventaire</a></h2>
+<p>À présent que nous avons effectuer un petit tour rapide du propriétaire, nous allons « étoffer » notre inventaire initial en ajoutant une deuxième machine comme ci-dessous:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="34c235f6d6fe54ae31b8883d4a456a83"><span class="token comment"># Fichier hosts.yml</span>
+<span class="token key atrule">all</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.XXX
+      <span class="token key atrule">ansible_user</span><span class="token punctuation">:</span> debian
+    <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.XXX
+      <span class="token key atrule">ansible_user</span><span class="token punctuation">:</span> debian</code></pre>
+<p>En ajoutant une machine et en jouant la commande <code class="code-inline" id="0b18fc249e1d7162bd30b6dca034a1f3">ansible -i inventories/hosts.yml all -m ping</code> nous devrions bien voir qu'ansible considère bien nos deux machines: </p>
+<figure>
+    <img src="/rix/pr/125/content/images/blog/2023/ansible/ansible-inventaires/ping.gif" id="ping-gif">
+    <figcaption>
+      <span class="figure__legend">Utilisation du module ping sur deux machines.</span>
+    </figcaption>
+</figure>
+<div class="admonition info">
+<p class="admonition-title">Hôte local</p>
+<p>
+    Il est bien évidemment possible d'interroger notre propre machine à l'aide d'Ansible, en modifiant relativement simplement notre fichier d'inventaire. Attention toutefois à ce que vous faites puisque vous pouvez du coup directement impacter la configuration et donc le fonctionnement de votre machine.
+</p>
+</div>
+<p><strong>Exemple de fichier d'inventaire pour piloter une machine locale:</strong></p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="5b020fa985e3b22a3dc0e25b2bee28fd"><span class="token key atrule">all</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token key atrule">localhost</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> 127.0.0.1
+      <span class="token key atrule">ansible_connection</span><span class="token punctuation">:</span> local</code></pre>
+<h3 id="definir-des-groupes-de-machines" class="anchor-title"><a href="#definir-des-groupes-de-machines">Définir des groupes de machines</a></h3>
+<p>Pour l'exemple nous allons créer un fichier <code class="code-inline" id="f1e4b43dc3bfc1c29c68c177053d44da">groups.yml</code> (toujours dans <code class="code-inline" id="9d8e9044cc215163080743136fcb7fd5">inventories</code>) contenant: </p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="35937b908455fb665b3123d7292ad208"><span class="token key atrule">all</span><span class="token punctuation">:</span>
+  <span class="token key atrule">children</span><span class="token punctuation">:</span>
+    <span class="token key atrule">webservers</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+        <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span></code></pre>
+<p><strong>ATTENTION</strong>: <code class="code-inline" id="268184c12df027f536154d099d497b31">children</code> est une sous clé de <code class="code-inline" id="a181a603769c1f98ad927e7367c7aa51">all</code> ;)</p>
+<h3 id="la-commande-ansible-inventory" class="anchor-title"><a href="#la-commande-ansible-inventory">La commande « ansible-inventory »</a></h3>
+<p>Ansible propose différentes commande parfois très spécifique, l'occasion de tester notre configuration d'inventaire !</p>
+<p>Testons: <code class="code-inline" id="69068c6b2c391db5796dd7654fbf8eaf">ansible-inventory --list -i inventories</code>
+On notera que cette fois-ci nous donnons le répertoire <code class="code-inline" id="9d8e9044cc215163080743136fcb7fd5">inventories</code> en paramètre.</p>
+<p><strong>Cette commande devrait vous afficher la sortie suivante (format json):</strong></p>
+<pre class="code-multiline language-json"><code class="language-json" id="18b835c033acc74522f7460b1fdcb047"><span class="token punctuation">{</span>
+    <span class="token property">"_meta"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"hostvars"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"vm-web-prod-01"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                <span class="token property">"ansible_host"</span><span class="token operator">:</span> <span class="token string">"192.168.140.XXX"</span><span class="token punctuation">,</span>
+                <span class="token property">"ansible_user"</span><span class="token operator">:</span> <span class="token string">"debian"</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token property">"vm-web-staging-01"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                <span class="token property">"ansible_host"</span><span class="token operator">:</span> <span class="token string">"192.168.140.XXX"</span><span class="token punctuation">,</span>
+                <span class="token property">"ansible_user"</span><span class="token operator">:</span> <span class="token string">"debian"</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"all"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"children"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"ungrouped"</span><span class="token punctuation">,</span>
+            <span class="token string">"webservers"</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"webservers"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"hosts"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"vm-web-prod-01"</span><span class="token punctuation">,</span>
+            <span class="token string">"vm-web-staging-01"</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>ou encore avec l'option <code class="code-inline" id="36437d931f3230ab602972ee6d1fd029">--graph</code> en lieu et place de <code class="code-inline" id="bf39038a6584bddb587e02604abda843">--list</code> qui est plus parlante visuellement <code class="code-inline" id="2ee2d606d6a57b7c1c8ac06acce8005f">ansible-inventory --graph -i inventories</code>:</p>
+<pre class="code-multiline"><code id="da0f1d50ab3854f877095970fa579746">@all:
+  |--@ungrouped:
+  |--@webservers:
+  |  |--vm-web-prod-01
+  |  |--vm-web-staging-01</code></pre>
+<p><strong>À retenir:</strong>
+Ansible utilise une arborescence ou figurera <strong>toujours</strong>:</p>
+<ul>
+<li>Un groupe <code class="code-inline" id="a181a603769c1f98ad927e7367c7aa51">all</code>: C'est le groupe racine auquel appartiendra toutes vos machines sans exception (On remarquera avec cette information que lorsque nous avons utilisé la commande <code class="code-inline" id="0b18fc249e1d7162bd30b6dca034a1f3">ansible -i inventories/hosts.yml all -m ping</code>, <strong>all</strong> indiquait donc le groupe cible).</li>
+<li>Un groupe <code class="code-inline" id="992811368a2d05f316d2408329db0f7a">ungrouped</code>: Groupe auquel sera affecté toute machine <strong>n'appartenant à aucun groupe</strong> (exception faites de <strong>all</strong> bien évidemment);</li>
+</ul>
+<p>Dans notre exemple ci-dessus on voit donc bien que nos deux machines font bien partie du groupe <code class="code-inline" id="09c2ea6bb9250e08e7dd4d3e48358c1c">webservers</code>.</p>
+<div class="admonition info">
+<p class="admonition-title">Fichiers d'inventaire multiples</p>
+<p>
+    Si l'option <code class="code-inline" id="20f011826070657b0f0092278d65ec74">-i</code> d'Ansible prend un fichier d'inventaire en paramètre elle peut également prendre un répertoire et dans ce cas Ansible considérera l'ensemble des fichiers présents dans le répertoire.
+    Ce fonctionnement offre la possibilité avec des infrastructures composées de nombreuses machines de pouvoir les séparer dans plusieurs fichiers en fonction de différents critères.
+</p>
+</div>
+<h3 id="ordre-de-chargement-des-inventaires" class="anchor-title"><a href="#ordre-de-chargement-des-inventaires">Ordre de chargement des inventaires</a></h3>
+<p>Vous aurez compris que si l'on aborde le sujet c'est qu'il est d'importance... pour l'illustrer créons un nouveau fichier d'inventaire que l'on nommera <code class="code-inline" id="25fb573610df536a9ad23f5bc14672a4">misc.yml</code> contenant:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="3a3bfa6a3c9777527638d1be751b8a9c"><span class="token key atrule">all</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.XXX
+      <span class="token key atrule">ansible_user</span><span class="token punctuation">:</span> debian
+      <span class="token key atrule">ansible_port</span><span class="token punctuation">:</span> <span class="token number">22</span>
+    <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.YYY</code></pre>
+<p>Complétons pour finir notre inventaire <code class="code-inline" id="f1e4b43dc3bfc1c29c68c177053d44da">groups.yml</code> afin d'obtenir le contenu suivant:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="35dc3530c26452237dd092e9a4b47edb"><span class="token key atrule">all</span><span class="token punctuation">:</span>
+  <span class="token key atrule">children</span><span class="token punctuation">:</span>
+    <span class="token key atrule">webservers</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+        <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+    <span class="token key atrule">staging</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+    <span class="token key atrule">production</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span></code></pre>
+<h2 id="exercices" class="anchor-title"><a href="#exercices">Exercices</a></h2>
+<p>Rapide mise en pratique des inventaires.</p>
+<h3 id="exercice-1" class="anchor-title"><a href="#exercice-1">Exercice 1</a></h3>
+<p>Reprendre les différents fichiers contenu dans notre répertoire <code class="code-inline" id="9d8e9044cc215163080743136fcb7fd5">inventories</code> et les compiler en un seul et même fichier <code class="code-inline" id="d4bbb8582b29b42818a341b53996b81b">hosts.yml</code>.</p>
+<p>Souvenez-vous vous pouvez tester un fichier d'inventaire en particulier en le passant en paramètre de la commande <code class="code-inline" id="c849dabdafeab0ab6aae256ec60514b7">ansible-inventory</code>: <code class="code-inline" id="c98069802b7f3d0a6f1ad73afd0912b6">ansible-inventory --list -i inventories/hosts.yml</code>.</p>
+<h2 id="aller-plus-loins-avec-les-sources" class="anchor-title"><a href="#aller-plus-loins-avec-les-sources">Aller plus loins avec les sources</a></h2>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#connecting-to-hosts-behavioral-inventory-parameters" target="_blank">https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#connecting-to-hosts-behavioral-inventory-parameters</a></li>
+</ul></body>
+                                                                                </main>
+                <div class="article-footer" data-aos="fade-in">
+                                                                        <div class="author">
+                                <div class="author__image">
+                                    <img     src="/rix/pr/125/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg"
+    srcset="
+        /rix/pr/125/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg 1x,
+        /rix/pr/125/resized/content/images/member/avatars/gfaivre.jpg/d2d8af0b210c37c677635983f1c02d6d.jpg 2x
+    "
+ />
+                                </div>
+                                <span class="author__info">
+                                    Écrit par
+                                    <strong>Guewen Faivre</strong>
+                                </span>
+                                <div class="author__social">
+                                                                            <a href="https://twitter.com/guewen_faivre">
+                                            <i class="icon icon--twitter" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte twitter de Guewen Faivre</span>
+                                        </a>
+                                                                                                                <a href="https://github.com/gfaivre">
+                                            <i class="icon icon--github" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte github de Guewen Faivre</span>
+                                        </a>
+                                                                                                                <a href="http://www.elao.com">
+                                            <i class="icon icon--website" aria-hidden="true"></i>
+                                            <span class="screen-reader">Site personnel de Guewen Faivre</span>
+                                        </a>
+                                                                    </div>
+                            </div>
+                                                            </div>
+                                    <div class="comment">
+                                                    <div id="comentario"></div>
+                                                                                                    <p>
+                                Une typo ?
+                                <a href="https://github.com/rix-fr/rix/edit/cours/ansible-part-2-inventaires/content/blog/cours/ansible/ansible-les-inventaires-statiques.md/" target="_blank">Modifier cet article sur Github</a>
+                            </p>
+                                            </div>
+                            </div>
+        </div>
+    </div>
+        </main>
+                    <footer class="footer">
+    <div class="container">
+        <div class="footer__contact">
+            <div class="catchphrase">
+                <p class="h1">Le monde du DevOps vous semble obscur ?</p>
+                <p>Contactez-nous, nous vous aiderons à y <strong>voir plus clair</strong>.</p>
+            </div>
+            <div class="contact-tiles">
+                <span class="contact-tiles__item">
+                    <i class="icon icon--location" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Passez nous voir !</span>
+                        <span>Nous sommes à Lyon !</span>
+                        <span>34 rue Jean Broquin</span>
+                        <span>69006 Lyon, France</span>
+                    </span>
+                </span>
+                <span class="contact-tiles__item">
+                    <i class="icon icon--message" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Par téléphone ou par mail</span>
+                        <a href="tel:33482537609">04 82 53 76 09</a>
+                        <a href="mailto:contact@rix.fr">contact@rix.fr</a>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="footer__brand">
+            <img src="/rix/pr/125/build/images/logos/logo-horizontal-white.901392b9.svg" alt="Rix">
+            <span>Expertise et outilllage DevOps</span>
+        </div>
+        <nav class="footer__links">
+            <div class="pages">
+                <ul>
+                                                                        <li>
+                                <a href="/rix/pr/125/etudes-de-cas">Cas clients</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/125/a-propos">À propos</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/125/contact">Contact</a>
+                            </li>
+                                                            </ul>
+            </div>
+            <div class="services">
+                <a href="/rix/pr/125/services">Nos services</a>
+                <div>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/125/services#accompagnement_outillage">Accompagnement et outillage DevOps</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/125/services#experts_kubernetes">Expertise Kubernetes</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/125/services#performances_diagnostique">Performances et diagnostique</a>
+                                </li>
+                                                    </ul>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/125/services#conception_infrastructures">Conception sur-mesure d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/125/services#pilotage_infrastructures">Pilotage d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/125/services#environment">Environnement de développement</a>
+                                </li>
+                                                    </ul>
+                                    </div>
+            </div>
+        </nav>
+        <div class="footer__legals">
+            <span>©2023 - Rix - Tous droits réservés</span>
+            -
+            <a href="/rix/pr/125/legal">Mentions légales</a>
+            -
+            <a href="/rix/pr/125/confidentialite">Données personnelles</a>
+        </div>
+    </div>
+</footer>
+
+
+
+            </body>
+</html>
