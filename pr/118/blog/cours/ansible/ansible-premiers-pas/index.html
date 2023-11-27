@@ -300,7 +300,7 @@ Si vous êtes limité en terme de création d'instances, il est envisageable de 
 <h3 id="se-connecter-avec-le-client-ssh" class="anchor-title"><a href="#se-connecter-avec-le-client-ssh">Se connecter avec le client SSH</a></h3>
 <p>Considérant que vous remplissez les prérequis et que vous avez créé vos instances distantes nous allons pour commencer initier une « simple » connexion SSH vers notre instance.</p>
 <pre class="code-multiline"><code id="8f5d822d895a75c50ce49e32467e9de0">ssh debian@XXX.XXX.XXX.XXX</code></pre>
-<p>Si vous rencontrez des soucis .. forbidden (exemple) essayer en ajoutant explicitement le chemin vers la clé.</p>
+<p>Si vous rencontrez des soucis .. forbidden (exemple) ré-essayez en ajoutant explicitement le chemin vers la clé.</p>
 <pre class="code-multiline"><code id="665e15826841b865ca528876d7f9894d">ssh -i ~/.ssh/ed25519 debian@XXX.XXX.XXX.XXX</code></pre>
 <div class="admonition info">
 <p class="admonition-title">Utilisateur sous Windows</p>
@@ -309,7 +309,7 @@ Si vous êtes limité en terme de création d'instances, il est envisageable de 
 </p>
 </div>
 <h3 id="configuration-du-client-ssh" class="anchor-title"><a href="#configuration-du-client-ssh">Configuration du client SSH</a></h3>
-<p>Afin d'éviter d'avoir à spécifier le chemin vers la clé à chaque connexion et afin d'afiner la configuration de notre client nous pouvons également définir un fichier <code class="code-inline" id="4cc0ecc8128c171b864a0cdda4b4cdea">~/.ssh/config</code> contenant les directives suivantes:</p>
+<p>Afin d'éviter d'avoir à spécifier le chemin vers la clé à chaque connexion et afin d'affiner la configuration de notre client nous pouvons également définir un fichier <code class="code-inline" id="4cc0ecc8128c171b864a0cdda4b4cdea">~/.ssh/config</code> contenant les directives suivantes:</p>
 <pre class="code-multiline"><code id="de020e8878496ef04ac49671f6dacc38">Host 192.168.140.*
   Port 22
   User debian
