@@ -76,7 +76,7 @@ Pour terminer la commande `docker ps` devrait vous renvoyer l'écran ci-dessous:
     </figcaption>
 </figure>
 
-## Allez plus loin avec les sources
+## Aller plus loin avec les sources
 
 - https://learn.microsoft.com/fr-fr/windows/wsl/basic-commands
 - https://learn.microsoft.com/fr-fr/training/modules/wsl/wsl-introduction/
