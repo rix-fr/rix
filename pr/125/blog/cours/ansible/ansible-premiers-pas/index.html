@@ -70,7 +70,7 @@
                         document.querySelector('html').classList.remove('no-js');
         </script>
 
-                    <link rel="stylesheet" href="/rix/pr/125/build/305.91aa97ab.css">
+                    <link rel="stylesheet" href="/rix/pr/125/build/305.10b66363.css">
         
                     <script src="/rix/pr/125/build/runtime.7198d86d.js" defer></script><script src="/rix/pr/125/build/70.671fda9c.js" defer></script><script src="/rix/pr/125/build/app.e999eb99.js" defer></script>
 
@@ -274,22 +274,22 @@
                 <main>
                                                             <body><h2 id="preambule" class="anchor-title"><a href="#preambule">Préambule</a></h2>
 <p>Ce cours est utilisé dans le cadre de TP au sein de l'IUT Lyon 1. Il est notamment dispensé à des étudiants peu ou pas familiers avec les stratégies d'automatisation et de déploiement des infrastructures.
-Bien que très axé débutants il peut également représenté une possibilité de monter « rapidement » pour certaines équipes sur les principes fondamentaux d'Ansible afin de disposer du bagage minimal nécessaire à son utilisation.</p>
+Bien que très axé débutants il peut également représenter une possibilité de monter « rapidement » pour certaines équipes sur les principes fondamentaux d'Ansible afin de disposer du bagage minimal nécessaire à son utilisation.</p>
 <p>Il s'agit bien évidemment de supports à vocation pédagogique qui <strong>ne sont pas toujours transposables</strong> à une activité professionnelle.</p>
 <h2 id="prerequis" class="anchor-title"><a href="#prerequis">Prérequis</a></h2>
 <p>Afin d'aborder les différents concepts du cours il est recommandé de disposer:</p>
 <ul>
 <li>D'au moins deux machines virtuelles accessibles via <strong>SSH</strong> (idéalement 4);</li>
 <li><strong><a href="https://docs.docker.com/engine/install/" target="_blank">Docker et Docker compose</a></strong> installés sur la machine de travail (Docker Desktop pour <a href="https://docs.docker.com/desktop/install/windows-install/" target="_blank">Windows</a> et <a href="https://docs.docker.com/desktop/install/mac-install/" target="_blank">OSX</a>);</li>
-<li>D'une installation d'Ansible récente (2.15.5), s'il est possible de l'installer localement je recommanderai plutôt d'utiliser le <a href="/blog/cours/ansible/ansible-environnement-cle-en-main"><strong>Lazy Ansible</strong></a> du projet <a href="https://github.com/manala/" target="_blank"><strong>Manala</strong></a>..</li>
-<li>D'une paire de clé de SSH que vous aurez pris soin de générer (voir <a href="/blog/cours/cle-ssh-principes-de-base">ici</a>) si vous n'en disposez pas déjà.</li>
-<li>D'un répertoire de travail, de mon côté ça sera <code class="code-inline" id="2f56b2c4e169e525b08cdbdbfc1a4543">workspace/ansible</code> (très original oui), son nom importe peu l'idée et que vous sachiez vous y retrouver;</li>
+<li>D'une installation d'Ansible récente (2.15.5), s'il est possible de l'installer localement je recommanderais plutôt d'utiliser le <a href="/blog/cours/ansible/ansible-environnement-cle-en-main"><strong>Lazy Ansible</strong></a> du projet <a href="https://github.com/manala/" target="_blank"><strong>Manala</strong></a>..</li>
+<li>D'une paire de clés SSH que vous aurez pris soin de générer (voir <a href="/blog/cours/cle-ssh-principes-de-base">ici</a>) si vous n'en disposez pas déjà.</li>
+<li>D'un répertoire de travail, de mon côté ça sera <code class="code-inline" id="2f56b2c4e169e525b08cdbdbfc1a4543">workspace/ansible</code> (très original oui), son nom importe peu, l'idée est que vous sachiez vous y retrouver;</li>
 </ul>
 <p>Pour ceux qui utilisent Windows, il est possible d'<a href="/blog/cours/docker-avec-windows-et-wsl">utiliser WSL pour faire fonctionner les conteneurs Docker</a>, une machine virtuelle Linux fonctionne encore mieux, libre à vous d'utiliser l'un ou l'autre.</p>
 <h2 id="mise-en-route" class="anchor-title"><a href="#mise-en-route">Mise en route</a></h2>
 <p>Première étape avant de pouvoir rentrer dans le vif du sujet, nous aurons besoin de mettre en place un environnement de travail dédié à nos travaux.</p>
 <h2 id="infrastructure" class="anchor-title"><a href="#infrastructure">Infrastructure</a></h2>
-<p>Pour pouvoir configurer nos serveurs, il nous faudra... des serveurs, ou plutôt des machines virtuelles pour leur facilité à être arrêter, détruites et reconstruites.
+<p>Pour pouvoir configurer nos serveurs, il nous faudra... des serveurs, ou plutôt des machines virtuelles pour leur facilité à être arrêtées, détruites et reconstruites.
 N'importe quel fournisseur de cloud public peut faire l'affaire, utilisez celui avec lequel vous avez le plus d'affinités.</p>
 <p>Dans le cadre de l'IUT nous utiliserons OpenStack, solution OpenSource qui a fait ses preuves et qui plus est disponible dans l'enceinte de l'université, c'est également la solution technique utilisée par le <a href="https://www.ovhcloud.com/fr/public-cloud/" target="_blank">Public Cloud d'OVHCloud</a>.
 C'est donc sur cette base que je présenterai les étapes suivantes, au demeurant, parfaitement transposables chez d'autres fournisseurs.</p>
@@ -300,7 +300,7 @@ Si vous êtes limité en terme de création d'instances, il est envisageable de 
 <h3 id="se-connecter-avec-le-client-ssh" class="anchor-title"><a href="#se-connecter-avec-le-client-ssh">Se connecter avec le client SSH</a></h3>
 <p>Considérant que vous remplissez les prérequis et que vous avez créé vos instances distantes nous allons pour commencer initier une « simple » connexion SSH vers notre instance.</p>
 <pre class="code-multiline"><code id="8f5d822d895a75c50ce49e32467e9de0">ssh debian@XXX.XXX.XXX.XXX</code></pre>
-<p>Si vous rencontrez des soucis .. forbidden (exemple) essayer en ajoutant explicitement le chemin vers la clé.</p>
+<p>Si vous rencontrez des soucis .. forbidden (exemple) ré-essayez en ajoutant explicitement le chemin vers la clé.</p>
 <pre class="code-multiline"><code id="665e15826841b865ca528876d7f9894d">ssh -i ~/.ssh/ed25519 debian@XXX.XXX.XXX.XXX</code></pre>
 <div class="admonition info">
 <p class="admonition-title">Utilisateur sous Windows</p>
@@ -309,7 +309,7 @@ Si vous êtes limité en terme de création d'instances, il est envisageable de 
 </p>
 </div>
 <h3 id="configuration-du-client-ssh" class="anchor-title"><a href="#configuration-du-client-ssh">Configuration du client SSH</a></h3>
-<p>Afin d'éviter d'avoir à spécifier le chemin vers la clé à chaque connexion et afin d'afiner la configuration de notre client nous pouvons également définir un fichier <code class="code-inline" id="4cc0ecc8128c171b864a0cdda4b4cdea">~/.ssh/config</code> contenant les directives suivantes:</p>
+<p>Afin d'éviter d'avoir à spécifier le chemin vers la clé à chaque connexion et afin d'affiner la configuration de notre client nous pouvons également définir un fichier <code class="code-inline" id="4cc0ecc8128c171b864a0cdda4b4cdea">~/.ssh/config</code> contenant les directives suivantes:</p>
 <pre class="code-multiline"><code id="de020e8878496ef04ac49671f6dacc38">Host 192.168.140.*
   Port 22
   User debian
@@ -327,12 +327,12 @@ Si vous êtes limité en terme de création d'instances, il est envisageable de 
 <p>L'agent SSH sur la plupart des systèmes UNIX est lancé au démarrage de votre machine, toutefois si ça n'est pas le cas, il est possible de le démarrer avec la commande <code class="code-inline" id="7affca7621d83510206ba8b1a13f96f9">eval 'ssh-agent'</code>.
 Son rôle est de permettre de stocker de manière sécurisée votre/vos clés privées SSH (rappelez-vous c'est la partie que l'on ne partage pas !) mais également d'assurer le transfert de cette clé privée en toute sécurité vers les serveurs distants auxquels vous tenterez de vous connecter.</p>
 <h4 id="ajouter-une-cle-dans-l-agent" class="anchor-title"><a href="#ajouter-une-cle-dans-l-agent">Ajouter une clé dans l'agent</a></h4>
-<p>L'ajout d'une clé dans un agent est trivial est se fait à l'aide de la commande <code class="code-inline" id="d649ca672e246a3c2d37410e02f6faee">ssh-add ~/.ssh/my_private_key</code>. </p>
+<p>L'ajout d'une clé dans un agent est trivial et se fait à l'aide de la commande <code class="code-inline" id="d649ca672e246a3c2d37410e02f6faee">ssh-add ~/.ssh/my_private_key</code>. </p>
 <p>Si vous avez protégé votre clé avec une phrase de passe elle vous sera demandée par l'agent au moment de son ajout.
 Afin de vérifier que votre clé a bien été ajoutée à votre agent vous pouvez lister les clés contenues à l'intérieur avec la commande <code class="code-inline" id="ee9779fab5acd31dfa8f7ffddaaea38e">ssh-add -l</code> qui devrait vous donner une sortie équivalente à la suivante:</p>
 <pre class="code-multiline"><code id="7940481d44d7c99ec2e0012b063424cd">rix@debian:~$ ssh-add -l 
 4096 SHA256:knyjFlzIWukj77PBs0V+mO4eKD9mnSITOkYfYvgvZcQ /home/rix/.ssh/gfaivre-iut (RSA)</code></pre>
-<p>Cette étape, complétée par la directive <code class="code-inline" id="787f1d575c24fc4fca7057057499b6ac">ForwardAgent</code> contenu dans notre fichier de configuration SSH (pour rappel <code class="code-inline" id="4cc0ecc8128c171b864a0cdda4b4cdea">~/.ssh/config</code>) va nous permettre lorsque nous nous connectons à un serveur distant de transférer notre clé privée vers l'agent de ce même serveur.</p>
+<p>Cette étape, complétée par la directive <code class="code-inline" id="787f1d575c24fc4fca7057057499b6ac">ForwardAgent</code> contenue dans notre fichier de configuration SSH (pour rappel <code class="code-inline" id="4cc0ecc8128c171b864a0cdda4b4cdea">~/.ssh/config</code>) va nous permettre lorsque nous nous connectons à un serveur distant de transférer notre clé privée vers l'agent de ce même serveur.</p>
 <p>De cette manière notre clé privée sera même disponible sur le serveur auquel nous nous connectons, nous aborderons l'utilité de cette configuration plus tard.</p>
 <h3 id="communication-ansible-serveurs-distants" class="anchor-title"><a href="#communication-ansible-serveurs-distants">Communication Ansible &lt;&gt; serveurs distants</a></h3>
 <p>Notre environnement étant « prêt » testons à présent la bonne communication avec nos serveurs distants en utilisant le module <code class="code-inline" id="df911f0151f9ef021d410b4be5060972">ping</code> d'Ansible.</p>
@@ -343,7 +343,7 @@ Afin de vérifier que votre clé a bien été ajoutée à votre agent vous pouve
     Dans la terminologie Ansible, les « modules » sont des morceaux de code pouvant être utilisés soit directement dans la ligne de commande (avec l'option <code class="code-inline" id="67dd1c0d4e68c367b980f8723c781cb1">-m</code>, soit dans une section <code class="code-inline" id="478f3a4c51824ad23cb50c1c60670c0f">task</code> d'un « playbook »). Ils peuvent prendre en charge des arguments avec une syntaxe classique <code class="code-inline" id="ef176a6c424f954fa42d4cde03949897">key=value</code>.
 </p>
 </div>
-<p>Pour pouvoir effectuer notre premier test nous allons donc créer un fichier que nous appelerons <code class="code-inline" id="d4bbb8582b29b42818a341b53996b81b">hosts.yml</code> contenant (à adapter en fonction du réseau sur lequel sont déployées vos machines virtuelles): </p>
+<p>Pour pouvoir effectuer notre premier test nous allons donc créer un fichier que nous appellerons <code class="code-inline" id="d4bbb8582b29b42818a341b53996b81b">hosts.yml</code> contenant (à adapter en fonction du réseau sur lequel sont déployées vos machines virtuelles): </p>
 <pre class="code-multiline"><code id="5f8c1800313c63319cb0456fe01f7a50">all:
   hosts:
     ansible-vm-01:
@@ -361,7 +361,7 @@ Afin de vérifier que votre clé a bien été ajoutée à votre agent vous pouve
 <div class="admonition danger">
 <p class="admonition-title">Le module ping</p>
 <p>
-    Bien que son nom puisse porter à confusion, il s'agit là d'un module propre à Ansible et qui n'a rien à voir avec la commande système du même nom. Pour rappel, la commande système envoi un paquet ICMP (ECHO_REQUEST) à une machine distante et attend en retour un paquet du même type (ECHO_RESPONSE) indiquant le bon état de la liaison réseau.
+    Bien que son nom puisse porter à confusion, il s'agit là d'un module propre à Ansible et qui n'a rien à voir avec la commande système du même nom. Pour rappel, la commande système envoie un paquet ICMP (ECHO_REQUEST) à une machine distante et attend en retour un paquet du même type (ECHO_RESPONSE) indiquant le bon état de la liaison réseau.
     Le module Ansible quant à lui se connecte via SSH à la machine distante et y vérifie la bonne configuration de Python.
 </p>
 </div>

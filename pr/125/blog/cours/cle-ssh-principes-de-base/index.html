@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>D&#039;OSX à Linux (en milieu professionnel) - Partie 1 - Le quotidien</title>
+        <title>Principes de base de l&#039;utilisation de clés SSH.</title>
 
         <!-- Favicon -->
         <link rel="apple-touch-icon" sizes="180x180" href="/rix/pr/125/apple-touch-icon.png">
@@ -17,36 +17,36 @@
         <meta name="msapplication-config" content="/rix/pr/125/browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
 
-                        <meta name="description" content="Passer d&#039;OSX à Linux en milieu professionnel, le quotidien, équivalence d&#039;applications, fonctionnement, astuces." />
-            <link rel="canonical" href="https://rix-fr.github.io/rix/pr/125/blog/linux/osx-to-linux-part-1" />
+                        <meta name="description" content="Génération, utilisation et cas pratiques d&#039;utilisation de clés SSH." />
+            <link rel="canonical" href="https://rix-fr.github.io/rix/pr/125/blog/cours/cle-ssh-principes-de-base" />
 
             <!-- Open Graph / Facebook -->
                                         <meta property="og:type" content="website">
-                        <meta property="og:title" content="D&#039;OSX à Linux (en milieu professionnel) - Partie 1 - Le quotidien" />
+                        <meta property="og:title" content="Principes de base de l&#039;utilisation de clés SSH." />
             <meta property="og:locale" content="fr" />
-            <meta property="og:description" content="Passer d&#039;OSX à Linux en milieu professionnel, le quotidien, équivalence d&#039;applications, fonctionnement, astuces." />
-            <meta property="og:url" content="https://rix-fr.github.io/rix/pr/125/blog/linux/osx-to-linux-part-1" />
+            <meta property="og:description" content="Génération, utilisation et cas pratiques d&#039;utilisation de clés SSH." />
+            <meta property="og:url" content="https://rix-fr.github.io/rix/pr/125/blog/cours/cle-ssh-principes-de-base" />
             <meta property="og:site_name" content="rix" />
 
-                                        <meta property="og:image" content="https://rix-fr.github.io/rix/pr/125/resized/content/images/blog/thumbnails/inside-linux.jpg/cfd86d11514e7101c38ec348b99539c0.jpg">
+                                        <meta property="og:image" content="https://rix-fr.github.io/rix/pr/125/resized/content/images/blog/thumbnails/network_ssh.jpg/56039b5e8a9d941732502f0ddd518ab4.jpg">
                                                     <meta property="og:image:alt" content="Rix - Expertise et outillage DevOps">
             
             <!-- Twitter -->
             <meta property="twitter:card" content="summary_large_image">
-            <meta property="twitter:title" content="D&#039;OSX à Linux (en milieu professionnel) - Partie 1 - Le quotidien">
-            <meta property="twitter:description" content="Passer d&#039;OSX à Linux en milieu professionnel, le quotidien, équivalence d&#039;applications, fonctionnement, astuces.">
+            <meta property="twitter:title" content="Principes de base de l&#039;utilisation de clés SSH.">
+            <meta property="twitter:description" content="Génération, utilisation et cas pratiques d&#039;utilisation de clés SSH.">
             <meta property="twitter:site" content="@rix_fr">
             <meta property="twitter:creator" content="@rix_fr">
-                                        <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/125/resized/content/images/blog/thumbnails/inside-linux.jpg/f1c0389148b3a3a33cbfff09d577338f.jpg">
+                                        <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/125/resized/content/images/blog/thumbnails/network_ssh.jpg/b9bc17312aafebf07471a69f6a56381e.jpg">
                                 <script type="application/ld+json">{
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "headline": "D'OSX à Linux (en milieu professionnel) - Partie 1 - Le quotidien",
+    "headline": "Principes de base de l'utilisation de clés SSH.",
     "image": [
-        "https://rix-fr.github.io/rix/pr/125/blog/linux/content/images/blog/thumbnails/inside-linux.jpg"
+        "https://rix-fr.github.io/rix/pr/125/blog/cours/content/images/blog/thumbnails/network_ssh.jpg"
     ],
-    "datePublished": "25 octobre 2022",
-    "dateModified": "18 novembre 2022",
+    "datePublished": "20 octobre 2023",
+    "dateModified": "20 octobre 2023",
     "author": [
         {
             "@type": "Person",
@@ -54,8 +54,9 @@
         }
     ],
     "keywords": [
-        "Linux",
-        "Osx"
+        "Cours",
+        "Ssh",
+        "How to"
     ]
 }
     </script>
@@ -204,41 +205,36 @@
             <div class="container content">
                 <ul class="tags-list">
                                             <li class="tags-list__item">
-                            #Linux
+                            #Cours
                         </li>
                                             <li class="tags-list__item">
-                            #Osx
+                            #Ssh
+                        </li>
+                                            <li class="tags-list__item">
+                            #HowTo
                         </li>
                                     </ul>
-                <h2 class="h2--large">D&#039;OSX à Linux (en milieu professionnel) - Partie 1 - Le quotidien</h2>
-                <p>Passer d&#039;OSX à Linux en milieu professionnel, le quotidien, équivalence d&#039;applications, fonctionnement, astuces.</p>
+                <h2 class="h2--large">Principes de base de l&#039;utilisation de clés SSH.</h2>
+                <p>Génération, utilisation et cas pratiques d&#039;utilisation de clés SSH.</p>
                 <div class="article-overview">
                                         <ol class="table-of-contents">
                                                             <li class="table-of-contents__item">
-                                    <a href="#introduction">Introduction</a>
+                                    <a href="#pre-requis">Pré-requis</a>
                                                                     </li>
                                                             <li class="table-of-contents__item">
-                                    <a href="#les-clients-de-courriels">Les clients de courriels</a>
+                                    <a href="#tl-dr">TL;DR</a>
                                                                     </li>
                                                             <li class="table-of-contents__item">
-                                    <a href="#les-messageries-perso">Les messageries (perso)</a>
+                                    <a href="#generation-d-une-paire-de-cles">Génération d&#039;une paire de clés</a>
                                                                     </li>
                                                             <li class="table-of-contents__item">
-                                    <a href="#les-navigateurs">Les navigateurs</a>
+                                    <a href="#se-connecter-a-un-serveur-distant">Se connecter à un serveur distant</a>
                                                                     </li>
                                                             <li class="table-of-contents__item">
-                                    <a href="#la-bureautique">La bureautique</a>
-                                                                            <ol class="table-of-contents__sub-level">
-                                                                                            <li>
-                                                    <a href="#documents-et-tableurs">Documents et tableurs</a>
-                                                </li>
-                                                                                            <li>
-                                                    <a href="#pdf">PDF</a>
-                                                </li>
-                                                                                    </ol>
+                                    <a href="#complements">Compléments</a>
                                                                     </li>
                                                             <li class="table-of-contents__item">
-                                    <a href="#les-agendas">Les agendas</a>
+                                    <a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a>
                                                                     </li>
                                                     </ol>
                                         <div class="article-info">
@@ -257,77 +253,102 @@
                                                                     </span>
                             </div>
                                                 <div class="article-info__date">
-                            <span>Publication <strong>25 octobre 2022</strong></span>
-                                                                                        <span>Modification <strong>18 novembre 2022</strong></span>
-                                                    </div>
+                            <span>Publication <strong>20 octobre 2023</strong></span>
+                                                                                </div>
                     </div>
                 </div>
                 <main>
-                                                            <body><p>Parce que le choix (ou la nécessité) de changer de système d'exploitation remet en cause notre utilisation quotidienne et nos réflèxes applicatifs, il me parait louable de partager <strong>MA</strong> façon d'utiliser Linux après de nombreuses années avec OSX et quelles solutions j'ai « trouvé » pour reprendre mes marques notamment en terme d'équivalence d'applications et d'utilisation au quotidien.</p>
-<p>Billet à destination de celles et ceux qui hésitent encore à franchir le pas de peur de se retrouver perdu·e.</p>
-<h2 id="introduction" class="anchor-title"><a href="#introduction">Introduction</a></h2>
-<p>En préambule et pour mieux cerner certaines contraintes que j'ai pu avoir ou choix que j'ai pu faire:</p>
+                                                            <body><p>Une clé SSH est un <strong>moyen d'authentification</strong> vers un serveur SSH reposant sur les principes de <strong><a href="https://fr.wikipedia.org/wiki/Cryptographie_asym%C3%A9trique" target="_blank">cryptographie asymétrique</a></strong> et <strong><a href="https://fr.wikipedia.org/wiki/Authentification_d%C3%A9fi-r%C3%A9ponse" target="_blank">d'authentification défi / réponse</a></strong>.</p>
+<p>Elle a deux avantages fondamentaux comparativement avec une authentification par couple identifiant/mot de passe:</p>
 <ul>
-<li>J'utilise Linux à titre <code class="code-inline" id="3028fd8c58829bf4deee743d35a039d3">pro et perso</code> depuis plus de 20 ans (J'ai commencé avec Debian/Potato);</li>
-<li><code class="code-inline" id="386233f220de79a81b710bb7efb160d0">Je ne prêche pour aucune distribution en particulier</code>, sauf côté serveur, mais ça n'est pas le sujet;
-<br>Il existe aujourd'hui suffisamment de distributions « matures » pour que chacun y trouve son bonheur, il n'y a pas de « meilleure » distro il y a <strong>celle qui vous convient</strong>. En ce qui me concerne j'ai eu de la <strong>Debian</strong> (beaucoup), de la <strong>Fedora</strong> et de l'<strong>Ubuntu</strong> (un peu pour les deux) et ça fait maintenant 3 ans que j'utilise <strong>Manjaro</strong> après un rapide passage sur <strong>Antergos</strong>;</li>
-<li>J'ai passé pas loin de 10 ans avec OSX coté pro avec ses bons et ses mauvais côtés et même si je ne m'y retrouve plus aujourd'hui, c'est toujours à mon sens un bon OS;</li>
-<li>J'utilise <code class="code-inline" id="1fd967a816834982761258785b9d0b52">Gnome</code> comme environnement graphique;</li>
-<li>Je dispose de plusieurs adresses de messagerie dont pas mal sont gérées par ProtonMail;</li>
-<li>Mon quotidien est celui d'un SysAdmin/Ops/SRE (Je ne sais plus où on en est dans les appellations) bref tout ce qui va toucher à l'administration système et à l'outillage autour.</li>
+<li>Permettre une authentification facilité (plus de mot de passe à mémoriser) et plus rapide (possibilité de rebond de serveur à serveur par exemple).</li>
+<li>Se prémunir des attaques de type <a href="https://fr.wikipedia.org/wiki/Attaque_par_force_brute" target="_blank">force brute</a></li>
 </ul>
-<p>Je séparerai cet article en plusieurs parties en fonction des différentes utilisations:</p>
+<p>La très grande majorité des accès serveurs sont aujourd'hui basés sur leur utilisation, au dela de l'aspect fluidité et sécurité, elle ouvre également la possibilité d'authorisation multiple (sur plusieurs serveurs), de révocation et de signature des accès facilités.</p>
+<div class="admonition info">
+<p class="admonition-title">Secure Shell (SSH)</p>
+<p>
+    Secure Shell (SSH) est à la fois un programme informatique et un protocole de communication sécurisé.
+    Le protocole de connexion impose un échange de clés de chiffrement en début de connexion. Par la suite, tous les segments TCP sont authentifiés et chiffrés. Il devient donc impossible d'utiliser un sniffer pour voir ce que fait l'utilisateur.
+    Le protocole SSH a été conçu avec l'objectif de remplacer les différents protocoles non chiffrés comme rlogin, telnet, rcp et rsh.
+</p>
+</div>
+<h2 id="pre-requis" class="anchor-title"><a href="#pre-requis">Pré-requis</a></h2>
 <ul>
-<li>Le quotidien (qui pourra intéresser tout un chacun);</li>
-<li>Le spécifique (qui relève de mon utilisation);</li>
-<li>Le pro (très focalisé sur le métier).</li>
-<li>Le cosmétique</li>
+<li>Avoir un client SSH installé (OpenSSH pour Linux/OSX et Windows à présent ou encore <a href="https://www.putty.org/" target="_blank">Putty</a> pour Windows)</li>
+<li>Une ligne de commande ( le truc noir dans lequel on tape du texte ;) )</li>
 </ul>
-<p>Sans plus attendre un premier chapitre qui va se concentrer sur l'utilisation que chacun d'entre nous peut avoir d'une machine.</p>
-<h2 id="les-clients-de-courriels" class="anchor-title"><a href="#les-clients-de-courriels">Les clients de courriels</a></h2>
-<p>L'une des premières utilisation, les courriels !<br>
-J'utilise uniquement les clients de courriel et quasiment jamais un navigateur pour consulter ma messagerie. Avec OSX j'utilisais l'excellent <a href="https://www.postbox-inc.com/" target="_blank"><code class="code-inline" id="e2f16f113b9b09d42dfeb58cca8b1d9a">Postbox</code></a>.</p>
-<p><strong>Du côté de linux j'ai retenu deux candidats:</strong></p>
+<h2 id="tl-dr" class="anchor-title"><a href="#tl-dr">TL;DR</a></h2>
+<p><strong>Génération d'une paire de clés:</strong></p>
+<pre class="code-multiline"><code id="4e41757ebf6ff993d02688213be943d9">ssh-keygen -t ed25519 -a 150</code></pre>
+<p><strong>Se connecter à un serveur distant</strong></p>
+<pre class="code-multiline"><code id="b1a1b175ea0d1dfb453161746a5f9877">ssh -i ~/.ssh/id25519 user@server_address</code></pre>
+<h2 id="generation-d-une-paire-de-cles" class="anchor-title"><a href="#generation-d-une-paire-de-cles">Génération d'une paire de clés</a></h2>
+<p>Le principe de l'authentification par clés repose, comme explicité sur les différents liens ci-dessus, par la création d'une paire de clés asymétriques.
+L'une de ces clés sera votre clé <strong>publique</strong> à déployer sur les machines auxquelles vous avez le droit de vous connecter, l'autre, votre clé <strong>privée</strong>. Et comme son nom l'indique, celle-ci est à vous et rien qu'à vous ; elle ne se partage pas. <strong>JAMAIS</strong>.</p>
+<p>Deux notions de base avant de se lancer pour bien comprendre ce que l'on fait:</p>
 <ul>
-<li>L'incontournable Thunderbird qui reste, fonctionnellement et de très loin le plus complet. Son ergonomie est toutefois très datée et on ne va pas se le cacher, l'organisation de ses menus est tout de même un sacré bordel ! À son crédit c'est un des rares à supporter GPG nativement.</li>
-<li>Celui que j'utilise depuis quelques temps, <a href="https://getmailspring.com/" target="_blank"><code class="code-inline" id="4e4c18b0255235b949e0cc8679cf3657">Mailspring</code></a> qui dispose d'une interface beaucoup plus simple et accessible et fonctionne très bien avec le bridge de chez <a href="https://proton.me/fr/mail" target="_blank"><code class="code-inline" id="d8905e8b7e5af773ecd3a9213bdab9f0">ProtonMail</code></a>.</li>
+<li>Il existe plusieurs types d'<strong>algorithmes de signature numérique</strong>, les plus répandus étant <strong><a href="https://fr.wikipedia.org/wiki/Chiffrement_RSA" target="_blank">RSA</a></strong> et <strong><a href="https://fr.wikipedia.org/wiki/EdDSA" target="_blank">Ed25519</a></strong>;</li>
+<li>Il est possible de spécifier la longueur de vos clés, ce paramètre est essentiel à leur <strong>robustesse</strong>.</li>
 </ul>
+<p>Il est recommandé, à la date de rédaction de cet article, d'utiliser l'algorithme <strong>Ed25519</strong> qui a plusieurs avantages comparativement à RSA:</p>
+<ul>
+<li>Robustesse accrue;</li>
+<li>Plus petite taille de clés;</li>
+<li>Génération des clés plus rapide.</li>
+</ul>
+<pre class="code-multiline"><code id="413fac48b924f9817b9e9fd4c73e32c6">ssh-keygen -t ed25519 -a 150 -C "courriel@example.com"</code></pre>
 <figure>
-    <img src="/rix/pr/125/resized/content/images/blog/2022/osx-to-linux/mailspring-screenshot-01.jpg/43afa9f7916f18f63bf34bc3e03aa0e5.jpg" alt="L'interface de Mailspring" srcset="/rix/pr/125/resized/content/images/blog/2022/osx-to-linux/mailspring-screenshot-01.jpg/43afa9f7916f18f63bf34bc3e03aa0e5.jpg 1x,
-/rix/pr/125/resized/content/images/blog/2022/osx-to-linux/mailspring-screenshot-01.jpg/9b445763b027f4a80d28d4f7af9b4555.jpg 2x," id="l-interface-de-mailspring">
+    <img src="/rix/pr/125/resized/content/images/blog/2023/cours/ssh-keygen.gif/4c624a8987673a6deb25cf1395b926ce.gif" id="4c624a8987673a6deb25cf1395b926ce-gif">
     <figcaption>
-      <span class="figure__legend">L'interface de Mailspring</span>
+      <span class="figure__legend">Génération d'une paire de clé SSH</span>
     </figcaption>
 </figure>
-<p>À noter que j'attends la refonte annoncée de Thunderbird avec impatience tant le fonctionnel de Mailspring reste « relativement » limité.<br>
-(<strong>Mise à jour du 18 Novembre 2022</strong>: Quelques écrans de la nouvelle interface ont fait leur apparition, ils semblent augurer d'un gros et bon travail d'UI.)</p>
-<h2 id="les-messageries-perso" class="anchor-title"><a href="#les-messageries-perso">Les messageries (perso)</a></h2>
-<p>Au niveau des messageries j'utilise principalement <code class="code-inline" id="085fea7abdc5d904fe69a3081efd7398">Signal</code> et <code class="code-inline" id="82c616385feaa4676e3ef52af346733b">Whatsapp</code> (pour les proches), les deux disposent d'intégration des clients comme je l'avais sous OSX rien à signaler à ce niveau on est ISO !</p>
-<h2 id="les-navigateurs" class="anchor-title"><a href="#les-navigateurs">Les navigateurs</a></h2>
-<p>Probablement la brique la plus standardisée à l'heure actuelle, on retrouve exactement la même chose côté Linux c'est donc plus l'affinité de chacun qui va jouer.
-De mon côté j'en utilise deux principalement <a href="https://brave.com/fr/" target="_blank"><code class="code-inline" id="8d091597127cc044520e13fae3a3af59">Brave</code></a> (sur une base chromium donc) et <a href="https://librewolf.net/" target="_blank"><code class="code-inline" id="41470ad7179e2e6755b8a594b7277521">Librewolf</code></a> (sur une base Firefox).</p>
-<p>À ces derniers vient se greffer <a href="https://www.torproject.org/fr/download/" target="_blank"><code class="code-inline" id="8e53aeadb9b652a2b1e07c61e8d4e310">TorBrowser</code></a>.</p>
-<h2 id="la-bureautique" class="anchor-title"><a href="#la-bureautique">La bureautique</a></h2>
-<h3 id="documents-et-tableurs" class="anchor-title"><a href="#documents-et-tableurs">Documents et tableurs</a></h3>
-<p>Ah ! La bureautique…</p>
-<p>Point de friction lié principalement à la comptabilité avec les formats propriétaires, je n'ai plus rencontré de « vrai » problème depuis un moment.
-J'utilise <code class="code-inline" id="b6703c435be20e2c040b934f7c0d75e6">OnlyOffice Desktop</code> pour l'édition de document de type Word et Excel et ça juste marche !</p>
-<p>Point plus embêtant si vous avez des imprimantes réseau un peu anciennes il est probable qu'il vous soit compliqué d'imprimer sans faire un effort de configuration (je ne l'ai pas fait, je n'imprime quasiment jamais).</p>
-<h3 id="pdf" class="anchor-title"><a href="#pdf">PDF</a></h3>
-<p>Du côté des PDFs, le visionneur de documents de Gnome fait très bien le boulot pour de la lecture.<br>
-Au niveau de l'édition c'est un domaine ou il faut encore bricoler par rapport à OSX qui est très bon nativement pour manipuler les PDFs.
-J'utilise donc <a href="https://framalibre.org/content/xournal" target="_blank">Xournal++</a> dès lors que je dois y insérer des images ou autres éléments mais il s'agit d'un projet qui semble être à l'abandon et pour lequel je n'ai pas encore cherché/trouvé d'alternative viable.</p>
+<p>L'option <code class="code-inline" id="cf8cdf84c2454d47460fcb564fdde204">-C</code> permet d'ajouter un commentaire à votre clé, pratique notamment pour <strong>identifier le propriétaire d'une clé publique coté serveur</strong>.</p>
+<div class="admonition danger">
+<p class="admonition-title">Phrase de passe</p>
+<p>
+    Bien que facultative, il est « <strong>extrêmement vachement recommandé</strong> » de disposer d'une phrase de passe sur vos clés SSH (dans le cadre des cours et pour gagner du temps il est possible de s'en passer <strong>si vous n'utilisez pas votre clé en dehors de ceux-ci</strong>).
+</p>
+</div>
+<p>Cette commande vous aura généré deux fichiers dans le répertoire <code class="code-inline" id="f5f67a065f758bf3e6bae82fd34ab3a2">~/.ssh/</code> (sauf si vous l'avez modifié bien évidemment):</p>
+<ul>
+<li><code class="code-inline" id="488bdb839a21688d6126300d9f09fbe9">id_ed25519.pub</code> (comme son extension l'indique c'est votre clé <strong>publique</strong>);</li>
+<li><code class="code-inline" id="6e20e3f5ea6fcfc0bca06bf93c1b7aeb">id_ed25519</code> votre clé <strong>privée</strong> (on remarquera les droits qui lui sont appliqués <code class="code-inline" id="bf8eba0d2a296e4e801f774cf5deb67f">0600</code>, en effet seul votre utilisateur doit y avoir accès).</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Générer une clé RSA</p>
+<p>
+    Ed25519 n'étant de temps en temps pas supporté (surtout par les anciens systèmes) il est parfois nécessaire de générer une paire de clé RSA (on remarquera la longueur de clé de <strong>4096 bits</strong> recommandée à date de rédaction de l'article):
+    <code class="code-inline" id="349e1e9e559f33c91688c962f613aacf">ssh-keygen -t rsa -a 150 -b 4096</code>
+</p>
+</div>
+<h2 id="se-connecter-a-un-serveur-distant" class="anchor-title"><a href="#se-connecter-a-un-serveur-distant">Se connecter à un serveur distant</a></h2>
+<p>C'est un peu la finalité.
+Imaginons un serveur pour lequel votre clé est autorisée à se connecter (pour rappel fichier <code class="code-inline" id="c0274e5607f75f22497b2ec116e41842">authorized_keys</code>), nous pouvons initier une connexion à l'aide de la commande:</p>
+<p><code class="code-inline" id="a7fe85f59db939469192c32deef402b4">ssh user@server_address</code></p>
+<p>Cette commande aura donc pour effet « d'ouvrir » une connexion sur un serveur distant via le protocol SSH vous permettant de saisir des lignes de commande <strong>directement</strong> sur ce serveur et donc de <strong>l'administrer</strong>.</p>
 <figure>
-    <img src="/rix/pr/125/resized/content/images/blog/2022/osx-to-linux/visionneuse-pdf.jpg/8f62ab41cbb5677cff762e39b0aac290.jpg" alt="La visionneuse de Gnome" srcset="/rix/pr/125/resized/content/images/blog/2022/osx-to-linux/visionneuse-pdf.jpg/8f62ab41cbb5677cff762e39b0aac290.jpg 1x,
-/rix/pr/125/resized/content/images/blog/2022/osx-to-linux/visionneuse-pdf.jpg/4f20a6fea1b9fa1bbf2335ee8ddbbf8e.jpg 2x," id="la-visionneuse-de-gnome">
+    <img src="/rix/pr/125/resized/content/images/blog/2023/cours/ssh.gif/02e06122a9eba89d4faed7b89ae519d6.gif" id="02e06122a9eba89d4faed7b89ae519d6-gif">
     <figcaption>
-      <span class="figure__legend">La visionneuse de Gnome</span>
+      <span class="figure__legend">Ouverture d'une session sur un serveur distant</span>
     </figcaption>
 </figure>
-<h2 id="les-agendas" class="anchor-title"><a href="#les-agendas">Les agendas</a></h2>
-<p>Là encore l'offre est plétorique, après avoir pas mal utilisé <a href="https://www.thunderbird.net/en-US/calendar/" target="_blank"><code class="code-inline" id="457ba641340a812b28f949a26fca3e7b">Lightning</code></a> (Thunderbird) je suis revenu sur <a href="https://wiki.gnome.org/Apps/Calendar" target="_blank"><code class="code-inline" id="4bb67f9a9363cd3171435b175e85dde5">Gnome Calendar</code></a> qui fait le boulot.</p>
-<p><strong>ATTENTION</strong> toutefois il n'intègre pas la mécanique d'invitations, si vous planifiez beaucoup de réunions il vaut sans doute mieux rester sur Lightning.</p>
-<p>Pour ceux qui disposent d'agendas iCloud (j'en fais partie) leur ajout à Lightning passe par l'utilisation de l'extension <a href="https://addons.thunderbird.net/en-US/thunderbird/addon/tbsync/" target="_blank">TBSync</a> quant à Gnome Calendar il faut passer par une gymnastique assez lourde que je décris <a href="/blog/linux/integrer-icloud-gnome-calendar">ici</a>.</p></body>
+<p>Cette exemple montre l'ouverture d'une session avec l'utilisateur <code class="code-inline" id="6e9552c9bd8e61c8f277c21220160234">debian</code> sur le serveur ayant pour adresse IP <code class="code-inline" id="412eb42a00d0acc047bdb262465b5eaa">146.59.243.95</code>.</p>
+<p><strong>Plusieurs choses à retenir à cette étape:</strong></p>
+<ul>
+<li>Par défaut ssh <strong>parcourt les clés SSH privées disponibles</strong> dans le répertoire <code class="code-inline" id="6ee1504095caefc322f5ca38b8074fd4">~/.ssh</code> afin de les proposer au serveur auquel vous essayez de vous connecter.</li>
+<li>Vous optenez en retour <strong>la première fois</strong> que vous vous connectez un message vous demandant de <strong>confirmer la connexion</strong> vers le serveur distant (Host key checking).</li>
+</ul>
+<h2 id="complements" class="anchor-title"><a href="#complements">Compléments</a></h2>
+<p>Si vous disposez de plusieurs clés SSH et que vous ne souhaitez pas que l'ensemble de vos clés privées soient soumises au serveur distant vous pouvez spécifier quelle clé utiliser en utilisant l'option <code class="code-inline" id="20f011826070657b0f0092278d65ec74">-i</code>.</p>
+<pre class="code-multiline"><code id="1447b20008cc99325cebf30676ffa256">ssh -i ~/.ssh/id25519 debian@146.59.243.95</code></pre>
+<p>Il est possible d'utiliser <strong>des syntaxes différentes</strong> en fonction de votre <a href="/blog/cours/utiliser-la-configuration-ssh-client">fichier de configuration SSH</a>.</p>
+<p>Vous pouvez ainsi agir sur les comportements par défaut de votre client SSH et notamment sur la clé à utiliser en fonction de tel ou tel serveur.</p>
+<h2 id="aller-plus-loin-avec-les-sources" class="anchor-title"><a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a></h2>
+<ul>
+<li><a href="https://fr.wikipedia.org/wiki/Secure_Shell" target="_blank">https://fr.wikipedia.org/wiki/Secure_Shell</a></li>
+</ul></body>
                                                                                 </main>
                 <div class="article-footer" data-aos="fade-in">
                                                                         <div class="author">
@@ -363,7 +384,7 @@ J'utilise donc <a href="https://framalibre.org/content/xournal" target="_blank">
                                                     <div id="comentario"></div>
                                                                                                     <p>
                                 Une typo ?
-                                <a href="https://github.com/rix-fr/rix/edit/cours/ansible-part-2-inventaires/content/blog/linux/osx-to-linux-part-1.md/" target="_blank">Modifier cet article sur Github</a>
+                                <a href="https://github.com/rix-fr/rix/edit/cours/ansible-part-2-inventaires/content/blog/cours/cle-ssh-principes-de-base.md/" target="_blank">Modifier cet article sur Github</a>
                             </p>
                                             </div>
                             </div>

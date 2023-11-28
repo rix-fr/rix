@@ -71,7 +71,7 @@
                         document.querySelector('html').classList.remove('no-js');
         </script>
 
-                    <link rel="stylesheet" href="/rix/pr/125/build/305.91aa97ab.css">
+                    <link rel="stylesheet" href="/rix/pr/125/build/305.10b66363.css">
         
                     <script src="/rix/pr/125/build/runtime.7198d86d.js" defer></script><script src="/rix/pr/125/build/70.671fda9c.js" defer></script><script src="/rix/pr/125/build/app.e999eb99.js" defer></script>
 
@@ -295,6 +295,12 @@ Et pour ceux et celles qui doivent faire avec plusieurs versions d'Ansible dans 
 <h2 id="fichiers-de-configuration" class="anchor-title"><a href="#fichiers-de-configuration">Fichiers de configuration</a></h2>
 <p>Il est bien évidemment possible à partir des fichiers de configuration Manala, d'agir sur les configurations d'ansible mais également <a href="/blog/cours/utiliser-la-configuration-ssh-client">la configuration SSH</a>.</p>
 <p>Pour cela il faudra modifier le fichier <code class="code-inline" id="b02a9fece427527328ec7bdc57422dda">.manala.yaml</code> qui doit, après la manipulation précédente, se trouver à la racine de votre répertoire de travail.</p>
+<div class="admonition success">
+<p class="admonition-title">Prendre en compte vos modifications</p>
+<p>
+    Si vous modifiez les fichiers de configuration comme indiqué ci-dessous il faudra penser à utiliser la commande <code class="code-inline" id="5dd555b7998ff20d65ca5d7bc7328329">manala up</code> afin que vos modifications soient bien prises en compte.
+</p>
+</div>
 <h3 id="configurer-ansible" class="anchor-title"><a href="#configurer-ansible">Configurer Ansible</a></h3>
 <p>Il est possible d'interagir sur la configuration Ansible à partir de la section suivante: </p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="fb5484be3d6664147fafbecf14f3fec2"><span class="token key atrule">system</span><span class="token punctuation">:</span>
@@ -309,6 +315,12 @@ Et pour ceux et celles qui doivent faire avec plusieurs versions d'Ansible dans 
             [ssh_connection]
             control_path = /tmp/%%h-%%r</span></code></pre>
 <p>On notera qu'il est possible d'agir sur la version d'ansible utilisée dans notre conteneur Docker mais également sur les directives de configuration propres à Ansible (<a href="https://docs.ansible.com/ansible/latest/reference_appendices/config.html" target="_blank">https://docs.ansible.com/ansible/latest/reference_appendices/config.html</a>).</p>
+<div class="admonition info">
+<p class="admonition-title">Le fichier ansible.cfg</p>
+<p>
+    Les modifications de configuration comme ci-dessus se traduisent par l'ajout de directives dans le fichier <code class="code-inline" id="774ddaf3a4ebb3a050084de9d3ca6820">/etc/ansible/ansible.cfg</code>. Il est possible de surcharger ce fichier en placant un fichier du même nom à la racine des répertoires de travail de vos projets permettant ainsi l'introduction de directives spécifiques à chacun d'entre eux.
+</p>
+</div>
 <h3 id="configurer-ssh" class="anchor-title"><a href="#configurer-ssh">Configurer SSH</a></h3>
 <p>Concernant SSH le fonctionnement est le même, on retrouve une section dédiée au sein du fichier <code class="code-inline" id="b02a9fece427527328ec7bdc57422dda">.manala.yaml</code> qui nous permettra de jouer sur les directives de configuration SSH:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="86ea0b3ad8ec7b898ca62d33f81b20c9"><span class="token key atrule">ssh</span><span class="token punctuation">:</span>
@@ -316,7 +328,7 @@ Et pour ceux et celles qui doivent faire avec plusieurs versions d'Ansible dans 
         Host *
             User debian
             ForwardAgent yes</span></code></pre>
-<p>Et vous voila en quelques lignes en capacité d'utiliser un environnement Ansible.</p>
+<p>Et vous voilà en quelques lignes en capacité d'utiliser un environnement Ansible.</p>
 <h3 id="configurer-git" class="anchor-title"><a href="#configurer-git">Configurer GIT</a></h3>
 <p>Toujours dans le même fichier, la section cette fois-ci sera la suivante:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="3b776a2ed4b55a9ed470236b0df3f514"><span class="token key atrule">git</span><span class="token punctuation">:</span>

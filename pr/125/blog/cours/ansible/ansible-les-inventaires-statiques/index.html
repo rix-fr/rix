@@ -70,7 +70,7 @@
                         document.querySelector('html').classList.remove('no-js');
         </script>
 
-                    <link rel="stylesheet" href="/rix/pr/125/build/305.91aa97ab.css">
+                    <link rel="stylesheet" href="/rix/pr/125/build/305.10b66363.css">
         
                     <script src="/rix/pr/125/build/runtime.7198d86d.js" defer></script><script src="/rix/pr/125/build/70.671fda9c.js" defer></script><script src="/rix/pr/125/build/app.e999eb99.js" defer></script>
 
@@ -270,6 +270,23 @@
                                                                                     </ol>
                                                                     </li>
                                                             <li class="table-of-contents__item">
+                                    <a href="#cibler-des-groupes-de-machines-avec-les-patterns">Cibler des groupes de machines avec les « patterns »</a>
+                                                                            <ol class="table-of-contents__sub-level">
+                                                                                            <li>
+                                                    <a href="#l-operateur-or">L&#039;opérateur OR</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#l-operateur-and">L&#039;opérateur AND</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#l-operateur-not">L&#039;opérateur NOT</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#combinaisons-multiples">Combinaisons multiples</a>
+                                                </li>
+                                                                                    </ol>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
                                     <a href="#aller-plus-loins-avec-les-sources">Aller plus loins avec les sources</a>
                                                                     </li>
                                                     </ol>
@@ -294,23 +311,17 @@
                     </div>
                 </div>
                 <main>
-                                                                <div class="alert alert--error">
-                            <i class="icon icon--danger" aria-hidden="true"></i>
-                            <div>
-                                <p>Cet article n'est pas encore publié. Cet aperçu est disponible uniquement dans cet environnement mais n'apparaîtra en production qu'à partir du 27 novembre 2023</p>
-                            </div>
-                        </div>
-                                        <body><h2 id="preambule" class="anchor-title"><a href="#preambule">Préambule</a></h2>
+                                                            <body><h2 id="preambule" class="anchor-title"><a href="#preambule">Préambule</a></h2>
 <p>Ce cours est utilisé dans le cadre de TP au sein de l'IUT Lyon 1. Il est notamment dispensé à des étudiants peu ou pas familiers avec les stratégies d'automatisation et de déploiement des infrastructures.
 Bien que très axé débutants il peut également représenté une possibilité de monter « rapidement » pour certaines équipes sur les principes fondamentaux d'Ansible afin de disposer du bagage minimal nécessaire à son utilisation.</p>
 <p>Il s'agit bien évidemment de supports à vocation pédagogique qui <strong>ne sont pas toujours transposables</strong> à une activité professionnelle.</p>
 <h2 id="pre-requis" class="anchor-title"><a href="#pre-requis">Pré-requis</a></h2>
-<p>Disposer d'un environnement de travail Ansible fonctionnel, si ça n'est pas encore le cas vous pouvez jeter un oeil <a href="/blog/cours/ansible/ansible-premiers-pas">ici</a> !</p>
+<p>Disposer d'un <strong>environnement de travail Ansible fonctionnel</strong>, si ça n'est pas encore le cas vous pouvez jeter un oeil <a href="/blog/cours/ansible/ansible-premiers-pas">ici</a> !</p>
 <h2 id="introduction" class="anchor-title"><a href="#introduction">Introduction</a></h2>
-<p>Afin de pouvoir attaquer nos différents machines, Ansible a besoin d'un référentiel de celles-ci avec un minimum d'informations les concernants (histoire de savoir comment s'y connecter par exemple ;)).</p>
+<p>Afin de pouvoir attaquer nos différentes machines, Ansible a besoin d'un référentiel de celles-ci avec un minimum d'informations les concernants (histoire de savoir comment s'y connecter par exemple ;)).</p>
 <p>C'est là qu'entre en jeux les inventaires. Il existe deux façons de constituer des inventaires, la première est manuelle, et consiste à écrire ni plus ni moins la liste des machines que l'on souhaites manager on parle dans ce cas d'<strong>inventaire statique</strong>.
-La deuxième méthode introduit un principe de « reconnaissance » des machines disponibles, dans ce cas de figure on constituera nos inventaires de manière automatique, on parle dans ce cas d'<strong>inventaire dynamiques</strong> que nous verrons plus tard.</p>
-<p>Les inventaires, on le verra permettre également de structurer / hiérarchiser nos machines en utilisant une notion de groupe.
+La deuxième méthode introduit un principe de « reconnaissance » des machines disponibles, dans ce cas de figure on constituera nos inventaires de manière automatique, on parle dans ce cas d'<strong>inventaires dynamiques</strong> que nous verrons plus tard.</p>
+<p>Les inventaires permettent également de structurer / hiérarchiser nos machines en utilisant une notion de <strong>groupe</strong>.
 Ansible propose plusieurs plugins capablent de gérer des inventaires de machines, ils sont consultables à l'aide la commande: </p>
 <pre class="code-multiline"><code id="4065451a82c7fe5dead02aa5635c1ed1">ansible-doc -t inventory -l</code></pre>
 <p>Qui devrait vous renvoyer la liste suivante: </p>
@@ -326,11 +337,11 @@ ansible.builtin.toml               Uses a specific TOML file as an inventory sou
 ansible.builtin.yaml               Uses a specific YAML file as an inventory source  </code></pre>
 <p>Dans notre cas nous nous appuyerons essentiellemen sur le plugin <code class="code-inline" id="6eedc03a68a69933c763e674f2d7c42f">yaml</code>.</p>
 <h2 id="structurer-ses-inventaires" class="anchor-title"><a href="#structurer-ses-inventaires">Structurer ses inventaires</a></h2>
-<p>Un inventaire n'est en fait ni plus ni moins d'un ou plusieurs fichiers spécifiant des informations concernant le parc de machines que l'on souhaite piloter.
-En terme de structure vous rencontrerez énormément de façons de faire, celles-ci étant guider par le besoin métier bien éviemment on pourra citer comme contraintes par exemple:</p>
+<p>Un inventaire n'est en fait ni plus ni moins qu'un ou plusieurs fichiers contenant des informations concernant le parc de machines que l'on souhaite piloter.</p>
+<p>En terme de structure vous rencontrerez énormément de façons de faire, celles-ci étant bien évidemment guider par le besoin métier, on pourra citer comme contraintes par exemple:</p>
 <ul>
-<li>La taille des infrastructures (le nombre de machines)</li>
-<li>Leur localisation géographique (Pays, ville...)</li>
+<li>La taille des infrastructures (le nombre d'éléments qui la constitue);</li>
+<li>Leur localisation géographique (pays, ville...);</li>
 <li>Le besoin d'adresser finement un groupe de machines et pas un autre...</li>
 </ul>
 <p>Bref tout est imaginable à ce niveau.
@@ -352,24 +363,24 @@ En ce qui nous concerne nous interviendrons sur un parc plutôt modeste puisque 
 <p>La structure du fichier nous permet de mettre en évidence deux clés essentielles:</p>
 <ul>
 <li><code class="code-inline" id="e15cba2a55d1c830968665125de5abf6">ansible_host</code>: Le nom résolvable ou l'adresse IP de la machine distante;</li>
-<li><code class="code-inline" id="6410e7f930b2aeb0c84b0bda2d1beefc">ansible_user</code>: L'utilisateur à utilisé pour ouvrire une session sur cette même machine.</li>
+<li><code class="code-inline" id="6410e7f930b2aeb0c84b0bda2d1beefc">ansible_user</code>: L'utilisateur à utiliser pour ouvrir une session sur cette même machine.</li>
 </ul>
-<p>Il est toutefois possible d'utiliser d'autre clé de configuration pour enrichir la définition de notre machine, parmi les plus utiles:</p>
+<p>Il est toutefois possible d'utiliser d'autres clés de configuration pour enrichir la définition de notre machine, parmi les plus utiles:</p>
 <ul>
-<li><code class="code-inline" id="74a5edb379a6a38c427ba24ab3bff19b">ansible_port</code>: Permet de spécifier le port de connexion SSH (si différent du port standard, pour rappel le port par défaut est 22)</li>
+<li><code class="code-inline" id="74a5edb379a6a38c427ba24ab3bff19b">ansible_port</code>: Permet de spécifier le port de connexion SSH (si différent du port standard, pour rappel le port par défaut est <strong>22</strong>)</li>
 </ul>
 <h3 id="cles-specifiques-a-ssh" class="anchor-title"><a href="#cles-specifiques-a-ssh">Clés spécifiques à SSH</a></h3>
 <ul>
-<li><code class="code-inline" id="4daad07dc9ff6da97bf97eb9fc6ec55f">ansible_ssh_pass</code>: </li>
-<li><code class="code-inline" id="67638c28e4955b62a91e68ee28e2ce97">ansible_ssh_private_key_file</code>:</li>
-<li><code class="code-inline" id="7e27f110c7215a70b65fc240f0c77899">ansible_ssh_extra_args</code></li>
+<li><code class="code-inline" id="4daad07dc9ff6da97bf97eb9fc6ec55f">ansible_ssh_pass</code>: Le mot de passe du compte SSH utilisé (on lui préferera une <strong>authentification par clés</strong>);</li>
+<li><code class="code-inline" id="67638c28e4955b62a91e68ee28e2ce97">ansible_ssh_private_key_file</code>: <strong>Le chemin</strong> vers la clé à utiliser pour se connecter au compte SSH;</li>
+<li><code class="code-inline" id="7e27f110c7215a70b65fc240f0c77899">ansible_ssh_extra_args</code>: Permet d'<strong>ajouter des options supplémentaires</strong> à la ligne de commande SSH utilisée par Ansible.</li>
 </ul>
 <h3 id="cles-specifiques-a-l-escalade-de-privileges" class="anchor-title"><a href="#cles-specifiques-a-l-escalade-de-privileges">Clés spécifiques à l'escalade de privilèges</a></h3>
 <ul>
-<li><code class="code-inline" id="c91d5bd5143e35ffd5fdbd6c18a7fb99">ansible_become</code>:</li>
-<li><code class="code-inline" id="51bef64291b9daa3aca0d85634e6c290">ansible_become_method</code>:</li>
-<li><code class="code-inline" id="06cd308b1f1bcfefec87cc12150415c7">ansible_become_user</code>:</li>
-<li><code class="code-inline" id="55c17a0b743bf76b2165c6abab1cbc0d">ansible_become_pass</code>:</li>
+<li><code class="code-inline" id="c91d5bd5143e35ffd5fdbd6c18a7fb99">ansible_become</code>: Permet de forcer l'escalade de privilèges;</li>
+<li><code class="code-inline" id="51bef64291b9daa3aca0d85634e6c290">ansible_become_method</code>: Permet de spécifier la méthode d'escalade des privilèges;</li>
+<li><code class="code-inline" id="06cd308b1f1bcfefec87cc12150415c7">ansible_become_user</code>: Permet de spécifier l'utilisateur cible de l'escalade de privilèges;</li>
+<li><code class="code-inline" id="55c17a0b743bf76b2165c6abab1cbc0d">ansible_become_pass</code>: Permet de spécifier le mot de passe de l'utilisateur cible de l'escalade de privilèges (encore une fois, on préfera la méthode par clés SSH).</li>
 </ul>
 <h2 id="enrichir-son-inventaire" class="anchor-title"><a href="#enrichir-son-inventaire">Enrichir son inventaire</a></h2>
 <p>À présent que nous avons effectuer un petit tour rapide du propriétaire, nous allons « étoffer » notre inventaire initial en ajoutant une deuxième machine comme ci-dessous:</p>
@@ -392,7 +403,7 @@ En ce qui nous concerne nous interviendrons sur un parc plutôt modeste puisque 
 <div class="admonition info">
 <p class="admonition-title">Hôte local</p>
 <p>
-    Il est bien évidemment possible d'interroger notre propre machine à l'aide d'Ansible, en modifiant relativement simplement notre fichier d'inventaire. Attention toutefois à ce que vous faites puisque vous pouvez du coup directement impacter la configuration et donc le fonctionnement de votre machine.
+    Il est bien évidemment possible d'interroger notre propre machine à l'aide d'Ansible, en modifiant relativement simplement notre fichier d'inventaire. Attention toutefois à ce que vous faites puisque vous pouvez directement impacter la configuration et donc le fonctionnement de votre machine.
 </p>
 </div>
 <p><strong>Exemple de fichier d'inventaire pour piloter une machine locale:</strong></p>
@@ -411,7 +422,7 @@ En ce qui nous concerne nous interviendrons sur un parc plutôt modeste puisque 
         <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span></code></pre>
 <p><strong>ATTENTION</strong>: <code class="code-inline" id="268184c12df027f536154d099d497b31">children</code> est une sous clé de <code class="code-inline" id="a181a603769c1f98ad927e7367c7aa51">all</code> ;)</p>
 <h3 id="la-commande-ansible-inventory" class="anchor-title"><a href="#la-commande-ansible-inventory">La commande « ansible-inventory »</a></h3>
-<p>Ansible propose différentes commande parfois très spécifique, l'occasion de tester notre configuration d'inventaire !</p>
+<p>Ansible propose différentes commandes parfois très spécifiques, l'occasion de tester notre configuration d'inventaire !</p>
 <p>Testons: <code class="code-inline" id="69068c6b2c391db5796dd7654fbf8eaf">ansible-inventory --list -i inventories</code>
 On notera que cette fois-ci nous donnons le répertoire <code class="code-inline" id="9d8e9044cc215163080743136fcb7fd5">inventories</code> en paramètre.</p>
 <p><strong>Cette commande devrait vous afficher la sortie suivante (format json):</strong></p>
@@ -450,8 +461,8 @@ On notera que cette fois-ci nous donnons le répertoire <code class="code-inline
 <p><strong>À retenir:</strong>
 Ansible utilise une arborescence ou figurera <strong>toujours</strong>:</p>
 <ul>
-<li>Un groupe <code class="code-inline" id="a181a603769c1f98ad927e7367c7aa51">all</code>: C'est le groupe racine auquel appartiendra toutes vos machines sans exception (On remarquera avec cette information que lorsque nous avons utilisé la commande <code class="code-inline" id="0b18fc249e1d7162bd30b6dca034a1f3">ansible -i inventories/hosts.yml all -m ping</code>, <strong>all</strong> indiquait donc le groupe cible).</li>
-<li>Un groupe <code class="code-inline" id="992811368a2d05f316d2408329db0f7a">ungrouped</code>: Groupe auquel sera affecté toute machine <strong>n'appartenant à aucun groupe</strong> (exception faites de <strong>all</strong> bien évidemment);</li>
+<li>Un groupe <code class="code-inline" id="a181a603769c1f98ad927e7367c7aa51">all</code>: C'est le groupe racine auquel appartiendra <strong>toutes vos machines sans exception</strong> (On remarquera avec cette information que lorsque nous avons utilisé la commande <code class="code-inline" id="0b18fc249e1d7162bd30b6dca034a1f3">ansible -i inventories/hosts.yml all -m ping</code>, <strong>all</strong> indiquait donc le groupe cible).</li>
+<li>Un groupe <code class="code-inline" id="992811368a2d05f316d2408329db0f7a">ungrouped</code>: Groupe auquel sera affectée toute machine <strong>n'appartenant à aucun groupe</strong> (exception faites de <strong>all</strong> bien évidemment);</li>
 </ul>
 <p>Dans notre exemple ci-dessus on voit donc bien que nos deux machines font bien partie du groupe <code class="code-inline" id="09c2ea6bb9250e08e7dd4d3e48358c1c">webservers</code>.</p>
 <div class="admonition info">
@@ -484,16 +495,118 @@ Ansible utilise une arborescence ou figurera <strong>toujours</strong>:</p>
     <span class="token key atrule">production</span><span class="token punctuation">:</span>
       <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
         <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span></code></pre>
+<p>Une fois ces modifications faites, rejouez la commande <code class="code-inline" id="69068c6b2c391db5796dd7654fbf8eaf">ansible-inventory --list -i inventories</code> vous devriez constater de subtils changements au niveau des informations que vous affiche Ansible.</p>
+<pre class="code-multiline language-json"><code class="language-json" id="21b8de9e746436ca2ee6c75fd7c462c1"><span class="token punctuation">{</span>
+    <span class="token property">"_meta"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"hostvars"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"vm-web-prod-01"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                <span class="token property">"ansible_host"</span><span class="token operator">:</span> <span class="token string">"192.168.140.12"</span><span class="token punctuation">,</span>
+                <span class="token property">"ansible_port"</span><span class="token operator">:</span> <span class="token number">22</span><span class="token punctuation">,</span>
+                <span class="token property">"ansible_user"</span><span class="token operator">:</span> <span class="token string">"debian"</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token property">"vm-web-staging-01"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                <span class="token property">"ansible_host"</span><span class="token operator">:</span> <span class="token string">"192.168.140.10"</span><span class="token punctuation">,</span>
+                <span class="token property">"ansible_user"</span><span class="token operator">:</span> <span class="token string">"debian"</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"all"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"children"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"ungrouped"</span><span class="token punctuation">,</span>
+            <span class="token string">"webservers"</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"webservers"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"hosts"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"vm-web-prod-01"</span><span class="token punctuation">,</span>
+            <span class="token string">"vm-web-staging-01"</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>On constatera ainsi:</strong></p>
+<ul>
+<li>L'ajout de la clé <code class="code-inline" id="74a5edb379a6a38c427ba24ab3bff19b">ansible_port</code> sur notre première instance;</li>
+<li>La modification de l'adresse IP de la seconde.</li>
+</ul>
+<p><strong>Qu'en retenir ?</strong></p>
+<p>L'utilisation du <a href="https://yaml.org/" target="_blank">Yaml</a> comme langage de définition introduit une <strong>notion d'arborescence</strong> au niveau de vos clés, il faut ainsi voir la définition de votre machine comme un <strong>tableau multidimensionnel indexé</strong>.</p>
+<pre class="code-multiline language-php"><code class="language-php" id="a364bc472c8aa4ff9be2e56313449e60"><span class="token keyword">array</span> <span class="token punctuation">(</span>
+  <span class="token string single-quoted-string">'vm-web-prod-01'</span> <span class="token operator">=&gt;</span> 
+  <span class="token keyword">array</span> <span class="token punctuation">(</span>
+    <span class="token string single-quoted-string">'ansible_host'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'192.168.140.12'</span><span class="token punctuation">,</span>
+    <span class="token string single-quoted-string">'ansible_port'</span> <span class="token operator">=&gt;</span> <span class="token number">22</span><span class="token punctuation">,</span>
+    <span class="token string single-quoted-string">'ansible_user'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'debian'</span><span class="token punctuation">,</span>
+  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span></code></pre>
+<p><strong>On comprendra donc facilement:</strong></p>
+<ul>
+<li>Que l'ajout d'une clé entraine l'ajout d'un élément à notre tableau pour la clé concernée (Dans notre cas l'ajout de la clé <code class="code-inline" id="74a5edb379a6a38c427ba24ab3bff19b">ansible_port</code>);</li>
+<li>Que la modification de la valeur d'une clé écrase sa valeur précédente (Dans notre cas la modification de l'IP de notre machine). </li>
+</ul>
+<p>Conclusion: Lorsque l'on utilise des fichiers d'inventaire multiples il vaut bien prendre en compte leur ordonnancement, <strong>la dernière valeur déclarée pour une clé</strong> étant celle qui sera retenu dans notre tableau final.</p>
+<div class="admonition info">
+<p class="admonition-title">Groupes de groupes</p>
+<p>
+    La hiérarchie de groupe d'un inventaire peut avoir plusieurs niveaux. Il est donc possible d'avoir de l'imbrication de groupes. Attention toutefois à ne pas en abuser afin de ne vous perdre dans des arborescence trop complexes.
+</p>
+</div>
 <h2 id="exercices" class="anchor-title"><a href="#exercices">Exercices</a></h2>
 <p>Rapide mise en pratique des inventaires.</p>
 <h3 id="exercice-1" class="anchor-title"><a href="#exercice-1">Exercice 1</a></h3>
-<p>Reprendre les différents fichiers contenu dans notre répertoire <code class="code-inline" id="9d8e9044cc215163080743136fcb7fd5">inventories</code> et les compiler en un seul et même fichier <code class="code-inline" id="d4bbb8582b29b42818a341b53996b81b">hosts.yml</code>.</p>
+<p>Reprendre les différents fichiers contenu dans notre répertoire <code class="code-inline" id="9d8e9044cc215163080743136fcb7fd5">inventories</code> et les compiler en un seul et même fichier <code class="code-inline" id="d4bbb8582b29b42818a341b53996b81b">hosts.yml</code>, les autres fichiers ne sont finalement plus utiles et peuvent être supprimés.</p>
 <p>Souvenez-vous vous pouvez tester un fichier d'inventaire en particulier en le passant en paramètre de la commande <code class="code-inline" id="c849dabdafeab0ab6aae256ec60514b7">ansible-inventory</code>: <code class="code-inline" id="c98069802b7f3d0a6f1ad73afd0912b6">ansible-inventory --list -i inventories/hosts.yml</code>.</p>
 <h3 id="exercice-2" class="anchor-title"><a href="#exercice-2">Exercice 2</a></h3>
-<p>Nous avons vu qu'il existait différent plugin permettant de « lire » un inventaire (si,si au tout début), </p>
+<p>Nous avons vu qu'il existait différent plugin permettant de « lire » un inventaire (si,si au tout début), essayez d'écrire le même inventaire mais à un format différent (format ini par exemple).</p>
+<h2 id="cibler-des-groupes-de-machines-avec-les-patterns" class="anchor-title"><a href="#cibler-des-groupes-de-machines-avec-les-patterns">Cibler des groupes de machines avec les « patterns »</a></h2>
+<p>Notre infrastructure est modeste, mais vous serez parfois amenez à travailler avec des infrastructures d'envergure et serez dans l'obligation de « cibler » certaines machines ou groupes de machines.
+Il est ainsi possible d'indiquer explicitement à Ansible quelles sont les machines à considérer pour une action donnée.</p>
+<p>Certains « pattern » sont très simple et vous devriez en reconnaitre certains:</p>
+<p>Le « wildcard » <code class="code-inline" id="3389dae361af79b04c9c8e7057f60cc6">*</code> par exemple qui désignera n'importe quelle valeur est utilisable au sein d'une valeur de clé <code class="code-inline" id="957b527bcfbad2e80f58d20683931435">ip</code> ou <code class="code-inline" id="0897acf49c7c1ea9f76efe59187aa046">hostname</code> (<code class="code-inline" id="de0abed86db605dd81787132575736c8">192.168.140.*</code> ou encore <code class="code-inline" id="a3d28804053137b19544b7caa76c2baa">*.example.com</code>).</p>
+<p>Ceux que vous rencontrerez le plus souvent: <code class="code-inline" id="853ae90f0351324bd73ea615e6487517">:</code>, <code class="code-inline" id="fc3b30d342c74c7e60f668c54539066b">:&amp;</code> ou encore <code class="code-inline" id="aae9537623a7f75cd635ba69a52cbca2">:!</code>.s</p>
+<h3 id="l-operateur-or" class="anchor-title"><a href="#l-operateur-or">L'opérateur OR</a></h3>
+<p>L'opérateur <code class="code-inline" id="853ae90f0351324bd73ea615e6487517">:</code> signifiera qu'une machine peut-être dans un groupe <strong>OU</strong> dans un autre, par exemple <strong>staging</strong> ou <strong>production</strong>.</p>
+<p>Essayons toujours avec notre module <strong>ping</strong>: <code class="code-inline" id="d944e06e3af1a04fe0fe5daee161cd63">ansible -i inventories/hosts.yml 'staging:production' -m ping</code></p>
+<div class="admonition info">
+<p class="admonition-title">Avec la commande <strong>ansible-inventory</strong></p>
+<p>
+    <code class="code-inline" id="0576a603274c79a84c07d70344cf0af0">ansible-inventory -i inventories/hosts.yml --host='webservers:production'</code>
+</p>
+</div>
+<h3 id="l-operateur-and" class="anchor-title"><a href="#l-operateur-and">L'opérateur AND</a></h3>
+<p>L'opérateur <code class="code-inline" id="fc3b30d342c74c7e60f668c54539066b">:&amp;</code> signifiera qu'une machine peut-être dans un groupe <strong>ET</strong> dans un autre, par exemple <strong>webservers</strong> et <strong>production</strong>.</p>
+<p><code class="code-inline" id="ad15311e1bdc3624466b262625b6248c">ansible -i inventories/hosts.yml 'webservers:&amp;production' -m ping</code></p>
+<p>Cette fois-ci vous ne devriez avoir que la machine <code class="code-inline" id="e391e9803cfdb7b44fbbc903736893a0">vm-web-prod-01</code> qui est solicité par Ansible.</p>
+<div class="admonition info">
+<p class="admonition-title">Avec la commande <strong>ansible-inventory</strong></p>
+<p>
+    <code class="code-inline" id="c0ffabbc9715fa56ed35a138f048fcf6">ansible-inventory -i inventories/hosts.yml --host='webservers:&amp;production'</code>
+</p>
+</div>
+<h3 id="l-operateur-not" class="anchor-title"><a href="#l-operateur-not">L'opérateur NOT</a></h3>
+<p>L'opérateur <code class="code-inline" id="aae9537623a7f75cd635ba69a52cbca2">:!</code> permettra de cibler une machine qui est dans un groupe <strong>mais pas</strong> dans un autre par exemple membre du groupe <strong>webservers</strong> mais non présente dans le groupe <strong>production</strong>.</p>
+<p><code class="code-inline" id="59c318f17c6d572f15a68843880bf76b">ansible -i inventories/hosts.yml 'webservers:!production' -m ping</code></p>
+<p>Vous devriez ne soliciter cette fois que <code class="code-inline" id="cc85174390b5d2806d4587558e4c6451">vm-web-staging-01</code>.</p>
+<div class="admonition info">
+<p class="admonition-title">Avec la commande <strong>ansible-inventory</strong></p>
+<p>
+    <code class="code-inline" id="88e0311b96723c2cc0d239d7a188c832">ansible-inventory -i inventories/hosts.yml --host='webservers:!production'</code>
+</p>
+</div>
+<h3 id="combinaisons-multiples" class="anchor-title"><a href="#combinaisons-multiples">Combinaisons multiples</a></h3>
+<p>Il est bien évidemment possible de combiner les opérateurs prenez toutefois garde aux expressions trop complexes qui gêneront à la compréhension et pourront être source d'erreur ! </p>
+<p>On peut donc imaginer des choses comme cibler les machines du groupe <strong>webservers</strong> OU <strong>staging</strong> mais qui ne <strong>sont pas dans production</strong> (On est d'accord, ça n'a aucune sens c'est pour l'exemple ;)).</p>
+<p><code class="code-inline" id="b9d8b52a11a28fc75d50a71398a43bc6">ansible -i inventories/hosts.yml 'webservers:staging:!production' -m ping</code></p>
+<p>Il est également possible de mixer nom de groupe et nom de machine: <code class="code-inline" id="d5e94b3ced26ca944d1d2c69ea34f605">ansible -i inventories/hosts.yml 'webservers:staging:!vm-web-staging-01' -m ping</code></p>
+<div class="admonition info">
+<p class="admonition-title">Avec la commande <strong>ansible-inventory</strong></p>
+<p>
+    <code class="code-inline" id="318e02bb1fc4b5e2ad659fd6e6211b97">ansible-inventory -i inventories/hosts.yml --host='webservers:staging:!vm-web-staging-01'</code>
+</p>
+</div>
 <h2 id="aller-plus-loins-avec-les-sources" class="anchor-title"><a href="#aller-plus-loins-avec-les-sources">Aller plus loins avec les sources</a></h2>
 <ul>
 <li><a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#connecting-to-hosts-behavioral-inventory-parameters" target="_blank">https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#connecting-to-hosts-behavioral-inventory-parameters</a></li>
+<li><a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html" target="_blank">https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html</a></li>
 </ul></body>
                                                                                 </main>
                 <div class="article-footer" data-aos="fade-in">
