@@ -287,6 +287,9 @@
                                                                                     </ol>
                                                                     </li>
                                                             <li class="table-of-contents__item">
+                                    <a href="#conclusion">Conclusion</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
                                     <a href="#aller-plus-loins-avec-les-sources">Aller plus loins avec les sources</a>
                                                                     </li>
                                                     </ol>
@@ -319,10 +322,10 @@ Bien que très axé débutants il peut également représenté une possibilité 
 <p>Disposer d'un <strong>environnement de travail Ansible fonctionnel</strong>, si ça n'est pas encore le cas vous pouvez jeter un oeil <a href="/blog/cours/ansible/ansible-premiers-pas">ici</a> !</p>
 <h2 id="introduction" class="anchor-title"><a href="#introduction">Introduction</a></h2>
 <p>Afin de pouvoir attaquer nos différentes machines, Ansible a besoin d'un référentiel de celles-ci avec un minimum d'informations les concernants (histoire de savoir comment s'y connecter par exemple ;)).</p>
-<p>C'est là qu'entre en jeux les inventaires. Il existe deux façons de constituer des inventaires, la première est manuelle, et consiste à écrire ni plus ni moins la liste des machines que l'on souhaites manager on parle dans ce cas d'<strong>inventaire statique</strong>.
-La deuxième méthode introduit un principe de « reconnaissance » des machines disponibles, dans ce cas de figure on constituera nos inventaires de manière automatique, on parle dans ce cas d'<strong>inventaires dynamiques</strong> que nous verrons plus tard.</p>
+<p>C'est là qu'entre en jeu <strong>les inventaires</strong>. Il existe deux façons de constituer des inventaires, la première est <strong>manuelle</strong>, et consiste à écrire ni plus ni moins la liste des machines que l'on souhaites manager on parle dans ce cas d'<strong>inventaire statique</strong>.</p>
+<p>La deuxième méthode introduit un principe de « reconnaissance » des machines disponibles, dans ce cas de figure on constituera nos inventaires de manière automatique, on parle dans ce cas d'<strong>inventaires dynamiques</strong> que nous verrons plus tard.</p>
 <p>Les inventaires permettent également de structurer / hiérarchiser nos machines en utilisant une notion de <strong>groupe</strong>.
-Ansible propose plusieurs plugins capablent de gérer des inventaires de machines, ils sont consultables à l'aide la commande: </p>
+Ansible propose plusieurs plugins capablent de gérer des inventaires de machines, ils sont consultables à l'aide de la commande: </p>
 <pre class="code-multiline"><code id="4065451a82c7fe5dead02aa5635c1ed1">ansible-doc -t inventory -l</code></pre>
 <p>Qui devrait vous renvoyer la liste suivante: </p>
 <pre class="code-multiline"><code id="6edfe64e0ae2193e6bb28c2b4990489d">02:48:02 lazy@ansible_env lazy → ansible-doc -t inventory -l
@@ -335,10 +338,10 @@ ansible.builtin.ini                Uses an Ansible INI file as inventory source
 ansible.builtin.script             Executes an inventory script that returns JSON                                                      
 ansible.builtin.toml               Uses a specific TOML file as an inventory source                                                    
 ansible.builtin.yaml               Uses a specific YAML file as an inventory source  </code></pre>
-<p>Dans notre cas nous nous appuyerons essentiellemen sur le plugin <code class="code-inline" id="6eedc03a68a69933c763e674f2d7c42f">yaml</code>.</p>
+<p>Dans notre cas nous nous appuyerons essentiellement sur le plugin <code class="code-inline" id="6eedc03a68a69933c763e674f2d7c42f">yaml</code>.</p>
 <h2 id="structurer-ses-inventaires" class="anchor-title"><a href="#structurer-ses-inventaires">Structurer ses inventaires</a></h2>
 <p>Un inventaire n'est en fait ni plus ni moins qu'un ou plusieurs fichiers contenant des informations concernant le parc de machines que l'on souhaite piloter.</p>
-<p>En terme de structure vous rencontrerez énormément de façons de faire, celles-ci étant bien évidemment guider par le besoin métier, on pourra citer comme contraintes par exemple:</p>
+<p>En terme de structure vous rencontrerez énormément de façons de faire, celles-ci étant bien évidemment guider par le <strong>besoin métier</strong>, on pourra citer comme contraintes par exemple:</p>
 <ul>
 <li>La taille des infrastructures (le nombre d'éléments qui la constitue);</li>
 <li>Leur localisation géographique (pays, ville...);</li>
@@ -365,7 +368,7 @@ En ce qui nous concerne nous interviendrons sur un parc plutôt modeste puisque 
 <li><code class="code-inline" id="e15cba2a55d1c830968665125de5abf6">ansible_host</code>: Le nom résolvable ou l'adresse IP de la machine distante;</li>
 <li><code class="code-inline" id="6410e7f930b2aeb0c84b0bda2d1beefc">ansible_user</code>: L'utilisateur à utiliser pour ouvrir une session sur cette même machine.</li>
 </ul>
-<p>Il est toutefois possible d'utiliser d'autres clés de configuration pour enrichir la définition de notre machine, parmi les plus utiles:</p>
+<p>Il est toutefois possible d'utiliser d'autres clés de configuration pour enrichir la définition de notre machine comme:</p>
 <ul>
 <li><code class="code-inline" id="74a5edb379a6a38c427ba24ab3bff19b">ansible_port</code>: Permet de spécifier le port de connexion SSH (si différent du port standard, pour rappel le port par défaut est <strong>22</strong>)</li>
 </ul>
@@ -393,7 +396,7 @@ En ce qui nous concerne nous interviendrons sur un parc plutôt modeste puisque 
     <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span>
       <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.XXX
       <span class="token key atrule">ansible_user</span><span class="token punctuation">:</span> debian</code></pre>
-<p>En ajoutant une machine et en jouant la commande <code class="code-inline" id="0b18fc249e1d7162bd30b6dca034a1f3">ansible -i inventories/hosts.yml all -m ping</code> nous devrions bien voir qu'ansible considère bien nos deux machines: </p>
+<p>En ajoutant une machine et en jouant la commande <code class="code-inline" id="0b18fc249e1d7162bd30b6dca034a1f3">ansible -i inventories/hosts.yml all -m ping</code> nous devrions voir qu'ansible considère bien nos deux machines: </p>
 <figure>
     <img src="/rix/pr/125/content/images/blog/2023/ansible/ansible-inventaires/ping.gif" id="ping-gif">
     <figcaption>
@@ -423,8 +426,8 @@ En ce qui nous concerne nous interviendrons sur un parc plutôt modeste puisque 
 <p><strong>ATTENTION</strong>: <code class="code-inline" id="268184c12df027f536154d099d497b31">children</code> est une sous clé de <code class="code-inline" id="a181a603769c1f98ad927e7367c7aa51">all</code> ;)</p>
 <h3 id="la-commande-ansible-inventory" class="anchor-title"><a href="#la-commande-ansible-inventory">La commande « ansible-inventory »</a></h3>
 <p>Ansible propose différentes commandes parfois très spécifiques, l'occasion de tester notre configuration d'inventaire !</p>
-<p>Testons: <code class="code-inline" id="69068c6b2c391db5796dd7654fbf8eaf">ansible-inventory --list -i inventories</code>
-On notera que cette fois-ci nous donnons le répertoire <code class="code-inline" id="9d8e9044cc215163080743136fcb7fd5">inventories</code> en paramètre.</p>
+<p>Testons: <code class="code-inline" id="69068c6b2c391db5796dd7654fbf8eaf">ansible-inventory --list -i inventories</code></p>
+<p>On notera que cette fois-ci nous donnons le répertoire <code class="code-inline" id="9d8e9044cc215163080743136fcb7fd5">inventories</code> en paramètre.</p>
 <p><strong>Cette commande devrait vous afficher la sortie suivante (format json):</strong></p>
 <pre class="code-multiline language-json"><code class="language-json" id="18b835c033acc74522f7460b1fdcb047"><span class="token punctuation">{</span>
     <span class="token property">"_meta"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
@@ -482,19 +485,6 @@ Ansible utilise une arborescence ou figurera <strong>toujours</strong>:</p>
       <span class="token key atrule">ansible_port</span><span class="token punctuation">:</span> <span class="token number">22</span>
     <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span>
       <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.YYY</code></pre>
-<p>Complétons pour finir notre inventaire <code class="code-inline" id="f1e4b43dc3bfc1c29c68c177053d44da">groups.yml</code> afin d'obtenir le contenu suivant:</p>
-<pre class="code-multiline language-yaml"><code class="language-yaml" id="35dc3530c26452237dd092e9a4b47edb"><span class="token key atrule">all</span><span class="token punctuation">:</span>
-  <span class="token key atrule">children</span><span class="token punctuation">:</span>
-    <span class="token key atrule">webservers</span><span class="token punctuation">:</span>
-      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-        <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
-        <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
-    <span class="token key atrule">staging</span><span class="token punctuation">:</span>
-      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-        <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
-    <span class="token key atrule">production</span><span class="token punctuation">:</span>
-      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
-        <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span></code></pre>
 <p>Une fois ces modifications faites, rejouez la commande <code class="code-inline" id="69068c6b2c391db5796dd7654fbf8eaf">ansible-inventory --list -i inventories</code> vous devriez constater de subtils changements au niveau des informations que vous affiche Ansible.</p>
 <pre class="code-multiline language-json"><code class="language-json" id="21b8de9e746436ca2ee6c75fd7c462c1"><span class="token punctuation">{</span>
     <span class="token property">"_meta"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
@@ -550,6 +540,19 @@ Ansible utilise une arborescence ou figurera <strong>toujours</strong>:</p>
     La hiérarchie de groupe d'un inventaire peut avoir plusieurs niveaux. Il est donc possible d'avoir de l'imbrication de groupes. Attention toutefois à ne pas en abuser afin de ne vous perdre dans des arborescence trop complexes.
 </p>
 </div>
+<p>Complétons pour finir notre inventaire <code class="code-inline" id="f1e4b43dc3bfc1c29c68c177053d44da">groups.yml</code> afin d'obtenir le contenu suivant:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="35dc3530c26452237dd092e9a4b47edb"><span class="token key atrule">all</span><span class="token punctuation">:</span>
+  <span class="token key atrule">children</span><span class="token punctuation">:</span>
+    <span class="token key atrule">webservers</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+        <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+    <span class="token key atrule">staging</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+    <span class="token key atrule">production</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span></code></pre>
 <h2 id="exercices" class="anchor-title"><a href="#exercices">Exercices</a></h2>
 <p>Rapide mise en pratique des inventaires.</p>
 <h3 id="exercice-1" class="anchor-title"><a href="#exercice-1">Exercice 1</a></h3>
@@ -558,11 +561,11 @@ Ansible utilise une arborescence ou figurera <strong>toujours</strong>:</p>
 <h3 id="exercice-2" class="anchor-title"><a href="#exercice-2">Exercice 2</a></h3>
 <p>Nous avons vu qu'il existait différent plugin permettant de « lire » un inventaire (si,si au tout début), essayez d'écrire le même inventaire mais à un format différent (format ini par exemple).</p>
 <h2 id="cibler-des-groupes-de-machines-avec-les-patterns" class="anchor-title"><a href="#cibler-des-groupes-de-machines-avec-les-patterns">Cibler des groupes de machines avec les « patterns »</a></h2>
-<p>Notre infrastructure est modeste, mais vous serez parfois amenez à travailler avec des infrastructures d'envergure et serez dans l'obligation de « cibler » certaines machines ou groupes de machines.
+<p>Notre infrastructure est modeste, mais vous serez parfois amenés à travailler avec des infrastructures d'envergure et serez dans l'obligation de « cibler » certaines machines ou groupes de machines.
 Il est ainsi possible d'indiquer explicitement à Ansible quelles sont les machines à considérer pour une action donnée.</p>
-<p>Certains « pattern » sont très simple et vous devriez en reconnaitre certains:</p>
-<p>Le « wildcard » <code class="code-inline" id="3389dae361af79b04c9c8e7057f60cc6">*</code> par exemple qui désignera n'importe quelle valeur est utilisable au sein d'une valeur de clé <code class="code-inline" id="957b527bcfbad2e80f58d20683931435">ip</code> ou <code class="code-inline" id="0897acf49c7c1ea9f76efe59187aa046">hostname</code> (<code class="code-inline" id="de0abed86db605dd81787132575736c8">192.168.140.*</code> ou encore <code class="code-inline" id="a3d28804053137b19544b7caa76c2baa">*.example.com</code>).</p>
-<p>Ceux que vous rencontrerez le plus souvent: <code class="code-inline" id="853ae90f0351324bd73ea615e6487517">:</code>, <code class="code-inline" id="fc3b30d342c74c7e60f668c54539066b">:&amp;</code> ou encore <code class="code-inline" id="aae9537623a7f75cd635ba69a52cbca2">:!</code>.s</p>
+<p>Certains « patterns » sont très simple et vous devriez en reconnaitre certains:</p>
+<p>Le « wildcard » <code class="code-inline" id="3389dae361af79b04c9c8e7057f60cc6">*</code> par exemple qui désignera n'importe quelle valeur et qui est utilisable au sein d'une valeur de clé <code class="code-inline" id="957b527bcfbad2e80f58d20683931435">ip</code> ou <code class="code-inline" id="0897acf49c7c1ea9f76efe59187aa046">hostname</code> (<code class="code-inline" id="de0abed86db605dd81787132575736c8">192.168.140.*</code> ou encore <code class="code-inline" id="a3d28804053137b19544b7caa76c2baa">*.example.com</code>).</p>
+<p>Ceux que vous rencontrerez le plus souvent: <code class="code-inline" id="853ae90f0351324bd73ea615e6487517">:</code>, <code class="code-inline" id="fc3b30d342c74c7e60f668c54539066b">:&amp;</code> ou encore <code class="code-inline" id="aae9537623a7f75cd635ba69a52cbca2">:!</code>.</p>
 <h3 id="l-operateur-or" class="anchor-title"><a href="#l-operateur-or">L'opérateur OR</a></h3>
 <p>L'opérateur <code class="code-inline" id="853ae90f0351324bd73ea615e6487517">:</code> signifiera qu'une machine peut-être dans un groupe <strong>OU</strong> dans un autre, par exemple <strong>staging</strong> ou <strong>production</strong>.</p>
 <p>Essayons toujours avec notre module <strong>ping</strong>: <code class="code-inline" id="d944e06e3af1a04fe0fe5daee161cd63">ansible -i inventories/hosts.yml 'staging:production' -m ping</code></p>
@@ -603,6 +606,9 @@ Il est ainsi possible d'indiquer explicitement à Ansible quelles sont les machi
     <code class="code-inline" id="318e02bb1fc4b5e2ad659fd6e6211b97">ansible-inventory -i inventories/hosts.yml --host='webservers:staging:!vm-web-staging-01'</code>
 </p>
 </div>
+<h2 id="conclusion" class="anchor-title"><a href="#conclusion">Conclusion</a></h2>
+<p>Nous aurons donc vu que les inventaires bien qu'à priori relativement simples, peuvent amener une forme de complexité sur des infrastructures volumineuses, leur organisation peut donc vite devenir stratégique notamment dans l'optique de faciliter la maintenance du parc piloté par Ansible.</p>
+<p>Dans la prochaine étape nous aborderons une nouvelle notion d'Ansible, <strong>les playbooks</strong> qui nous permettront d'écrire nos première tâches !</p>
 <h2 id="aller-plus-loins-avec-les-sources" class="anchor-title"><a href="#aller-plus-loins-avec-les-sources">Aller plus loins avec les sources</a></h2>
 <ul>
 <li><a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#connecting-to-hosts-behavioral-inventory-parameters" target="_blank">https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#connecting-to-hosts-behavioral-inventory-parameters</a></li>
