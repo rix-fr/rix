@@ -6,7 +6,7 @@ lastModified:       ~
 tableOfContent:     true
 description:        "Dans ce premier cours à destination des étudiants et/ou néophytes, nous verrons ce qu'est Ansible ainsi qu'un exemple très simple de son utilisation."
 
-thumbnail:          "content/images/blog/thumbnails/Get-started-with-Ansible.jpg"
+thumbnail:          "content/images/blog/thumbnails/ansible-premier-pas.jpg"
 tags:               ["cours", "ansible", "automation"]
 categories:         ["cours"]
 authors:            ["gfaivre"]

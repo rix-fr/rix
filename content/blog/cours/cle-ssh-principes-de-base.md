@@ -6,7 +6,7 @@ lastModified:       ~
 tableOfContent:     true
 description:        "Génération, utilisation et cas pratiques d'utilisation de clés SSH."
 
-thumbnail:          "content/images/blog/thumbnails/network_ssh.jpg"
+thumbnail:          "content/images/blog/thumbnails/cle-ssh-principes.jpg"
 tags:               ["cours", "ssh", "how-to"]
 categories:         ["cours"]
 authors:            ["gfaivre"]

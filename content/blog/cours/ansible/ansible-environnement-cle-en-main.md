@@ -6,7 +6,7 @@ lastModified:       ~
 tableOfContent:     true
 description:        "Utilisation de la recipe Lazy Ansible du projet Manala pour mettre en oeuvre un environnement de travail dédié Ansible."
 
-thumbnail:          "content/images/blog/thumbnails/lazy-ansible-workspace.jpg"
+thumbnail:          "content/images/blog/thumbnails/lazy-ansible.jpg"
 tags:               ["cours", "ansible", "automation", "manala"]
 categories:         ["cours", "ansible"]
 authors:            ["gfaivre"]
