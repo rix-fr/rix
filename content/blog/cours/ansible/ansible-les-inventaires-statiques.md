@@ -329,6 +329,8 @@ Rapide mise en pratique des inventaires.
 
 Reprendre les différents fichiers contenu dans notre répertoire `inventories` et les compiler en un seul et même fichier `hosts.yml`, les autres fichiers ne sont finalement plus utiles et peuvent être supprimés.
 
+Nous compléterons notre inventaire avec deux machines supplémentaires `vm-db-prod-01` et `vm-db-staging-01` appartenant toutes deux au groupe `dbservers` (Attention à les affecter également à leurs groupes d'environnements respectifs).
+
 Souvenez-vous vous pouvez tester un fichier d'inventaire en particulier en le passant en paramètre de la commande `ansible-inventory`: `ansible-inventory --list -i inventories/hosts.yml`.
 
 ### Exercice 2
@@ -397,7 +399,7 @@ Nous aurons donc vu que les inventaires bien qu'à priori relativement simples, 
 
 Dans la prochaine étape nous aborderons une nouvelle notion d'Ansible, **les playbooks** qui nous permettront d'écrire nos première tâches !
 
-## Aller plus loins avec les sources
+## Aller plus loin avec les sources
 
 - https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#connecting-to-hosts-behavioral-inventory-parameters
 - https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html
