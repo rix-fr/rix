@@ -322,6 +322,66 @@ Bien que très axé débutants il peut également représenté une possibilité 
     Ils peuvent être écrits dans divers langages de programmation, mais la plupart sont écrits en <strong>Python</strong>. Ansible vient avec une large gamme de modules intégrés pour gérer différents aspects des systèmes, des applications et des infrastructures.
 </p>
 </div>
+<p>En exécutant cette commande vous devriez obtenir la sortie suivante ou équivalente (si tout se passe bien).</p>
+<figure>
+    <img src="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-ping.png/6982cfe79ed668c3d9c248e78c91689f.png" srcset="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-ping.png/6982cfe79ed668c3d9c248e78c91689f.png 1x,
+/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-ping.png/1ffc120352898e44c59e3a1211709c29.png 2x," id="6982cfe79ed668c3d9c248e78c91689f-png">
+    <figcaption>
+      <span class="figure__legend">Utilisation du module ping dans un playbook.</span>
+    </figcaption>
+</figure>
+<p>Nous venons donc de faire appel au module ping mais à l'intérieur d'un playbook. Ce que nous avons en retour et une sortie type d'Ansible sur laquelle on peut remarquer quelques informations toujours intéressantes (tout en bas) avec notamment:</p>
+<ul>
+<li><code class="code-inline" id="444bcb3a3fcf8389296c49467f27e1d6">ok</code>: Le nombre de tâches (tasks) qui se sont correctement exécutées;</li>
+<li><code class="code-inline" id="8977dfac2f8e04cb96e66882235f5aba">changed</code>: Le nombre de changements opérés sur nos machines cibles;</li>
+<li><code class="code-inline" id="b748f56cf76526f8606d7463b9df9f2e">unreachable</code>: Le nombre de machine injoignable (par soucis de réseau par exemple);</li>
+<li><code class="code-inline" id="26934eb377001f66e37289a5c93fe284">failed</code>: Le nombre de tâches en erreur;</li>
+<li><code class="code-inline" id="e52e279299e912838f689d4380c81f4a">skipped</code>: Le nombre de tâches qui ont été ignorées (par exemple si une tâches ne remplie pas certaines conditions prédéfinies).</li>
+</ul>
+<p>Il est bon de noté également qu'un playbook peut contenir plusieurs « plays » nous pouvons donc avoir des tâches attribuées à différents groupe cible comme ceci: </p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="0d4a457db4fc4fb8e329026a8f0a2f07"><span class="token comment"># in file ping.yml</span>
+<span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
+
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Check if host is alive <span class="token comment"># Description of the task</span>
+      <span class="token key atrule">ansible.builtin.ping</span><span class="token punctuation">:</span>
+
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbservers
+
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Get stats of a file
+      <span class="token key atrule">ansible.builtin.stat</span><span class="token punctuation">:</span>
+        <span class="token key atrule">path</span><span class="token punctuation">:</span> /etc/hosts</code></pre>
+<p>Nous avons dans ce cas de figure deux groupes concernés chacun par une « tâche »:</p>
+<ul>
+<li>Le groupe <code class="code-inline" id="09c2ea6bb9250e08e7dd4d3e48358c1c">webservers</code> (contenant donc 2 machines) sur lequel nous exécutons le module ping;</li>
+<li>Le groupe <code class="code-inline" id="98b017f5726ac5cc1d0f3ebc0d5e9932">dbservers</code> (contenant également 2 machines) sur lequel nous exécutons le module <code class="code-inline" id="77ddcb5f19832f4145345889013ab3a4">stat</code>.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Le module stat</p>
+<p>
+    Le module stat permet d'exécuter la commande système <code class="code-inline" id="77ddcb5f19832f4145345889013ab3a4">stat</code> sur un fichier du serveur cible. Il prends différents paramètres que l'on peut retrouver sur la <a href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/stat_module.html" target="_blank">documentation officielle</a> dont le paramètre <code class="code-inline" id="d6fe1d0be6347b8ef2427fa629c04485">path</code> qui lui est obligatoire.
+</p>
+</div>
+<p>Rappelez-vous également qu'un « plays » peut avoir à exécuter plusieurs tâches les unes à la suite des autres, exemple: </p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="386b8fbf25f9e791b9669e3465f878cc"><span class="token comment"># in file ping.yml</span>
+<span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
+
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Check if host is alive <span class="token comment"># Description of the task</span>
+      <span class="token key atrule">ansible.builtin.ping</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Execute a simple command
+      <span class="token key atrule">ansible.builtin.shell</span><span class="token punctuation">:</span> echo "Ansible was here <span class="token tag">!</span>" <span class="token punctuation">&gt;</span> ansible.txt
+
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbservers
+
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Get stats of a file
+      <span class="token key atrule">ansible.builtin.stat</span><span class="token punctuation">:</span>
+        <span class="token key atrule">path</span><span class="token punctuation">:</span> /etc/hosts</code></pre>
+<p>Vous devriez, en jouant votre playbook (<code class="code-inline" id="c7cb4cc65887b093bc50dfd04d17f5f8">ansible-playbook ping -i inventories</code>) obtenir une sortie équivalente à:</p>
 <h3 id="la-commande-ansible-playbook" class="anchor-title"><a href="#la-commande-ansible-playbook">La commande ansible-playbook</a></h3>
 <p>Nous avons déjà vu les commandes <code class="code-inline" id="640c8a5376aa12fa15cf02130ce239a6">ansible</code> et <code class="code-inline" id="c849dabdafeab0ab6aae256ec60514b7">ansible-inventory</code> au tour de <code class="code-inline" id="6afa1ad605a4192ba2e50e8be9966e68">ansible-playbook</code></p>
 <h2 id="aller-plus-loin-avec-les-sources" class="anchor-title"><a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a></h2>
