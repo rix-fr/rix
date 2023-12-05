@@ -322,7 +322,9 @@ Bien que très axé débutants il peut également représenté une possibilité 
     Ils peuvent être écrits dans divers langages de programmation, mais la plupart sont écrits en <strong>Python</strong>. Ansible vient avec une large gamme de modules intégrés pour gérer différents aspects des systèmes, des applications et des infrastructures.
 </p>
 </div>
-<p>En exécutant cette commande vous devriez obtenir la sortie suivante ou équivalente (si tout se passe bien).</p>
+<h3 id="la-commande-ansible-playbook" class="anchor-title"><a href="#la-commande-ansible-playbook">La commande ansible-playbook</a></h3>
+<p>Nous avons déjà vu les commandes <code class="code-inline" id="640c8a5376aa12fa15cf02130ce239a6">ansible</code> et <code class="code-inline" id="c849dabdafeab0ab6aae256ec60514b7">ansible-inventory</code> au tour de <code class="code-inline" id="6afa1ad605a4192ba2e50e8be9966e68">ansible-playbook</code></p>
+<p>En exécutant cette commande <code class="code-inline" id="52e6441c53aeea34a915cbb7ef1eb021">ansible-playbook ping.yml -i inventories</code> vous devriez obtenir la sortie suivante ou équivalente (si tout se passe bien).</p>
 <figure>
     <img src="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-ping.png/6982cfe79ed668c3d9c248e78c91689f.png" srcset="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-ping.png/6982cfe79ed668c3d9c248e78c91689f.png 1x,
 /rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-ping.png/1ffc120352898e44c59e3a1211709c29.png 2x," id="6982cfe79ed668c3d9c248e78c91689f-png">
@@ -382,8 +384,6 @@ Bien que très axé débutants il peut également représenté une possibilité 
       <span class="token key atrule">ansible.builtin.stat</span><span class="token punctuation">:</span>
         <span class="token key atrule">path</span><span class="token punctuation">:</span> /etc/hosts</code></pre>
 <p>Vous devriez, en jouant votre playbook (<code class="code-inline" id="c7cb4cc65887b093bc50dfd04d17f5f8">ansible-playbook ping -i inventories</code>) obtenir une sortie équivalente à:</p>
-<h3 id="la-commande-ansible-playbook" class="anchor-title"><a href="#la-commande-ansible-playbook">La commande ansible-playbook</a></h3>
-<p>Nous avons déjà vu les commandes <code class="code-inline" id="640c8a5376aa12fa15cf02130ce239a6">ansible</code> et <code class="code-inline" id="c849dabdafeab0ab6aae256ec60514b7">ansible-inventory</code> au tour de <code class="code-inline" id="6afa1ad605a4192ba2e50e8be9966e68">ansible-playbook</code></p>
 <h2 id="aller-plus-loin-avec-les-sources" class="anchor-title"><a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a></h2>
 <ul>
 <li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html" target="_blank">https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html</a></li>
