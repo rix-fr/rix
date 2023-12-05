@@ -397,7 +397,7 @@ Nous aurons donc vu que les inventaires bien qu'à priori relativement simples, 
 
 Dans la prochaine étape nous aborderons une nouvelle notion d'Ansible, **les playbooks** qui nous permettront d'écrire nos première tâches !
 
-## Aller plus loins avec les sources
+## Aller plus loin avec les sources
 
 - https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#connecting-to-hosts-behavioral-inventory-parameters
 - https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html
