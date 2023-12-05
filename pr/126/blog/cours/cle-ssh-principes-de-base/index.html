@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Principes de base de l&#039;utilisation de clés SSH.</title>
+
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/rix/pr/126/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/rix/pr/126/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/rix/pr/126/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/rix/pr/126/favicon-16x16.png">
+        <link rel="manifest" href="/rix/pr/126/site.webmanifest">
+                <link rel="shortcut icon" href="/rix/pr/126/favicon.ico">
+        <meta name="msapplication-TileColor" content="#ff4344">
+        <meta name="msapplication-config" content="/rix/pr/126/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+                        <meta name="description" content="Génération, utilisation et cas pratiques d&#039;utilisation de clés SSH." />
+            <link rel="canonical" href="https://rix-fr.github.io/rix/pr/126/blog/cours/cle-ssh-principes-de-base" />
+
+            <!-- Open Graph / Facebook -->
+                                        <meta property="og:type" content="website">
+                        <meta property="og:title" content="Principes de base de l&#039;utilisation de clés SSH." />
+            <meta property="og:locale" content="fr" />
+            <meta property="og:description" content="Génération, utilisation et cas pratiques d&#039;utilisation de clés SSH." />
+            <meta property="og:url" content="https://rix-fr.github.io/rix/pr/126/blog/cours/cle-ssh-principes-de-base" />
+            <meta property="og:site_name" content="rix" />
+
+                                        <meta property="og:image" content="https://rix-fr.github.io/rix/pr/126/resized/content/images/blog/thumbnails/cle-ssh-principes.jpg/9cf50d92001aa3a66a9f197c9d1f7acb.jpg">
+                                                    <meta property="og:image:alt" content="Rix - Expertise et outillage DevOps">
+            
+            <!-- Twitter -->
+            <meta property="twitter:card" content="summary_large_image">
+            <meta property="twitter:title" content="Principes de base de l&#039;utilisation de clés SSH.">
+            <meta property="twitter:description" content="Génération, utilisation et cas pratiques d&#039;utilisation de clés SSH.">
+            <meta property="twitter:site" content="@rix_fr">
+            <meta property="twitter:creator" content="@rix_fr">
+                                        <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/126/resized/content/images/blog/thumbnails/cle-ssh-principes.jpg/965641c67b52e6bd5acfbafbcf8b365f.jpg">
+                                <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": "Principes de base de l'utilisation de clés SSH.",
+    "image": [
+        "https://rix-fr.github.io/rix/pr/126/blog/cours/content/images/blog/thumbnails/cle-ssh-principes.jpg"
+    ],
+    "datePublished": "20 octobre 2023",
+    "dateModified": "20 octobre 2023",
+    "author": [
+        {
+            "@type": "Person",
+            "name": "Guewen Faivre"
+        }
+    ],
+    "keywords": [
+        "Cours",
+        "Ssh",
+        "How to"
+    ]
+}
+    </script>
+            
+
+    <link rel="alternate" type="application/rss+xml" href="/rix/pr/126/blog/rss.xml" title="Le blog de l'équipe Rix" />
+
+                            <meta name="robots" content="noindex" />
+        
+        <script>
+                        document.querySelector('html').classList.remove('no-js');
+        </script>
+
+                    <link rel="stylesheet" href="/rix/pr/126/build/305.26cecd83.css">
+        
+                    <script src="/rix/pr/126/build/runtime.5a850040.js" defer></script><script src="/rix/pr/126/build/70.671fda9c.js" defer></script><script src="/rix/pr/126/build/app.e999eb99.js" defer></script>
+
+                        <script defer src="https://comments.rix.fr/comentario.js"></script>
+        
+    </head>
+    <body class="page-article">
+                    <header class="header">
+                <div class="container">
+                    <a href="/rix/pr/126/">
+                        <img src="/rix/pr/126/build/images/logos/logo-horizontal.ae7b8485.svg" alt="" class="logo">
+                        <span class="screen-reader">Retour à l'accueil</span>
+                    </a>
+
+                                            <nav class="nav">
+    <ul>
+                                    <li class="nav__item ">
+                    <a href="/rix/pr/126/">
+                        <span>Accueil</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/126/services">
+                        <span>Nos services</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/126/etudes-de-cas">
+                        <span>Cas clients</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/126/a-propos">
+                        <span>À propos</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/126/blog">
+                        <span>Blog</span>
+                    </a>
+                </li>
+                            <li class="nav__item nav__item--icon">
+            <a href="/rix/pr/126/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                <span>Contactez-nous</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+                    
+                                            <nav class="nav-mobile">
+    <div class="nav-mobile__header">
+        <a href="/rix/pr/126/">
+            <img src="/rix/pr/126/build/images/logos/logo-horizontal-white.901392b9.svg" alt="" class="logo">
+        </a>
+        <button class="nav-toggle nav-toggle--close">
+            <i class="icon icon--close" aria-hidden="true"></i>
+            <span class="screen-reader">Fermer le menu</span>
+        </button>
+    </div>
+    <ul>
+                                    <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/126/">
+                        Accueil
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/126/services">
+                        Nos services
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/126/etudes-de-cas">
+                        Cas clients
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/126/a-propos">
+                        À propos
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/126/blog">
+                        Blog
+                    </a>
+                </li>
+                            <li class="nav-mobile__item nav-mobile__item--icon">
+            <a href="/rix/pr/126/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                Contactez-nous
+            </a>
+        </li>
+    </ul>
+</nav>
+<button class="nav-toggle nav-toggle--open">
+    <i class="icon icon--hamburger" aria-hidden="true"></i>
+    <span class="screen-reader">Ouvrir le menu</span>
+</button>
+
+                                    </div>
+            </header>
+                <main>
+                <div class="banner banner--blog">
+        <div class="container">
+            <h1>
+                <a href="/rix/pr/126/blog">Blog</a>
+                <strong>/</strong>
+            </h1>
+        </div>
+    </div>
+
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <ul class="tags-list">
+                                            <li class="tags-list__item">
+                            #Cours
+                        </li>
+                                            <li class="tags-list__item">
+                            #Ssh
+                        </li>
+                                            <li class="tags-list__item">
+                            #HowTo
+                        </li>
+                                    </ul>
+                <h2 class="h2--large">Principes de base de l&#039;utilisation de clés SSH.</h2>
+                <p>Génération, utilisation et cas pratiques d&#039;utilisation de clés SSH.</p>
+                <div class="article-overview">
+                                        <ol class="table-of-contents">
+                                                            <li class="table-of-contents__item">
+                                    <a href="#pre-requis">Pré-requis</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#tl-dr">TL;DR</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#generation-d-une-paire-de-cles">Génération d&#039;une paire de clés</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#se-connecter-a-un-serveur-distant">Se connecter à un serveur distant</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#complements">Compléments</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a>
+                                                                    </li>
+                                                    </ol>
+                                        <div class="article-info">
+                                                                            <div class="author ">
+                                <div class="author__image">
+                                                                            <img     src="/rix/pr/126/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg"
+    srcset="
+        /rix/pr/126/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg 1x,
+        /rix/pr/126/resized/content/images/member/avatars/gfaivre.jpg/d2d8af0b210c37c677635983f1c02d6d.jpg 2x
+    "
+ />
+                                                                    </div>
+                                <span class="author__info">
+                                    Écrit par
+                                                                            <strong>Guewen Faivre</strong>
+                                                                    </span>
+                            </div>
+                                                <div class="article-info__date">
+                            <span>Publication <strong>20 octobre 2023</strong></span>
+                                                                                </div>
+                    </div>
+                </div>
+                <main>
+                                                            <body><p>Une clé SSH est un <strong>moyen d'authentification</strong> vers un serveur SSH reposant sur les principes de <strong><a href="https://fr.wikipedia.org/wiki/Cryptographie_asym%C3%A9trique" target="_blank">cryptographie asymétrique</a></strong> et <strong><a href="https://fr.wikipedia.org/wiki/Authentification_d%C3%A9fi-r%C3%A9ponse" target="_blank">d'authentification défi / réponse</a></strong>.</p>
+<p>Elle a deux avantages fondamentaux comparativement avec une authentification par couple identifiant/mot de passe:</p>
+<ul>
+<li>Permettre une authentification facilité (plus de mot de passe à mémoriser) et plus rapide (possibilité de rebond de serveur à serveur par exemple).</li>
+<li>Se prémunir des attaques de type <a href="https://fr.wikipedia.org/wiki/Attaque_par_force_brute" target="_blank">force brute</a></li>
+</ul>
+<p>La très grande majorité des accès serveurs sont aujourd'hui basés sur leur utilisation, au dela de l'aspect fluidité et sécurité, elle ouvre également la possibilité d'authorisation multiple (sur plusieurs serveurs), de révocation et de signature des accès facilités.</p>
+<div class="admonition info">
+<p class="admonition-title">Secure Shell (SSH)</p>
+<p>
+    Secure Shell (SSH) est à la fois un programme informatique et un protocole de communication sécurisé.
+    Le protocole de connexion impose un échange de clés de chiffrement en début de connexion. Par la suite, tous les segments TCP sont authentifiés et chiffrés. Il devient donc impossible d'utiliser un sniffer pour voir ce que fait l'utilisateur.
+    Le protocole SSH a été conçu avec l'objectif de remplacer les différents protocoles non chiffrés comme rlogin, telnet, rcp et rsh.
+</p>
+</div>
+<h2 id="pre-requis" class="anchor-title"><a href="#pre-requis">Pré-requis</a></h2>
+<ul>
+<li>Avoir un client SSH installé (OpenSSH pour Linux/OSX et Windows à présent ou encore <a href="https://www.putty.org/" target="_blank">Putty</a> pour Windows)</li>
+<li>Une ligne de commande ( le truc noir dans lequel on tape du texte ;) )</li>
+</ul>
+<h2 id="tl-dr" class="anchor-title"><a href="#tl-dr">TL;DR</a></h2>
+<p><strong>Génération d'une paire de clés:</strong></p>
+<pre class="code-multiline"><code id="4e41757ebf6ff993d02688213be943d9">ssh-keygen -t ed25519 -a 150</code></pre>
+<p><strong>Se connecter à un serveur distant</strong></p>
+<pre class="code-multiline"><code id="b1a1b175ea0d1dfb453161746a5f9877">ssh -i ~/.ssh/id25519 user@server_address</code></pre>
+<h2 id="generation-d-une-paire-de-cles" class="anchor-title"><a href="#generation-d-une-paire-de-cles">Génération d'une paire de clés</a></h2>
+<p>Le principe de l'authentification par clés repose, comme explicité sur les différents liens ci-dessus, par la création d'une paire de clés asymétriques.
+L'une de ces clés sera votre clé <strong>publique</strong> à déployer sur les machines auxquelles vous avez le droit de vous connecter, l'autre, votre clé <strong>privée</strong>. Et comme son nom l'indique, celle-ci est à vous et rien qu'à vous ; elle ne se partage pas. <strong>JAMAIS</strong>.</p>
+<p>Deux notions de base avant de se lancer pour bien comprendre ce que l'on fait:</p>
+<ul>
+<li>Il existe plusieurs types d'<strong>algorithmes de signature numérique</strong>, les plus répandus étant <strong><a href="https://fr.wikipedia.org/wiki/Chiffrement_RSA" target="_blank">RSA</a></strong> et <strong><a href="https://fr.wikipedia.org/wiki/EdDSA" target="_blank">Ed25519</a></strong>;</li>
+<li>Il est possible de spécifier la longueur de vos clés, ce paramètre est essentiel à leur <strong>robustesse</strong>.</li>
+</ul>
+<p>Il est recommandé, à la date de rédaction de cet article, d'utiliser l'algorithme <strong>Ed25519</strong> qui a plusieurs avantages comparativement à RSA:</p>
+<ul>
+<li>Robustesse accrue;</li>
+<li>Plus petite taille de clés;</li>
+<li>Génération des clés plus rapide.</li>
+</ul>
+<pre class="code-multiline"><code id="413fac48b924f9817b9e9fd4c73e32c6">ssh-keygen -t ed25519 -a 150 -C "courriel@example.com"</code></pre>
+<figure>
+    <img src="/rix/pr/126/resized/content/images/blog/2023/cours/ssh-keygen.gif/4c624a8987673a6deb25cf1395b926ce.gif" id="4c624a8987673a6deb25cf1395b926ce-gif">
+    <figcaption>
+      <span class="figure__legend">Génération d'une paire de clé SSH</span>
+    </figcaption>
+</figure>
+<p>L'option <code class="code-inline" id="cf8cdf84c2454d47460fcb564fdde204">-C</code> permet d'ajouter un commentaire à votre clé, pratique notamment pour <strong>identifier le propriétaire d'une clé publique coté serveur</strong>.</p>
+<div class="admonition danger">
+<p class="admonition-title">Phrase de passe</p>
+<p>
+    Bien que facultative, il est « <strong>extrêmement vachement recommandé</strong> » de disposer d'une phrase de passe sur vos clés SSH (dans le cadre des cours et pour gagner du temps il est possible de s'en passer <strong>si vous n'utilisez pas votre clé en dehors de ceux-ci</strong>).
+</p>
+</div>
+<p>Cette commande vous aura généré deux fichiers dans le répertoire <code class="code-inline" id="f5f67a065f758bf3e6bae82fd34ab3a2">~/.ssh/</code> (sauf si vous l'avez modifié bien évidemment):</p>
+<ul>
+<li><code class="code-inline" id="488bdb839a21688d6126300d9f09fbe9">id_ed25519.pub</code> (comme son extension l'indique c'est votre clé <strong>publique</strong>);</li>
+<li><code class="code-inline" id="6e20e3f5ea6fcfc0bca06bf93c1b7aeb">id_ed25519</code> votre clé <strong>privée</strong> (on remarquera les droits qui lui sont appliqués <code class="code-inline" id="bf8eba0d2a296e4e801f774cf5deb67f">0600</code>, en effet seul votre utilisateur doit y avoir accès).</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Générer une clé RSA</p>
+<p>
+    Ed25519 n'étant de temps en temps pas supporté (surtout par les anciens systèmes) il est parfois nécessaire de générer une paire de clé RSA (on remarquera la longueur de clé de <strong>4096 bits</strong> recommandée à date de rédaction de l'article):
+    <code class="code-inline" id="349e1e9e559f33c91688c962f613aacf">ssh-keygen -t rsa -a 150 -b 4096</code>
+</p>
+</div>
+<h2 id="se-connecter-a-un-serveur-distant" class="anchor-title"><a href="#se-connecter-a-un-serveur-distant">Se connecter à un serveur distant</a></h2>
+<p>C'est un peu la finalité.
+Imaginons un serveur pour lequel votre clé est autorisée à se connecter (pour rappel fichier <code class="code-inline" id="c0274e5607f75f22497b2ec116e41842">authorized_keys</code>), nous pouvons initier une connexion à l'aide de la commande:</p>
+<p><code class="code-inline" id="a7fe85f59db939469192c32deef402b4">ssh user@server_address</code></p>
+<p>Cette commande aura donc pour effet « d'ouvrir » une connexion sur un serveur distant via le protocol SSH vous permettant de saisir des lignes de commande <strong>directement</strong> sur ce serveur et donc de <strong>l'administrer</strong>.</p>
+<figure>
+    <img src="/rix/pr/126/resized/content/images/blog/2023/cours/ssh.gif/02e06122a9eba89d4faed7b89ae519d6.gif" id="02e06122a9eba89d4faed7b89ae519d6-gif">
+    <figcaption>
+      <span class="figure__legend">Ouverture d'une session sur un serveur distant</span>
+    </figcaption>
+</figure>
+<p>Cette exemple montre l'ouverture d'une session avec l'utilisateur <code class="code-inline" id="6e9552c9bd8e61c8f277c21220160234">debian</code> sur le serveur ayant pour adresse IP <code class="code-inline" id="412eb42a00d0acc047bdb262465b5eaa">146.59.243.95</code>.</p>
+<p><strong>Plusieurs choses à retenir à cette étape:</strong></p>
+<ul>
+<li>Par défaut ssh <strong>parcourt les clés SSH privées disponibles</strong> dans le répertoire <code class="code-inline" id="6ee1504095caefc322f5ca38b8074fd4">~/.ssh</code> afin de les proposer au serveur auquel vous essayez de vous connecter.</li>
+<li>Vous optenez en retour <strong>la première fois</strong> que vous vous connectez un message vous demandant de <strong>confirmer la connexion</strong> vers le serveur distant (Host key checking).</li>
+</ul>
+<h2 id="complements" class="anchor-title"><a href="#complements">Compléments</a></h2>
+<p>Si vous disposez de plusieurs clés SSH et que vous ne souhaitez pas que l'ensemble de vos clés privées soient soumises au serveur distant vous pouvez spécifier quelle clé utiliser en utilisant l'option <code class="code-inline" id="20f011826070657b0f0092278d65ec74">-i</code>.</p>
+<pre class="code-multiline"><code id="1447b20008cc99325cebf30676ffa256">ssh -i ~/.ssh/id25519 debian@146.59.243.95</code></pre>
+<p>Il est possible d'utiliser <strong>des syntaxes différentes</strong> en fonction de votre <a href="/blog/cours/utiliser-la-configuration-ssh-client">fichier de configuration SSH</a>.</p>
+<p>Vous pouvez ainsi agir sur les comportements par défaut de votre client SSH et notamment sur la clé à utiliser en fonction de tel ou tel serveur.</p>
+<h2 id="aller-plus-loin-avec-les-sources" class="anchor-title"><a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a></h2>
+<ul>
+<li><a href="https://fr.wikipedia.org/wiki/Secure_Shell" target="_blank">https://fr.wikipedia.org/wiki/Secure_Shell</a></li>
+</ul></body>
+                                                                                </main>
+                <div class="article-footer" data-aos="fade-in">
+                                                                        <div class="author">
+                                <div class="author__image">
+                                    <img     src="/rix/pr/126/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg"
+    srcset="
+        /rix/pr/126/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg 1x,
+        /rix/pr/126/resized/content/images/member/avatars/gfaivre.jpg/d2d8af0b210c37c677635983f1c02d6d.jpg 2x
+    "
+ />
+                                </div>
+                                <span class="author__info">
+                                    Écrit par
+                                    <strong>Guewen Faivre</strong>
+                                </span>
+                                <div class="author__social">
+                                                                            <a href="https://twitter.com/guewen_faivre">
+                                            <i class="icon icon--twitter" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte twitter de Guewen Faivre</span>
+                                        </a>
+                                                                                                                <a href="https://github.com/gfaivre">
+                                            <i class="icon icon--github" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte github de Guewen Faivre</span>
+                                        </a>
+                                                                                                                <a href="http://www.elao.com">
+                                            <i class="icon icon--website" aria-hidden="true"></i>
+                                            <span class="screen-reader">Site personnel de Guewen Faivre</span>
+                                        </a>
+                                                                    </div>
+                            </div>
+                                                            </div>
+                                    <div class="comment">
+                                                    <div id="comentario"></div>
+                                                                                                    <p>
+                                Une typo ?
+                                <a href="https://github.com/rix-fr/rix/edit/cours/ansible-les-playbooks/content/blog/cours/cle-ssh-principes-de-base.md/" target="_blank">Modifier cet article sur Github</a>
+                            </p>
+                                            </div>
+                            </div>
+        </div>
+    </div>
+        </main>
+                    <footer class="footer">
+    <div class="container">
+        <div class="footer__contact">
+            <div class="catchphrase">
+                <p class="h1">Le monde du DevOps vous semble obscur ?</p>
+                <p>Contactez-nous, nous vous aiderons à y <strong>voir plus clair</strong>.</p>
+            </div>
+            <div class="contact-tiles">
+                <span class="contact-tiles__item">
+                    <i class="icon icon--location" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Passez nous voir !</span>
+                        <span>Nous sommes à Lyon !</span>
+                        <span>34 rue Jean Broquin</span>
+                        <span>69006 Lyon, France</span>
+                    </span>
+                </span>
+                <span class="contact-tiles__item">
+                    <i class="icon icon--message" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Par téléphone ou par mail</span>
+                        <a href="tel:33482537609">04 82 53 76 09</a>
+                        <a href="mailto:contact@rix.fr">contact@rix.fr</a>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="footer__brand">
+            <img src="/rix/pr/126/build/images/logos/logo-horizontal-white.901392b9.svg" alt="Rix">
+            <span>Expertise et outilllage DevOps</span>
+        </div>
+        <nav class="footer__links">
+            <div class="pages">
+                <ul>
+                                                                        <li>
+                                <a href="/rix/pr/126/etudes-de-cas">Cas clients</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/126/a-propos">À propos</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/126/contact">Contact</a>
+                            </li>
+                                                            </ul>
+            </div>
+            <div class="services">
+                <a href="/rix/pr/126/services">Nos services</a>
+                <div>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/126/services#accompagnement_outillage">Accompagnement et outillage DevOps</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/126/services#experts_kubernetes">Expertise Kubernetes</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/126/services#performances_diagnostique">Performances et diagnostique</a>
+                                </li>
+                                                    </ul>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/126/services#conception_infrastructures">Conception sur-mesure d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/126/services#pilotage_infrastructures">Pilotage d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/126/services#environment">Environnement de développement</a>
+                                </li>
+                                                    </ul>
+                                    </div>
+            </div>
+        </nav>
+        <div class="footer__legals">
+            <span>©2023 - Rix - Tous droits réservés</span>
+            -
+            <a href="/rix/pr/126/legal">Mentions légales</a>
+            -
+            <a href="/rix/pr/126/confidentialite">Données personnelles</a>
+        </div>
+    </div>
+</footer>
+
+
+
+            </body>
+</html>
