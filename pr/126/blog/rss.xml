@@ -5,7 +5,7 @@
         <description>Découvrez nos articles techniques (ou non), rédigés par les membres de l'équipe Rix !</description>
         <copyright>Rix - L’utilisation des flux RSS de rix.fr est réservée à un usage strictement personnel, non professionnel et non collectif. Toute autre exploitation doit faire l’objet d’une autorisation et donner lieu au versement d’une rémunération. Contact : contact@rix.fr</copyright>
         <link>https://rix-fr.github.io/rix/pr/126/blog</link>
-        <pubDate>Tue, 05 Dec 2023 21:45:42 +0000</pubDate>
+        <pubDate>Wed, 06 Dec 2023 14:44:31 +0000</pubDate>
         <language>fr</language>
         <image>
             <url>https://rix-fr.github.io/rix/pr/126/apple-touch-icon.png</url>
@@ -17,7 +17,7 @@
             <title>Ansible - Les playbooks</title>
             <pubDate>Tue, 05 Dec 2023 00:00:00 +0000</pubDate>
             <description>
-                <![CDATA[ Découverte des playbooks, élément essentiel d&#039;Ansible qui va nous permettre d&#039;organiser et structure nos tâches ! ]]>
+                <![CDATA[ Découverte des playbooks, élément essentiel d&#039;Ansible qui va nous permettre d&#039;organiser et structurer nos tâches ! ]]>
             </description>
             <guid isPermaLink="true">https://rix-fr.github.io/rix/pr/126/blog/cours/ansible/ansible-les-playbooks</guid>
             <link>https://rix-fr.github.io/rix/pr/126/blog/cours/ansible/ansible-les-playbooks</link>
