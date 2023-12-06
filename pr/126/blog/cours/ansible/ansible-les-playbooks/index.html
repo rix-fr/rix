@@ -467,6 +467,7 @@ Afin de s'en rendre compte nous allons déployer un serveur web Nginx sur nos in
 <li><code class="code-inline" id="d289e44b689800170b69ff7fabfbe7e9">update_cache</code>: Indique qu'il faut effectuer une mise à jour de l'index des paquets avant l'installation.</li>
 <li><code class="code-inline" id="9ed39e2ea931586b6a985a6942ef573e">state</code>: « L'état » dans lequel nous souhaitons avoir le paquet installé (present, absent, latest...)</li>
 </ul>
+<p>Vous devriez également pouvoir interroger votre serveur web en utilisant l'IP de votre machine <code class="code-inline" id="78de6a9fb573e10f121995b4b497db15">http://XXX.XXX.XXX.XXX</code>.</p>
 <h3 id="l-escalade-de-privileges" class="anchor-title"><a href="#l-escalade-de-privileges">L'escalade de privilèges</a></h3>
 <p>Avec cette tâche d'installation nous touchons une autre problématique qui est celle de la gestion des droits et notamment la modification de manière globale l'état d'un système, ce qui relève normalement de la compétence du compte <code class="code-inline" id="63a9f0ea7bb98050796b649e85481845">root</code>, super administrateur des systèmes à base UNIX.</p>
 <p>Si nous n'avons pas rencontré de problème jusqu'à présent c'est parce que nous utilisons un <a href="/blog/cours/ansible/ansible-environnement-cle-en-main">lazy Ansible</a> pré-configuré avec certaines directives dans le fichier de configuration d'Ansible dont nous reparlerons un peu plus tard.</p>
@@ -498,7 +499,7 @@ Le but de chacune de ces tâches est d'exécuter un module (nous en avons déjà
 <li><code class="code-inline" id="c14192fc9675e5023582b237e885e10d">pre_tasks</code>: Contient les tâches à exécuter en premier;</li>
 <li><code class="code-inline" id="4295e8065f2f640103f566df3329e17f">roles</code>: Indiquant une liste de rôles à utiliser dans notre « play » (Nous verrons cette notion plus tard);</li>
 <li><code class="code-inline" id="122262e3bc2b18846d6367493be122dc">post_tasks</code>: Contenant les tâches à exécuter en dernier;</li>
-<li><code class="code-inline" id="7c0b3e6cb1f202796bb60528e017a994">handlers</code>: Contenant des tâches déclenchées à la fin de chaque bloc ou section de tâches en fonction de certains évènements (Nous verrons cette notion plus tard).</li>
+<li><code class="code-inline" id="7c0b3e6cb1f202796bb60528e017a994">handlers</code>: Contenant des tâches déclenchées à la fin de chaque bloc ou section de tâches en fonction de certains évènements.</li>
 </ul>
 <h4 id="la-section-pre-tasks" class="anchor-title"><a href="#la-section-pre-tasks">La section pre_tasks</a></h4>
 <p>Elle correspond à une exécution conditionnelle d'un bloc de code <strong>AVANT</strong> de lancer le « play », elle peut être chargée soit de vérifier des pré-requis soit de valider un état.</p>
@@ -527,6 +528,86 @@ Le but de chacune de ces tâches est d'exécuter un module (nous en avons déjà
 </figure>
 <p>Où l'on constate qu'effectivement la première tâche exécutée est notre mise à jour d'index de paquets (nous parlerons plus en détails de la tâche « Gathering facts » lorsque nous aborderons les <strong>variables</strong>)</p>
 <p>Nous ne détaillerons pas la section <code class="code-inline" id="122262e3bc2b18846d6367493be122dc">post_tasks</code> puisqu'elle fonctionne exactement de la même manière.</p>
+<h4 id="les-handlers" class="anchor-title"><a href="#les-handlers">Les handlers</a></h4>
+<p>Bien, reprenons notre exemple d'installation d'Nginx, nous avons un paquet « tout neuf » auquel nous n'avons apporté aucune configuration pour l'instant.
+Imaginons à présent que nous souhaitons ajouter un fichier de configuration spécifique pour notre serveur web, pour notre exemple nous mettrons en place un fichier qui nous renvoie simplement un « état » de notre serveur Nginx.</p>
+<p>En premier lieu nous allons créer un nouveau <strong>répertoire</strong> appelé <code class="code-inline" id="45b963397aa40d4a0063e0d85e4fe7a1">files</code> à la racine de notre espace de travail lui même contenant un <strong>répertoire</strong> <code class="code-inline" id="ee434023cf89d7dfb21f63d64f0f9d74">nginx</code> (histoire d'organiser un minimum les choses) dans lequel nous ajouterons le fichier <code class="code-inline" id="617f940792257db3b58a57be6b4a6c50">status.conf</code> contenant:</p>
+<pre class="code-multiline"><code id="18dd76eb1056156c3ae8407bc53c292f">server {
+    listen *:8080;
+    root /usr/share/nginx/html;
+    access_log off;
+    location / {
+        return 404;
+    }
+    location = /nginx/status {
+        stub_status on;
+    }
+}</code></pre>
+<p>Modifions à présent notre fichier <code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code> de la façon suivante:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="e8cf5ddc1b5eb7ed95e1f85201e285c6"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
+
+  <span class="token key atrule">pre_tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Updating APT cache index
+      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+        <span class="token key atrule">update_cache</span><span class="token punctuation">:</span> yes
+
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install Nginx web server
+      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> present
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Nginx status configuration file
+      <span class="token key atrule">ansible.builtin.copy</span><span class="token punctuation">:</span>
+        <span class="token key atrule">src</span><span class="token punctuation">:</span> nginx/status.conf
+        <span class="token key atrule">dest</span><span class="token punctuation">:</span> /etc/nginx/conf.d/status.conf</code></pre>
+<p>Si tout s'est déroulé correctement vous devriez avoir un fichier <code class="code-inline" id="617f940792257db3b58a57be6b4a6c50">status.conf</code> nouvellement créé par Ansible sur vos machines cibles dans le répertoire <code class="code-inline" id="c93438a126d84a32cb4712c215498037">/etc/nginx/conf.d/</code>.
+Pour terminer nous pouvons vérifier que notre configuration fonctionne bien en interrogeant l'adresse: <code class="code-inline" id="fdedefc0ba99ed7557a58f146b528118">http://XXX.XXX.XXX.XXX/nginx/status</code>... <strong>ou pas</strong> !</p>
+<div class="admonition info">
+<p class="admonition-title">Le module copy</p>
+<p>
+    Le module stat permet d'exécuter la commande système <code class="code-inline" id="77ddcb5f19832f4145345889013ab3a4">stat</code> sur un fichier du serveur cible. Il prends différents paramètres que l'on peut retrouver sur la <a href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/stat_module.html" target="_blank">documentation officielle</a> dont le paramètre <code class="code-inline" id="d6fe1d0be6347b8ef2427fa629c04485">path</code> qui lui est obligatoire.
+</p>
+</div>
+<p>En l'état actuel vous devriez avoir pour toute réponse une <strong>page blanche</strong>, en effet bien que notre fichier de configuration ait été déposé sur le serveur, Nginx ne le prend pas encore en compte car le service n'a pas été <strong>redémarré</strong>.
+C'est là qu'entre en jeu <strong>les handlers</strong> !</p>
+<p>Les handlers sont des tâches un peu particulières qui ne se déclenche que lorsqu'elle sont <strong>notifiée</strong>.
+Complétons notre playbook de manière à obtenir la configuration suivante:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="3b435d5d82d9102136cae515e9999b93"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
+
+  <span class="token key atrule">pre_tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Updating APT cache index
+      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+        <span class="token key atrule">update_cache</span><span class="token punctuation">:</span> yes
+
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install Nginx web server
+      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> present
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Nginx status configuration file
+      <span class="token key atrule">ansible.builtin.copy</span><span class="token punctuation">:</span>
+        <span class="token key atrule">src</span><span class="token punctuation">:</span> nginx/status.conf
+        <span class="token key atrule">dest</span><span class="token punctuation">:</span> /etc/nginx/conf.d/status.conf
+      <span class="token key atrule">notify</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> restart_nginx
+
+  <span class="token key atrule">handlers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restart_nginx
+      <span class="token key atrule">ansible.builtin.service</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> restarted</code></pre>
+<p>En rejouant notre playbook <code class="code-inline" id="b9aecf7ac1e3a8f356a240bd742c1c9a">ansible-playbook webservers.yml -i inventories</code> nous constons que cela n'a rien changé ! Effectivement, comme dit précédemment un handler réagit à un évènement, dans notre cas à la modification du fichier <code class="code-inline" id="617f940792257db3b58a57be6b4a6c50">status.conf</code>. Comme nous ne l'avons pas modifié le handler n'a pas été notifié.</p>
+<p>En introduisant une modification dans notre fichier (par exemple en modifiant la directive <code class="code-inline" id="47f52dedc48034d27b096c159a6dc021">access_log</code> pour la passer à off) nous devrions enfin pouvoir accéder à notre page de status à l'adresse: <code class="code-inline" id="882dcf7d2147421a14001feb2b88e7fc">http://XXX.XXX.XXX.XXX:8080/nginx/status</code>.</p>
+<p>Vous devriez également pouvoir constater l'exécution du handler sur la sortie Ansible:</p>
+<figure>
+    <img src="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-handler.jpg/dc709322f2276448cacc708dcd0218fc.jpg" srcset="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-handler.jpg/dc709322f2276448cacc708dcd0218fc.jpg 1x,
+/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-handler.jpg/6eb1cc47a7c80cb64d8a1ad991701ef4.jpg 2x," id="dc709322f2276448cacc708dcd0218fc-jpg">
+    <figcaption>
+      <span class="figure__legend">Exécution d'un handler.</span>
+    </figcaption>
+</figure>
 <h2 id="aller-plus-loin-avec-les-sources" class="anchor-title"><a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a></h2>
 <ul>
 <li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html" target="_blank">https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html</a></li>
