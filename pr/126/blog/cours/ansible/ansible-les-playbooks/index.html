@@ -300,7 +300,7 @@ Bien que très axé débutants il peut également représenté une possibilité 
 </p>
 </div>
 <h2 id="les-playbooks" class="anchor-title"><a href="#les-playbooks">Les playbooks</a></h2>
-<p>Afin de rentrer dans le vif du sujet nous allons écrire un playbook relativement simple utilisant un module que nous avons vu précédemment, le module <strong>ping</strong>. Nous avons en effet vu que les modules Ansible peuvent être utilisés en ligne de commande pour exécuter une tâche ponctuelle mais rappelons que le but d'Ansible est en premier lieu, d'<strong>automatiser</strong> les choses et donc de les rendre <strong>réutilisables</strong> !</p>
+<p>Afin de rentrer dans le vif du sujet nous allons écrire un playbook relativement simple utilisant un module que nous avons vu précédemment, le module <strong>ping</strong>. Nous avons vu que les modules Ansible peuvent être utilisés en ligne de commande pour exécuter une <strong>tâche ponctuelle</strong> mais rappelons que le but d'Ansible est en premier lieu, d'<strong>automatiser</strong> les choses et donc de les rendre <strong>réutilisables</strong> !</p>
 <h3 id="structure-generale-d-un-playbook" class="anchor-title"><a href="#structure-generale-d-un-playbook">Structure générale d'un playbook</a></h3>
 <p>Créons un nouveau fichier que nous appellerons <code class="code-inline" id="c91a24a63d659cd3b2cf6f2e04b303a5">example.yml</code> dans notre répertoire de travail (pour rappel de mon côté <code class="code-inline" id="2f56b2c4e169e525b08cdbdbfc1a4543">workspace/ansible</code>) contenant:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="6b99c3ab65a642c622b8d12636402450"><span class="token punctuation">---</span>
@@ -351,8 +351,8 @@ Bien que très axé débutants il peut également représenté une possibilité 
 <p>Nous avons déjà vu les commandes <code class="code-inline" id="640c8a5376aa12fa15cf02130ce239a6">ansible</code> et <code class="code-inline" id="c849dabdafeab0ab6aae256ec60514b7">ansible-inventory</code> au tour de <code class="code-inline" id="6afa1ad605a4192ba2e50e8be9966e68">ansible-playbook</code></p>
 <p>En exécutant cette commande <code class="code-inline" id="b98b55aaa24c708c6a23328d5166e6fb">ansible-playbook example.yml -i inventories</code> vous devriez obtenir la sortie suivante ou équivalente (si tout se passe bien).</p>
 <figure>
-    <img src="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-ping.png/6982cfe79ed668c3d9c248e78c91689f.png" srcset="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-ping.png/6982cfe79ed668c3d9c248e78c91689f.png 1x,
-/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-ping.png/1ffc120352898e44c59e3a1211709c29.png 2x," id="6982cfe79ed668c3d9c248e78c91689f-png">
+    <img src="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-example.png/60539304d17a65d7f89b5eb88cea3749.png" srcset="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-example.png/60539304d17a65d7f89b5eb88cea3749.png 1x,
+/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-example.png/cca60d1a0018444ee0fdca536c154d58.png 2x," id="60539304d17a65d7f89b5eb88cea3749-png">
     <figcaption>
       <span class="figure__legend">Utilisation du module ping dans un playbook.</span>
     </figcaption>
@@ -414,7 +414,7 @@ Bien que très axé débutants il peut également représenté une possibilité 
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Get stats of a file
       <span class="token key atrule">ansible.builtin.stat</span><span class="token punctuation">:</span>
         <span class="token key atrule">path</span><span class="token punctuation">:</span> /etc/hosts</code></pre>
-<p>Vous devriez, en jouant votre playbook (<code class="code-inline" id="c7cb4cc65887b093bc50dfd04d17f5f8">ansible-playbook ping -i inventories</code>) obtenir une sortie équivalente à:</p>
+<p>Vous devriez, en jouant votre playbook (<code class="code-inline" id="b98b55aaa24c708c6a23328d5166e6fb">ansible-playbook example.yml -i inventories</code>) obtenir une sortie équivalente à:</p>
 <figure>
     <img src="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-tasks.jpg/eb4c8f6e6951132cc85983159479ceae.jpg" srcset="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-tasks.jpg/eb4c8f6e6951132cc85983159479ceae.jpg 1x,
 /rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-tasks.jpg/3d3e1ff571b62722a02ea21e52fce83f.jpg 2x," id="eb4c8f6e6951132cc85983159479ceae-jpg">
@@ -424,14 +424,14 @@ Bien que très axé débutants il peut également représenté une possibilité 
 </figure>
 <p>À la différence de nos premières tâches, l'utilisation du module <code class="code-inline" id="2591c98b70119fe624898b1e424b5e91">shell</code> a entrainé une modification de l'état des deux serveurs membres du groupe <code class="code-inline" id="09c2ea6bb9250e08e7dd4d3e48358c1c">webservers</code> qu'ansible nous confirme à l'aide de son retour <code class="code-inline" id="8977dfac2f8e04cb96e66882235f5aba">changed</code>.</p>
 <h3 id="visualiser-les-machines-ciblees" class="anchor-title"><a href="#visualiser-les-machines-ciblees">Visualiser les machines ciblées</a></h3>
-<p>Lorsque l'on dispose de playbook assez longs, il peut-être interressant de vérifier la liste des hôtes concernés, c'est faisable à l'aide de la commande <code class="code-inline" id="4cb09f354585011ec5d74cb6eceb1b4f">ansible-playbook ping.yml -i inventories --list-host</code>.</p>
+<p>Lorsque l'on dispose de playbook assez longs, il peut-être intérressant de vérifier la liste des hôtes concernés, c'est faisable à l'aide de la commande <code class="code-inline" id="21030b1bc68fb02a94414f4458e99f08">ansible-playbook example.yml -i inventories --list-host</code>.</p>
 <figure>
     <img src="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-list-host.gif/3380753e5b694ee86c4d72d157c09c79.gif" id="3380753e5b694ee86c4d72d157c09c79-gif">
     <figcaption>
       <span class="figure__legend">Lister les hôtes concernés par un playbook.</span>
     </figcaption>
 </figure>
-<p>Il est également possible de lister les tâches avec l'option <code class="code-inline" id="1b8bb051252fed496fb13ca0bbc3458c">--list-tasks</code> et bien évidemment de combiner ces deux options <code class="code-inline" id="0ff34cb9e2e570095c2c6813b27a8ce9">ansible-playbook ping.yml -i inventories --list-tasks --list-hosts</code>.</p>
+<p>Il est également possible de lister les tâches avec l'option <code class="code-inline" id="1b8bb051252fed496fb13ca0bbc3458c">--list-tasks</code> et bien évidemment de combiner ces deux options <code class="code-inline" id="3979d0f30abe7ac0334e4dde9a637a2a">ansible-playbook example.yml -i inventories --list-tasks --list-hosts</code>.</p>
 <figure>
     <img src="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-list-tasks-hosts.jpg/ae35ec8bc8245ce7cada9bd81e7ff6c5.jpg" srcset="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-list-tasks-hosts.jpg/ae35ec8bc8245ce7cada9bd81e7ff6c5.jpg 1x,
 /rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-list-tasks-hosts.jpg/cb2200015ba23ffc86168edb3bcadaf0.jpg 2x," id="ae35ec8bc8245ce7cada9bd81e7ff6c5-jpg">
@@ -441,9 +441,9 @@ Bien que très axé débutants il peut également représenté une possibilité 
 </figure>
 <p>Vous aurez également remarqué la présence d'une information <code class="code-inline" id="c90ec9d6825f9d9ee5bfffec58a8052f">[TAGS]</code> très utile dont nous parlerons par la suite ;)</p>
 <h2 id="les-taches" class="anchor-title"><a href="#les-taches">Les tâches</a></h2>
-<p>Nous avons vu les principes fondamentaux du fonctionnements des « tasks » avec Ansible, mais celle-ci peuvent être <strong>plus complexes</strong> que celles que nous avons pu voir jusqu'à présent.
-Afin de s'en rendre compte nous allons déployer un serveur web Nginx sur nos instances web.</p>
-<p>Nous allons ajouter une tâches dédiée dans un nouveau playbook que nous appelerons <code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code> et qui contiendra les instructions suivantes:</p>
+<p>Nous avons vu les principes fondamentaux du fonctionnement des « tasks » avec Ansible, mais celles-ci peuvent être <strong>plus complexes</strong> que celles que nous avons pu voir jusqu'à présent.
+Afin de s'en rendre compte nous allons <strong>déployer un serveur web Nginx</strong> sur nos instances web.</p>
+<p>Nous allons ajouter une tâche dédiée dans un nouveau playbook que nous appelerons <code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code> et qui contiendra les instructions suivantes:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="6022b4e7cd7f523552ed96153e3391c4"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
 
@@ -461,7 +461,7 @@ Afin de s'en rendre compte nous allons déployer un serveur web Nginx sur nos in
       <span class="figure__legend">Installation d'Nginx avec Ansible.</span>
     </figcaption>
 </figure>
-<p>On notera l'utilisation du module <code class="code-inline" id="583f72a833c7dfd63c03edba3776247a">apt</code> (attention, utilisable bien évidemment uniquement avec les distributions basées sur Debian) accompagné de plusieurs paramètres;</p>
+<p>On notera l'utilisation du module <code class="code-inline" id="583f72a833c7dfd63c03edba3776247a">apt</code> (attention, utilisable bien évidemment uniquement avec les distributions <strong>basées sur Debian</strong>) accompagné de plusieurs paramètres;</p>
 <ul>
 <li><code class="code-inline" id="b068931cc450442b63f5b3d276ea4297">name</code>: le nom du paquet à installer</li>
 <li><code class="code-inline" id="d289e44b689800170b69ff7fabfbe7e9">update_cache</code>: Indique qu'il faut effectuer une mise à jour de l'index des paquets avant l'installation.</li>
@@ -469,10 +469,10 @@ Afin de s'en rendre compte nous allons déployer un serveur web Nginx sur nos in
 </ul>
 <p>Vous devriez également pouvoir interroger votre serveur web en utilisant l'IP de votre machine <code class="code-inline" id="78de6a9fb573e10f121995b4b497db15">http://XXX.XXX.XXX.XXX</code>.</p>
 <h3 id="l-escalade-de-privileges" class="anchor-title"><a href="#l-escalade-de-privileges">L'escalade de privilèges</a></h3>
-<p>Avec cette tâche d'installation nous touchons une autre problématique qui est celle de la gestion des droits et notamment la modification de manière globale l'état d'un système, ce qui relève normalement de la compétence du compte <code class="code-inline" id="63a9f0ea7bb98050796b649e85481845">root</code>, super administrateur des systèmes à base UNIX.</p>
-<p>Si nous n'avons pas rencontré de problème jusqu'à présent c'est parce que nous utilisons un <a href="/blog/cours/ansible/ansible-environnement-cle-en-main">lazy Ansible</a> pré-configuré avec certaines directives dans le fichier de configuration d'Ansible dont nous reparlerons un peu plus tard.</p>
+<p>Avec cette tâche d'installation nous touchons une autre problématique qui est celle de la <strong>gestion des droits</strong> et notamment la modification de manière globale de l'état d'un système, ce qui relève normalement de la compétence du compte <code class="code-inline" id="63a9f0ea7bb98050796b649e85481845">root</code>, super administrateur des systèmes à base UNIX.</p>
+<p>Si nous n'avons pas rencontré de problème jusqu'à présent c'est parce que nous utilisons un <a href="/blog/cours/ansible/ansible-environnement-cle-en-main">lazy Ansible</a> pré-configuré avec certaines directives dans le <strong>fichier de configuration d'Ansible</strong> dont nous reparlerons un peu plus tard.</p>
 <p>Il est toutefois possible le cas échéant, d'indiquer au niveau d'une tâche que celle-ci réclame des droits d'administrateur et qu'il faut déclencher une escalade de privilèges. Cela se fait en utilisant des clés réservées comme ci-dessous (en reprenant la tâche d'installation Nginx):</p>
-<pre class="code-multiline language-yaml"><code class="language-yaml" id="e1206224bdaccfcb3514a709e05a850f"><span class="token punctuation">---</span>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="d8897529f49527dc58e7bd09f8c78b5b"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
   <span class="token key atrule">remote_user</span><span class="token punctuation">:</span> debian
 
@@ -482,7 +482,7 @@ Afin de s'en rendre compte nous allons déployer un serveur web Nginx sur nos in
         <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
         <span class="token key atrule">state</span><span class="token punctuation">:</span> started
       <span class="token key atrule">become</span><span class="token punctuation">:</span> yes
-      <span class="token key atrule">become_user</span><span class="token punctuation">:</span> root <span class="token comment"># This is the default value, so it is not needed here</span></code></pre>
+      <span class="token key atrule">become_user</span><span class="token punctuation">:</span> root <span class="token comment"># This is the default value, so it's not mandatory here</span></code></pre>
 <p><strong>On remarquera les clés:</strong></p>
 <ul>
 <li><code class="code-inline" id="b15438ecfab2d31dfa016635e69725e3">remote_user</code>: Précisant l'utilisateur avec lequel se connecter à la machine;</li>
@@ -491,19 +491,19 @@ Afin de s'en rendre compte nous allons déployer un serveur web Nginx sur nos in
 </ul>
 <p>Le mécanisme utilisé par Ansible pour faire son escalade est par défaut la commande <code class="code-inline" id="d338b3f0f405eb5e51c8cc1e5ca66f02">sudo</code>, il est possible de modifier ce comportement avec la clé <code class="code-inline" id="804ccea6cdb445fed6a184db60245f84">become_method</code>.</p>
 <h3 id="organiser-ses-taches" class="anchor-title"><a href="#organiser-ses-taches">Organiser ses tâches</a></h3>
-<p>Nous avons vu que chaque « play » peut contenir plusieurs tâches, il faut savoir que celles-ci sont exécutées dans l'ordre dans lequel elles apparaissent et sur l'ensemble des machines qui correspondent à leur domaine d'application (un <strong>groupe</strong> ou une <strong>machine</strong>).
-Le but de chacune de ces tâches est d'exécuter un module (nous en avons déjà vu plusieurs, <strong>ping</strong>, <strong>stat</strong>, <strong>apt</strong>, <strong>shell</strong>), chaque module se devant d'être <a href="https://fr.wikipedia.org/wiki/Idempotence" target="_blank">idempotent</a> garantissant ainsi que peu importe le nombre de fois ou il sera exécuté il produira toujours le même résultat si ses paramètres demeurent inchangés.</p>
+<p>Nous avons vu que chaque « play » peut contenir <strong>plusieurs tâches</strong>, il faut savoir que celles-ci sont exécutées dans l'ordre dans lequel elles apparaissent et sur l'ensemble des machines qui correspondent à leur domaine d'application (un <strong>groupe</strong> ou une <strong>machine</strong>).
+Le but de chacune de ces tâches est d'exécuter un module (nous en avons déjà vu plusieurs, <strong>ping</strong>, <strong>stat</strong>, <strong>apt</strong>, <strong>shell</strong>), chaque module se devant d'être <a href="https://fr.wikipedia.org/wiki/Idempotence" target="_blank">idempotent</a> garantissant ainsi que peu importe le nombre de fois ou il sera exécuté il produira toujours le même résultat si ses paramètres d'entrée demeurent inchangés.</p>
 <p>Il est important que chaque tâche dispose d'une clé <code class="code-inline" id="b068931cc450442b63f5b3d276ea4297">name</code> fournissant des instructions claires sur son rôle (<strong>pensez à la maintenance</strong>).</p>
 <p>Ceci-dit il est bon de savoir que nos tâches peuvent être organisées de différentes manières et notamment en utilisant les différentes sections que l'on peut trouver dans un playbook:</p>
 <ul>
 <li><code class="code-inline" id="c14192fc9675e5023582b237e885e10d">pre_tasks</code>: Contient les tâches à exécuter en premier;</li>
 <li><code class="code-inline" id="4295e8065f2f640103f566df3329e17f">roles</code>: Indiquant une liste de rôles à utiliser dans notre « play » (Nous verrons cette notion plus tard);</li>
 <li><code class="code-inline" id="122262e3bc2b18846d6367493be122dc">post_tasks</code>: Contenant les tâches à exécuter en dernier;</li>
-<li><code class="code-inline" id="7c0b3e6cb1f202796bb60528e017a994">handlers</code>: Contenant des tâches déclenchées à la fin de chaque bloc ou section de tâches en fonction de certains évènements.</li>
+<li><code class="code-inline" id="7c0b3e6cb1f202796bb60528e017a994">handlers</code>: Contenant des tâches déclenchées à la fin de chaque bloc ou section de tâches <strong>en fonction de certains évènements</strong>.</li>
 </ul>
 <h4 id="la-section-pre-tasks" class="anchor-title"><a href="#la-section-pre-tasks">La section pre_tasks</a></h4>
 <p>Elle correspond à une exécution conditionnelle d'un bloc de code <strong>AVANT</strong> de lancer le « play », elle peut être chargée soit de vérifier des pré-requis soit de valider un état.</p>
-<p>Souvenez-vous au moment d'installer notre paquet Nginx nous avions ajouté le paramètre <code class="code-inline" id="d289e44b689800170b69ff7fabfbe7e9">update_cache</code> afin de mettre à jour l'index des paquets. Mais nous avons une autre option qui se présente, plutôt que de faire figurer cette option sur chaque appel au module <code class="code-inline" id="583f72a833c7dfd63c03edba3776247a">apt</code> que nous aurons dans notre playbook, nous pouvons gérer la mise à jour du cache de paquets avant de le jouer.</p>
+<p>Souvenez-vous au moment d'installer notre paquet Nginx nous avions ajouté le paramètre <code class="code-inline" id="d289e44b689800170b69ff7fabfbe7e9">update_cache</code> afin de mettre à jour l'index des paquets. Mais nous avons une autre option qui se présente, plutôt que de faire figurer cette option sur chaque appel au module <code class="code-inline" id="583f72a833c7dfd63c03edba3776247a">apt</code> que nous aurons dans notre playbook, nous pouvons gérer la mise à jour de l'index des paquets avant de le jouer.</p>
 <p><strong>Modifions notre playbook <code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code> de la façon suivante:</strong></p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="a5912311a42dab0b6d7f25302c5709a1"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
@@ -523,7 +523,7 @@ Le but de chacune de ces tâches est d'exécuter un module (nous en avons déjà
     <img src="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-pre-tasks.jpg/4c55a2c80172722cb00c2699a96f791e.jpg" srcset="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-pre-tasks.jpg/4c55a2c80172722cb00c2699a96f791e.jpg 1x,
 /rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-pre-tasks.jpg/709fe795189f9280d551c12204c0a274.jpg 2x," id="4c55a2c80172722cb00c2699a96f791e-jpg">
     <figcaption>
-      <span class="figure__legend">Exécution d'une pre-tasks.</span>
+      <span class="figure__legend">Exécution d'une pre-task.</span>
     </figcaption>
 </figure>
 <p>Où l'on constate qu'effectivement la première tâche exécutée est notre mise à jour d'index de paquets (nous parlerons plus en détails de la tâche « Gathering facts » lorsque nous aborderons les <strong>variables</strong>)</p>
@@ -562,16 +562,16 @@ Imaginons à présent que nous souhaitons ajouter un fichier de configuration sp
         <span class="token key atrule">src</span><span class="token punctuation">:</span> nginx/status.conf
         <span class="token key atrule">dest</span><span class="token punctuation">:</span> /etc/nginx/conf.d/status.conf</code></pre>
 <p>Si tout s'est déroulé correctement vous devriez avoir un fichier <code class="code-inline" id="617f940792257db3b58a57be6b4a6c50">status.conf</code> nouvellement créé par Ansible sur vos machines cibles dans le répertoire <code class="code-inline" id="c93438a126d84a32cb4712c215498037">/etc/nginx/conf.d/</code>.
-Pour terminer nous pouvons vérifier que notre configuration fonctionne bien en interrogeant l'adresse: <code class="code-inline" id="fdedefc0ba99ed7557a58f146b528118">http://XXX.XXX.XXX.XXX/nginx/status</code>... <strong>ou pas</strong> !</p>
+Pour terminer nous pouvons vérifier que notre configuration fonctionne bien en interrogeant l'adresse: <a href="http://XXX.XXX.XXX.XXX:8080/nginx/status" target="_blank"><strong>http://XXX.XXX.XXX.XXX:8080/nginx/status</strong></a>... <strong>ou pas</strong> !</p>
 <div class="admonition info">
 <p class="admonition-title">Le module copy</p>
 <p>
-    Le module stat permet d'exécuter la commande système <code class="code-inline" id="77ddcb5f19832f4145345889013ab3a4">stat</code> sur un fichier du serveur cible. Il prends différents paramètres que l'on peut retrouver sur la <a href="https://docs.ansible.com/ansible/latest/collections/ansible/builtin/stat_module.html" target="_blank">documentation officielle</a> dont le paramètre <code class="code-inline" id="d6fe1d0be6347b8ef2427fa629c04485">path</code> qui lui est obligatoire.
+    Le module <code class="code-inline" id="12cba3ee81cf4a793796a51b6327c678">copy</code> permet de gérer les fichiers de nos machines cibles à savoir leur création, leur suppression mais également leur type (n'oubliez pas, sur des systèmes UNIX tout est fichier !). Il permet notamment de transférer des fichiers de configuration vers des machines. Par défaut à son utilisation Ansible recherche le fichier passé en paramètre dans le répertoire <code class="code-inline" id="45b963397aa40d4a0063e0d85e4fe7a1">files</code> de l'espace de travail.
 </p>
 </div>
 <p>En l'état actuel vous devriez avoir pour toute réponse une <strong>page blanche</strong>, en effet bien que notre fichier de configuration ait été déposé sur le serveur, Nginx ne le prend pas encore en compte car le service n'a pas été <strong>redémarré</strong>.
 C'est là qu'entre en jeu <strong>les handlers</strong> !</p>
-<p>Les handlers sont des tâches un peu particulières qui ne se déclenche que lorsqu'elle sont <strong>notifiée</strong>.
+<p>Les handlers sont des tâches un peu particulières qui ne se déclenche que lorsqu'elle sont <strong>notifiées</strong>.
 Complétons notre playbook de manière à obtenir la configuration suivante:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="3b435d5d82d9102136cae515e9999b93"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
@@ -598,8 +598,8 @@ Complétons notre playbook de manière à obtenir la configuration suivante:</p>
       <span class="token key atrule">ansible.builtin.service</span><span class="token punctuation">:</span>
         <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
         <span class="token key atrule">state</span><span class="token punctuation">:</span> restarted</code></pre>
-<p>En rejouant notre playbook <code class="code-inline" id="b9aecf7ac1e3a8f356a240bd742c1c9a">ansible-playbook webservers.yml -i inventories</code> nous constons que cela n'a rien changé ! Effectivement, comme dit précédemment un handler réagit à un évènement, dans notre cas à la modification du fichier <code class="code-inline" id="617f940792257db3b58a57be6b4a6c50">status.conf</code>. Comme nous ne l'avons pas modifié le handler n'a pas été notifié.</p>
-<p>En introduisant une modification dans notre fichier (par exemple en modifiant la directive <code class="code-inline" id="47f52dedc48034d27b096c159a6dc021">access_log</code> pour la passer à off) nous devrions enfin pouvoir accéder à notre page de status à l'adresse: <code class="code-inline" id="882dcf7d2147421a14001feb2b88e7fc">http://XXX.XXX.XXX.XXX:8080/nginx/status</code>.</p>
+<p>En rejouant notre playbook <code class="code-inline" id="b9aecf7ac1e3a8f356a240bd742c1c9a">ansible-playbook webservers.yml -i inventories</code> nous constons que cela n'a rien changé ! Effectivement, comme dit précédemment un handler réagit à un <strong>évènement</strong>, dans notre cas à la modification du fichier <code class="code-inline" id="617f940792257db3b58a57be6b4a6c50">status.conf</code>. Comme nous ne l'avons pas modifié le handler n'a pas été notifié.</p>
+<p>En introduisant une modification dans notre fichier (par exemple en modifiant la directive <code class="code-inline" id="47f52dedc48034d27b096c159a6dc021">access_log</code> pour la passer à off) nous devrions enfin pouvoir accéder à notre page de statut à l'adresse: <a href="http://XXX.XXX.XXX.XXX:8080/nginx/status" target="_blank"><strong>http://XXX.XXX.XXX.XXX:8080/nginx/status</strong></a>.</p>
 <p>Vous devriez également pouvoir constater l'exécution du handler sur la sortie Ansible:</p>
 <figure>
     <img src="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-handler.jpg/dc709322f2276448cacc708dcd0218fc.jpg" srcset="/rix/pr/126/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-handler.jpg/dc709322f2276448cacc708dcd0218fc.jpg 1x,
