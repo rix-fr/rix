@@ -41,7 +41,7 @@ Créons un nouveau fichier que nous appellerons `example.yml` dans notre répert
 
 ```yaml
 ---
-- hosts: web
+- hosts: webservers
 
   tasks:
     - name: Check if host is alive # Description of the task
@@ -63,7 +63,7 @@ Rappelez-vous nous pouvons traduire les instructions suivantes sous forme de **t
 
 ```php
 array (
-    'hosts' => 'web',
+    'hosts' => 'webservers',
     'tasks' => 
         array (
             0 => 

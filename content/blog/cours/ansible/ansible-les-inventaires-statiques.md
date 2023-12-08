@@ -67,7 +67,7 @@ En terme de structure vous rencontrerez énormément de façons de faire, celles
 Bref tout est imaginable à ce niveau.
 En ce qui nous concerne nous interviendrons sur un parc plutôt modeste puisque pour nos travaux nous utiliserons au maximum 4 machines.
 
-Nous allons donc commencer par créer un répertoire qui leur sera dédié appelé `inventories` nous déplacerons ensuite le fichier `hosts.yml` que nous avions créé [précédemment](http://localhost:8000/blog/cours/ansible/ansible-premiers-pas#communication-ansible-serveurs-distants).
+Nous allons donc commencer par créer un répertoire qui leur sera dédié appelé `inventories` nous déplacerons ensuite le fichier `hosts.yml` que nous avions créé [précédemment](/blog/cours/ansible/ansible-premiers-pas#communication-ansible-serveurs-distants).
 
 **Vous devriez donc disposer d'une arborence similaire à la suivante:** 
 
