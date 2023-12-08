@@ -260,6 +260,9 @@
                                                                                     </ol>
                                                                     </li>
                                                             <li class="table-of-contents__item">
+                                    <a href="#point-de-progression">Point de progression</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
                                     <a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a>
                                                                     </li>
                                                     </ol>
@@ -608,12 +611,35 @@ Complétons notre playbook de manière à obtenir la configuration suivante:</p>
       <span class="figure__legend">Exécution d'un handler.</span>
     </figcaption>
 </figure>
+<p><strong>À retenir:</strong> Les actions de type <code class="code-inline" id="a4510384236c8e83a0cf3b6d8b987aef">notify</code> sont déclenchées <strong>à la fin de chaque bloc de tâches</strong> d'un « play » donné, elles ne le sont bien évidemment <strong>qu'une seule fois</strong> même si elles sont appelé plusieurs fois.</p>
+<p>Il est également possible d'ajouter à un handler une clé <code class="code-inline" id="839d7228b5ccc60e54455093a966b8c2">listen</code> comme ci-dessous, celle-ci indiquant au handler « d'écouter » un thème spécifique permettant de regrouper plusieurs « handlers ».</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="3760a33542300664ae88814a2662ba2f"><span class="token key atrule">handlers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restart_nginx
+      <span class="token key atrule">ansible.builtin.service</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> restarted
+    <span class="token key atrule">listen</span><span class="token punctuation">:</span> restart_http_stack
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restart haproxy
+      <span class="token key atrule">ansible.builtin.service</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> haproxy
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> restarted
+    <span class="token key atrule">listen</span><span class="token punctuation">:</span> restart_http_stack</code></pre>
+<h2 id="point-de-progression" class="anchor-title"><a href="#point-de-progression">Point de progression</a></h2>
+<p><strong>Nous savons à présent gérer:</strong></p>
+<ul>
+<li>L'installation d'un <a href="/blog/cours/ansible/ansible-environnement-cle-en-main">environnement Ansible</a>;</li>
+<li>Utiliser l'inventaire</li>
+<li>Créer des playbooks</li>
+</ul>
+<p>Nous pouvons toutefois encore apporter un peu de <strong>dynamisme</strong> à ces premières notions par l'introduction de <a href="/blog/cours/ansible/ansible-les-variables">variables</a> dont nous parlerons dans la suite.</p>
 <h2 id="aller-plus-loin-avec-les-sources" class="anchor-title"><a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a></h2>
 <ul>
 <li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html" target="_blank">https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html</a></li>
 <li><a href="https://docs.ansible.com/ansible/2.9/modules/list_of_all_modules.html" target="_blank">https://docs.ansible.com/ansible/2.9/modules/list_of_all_modules.html</a></li>
 <li><a href="https://yaml.org/spec/1.2.2/#912-document-markers" target="_blank">https://yaml.org/spec/1.2.2/#912-document-markers</a></li>
 <li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_privilege_escalation.html" target="_blank">https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_privilege_escalation.html</a></li>
+<li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html#handlers" target="_blank">https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html#handlers</a></li>
 </ul></body>
                                                                                 </main>
                 <div class="article-footer" data-aos="fade-in">
