@@ -267,6 +267,9 @@
                                                                                             <li>
                                                     <a href="#exercice-2">Exercice 2</a>
                                                 </li>
+                                                                                            <li>
+                                                    <a href="#exercice-3">Exercice 3</a>
+                                                </li>
                                                                                     </ol>
                                                                     </li>
                                                             <li class="table-of-contents__item">
@@ -561,6 +564,8 @@ Ansible utilise une arborescence ou figurera <strong>toujours</strong>:</p>
 <p>Souvenez-vous vous pouvez tester un fichier d'inventaire en particulier en le passant en paramètre de la commande <code class="code-inline" id="c849dabdafeab0ab6aae256ec60514b7">ansible-inventory</code>: <code class="code-inline" id="c98069802b7f3d0a6f1ad73afd0912b6">ansible-inventory --list -i inventories/hosts.yml</code>.</p>
 <h3 id="exercice-2" class="anchor-title"><a href="#exercice-2">Exercice 2</a></h3>
 <p>Nous avons vu qu'il existait différent plugin permettant de « lire » un inventaire (si,si au tout début), essayez d'écrire le même inventaire mais à un format différent (format ini par exemple).</p>
+<h3 id="exercice-3" class="anchor-title"><a href="#exercice-3">Exercice 3</a></h3>
+<p>Revenons à notre fichier <code class="code-inline" id="d4bbb8582b29b42818a341b53996b81b">hosts.yml</code> séparez son contenu en fonction des environnements que nous avons définis (<strong>staging</strong> et <strong>production</strong>)</p>
 <h2 id="cibler-des-groupes-de-machines-avec-les-patterns" class="anchor-title"><a href="#cibler-des-groupes-de-machines-avec-les-patterns">Cibler des groupes de machines avec les « patterns »</a></h2>
 <p>Notre infrastructure est modeste, mais vous serez parfois amenés à travailler avec des infrastructures d'envergure et serez dans l'obligation de « cibler » certaines machines ou groupes de machines.
 Il est ainsi possible d'indiquer explicitement à Ansible quelles sont les machines à considérer pour une action donnée.</p>
