@@ -337,6 +337,10 @@ Souvenez-vous vous pouvez tester un fichier d'inventaire en particulier en le pa
 
 Nous avons vu qu'il existait différent plugin permettant de « lire » un inventaire (si,si au tout début), essayez d'écrire le même inventaire mais à un format différent (format ini par exemple).
 
+### Exercice 3
+
+Revenons à notre fichier `hosts.yml` séparez son contenu en fonction des environnements que nous avons définis (**staging** et **production**)
+
 ## Cibler des groupes de machines avec les « patterns » 
 
 Notre infrastructure est modeste, mais vous serez parfois amenés à travailler avec des infrastructures d'envergure et serez dans l'obligation de « cibler » certaines machines ou groupes de machines.
