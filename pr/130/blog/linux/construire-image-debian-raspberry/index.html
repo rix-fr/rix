@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Construire une image Debian pour Raspberry Pi</title>
+
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/rix/pr/130/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/rix/pr/130/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/rix/pr/130/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/rix/pr/130/favicon-16x16.png">
+        <link rel="manifest" href="/rix/pr/130/site.webmanifest">
+                <link rel="shortcut icon" href="/rix/pr/130/favicon.ico">
+        <meta name="msapplication-TileColor" content="#ff4344">
+        <meta name="msapplication-config" content="/rix/pr/130/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+                        <meta name="description" content="Construire une image source Debian à déployer sur Raspberry Pi en remplacement de Raspberry Pi OS (anciennement Raspbian)." />
+            <link rel="canonical" href="https://rix-fr.github.io/rix/pr/130/blog/linux/construire-image-debian-raspberry" />
+
+            <!-- Open Graph / Facebook -->
+                                        <meta property="og:type" content="website">
+                        <meta property="og:title" content="Construire une image Debian pour Raspberry Pi" />
+            <meta property="og:locale" content="fr" />
+            <meta property="og:description" content="Construire une image source Debian à déployer sur Raspberry Pi en remplacement de Raspberry Pi OS (anciennement Raspbian)." />
+            <meta property="og:url" content="https://rix-fr.github.io/rix/pr/130/blog/linux/construire-image-debian-raspberry" />
+            <meta property="og:site_name" content="rix" />
+
+                                        <meta property="og:image" content="https://rix-fr.github.io/rix/pr/130/resized/content/images/blog/thumbnails/raspberrypi.jpg/40540f49ef3f539794bd75fd51f6acfd.jpg">
+                                                    <meta property="og:image:alt" content="Rix - Expertise et outillage DevOps">
+            
+            <!-- Twitter -->
+            <meta property="twitter:card" content="summary_large_image">
+            <meta property="twitter:title" content="Construire une image Debian pour Raspberry Pi">
+            <meta property="twitter:description" content="Construire une image source Debian à déployer sur Raspberry Pi en remplacement de Raspberry Pi OS (anciennement Raspbian).">
+            <meta property="twitter:site" content="@rix_fr">
+            <meta property="twitter:creator" content="@rix_fr">
+                                        <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/130/resized/content/images/blog/thumbnails/raspberrypi.jpg/c38eae8d1b9f4b8b5e845b0cef7ff224.jpg">
+                                <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": "Construire une image Debian pour Raspberry Pi",
+    "image": [
+        "https://rix-fr.github.io/rix/pr/130/blog/linux/content/images/blog/thumbnails/raspberrypi.jpg"
+    ],
+    "datePublished": "22 décembre 2022",
+    "dateModified": "22 décembre 2022",
+    "author": [
+        {
+            "@type": "Person",
+            "name": "Guewen Faivre"
+        }
+    ],
+    "keywords": [
+        "Devops",
+        "Linux",
+        "Build",
+        "Raspberry"
+    ]
+}
+    </script>
+            
+
+    <link rel="alternate" type="application/rss+xml" href="/rix/pr/130/blog/rss.xml" title="Le blog de l'équipe Rix" />
+
+                            <meta name="robots" content="noindex" />
+        
+        <script>
+                        document.querySelector('html').classList.remove('no-js');
+        </script>
+
+                    <link rel="stylesheet" href="/rix/pr/130/build/305.96439bf8.css">
+        
+                    <script src="/rix/pr/130/build/runtime.cbe85b5e.js" defer></script><script src="/rix/pr/130/build/70.671fda9c.js" defer></script><script src="/rix/pr/130/build/app.e999eb99.js" defer></script>
+
+                        <script defer src="https://comments.rix.fr/comentario.js"></script>
+        
+    </head>
+    <body class="page-article">
+                    <header class="header">
+                <div class="container">
+                    <a href="/rix/pr/130/">
+                        <img src="/rix/pr/130/build/images/logos/logo-horizontal.ae7b8485.svg" alt="" class="logo">
+                        <span class="screen-reader">Retour à l'accueil</span>
+                    </a>
+
+                                            <nav class="nav">
+    <ul>
+                                    <li class="nav__item ">
+                    <a href="/rix/pr/130/">
+                        <span>Accueil</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/130/services">
+                        <span>Nos services</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/130/etudes-de-cas">
+                        <span>Cas clients</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/130/a-propos">
+                        <span>À propos</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/130/blog">
+                        <span>Blog</span>
+                    </a>
+                </li>
+                            <li class="nav__item nav__item--icon">
+            <a href="/rix/pr/130/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                <span>Contactez-nous</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+                    
+                                            <nav class="nav-mobile">
+    <div class="nav-mobile__header">
+        <a href="/rix/pr/130/">
+            <img src="/rix/pr/130/build/images/logos/logo-horizontal-white.901392b9.svg" alt="" class="logo">
+        </a>
+        <button class="nav-toggle nav-toggle--close">
+            <i class="icon icon--close" aria-hidden="true"></i>
+            <span class="screen-reader">Fermer le menu</span>
+        </button>
+    </div>
+    <ul>
+                                    <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/130/">
+                        Accueil
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/130/services">
+                        Nos services
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/130/etudes-de-cas">
+                        Cas clients
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/130/a-propos">
+                        À propos
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/130/blog">
+                        Blog
+                    </a>
+                </li>
+                            <li class="nav-mobile__item nav-mobile__item--icon">
+            <a href="/rix/pr/130/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                Contactez-nous
+            </a>
+        </li>
+    </ul>
+</nav>
+<button class="nav-toggle nav-toggle--open">
+    <i class="icon icon--hamburger" aria-hidden="true"></i>
+    <span class="screen-reader">Ouvrir le menu</span>
+</button>
+
+                                    </div>
+            </header>
+                <main>
+                <div class="banner banner--blog">
+        <div class="container">
+            <h1>
+                <a href="/rix/pr/130/blog">Blog</a>
+                <strong>/</strong>
+            </h1>
+        </div>
+    </div>
+
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <ul class="tags-list">
+                                            <li class="tags-list__item">
+                            #Devops
+                        </li>
+                                            <li class="tags-list__item">
+                            #Linux
+                        </li>
+                                            <li class="tags-list__item">
+                            #Build
+                        </li>
+                                            <li class="tags-list__item">
+                            #Raspberry
+                        </li>
+                                    </ul>
+                <h2 class="h2--large">Construire une image Debian pour Raspberry Pi</h2>
+                <p>Construire une image source Debian à déployer sur Raspberry Pi en remplacement de Raspberry Pi OS (anciennement Raspbian).</p>
+                <div class="article-overview">
+                                        <ol class="table-of-contents">
+                                                            <li class="table-of-contents__item">
+                                    <a href="#tl-dr">TL;DR</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#mise-en-contexte">Mise en contexte</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#pourquoi-reconstruire-et-pourquoi-debian">Pourquoi reconstruire et pourquoi Debian ?</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#pre-requis">Pré-requis</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#let-s-go">Let&#039;s go !</a>
+                                                                            <ol class="table-of-contents__sub-level">
+                                                                                            <li>
+                                                    <a href="#configuration-de-l-image">Configuration de l&#039;image</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#construction-de-l-image">Construction de l&#039;image</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#installation-de-l-image">Installation de l&#039;image</a>
+                                                </li>
+                                                                                    </ol>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#pour-aller-plus-loin">Pour aller plus loin</a>
+                                                                    </li>
+                                                    </ol>
+                                        <div class="article-info">
+                                                                            <div class="author ">
+                                <div class="author__image">
+                                                                            <img     src="/rix/pr/130/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg"
+    srcset="
+        /rix/pr/130/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg 1x,
+        /rix/pr/130/resized/content/images/member/avatars/gfaivre.jpg/d2d8af0b210c37c677635983f1c02d6d.jpg 2x
+    "
+ />
+                                                                    </div>
+                                <span class="author__info">
+                                    Écrit par
+                                                                            <strong>Guewen Faivre</strong>
+                                                                    </span>
+                            </div>
+                                                <div class="article-info__date">
+                            <span>Publication <strong>22 décembre 2022</strong></span>
+                                                                                </div>
+                    </div>
+                </div>
+                <main>
+                                                            <body><p>Je vous vois venir ! Quelle idée de vouloir construire sa propre image ?
+Alors même que Raspberry fourni <a href="https://www.raspberrypi.com/software/" target="_blank">un OS ET un utilitaire</a> permettant de créer des cartes SD « bootables » rapidement et quasi sans douleur !</p>
+<h2 id="tl-dr" class="anchor-title"><a href="#tl-dr">TL;DR</a></h2>
+<p><em>Pour les opérations à suivre utilisez une Debian Bulleyes (de préférence VM)</em></p>
+<ol>
+<li>Récupérer le dépôt avec les outils pour construire l'image;
+<pre class="code-multiline"><code id="8505ab014a1b9afa10a3bb02e81ca6fb">git clone --recursive https://salsa.debian.org/raspi-team/image-specs.git
+cd image-specs</code></pre></li>
+<li>Installer les différents paquets nécessaires à l'opération;
+<pre class="code-multiline"><code id="879f883abe12de9e26bb7aa77c9ae8c0">apt install -y vmdb2 dosfstools qemu-utils qemu-user-static debootstrap binfmt-support time kpartx bmap-tools python3
+apt install -y fakemachine</code></pre></li>
+<li>Construire l'image (Pour l'exemple à destination d'un Raspberry Pi 4): <code class="code-inline" id="842198ca332d5c8164d67bfb668629d4">make raspi_4_bullseye.img</code>;</li>
+<li>Écrire cette image sur une carte SD: <code class="code-inline" id="138eb7bcd71656c8f1d86fe7070ceba2">dd if=raspi_4_bullseye.img of=/dev/XXX bs=64k oflag=dsync status=progress</code>.</li>
+</ol>
+<h2 id="mise-en-contexte" class="anchor-title"><a href="#mise-en-contexte">Mise en contexte</a></h2>
+<p>Oui mais…</p>
+<p>Avant d'aller plus loin il faut savoir que nous utilisons en interne plusieurs Raspberry Pi afin de faire tourner des services qui nous permettent de piloter la gestion du <strong>réseau local</strong> de nos bureaux et/ou d'y fournir des services <strong>basiques et non critiques</strong> (Serveurs DNS locaux, VPN, métriques, monitoring…).</p>
+<p>Nous avons également une petite flotte de ces machines qui nous permettent <strong>d'aller enseigner</strong> « quelques trucs » à des étudiants (du réseau, du provisioning, linux…) en se reposant dessus.</p>
+<p>Alors bien évidemment le besoin ne tombe pas du ciel, et même si l'exercice reste formateur et amusant (si, si) le but n'est bien évidemment pas « juste ludique ».
+Raspberry Pi OS a en fait ses limites, particulièrement lorsqu'on va l'utiliser sur d'anciens Raspberry Pi (notamment des 2 ou précédents).</p>
+<p>Pour terminer il faut savoir que Raspbian (dérivé de Debian) a été créé en premier lieu parce que jusqu'à 2018 il n'était <strong>pas possible de démarrer</strong> un kernel linux sur Raspberry Pi mais également parce que Raspbian arrivait avec des composants <strong>non libres</strong> contraires à la philosophie Debian.</p>
+<h2 id="pourquoi-reconstruire-et-pourquoi-debian" class="anchor-title"><a href="#pourquoi-reconstruire-et-pourquoi-debian">Pourquoi reconstruire et pourquoi Debian ?</a></h2>
+<ul>
+<li>En tout premier lieu parce que nous avons besoin d'avoir accès <strong>facilement</strong> à certains paquets non disponibles sur Raspberry Pi OS dans les versions dont nous avons besoin;</li>
+<li>En second lieu parce que l'intégration de dépôts externes sur une base Raspberry Pi OS est parfois <strong>assez chaotique</strong>, notamment dû aux <strong>différentes architectures</strong> utilisées par les processeurs ARM des Raspberry Pi et de leur disponibilité (ou pas) dans ces mêmes dépôts.</li>
+</ul>
+<p>On se retrouve notamment par défaut (il est possible d'aller chercher d'autres versions d'OS dans l'utilitaire de création d'images) avec une version de Raspberry Pi OS commune à toutes les versions et donc <strong>32 bits</strong>…</p>
+<p>Pour rappel les premières architectures 64 bits des Raspberry Pi sont arrivées avec la version 3.
+Debian fait le choix de coller exactement aux différentes archi, mais au prix d'une image pour chacune, celles-ci sont d'ailleurs disponibles <a href="https://raspi.debian.net/tested-images/" target="_blank">ici</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Version Raspberry Pi</th>
+<th>Debian</th>
+<th>Raspberry Pi OS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 / 1</td>
+<td>armel, 32 bit</td>
+<td>armhf, 32 bit</td>
+</tr>
+<tr>
+<td>2</td>
+<td>armhf, 32 bit</td>
+<td>armhf, 32 bit</td>
+</tr>
+<tr>
+<td>3</td>
+<td>arm64, 64 bit</td>
+<td>armhf, 32 bit</td>
+</tr>
+<tr>
+<td>4</td>
+<td>arm64, 64 bit</td>
+<td>armhf, 32 bit</td>
+</tr>
+</tbody>
+</table>
+<p>Il existe d'autres versions d'OS disponibles en <strong>version serveur ou desktop</strong> (Ubuntu, Manjaro…) mais comme nous utilisons les roles Ansible du projet <a href="https://github.com/manala/ansible-roles" target="_blank">Manala</a> pour provisionner l'ensemble de nos machines et afin d'<strong>assurer au maximum la compatibilité</strong> (et nous éviter de la maintenance), nous préferons rester cohérents et utiliser Debian.</p>
+<p>Pour terminer, les images pré-construites Debian <strong>peuvent carrément faire l'affaire</strong> mais certains choix de configuration ne nous vont pas et nous avons besoin que nos images soient prêtes à être « provisionnées » et donc disposer:</p>
+<ul>
+<li>de certains paquets;</li>
+<li>de comptes utilisateurs spécifiques;</li>
+<li>et bien évidemment de nos clés SSH pour l'authentification.</li>
+</ul>
+<h2 id="pre-requis" class="anchor-title"><a href="#pre-requis">Pré-requis</a></h2>
+<p>Ils sont peu nombreux, tant la construction d'images est rendue <strong>très simple</strong> par les contributeurs à la version Raspberry Pi de Debian.</p>
+<p>Vous aurez besoin:</p>
+<ul>
+<li>D'une Debian Bullseye (de préference une machine virtuelle, histoire de garder propre notre machine de travail);</li>
+<li>De récupérer le dépôt contenant les outils <a href="https://salsa.debian.org/raspi-team/image-specs" target="_blank">https://salsa.debian.org/raspi-team/image-specs</a>;</li>
+<li>D'un peu de temps.</li>
+</ul>
+<h2 id="let-s-go" class="anchor-title"><a href="#let-s-go">Let's go !</a></h2>
+<p>En tout premier lieu, une fois <strong>sur votre VM Debian Bullseye</strong>, on clone le répertoire d'outils:</p>
+<pre class="code-multiline"><code id="8505ab014a1b9afa10a3bb02e81ca6fb">git clone --recursive https://salsa.debian.org/raspi-team/image-specs.git
+cd image-specs</code></pre>
+<p>Nous aurons également besoin de quelques paquets pour la construction:</p>
+<pre class="code-multiline"><code id="879f883abe12de9e26bb7aa77c9ae8c0">apt install -y vmdb2 dosfstools qemu-utils qemu-user-static debootstrap binfmt-support time kpartx bmap-tools python3
+apt install -y fakemachine</code></pre>
+<p><strong>Le fichier makefile fournit vous permet ensuite, au choix:</strong></p>
+<ul>
+<li>
+<p>De construire une image <strong>spécifique</strong> à votre Raspberry Pi en utilisant une <strong>configuration par défaut</strong>:</p>
+<p><code class="code-inline" id="7ef439672b04b363ae6291bedb300150">make raspi_&lt;model&gt;_&lt;release&gt;.img</code></p>
+<ul>
+<li><code class="code-inline" id="bbe1cad42a1c1159f76e78e164c718b0">&lt;model&gt;</code> vaut pour la version de votre Raspberry (1,2,3 ou 4 avec 1 utilisé pour les versions Pi 0, 0w and 1);</li>
+<li><code class="code-inline" id="43bf3a398d87f2635ff002d4333cb312">&lt;release&gt;</code> pour la version de Debian que vous souhaitez construire.</li>
+</ul>
+<p>Dans notre cas une Bullseye pour un Raspberry Pi 2: <code class="code-inline" id="3836c2d70682d7484a7f35296c9d6370">make raspi_2_bullseye.img</code></p>
+</li>
+<li>
+<p>De construire une image <strong>spécifique</strong> à partir de <strong>VOTRE configuration</strong> (et c'est ce choix qui nous intéresse)</p>
+</li>
+</ul>
+<h3 id="configuration-de-l-image" class="anchor-title"><a href="#configuration-de-l-image">Configuration de l'image</a></h3>
+<p>Alors bien évidemment nous ne partirons pas d'une page blanche mais du fichier de configuration généré par l'outil grâce à la commande:</p>
+<p><code class="code-inline" id="7ce649b01529310283cdfeea6576de4f">make raspi_2_bullseye.yaml</code></p>
+<p>Nous obtenons un fichier de configuration par défaut (celui utilisé pour la construction de l'image avec la commande précédente).
+Il est possible de l'éditer directement mais préférable de le nommer différemment histoire de ne pas malencontreusement écraser nos prochaines modifications en rejouant la commande précédente.</p>
+<p><code class="code-inline" id="35f90c9582ab2fe0d6fdb9d0fc80297e">cp raspi_2_bullseye.yaml rix_raspi_2_bullseye.yaml</code></p>
+<p>En ce qui nous concerne nous y opérerons plusieurs modifications:</p>
+<ul>
+<li>L'ajout d'un compte utilisateur non privilégié:</li>
+</ul>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="e10604f34c196fb217602fc5d5f3f3a3"><span class="token punctuation">-</span> <span class="token key atrule">chroot</span><span class="token punctuation">:</span> tag<span class="token punctuation">-</span>root
+    <span class="token key atrule">shell</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+      useradd -g100 -Gsudo -m -s /bin/bash rix</span></code></pre>
+<ul>
+<li>L'ajout des clés publiques SSH</li>
+</ul>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="ac1e11ed3a4774dd3ddaa5fab83923be"><span class="token punctuation">-</span> <span class="token key atrule">create-dir</span><span class="token punctuation">:</span> /home/rix/.ssh
+    <span class="token key atrule">uid</span><span class="token punctuation">:</span> <span class="token number">1000</span>
+    <span class="token key atrule">gid</span><span class="token punctuation">:</span> <span class="token number">100</span></code></pre>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="cb1ca0fd9412038d697e0790cb5ed344"><span class="token punctuation">-</span> <span class="token key atrule">create-file</span><span class="token punctuation">:</span> /home/rix/.ssh/authorized_keys
+    <span class="token key atrule">contents</span><span class="token punctuation">:</span> <span class="token punctuation">|</span>+
+      ssh<span class="token punctuation">-</span>ed25519 AAAAC3XXXXXXXXXXXXXXXXXXXX</code></pre>
+<ul>
+<li>L'ajout des droits sudo à notre utilisateur</li>
+</ul>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="0c905c409ad6f37cbc6403d4bb279ebf"><span class="token punctuation">-</span> <span class="token key atrule">create-file</span><span class="token punctuation">:</span> /etc/sudoers.d/rix<span class="token punctuation">-</span>default
+    <span class="token key atrule">contents</span><span class="token punctuation">:</span> <span class="token punctuation">|</span>+
+      <span class="token key atrule">rix ALL=(ALL) NOPASSWD</span><span class="token punctuation">:</span> ALL</code></pre>
+<ul>
+<li>La suppression de la connexion <code class="code-inline" id="63a9f0ea7bb98050796b649e85481845">root</code> locale sans mot de passe.</li>
+</ul>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="55f876ee7849fe09cdcda47c886d8e7d"><span class="token punctuation">-</span> <span class="token comment"># Allow root logins locally with no password</span>
+<span class="token punctuation">-</span> sed <span class="token punctuation">-</span>i 's<span class="token punctuation">,</span>root<span class="token punctuation">:</span><span class="token punctuation">[</span>^<span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token important">*:</span><span class="token punctuation">,</span>root<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token punctuation">,</span>' "$<span class="token punctuation">{</span>ROOT<span class="token punctuation">?</span><span class="token punctuation">}</span>/etc/shadow"</code></pre>
+<div class="admonition info">
+<p class="admonition-title">La directive <code class="code-inline" id="466673de471fac1f97ef0cac4eb9a272">chroot</code></p>
+<p>
+    Elle est essentielle dès lors que vous souhaitez exécuter une commande <strong>dans le contexte du système en cours de construction</strong>.
+</p>
+</div>
+<h3 id="construction-de-l-image" class="anchor-title"><a href="#construction-de-l-image">Construction de l'image</a></h3>
+<p>Une fois l'ensemble de nos instructions ajoutées à notre fichier nous pouvons démarrer la construction de notre image:</p>
+<pre class="code-multiline"><code id="dae9b95b166a637016da4067016ee9df">vmdb2 --rootfs-tarball=rix_raspi_2_bullseye.tar.gz --output \
+rix_raspi_2_bullseye.img rix_raspi_2_bullseye.yaml --log rix_raspi_bullseye.log</code></pre>
+<p>Cette commande devrait nous donner en sortie 3 fichiers:</p>
+<ul>
+<li>Un fichier de logs <code class="code-inline" id="9203a47c8c1ddb7ff690ef47a4066621">rix_raspi_bullseye.log</code></li>
+<li>Un fichier image <code class="code-inline" id="319a4a827203e919183eed429eb31f66">rix_raspi_2_bullseye.img</code></li>
+<li>Un fichier image compressé <code class="code-inline" id="0585cec32e85d1d110999339b0f7b1fa">rix_raspi_2_bullseye.tar.gz</code></li>
+</ul>
+<h3 id="installation-de-l-image" class="anchor-title"><a href="#installation-de-l-image">Installation de l'image</a></h3>
+<p>L'installation de l'image est ensuite assez standard, une fois votre carte SD montée:</p>
+<ul>
+<li>Soit via <code class="code-inline" id="b625714ddc28ab61c0807bdf6f8da052">bmaptool</code> à partir de l'image compressée;</li>
+</ul>
+<p><code class="code-inline" id="43371e85f5addffbacb3b1f4a29fa81b">bmaptool copy rix_raspi_2_bullseye.tar.gz /dev/mmcblk0</code></p>
+<ul>
+<li>Soit via un bon vieux <code class="code-inline" id="1aabac6d068eef6a7bad3fdf50a05cc8">dd</code>:</li>
+</ul>
+<p><code class="code-inline" id="b1fc773a17d8185a2425a2cf512d6211">dd if=rix_raspi_2_bullseye.img of=/dev/XXX bs=64k oflag=dsync status=progress</code></p>
+<div class="admonition danger">
+<p>
+    Attention à la « cible » de l'écriture, en cas de mauvais volume sélectionné vous écraserez son contenu.
+</p>
+</div>
+<p>Vous voilà paré·e·s pour déployer du Raspberry Pi en série sur une base Debian !</p>
+<h2 id="pour-aller-plus-loin" class="anchor-title"><a href="#pour-aller-plus-loin">Pour aller plus loin</a></h2>
+<p><strong>Sources:</strong></p>
+<ul>
+<li><a href="https://wiki.debian.org/RaspberryPi" target="_blank">https://wiki.debian.org/RaspberryPi</a></li>
+<li><a href="https://wiki.debian.org/RaspberryPiImages" target="_blank">https://wiki.debian.org/RaspberryPiImages</a></li>
+<li><a href="https://raspi.debian.net/" target="_blank">https://raspi.debian.net/</a></li>
+<li><a href="https://vmdb2.liw.fi/" target="_blank">https://vmdb2.liw.fi/</a></li>
+</ul></body>
+                                                                        <div class="article-credits">
+                                Crédits: photo de couverture par
+                                                                    <a href="https://unsplash.com/@jainath">
+                                        Jainath Ponnala
+                                    </a>
+                                                            </div>
+                                                            </main>
+                <div class="article-footer" data-aos="fade-in">
+                                                                        <div class="author">
+                                <div class="author__image">
+                                    <img     src="/rix/pr/130/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg"
+    srcset="
+        /rix/pr/130/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg 1x,
+        /rix/pr/130/resized/content/images/member/avatars/gfaivre.jpg/d2d8af0b210c37c677635983f1c02d6d.jpg 2x
+    "
+ />
+                                </div>
+                                <span class="author__info">
+                                    Écrit par
+                                    <strong>Guewen Faivre</strong>
+                                </span>
+                                <div class="author__social">
+                                                                            <a href="https://twitter.com/guewen_faivre">
+                                            <i class="icon icon--twitter" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte twitter de Guewen Faivre</span>
+                                        </a>
+                                                                                                                <a href="https://github.com/gfaivre">
+                                            <i class="icon icon--github" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte github de Guewen Faivre</span>
+                                        </a>
+                                                                                                                <a href="http://www.elao.com">
+                                            <i class="icon icon--website" aria-hidden="true"></i>
+                                            <span class="screen-reader">Site personnel de Guewen Faivre</span>
+                                        </a>
+                                                                    </div>
+                            </div>
+                                                            </div>
+                                    <div class="comment">
+                                                    <div id="comentario"></div>
+                                                                                                    <p>
+                                Une typo ?
+                                <a href="https://github.com/rix-fr/rix/edit/amabla-link/content/blog/linux/construire-image-debian-raspberry.md/" target="_blank">Modifier cet article sur Github</a>
+                            </p>
+                                            </div>
+                            </div>
+        </div>
+    </div>
+        </main>
+                    <footer class="footer">
+    <div class="container">
+        <div class="footer__contact">
+            <div class="catchphrase">
+                <p class="h1">Le monde du DevOps vous semble obscur ?</p>
+                <p>Contactez-nous, nous vous aiderons à y <strong>voir plus clair</strong>.</p>
+            </div>
+            <div class="contact-tiles">
+                <span class="contact-tiles__item">
+                    <i class="icon icon--location" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Passez nous voir !</span>
+                        <span>Nous sommes à Lyon !</span>
+                        <span>34 rue Jean Broquin</span>
+                        <span>69006 Lyon, France</span>
+                    </span>
+                </span>
+                <span class="contact-tiles__item">
+                    <i class="icon icon--message" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Par téléphone ou par mail</span>
+                        <a href="tel:33482537609">04 82 53 76 09</a>
+                        <a href="mailto:contact@rix.fr">contact@rix.fr</a>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="footer__brand">
+            <img src="/rix/pr/130/build/images/logos/logo-horizontal-white.901392b9.svg" alt="Rix">
+            <span>Expertise et outilllage DevOps</span>
+        </div>
+        <nav class="footer__links">
+            <div class="pages">
+                <ul>
+                                                                        <li>
+                                <a href="/rix/pr/130/etudes-de-cas">Cas clients</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/130/a-propos">À propos</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/130/contact">Contact</a>
+                            </li>
+                                                            </ul>
+            </div>
+            <div class="services">
+                <a href="/rix/pr/130/services">Nos services</a>
+                <div>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/130/services#accompagnement_outillage">Accompagnement et outillage DevOps</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/130/services#experts_kubernetes">Expertise Kubernetes</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/130/services#performances_diagnostique">Performances et diagnostique</a>
+                                </li>
+                                                    </ul>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/130/services#conception_infrastructures">Conception sur-mesure d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/130/services#pilotage_infrastructures">Pilotage d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/130/services#environment">Environnement de développement</a>
+                                </li>
+                                                    </ul>
+                                    </div>
+            </div>
+        </nav>
+        <div class="footer__legals">
+            <span>©2024 - Rix - Tous droits réservés</span>
+            -
+            <a href="/rix/pr/130/legal">Mentions légales</a>
+            -
+            <a href="/rix/pr/130/confidentialite">Données personnelles</a>
+            -
+            <a href="https://www.amabla.com/" target="_blank" title="Amabla, notre assistant basé sur les IA génératives">Amabla</a>
+        </div>
+    </div>
+</footer>
+
+
+
+            </body>
+</html>
