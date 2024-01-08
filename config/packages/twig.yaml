@@ -24,7 +24,7 @@ twig:
 
             trackers:
                 matomo: "%env(MATOMO_ID)%"
-            
+
             caseStudies:
                 enabled: true
 
@@ -56,6 +56,10 @@ twig:
                     - { path: "services", label: "Conception sur-mesure d'infrastructures", anchor: "conception_infrastructures" }
                     - { path: "services", label: "Pilotage d'infrastructures", anchor: "pilotage_infrastructures" }
                     - { path: "services", label: "Environnement de développement", anchor: "environment" }
+
+        amabla:
+            url: https://www.amabla.com/
+            seoTitle: Amabla, notre assistant basé sur les IA génératives
 
 when@test:
     twig:
