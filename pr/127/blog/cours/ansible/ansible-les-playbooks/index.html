@@ -306,8 +306,8 @@ Bien que très axé débutants il peut également représenté une possibilité 
 <p>Afin de rentrer dans le vif du sujet nous allons écrire un playbook relativement simple utilisant un module que nous avons vu précédemment, le module <strong>ping</strong>. Nous avons vu que les modules Ansible peuvent être utilisés en ligne de commande pour exécuter une <strong>tâche ponctuelle</strong> mais rappelons que le but d'Ansible est en premier lieu, d'<strong>automatiser</strong> les choses et donc de les rendre <strong>réutilisables</strong> !</p>
 <h3 id="structure-generale-d-un-playbook" class="anchor-title"><a href="#structure-generale-d-un-playbook">Structure générale d'un playbook</a></h3>
 <p>Créons un nouveau fichier que nous appellerons <code class="code-inline" id="c91a24a63d659cd3b2cf6f2e04b303a5">example.yml</code> dans notre répertoire de travail (pour rappel de mon côté <code class="code-inline" id="2f56b2c4e169e525b08cdbdbfc1a4543">workspace/ansible</code>) contenant:</p>
-<pre class="code-multiline language-yaml"><code class="language-yaml" id="6b99c3ab65a642c622b8d12636402450"><span class="token punctuation">---</span>
-<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> web
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="fbada110238b21f8bd312ed9f2abe15f"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
 
   <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Check if host is alive <span class="token comment"># Description of the task</span>
@@ -326,8 +326,8 @@ Bien que très axé débutants il peut également représenté une possibilité 
 </p>
 </div>
 <p>Rappelez-vous nous pouvons traduire les instructions suivantes sous forme de <strong>tableaux</strong>:</p>
-<pre class="code-multiline language-php"><code class="language-php" id="3aa09a0370641167cb45d3aebf7d15b9"><span class="token keyword">array</span> <span class="token punctuation">(</span>
-    <span class="token string single-quoted-string">'hosts'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'web'</span><span class="token punctuation">,</span>
+<pre class="code-multiline language-php"><code class="language-php" id="fc7b268aa3a32bb1884a9b2d9591af11"><span class="token keyword">array</span> <span class="token punctuation">(</span>
+    <span class="token string single-quoted-string">'hosts'</span> <span class="token operator">=&gt;</span> <span class="token string single-quoted-string">'webservers'</span><span class="token punctuation">,</span>
     <span class="token string single-quoted-string">'tasks'</span> <span class="token operator">=&gt;</span> 
         <span class="token keyword">array</span> <span class="token punctuation">(</span>
             <span class="token number">0</span> <span class="token operator">=&gt;</span> 
@@ -757,7 +757,7 @@ Complétons notre playbook de manière à obtenir la configuration suivante:</p>
             </div>
         </nav>
         <div class="footer__legals">
-            <span>©2023 - Rix - Tous droits réservés</span>
+            <span>©2024 - Rix - Tous droits réservés</span>
             -
             <a href="/rix/pr/127/legal">Mentions légales</a>
             -

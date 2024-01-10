@@ -235,16 +235,13 @@
                                     <a href="#les-variables">Les variables</a>
                                                                             <ol class="table-of-contents__sub-level">
                                                                                             <li>
-                                                    <a href="#les-facts">Les « facts »</a>
-                                                </li>
-                                                                                            <li>
-                                                    <a href="#les-variables-d-inventaire">Les variables d&#039;inventaire</a>
+                                                    <a href="#les-variables-d-hote">Les variables d&#039;hôte</a>
                                                 </li>
                                                                                             <li>
                                                     <a href="#les-variables-de-groupe">Les variables de groupe</a>
                                                 </li>
                                                                                             <li>
-                                                    <a href="#les-variables-d-hote">Les variables d&#039;hôte</a>
+                                                    <a href="#les-facts">Les « facts »</a>
                                                 </li>
                                                                                     </ol>
                                                                     </li>
@@ -270,13 +267,7 @@
                     </div>
                 </div>
                 <main>
-                                                                <div class="alert alert--error">
-                            <i class="icon icon--danger" aria-hidden="true"></i>
-                            <div>
-                                <p>Cet article n'est pas encore publié. Cet aperçu est disponible uniquement dans cet environnement mais n'apparaîtra en production qu'à partir du 12 décembre 2023</p>
-                            </div>
-                        </div>
-                                        <body><h2 id="preambule" class="anchor-title"><a href="#preambule">Préambule</a></h2>
+                                                            <body><h2 id="preambule" class="anchor-title"><a href="#preambule">Préambule</a></h2>
 <p>Ce cours est utilisé dans le cadre de TP au sein de l'IUT Lyon 1. Il est notamment dispensé à des étudiants peu ou pas familiers avec les stratégies d'automatisation et de déploiement des infrastructures.
 Bien que très axé débutants il peut également représenté une possibilité de monter « rapidement » pour certaines équipes sur les principes fondamentaux d'Ansible afin de disposer du bagage minimal nécessaire à son utilisation.</p>
 <p>Il s'agit bien évidemment de supports à vocation pédagogique qui <strong>ne sont pas toujours transposables</strong> à une activité professionnelle.</p>
@@ -287,10 +278,12 @@ Bien que très axé débutants il peut également représenté une possibilité 
 <p>La gestion des variables d'Ansible étant relativement souple cela ouvre la porte à beaucoup de façons de les définir et surtout la possibilité de le faire à partir de nombreuses sources !
 Pour commencer attaquons nous aux variables qu'Ansible lui même manipule pour son propre fonctionnement.</p>
 <h2 id="les-variables" class="anchor-title"><a href="#les-variables">Les variables</a></h2>
-<h3 id="les-facts" class="anchor-title"><a href="#les-facts">Les « facts »</a></h3>
-<h3 id="les-variables-d-inventaire" class="anchor-title"><a href="#les-variables-d-inventaire">Les variables d'inventaire</a></h3>
+<h3 id="les-variables-d-hote" class="anchor-title"><a href="#les-variables-d-hote">Les variables d'hôte</a></h3>
+<p>hostname: web-staging-01</p>
 <h3 id="les-variables-de-groupe" class="anchor-title"><a href="#les-variables-de-groupe">Les variables de groupe</a></h3>
-<h3 id="les-variables-d-hote" class="anchor-title"><a href="#les-variables-d-hote">Les variables d'hôte</a></h3></body>
+<p>hostname: web-staging-01</p>
+<p>workshop: ansible</p>
+<h3 id="les-facts" class="anchor-title"><a href="#les-facts">Les « facts »</a></h3></body>
                                                                                 </main>
                 <div class="article-footer" data-aos="fade-in">
                                                                         <div class="author">
@@ -407,7 +400,7 @@ Pour commencer attaquons nous aux variables qu'Ansible lui même manipule pour s
             </div>
         </nav>
         <div class="footer__legals">
-            <span>©2023 - Rix - Tous droits réservés</span>
+            <span>©2024 - Rix - Tous droits réservés</span>
             -
             <a href="/rix/pr/127/legal">Mentions légales</a>
             -
