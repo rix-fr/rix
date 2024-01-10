@@ -17,14 +17,14 @@
         <meta name="msapplication-config" content="/rix/pr/120/browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
 
-                    <meta name="description" content="Ansible" />
+                    <meta name="description" content="Adeptes de la première heure d&#039;Ansible, nous continuons 10 ans plus tard à l&#039;utiliser de manière intensive pour la construction de nos infrastructures et de nos environnement de développement." />
             <link rel="canonical" href="https://rix-fr.github.io/rix/pr/120/glossaire/ansible" />
 
             <!-- Open Graph / Facebook -->
                                         <meta property="og:type" content="website">
                         <meta property="og:title" content="Ansible" />
             <meta property="og:locale" content="fr" />
-            <meta property="og:description" content="Ansible" />
+            <meta property="og:description" content="Adeptes de la première heure d&#039;Ansible, nous continuons 10 ans plus tard à l&#039;utiliser de manière intensive pour la construction de nos infrastructures et de nos environnement de développement." />
             <meta property="og:url" content="https://rix-fr.github.io/rix/pr/120/glossaire/ansible" />
             <meta property="og:site_name" content="rix" />
 
@@ -34,7 +34,7 @@
             <!-- Twitter -->
             <meta property="twitter:card" content="summary_large_image">
             <meta property="twitter:title" content="Ansible">
-            <meta property="twitter:description" content="Ansible">
+            <meta property="twitter:description" content="Adeptes de la première heure d&#039;Ansible, nous continuons 10 ans plus tard à l&#039;utiliser de manière intensive pour la construction de nos infrastructures et de nos environnement de développement.">
             <meta property="twitter:site" content="@rix_fr">
             <meta property="twitter:creator" content="@rix_fr">
                                         <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/120/social/twitter-default.jpg">
@@ -182,9 +182,24 @@
             <div class="container content">
                                     <img src="/rix/pr/120/build/images/services/ansible.4e8abd95.svg" alt="logo de Ansible" class="glossary-logo">
                 
-                <body><p>Ansible est une plateforme open-source de gestion de configuration et d'automatisation des tâches.
+                <body><h2 id="c-est-quoi-ansible" class="anchor-title"><a href="#c-est-quoi-ansible">C'est quoi Ansible ?</a></h2>
+<p>Ansible est une plateforme open-source de gestion de configuration et d'automatisation des tâches.
 Elle permet aux administrateurs système mais aussi aux développeurs de définir des configurations, des déploiements et des actions à effectuer sur des serveurs et des infrastructures de manière reproductible. </p>
-<p>Ansible se distingue par sa simplicité d'utilisation grâce à sa syntaxe déclarative en <strong>YAML</strong>, qui <strong>décrit l'état souhaité du système</strong>. Il n'exige <strong>aucune installation d'agent</strong> sur les machines cibles, fonctionne via SSH ou d'autres protocoles, et offre une grande flexibilité pour automatiser des opérations complexes, la gestion de configurations, et le déploiement d'applications.</p></body>
+<p>Ansible se distingue par sa simplicité d'utilisation grâce à sa syntaxe déclarative en <strong>YAML</strong>, qui <strong>décrit l'état souhaité du système</strong>. Il n'exige <strong>aucune installation d'agent</strong> sur les machines cibles, fonctionne via SSH ou d'autres protocoles, et offre une grande flexibilité pour automatiser des opérations complexes, la gestion de configurations, et le déploiement d'applications.</p>
+<p>Nous l'utilisons maintenant depuis 10 ans afin de piloter la configuration de nos environnements applicatifs et mettons à disposition de la communauté de nombreux rôles éprouvés en production sur des infrastructures conséquentes à travers notre projet Open Source <a href="https://github.com/manala/ansible-roles" target="_blank">Manala</a>.</p>
+<p>Nous sommes également à l'origine de la création des <strong>« meetups » Lyonnais Ansible</strong>, que nous avons organisés et pilotés pendant plusieurs années.</p>
+<h2 id="pourquoi-ansible" class="anchor-title"><a href="#pourquoi-ansible">Pourquoi Ansible ?</a></h2>
+<p>Questions souvent posée, nous avons travaillons par le passé avec Chief et Puppet en passant par Salt mais quand Ansible est apparu il s'est rapidement imposé chez nous notamment en raison de sa rapidité d'apprentissage et de sa popularité au sein des équipes de développeurs.</p>
+<p>En apportant notre expertise Ops nous devons également réfléchir à la facilité de prise en main des solutions que nous proposons aux équipes applicatives.</p>
+<h2 id="son-utilisation-chez-rix" class="anchor-title"><a href="#son-utilisation-chez-rix">Son utilisation chez Rix</a></h2>
+<p>Il est utilisé sur l'ensemble des tâches de configuration des environnements, entre autres: </p>
+<ul>
+<li>Gestion des configurations</li>
+<li>Installation des services</li>
+<li>Gestion des accès</li>
+</ul>
+<p>Nous le couplons à Terraform qui porte lui la responsabilité de constructions des éléments d'infrastructure.</p>
+<p>Il est également prépondérant pour la construction des environnements de développement à destination des équipes applicatives.</p></body>
 
                 <div>
                                             <a href="https://www.ansible.com/" class="button">Voir la documentation officielle</a>
@@ -194,6 +209,54 @@ Elle permet aux administrateurs système mais aussi aux développeurs de défini
                                         
                                                                 <h2 class="h2--large"><span>Nos articles liés</span> à Ansible</h2>
                         <ul class="miniature-list">
+                                                                                            <li class="miniature">
+                                    <a href="/rix/pr/120/blog/cours/ansible/ansible-les-playbooks">
+                                        <div class="miniature__image">
+                                            <span class="image" style="background-color: #f1f1f1;
+    background-image: url('/rix/pr/120/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/6f673da0a249f9dd20482a9ff341e332.jpg');
+    background-image: -webkit-image-set(
+        url('/rix/pr/120/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/6f673da0a249f9dd20482a9ff341e332.jpg') 1x,
+        url('/rix/pr/120/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/9da1da423b28d954c5cff4915966cc25.jpg') 2x
+    );
+    background-image: -moz-image-set(
+        url('/rix/pr/120/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/6f673da0a249f9dd20482a9ff341e332.jpg') 1x,
+        url('/rix/pr/120/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/9da1da423b28d954c5cff4915966cc25.jpg') 2x
+    );
+    background-image: -ms-image-set(
+        url('/rix/pr/120/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/6f673da0a249f9dd20482a9ff341e332.jpg') 1x,
+        url('/rix/pr/120/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/9da1da423b28d954c5cff4915966cc25.jpg') 2x
+    );
+    background-image: image-set(
+        url('/rix/pr/120/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/6f673da0a249f9dd20482a9ff341e332.jpg') 1x,
+        url('/rix/pr/120/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/9da1da423b28d954c5cff4915966cc25.jpg') 2x
+    );"></span>
+                                        </div>
+                                        <div class="miniature__content">
+                                            <h2 class="h3">Ansible - Les playbooks</h2>
+                                            <p>Découverte des playbooks, élément essentiel d&#039;Ansible qui va nous permettre d&#039;organiser et structurer nos tâches !</p>
+                                            <ul class="tags-list">
+                                                                                                    <li class="tags-list__item">
+                                                        #Cours
+                                                    </li>
+                                                                                                    <li class="tags-list__item">
+                                                        #Ansible
+                                                    </li>
+                                                                                                    <li class="tags-list__item">
+                                                        #Automation
+                                                    </li>
+                                                                                                    <li class="tags-list__item">
+                                                        #Playbook
+                                                    </li>
+                                                                                            </ul>
+                                            <span class="sliding-button sliding-button--mobile">
+                                                <span class="sliding-button__content">
+                                                    <i class="icon icon--arrow-right" aria-hidden="true"></i>
+                                                    Lire l'article
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
                                                                                             <li class="miniature">
                                     <a href="/rix/pr/120/blog/cours/ansible/ansible-les-inventaires-statiques">
                                         <div class="miniature__image">
@@ -273,54 +336,6 @@ Elle permet aux administrateurs système mais aussi aux développeurs de défini
                                                     </li>
                                                                                                     <li class="tags-list__item">
                                                         #Automation
-                                                    </li>
-                                                                                            </ul>
-                                            <span class="sliding-button sliding-button--mobile">
-                                                <span class="sliding-button__content">
-                                                    <i class="icon icon--arrow-right" aria-hidden="true"></i>
-                                                    Lire l'article
-                                                </span>
-                                            </span>
-                                        </div>
-                                    </a>
-                                </li>
-                                                                                            <li class="miniature">
-                                    <a href="/rix/pr/120/blog/cours/ansible/ansible-environnement-cle-en-main">
-                                        <div class="miniature__image">
-                                            <span class="image" style="background-color: #f1f1f1;
-    background-image: url('/rix/pr/120/resized/content/images/blog/thumbnails/lazy-ansible.jpg/eae61410753152dba71f62f27b1a5f3b.jpg');
-    background-image: -webkit-image-set(
-        url('/rix/pr/120/resized/content/images/blog/thumbnails/lazy-ansible.jpg/eae61410753152dba71f62f27b1a5f3b.jpg') 1x,
-        url('/rix/pr/120/resized/content/images/blog/thumbnails/lazy-ansible.jpg/9ee2c8ce29ba79b4812efdc70b035c29.jpg') 2x
-    );
-    background-image: -moz-image-set(
-        url('/rix/pr/120/resized/content/images/blog/thumbnails/lazy-ansible.jpg/eae61410753152dba71f62f27b1a5f3b.jpg') 1x,
-        url('/rix/pr/120/resized/content/images/blog/thumbnails/lazy-ansible.jpg/9ee2c8ce29ba79b4812efdc70b035c29.jpg') 2x
-    );
-    background-image: -ms-image-set(
-        url('/rix/pr/120/resized/content/images/blog/thumbnails/lazy-ansible.jpg/eae61410753152dba71f62f27b1a5f3b.jpg') 1x,
-        url('/rix/pr/120/resized/content/images/blog/thumbnails/lazy-ansible.jpg/9ee2c8ce29ba79b4812efdc70b035c29.jpg') 2x
-    );
-    background-image: image-set(
-        url('/rix/pr/120/resized/content/images/blog/thumbnails/lazy-ansible.jpg/eae61410753152dba71f62f27b1a5f3b.jpg') 1x,
-        url('/rix/pr/120/resized/content/images/blog/thumbnails/lazy-ansible.jpg/9ee2c8ce29ba79b4812efdc70b035c29.jpg') 2x
-    );"></span>
-                                        </div>
-                                        <div class="miniature__content">
-                                            <h2 class="h3">Ansible - Un environnement de travail clé en main avec Lazy Ansible.</h2>
-                                            <p>Utilisation de la recipe Lazy Ansible du projet Manala pour mettre en oeuvre un environnement de travail dédié Ansible.</p>
-                                            <ul class="tags-list">
-                                                                                                    <li class="tags-list__item">
-                                                        #Cours
-                                                    </li>
-                                                                                                    <li class="tags-list__item">
-                                                        #Ansible
-                                                    </li>
-                                                                                                    <li class="tags-list__item">
-                                                        #Automation
-                                                    </li>
-                                                                                                    <li class="tags-list__item">
-                                                        #Manala
                                                     </li>
                                                                                             </ul>
                                             <span class="sliding-button sliding-button--mobile">
@@ -415,7 +430,7 @@ Elle permet aux administrateurs système mais aussi aux développeurs de défini
             </div>
         </nav>
         <div class="footer__legals">
-            <span>©2023 - Rix - Tous droits réservés</span>
+            <span>©2024 - Rix - Tous droits réservés</span>
             -
             <a href="/rix/pr/120/legal">Mentions légales</a>
             -

@@ -267,6 +267,9 @@
                                                                                             <li>
                                                     <a href="#exercice-2">Exercice 2</a>
                                                 </li>
+                                                                                            <li>
+                                                    <a href="#exercice-3">Exercice 3</a>
+                                                </li>
                                                                                     </ol>
                                                                     </li>
                                                             <li class="table-of-contents__item">
@@ -290,7 +293,7 @@
                                     <a href="#conclusion">Conclusion</a>
                                                                     </li>
                                                             <li class="table-of-contents__item">
-                                    <a href="#aller-plus-loins-avec-les-sources">Aller plus loins avec les sources</a>
+                                    <a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a>
                                                                     </li>
                                                     </ol>
                                         <div class="article-info">
@@ -557,9 +560,12 @@ Ansible utilise une arborescence ou figurera <strong>toujours</strong>:</p>
 <p>Rapide mise en pratique des inventaires.</p>
 <h3 id="exercice-1" class="anchor-title"><a href="#exercice-1">Exercice 1</a></h3>
 <p>Reprendre les différents fichiers contenu dans notre répertoire <code class="code-inline" id="9d8e9044cc215163080743136fcb7fd5">inventories</code> et les compiler en un seul et même fichier <code class="code-inline" id="d4bbb8582b29b42818a341b53996b81b">hosts.yml</code>, les autres fichiers ne sont finalement plus utiles et peuvent être supprimés.</p>
+<p>Nous compléterons notre inventaire avec deux machines supplémentaires <code class="code-inline" id="675eeba1a1c509e8ab76e09cd80af409">vm-db-prod-01</code> et <code class="code-inline" id="f59c6f7cc44ccac481d02a5de41c5621">vm-db-staging-01</code> appartenant toutes deux au groupe <code class="code-inline" id="98b017f5726ac5cc1d0f3ebc0d5e9932">dbservers</code> (Attention à les affecter également à leurs groupes d'environnements respectifs).</p>
 <p>Souvenez-vous vous pouvez tester un fichier d'inventaire en particulier en le passant en paramètre de la commande <code class="code-inline" id="c849dabdafeab0ab6aae256ec60514b7">ansible-inventory</code>: <code class="code-inline" id="c98069802b7f3d0a6f1ad73afd0912b6">ansible-inventory --list -i inventories/hosts.yml</code>.</p>
 <h3 id="exercice-2" class="anchor-title"><a href="#exercice-2">Exercice 2</a></h3>
 <p>Nous avons vu qu'il existait différent plugin permettant de « lire » un inventaire (si,si au tout début), essayez d'écrire le même inventaire mais à un format différent (format ini par exemple).</p>
+<h3 id="exercice-3" class="anchor-title"><a href="#exercice-3">Exercice 3</a></h3>
+<p>Revenons à notre fichier <code class="code-inline" id="d4bbb8582b29b42818a341b53996b81b">hosts.yml</code> séparez son contenu en fonction des environnements que nous avons définis (<strong>staging</strong> et <strong>production</strong>)</p>
 <h2 id="cibler-des-groupes-de-machines-avec-les-patterns" class="anchor-title"><a href="#cibler-des-groupes-de-machines-avec-les-patterns">Cibler des groupes de machines avec les « patterns »</a></h2>
 <p>Notre infrastructure est modeste, mais vous serez parfois amenés à travailler avec des infrastructures d'envergure et serez dans l'obligation de « cibler » certaines machines ou groupes de machines.
 Il est ainsi possible d'indiquer explicitement à Ansible quelles sont les machines à considérer pour une action donnée.</p>
@@ -609,7 +615,7 @@ Il est ainsi possible d'indiquer explicitement à Ansible quelles sont les machi
 <h2 id="conclusion" class="anchor-title"><a href="#conclusion">Conclusion</a></h2>
 <p>Nous aurons donc vu que les inventaires bien qu'à priori relativement simples, peuvent amener une forme de complexité sur des infrastructures volumineuses, leur organisation peut donc vite devenir stratégique notamment dans l'optique de faciliter la maintenance du parc piloté par Ansible.</p>
 <p>Dans la prochaine étape nous aborderons une nouvelle notion d'Ansible, <strong>les playbooks</strong> qui nous permettront d'écrire nos première tâches !</p>
-<h2 id="aller-plus-loins-avec-les-sources" class="anchor-title"><a href="#aller-plus-loins-avec-les-sources">Aller plus loins avec les sources</a></h2>
+<h2 id="aller-plus-loin-avec-les-sources" class="anchor-title"><a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a></h2>
 <ul>
 <li><a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#connecting-to-hosts-behavioral-inventory-parameters" target="_blank">https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#connecting-to-hosts-behavioral-inventory-parameters</a></li>
 <li><a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html" target="_blank">https://docs.ansible.com/ansible/latest/inventory_guide/intro_patterns.html</a></li>
@@ -733,7 +739,7 @@ Il est ainsi possible d'indiquer explicitement à Ansible quelles sont les machi
             </div>
         </nav>
         <div class="footer__legals">
-            <span>©2023 - Rix - Tous droits réservés</span>
+            <span>©2024 - Rix - Tous droits réservés</span>
             -
             <a href="/rix/pr/120/legal">Mentions légales</a>
             -
