@@ -241,7 +241,24 @@
                                                     <a href="#les-variables-de-groupe">Les variables de groupe</a>
                                                 </li>
                                                                                             <li>
-                                                    <a href="#les-facts">Les « facts »</a>
+                                                    <a href="#definir-des-variables-dans-un-inventaire">Définir des variables dans un inventaire</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#comment-les-variables-sont-elles-fusionnees">Comment les variables sont elles fusionnées ?</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#last-but-not-least-les-facts">Last but not least, les facts</a>
+                                                </li>
+                                                                                    </ol>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#utiliser-les-variables-dans-nos-playbooks">Utiliser les variables dans nos playbooks</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#les-templates">Les templates</a>
+                                                                            <ol class="table-of-contents__sub-level">
+                                                                                            <li>
+                                                    <a href="#definir-et-utiliser-un-nouveau-template">Définir et utiliser un nouveau template</a>
                                                 </li>
                                                                                     </ol>
                                                                     </li>
@@ -273,17 +290,202 @@ Bien que très axé débutants il peut également représenté une possibilité 
 <p>Il s'agit bien évidemment de supports à vocation pédagogique qui <strong>ne sont pas toujours transposables</strong> à une activité professionnelle.</p>
 <h2 id="pre-requis" class="anchor-title"><a href="#pre-requis">Pré-requis</a></h2>
 <p>Avoir suivi/lu les cours concernant les <a href="/blog/cours/ansible/ansible-les-inventaires-statiques">inventaires</a> et les <a href="/blog/cours/ansible/ansible-les-playbooks">playbooks</a> !</p>
+<p>Et donc disposer d'un inventaire s'approchant de celui-ci:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="834333afda0dfea7fabf0f9555540281"><span class="token key atrule">all</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.XXX
+      <span class="token key atrule">ansible_user</span><span class="token punctuation">:</span> debian
+    <span class="token key atrule">vm-db-prod-01</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.XXX
+      <span class="token key atrule">ansible_user</span><span class="token punctuation">:</span> debian
+    <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.XXX
+      <span class="token key atrule">ansible_user</span><span class="token punctuation">:</span> debian
+    <span class="token key atrule">vm-db-staging-01</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.XXX
+      <span class="token key atrule">ansible_user</span><span class="token punctuation">:</span> debian
+  <span class="token key atrule">children</span><span class="token punctuation">:</span>
+    <span class="token key atrule">webservers</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+        <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+    <span class="token key atrule">dbservers</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-db-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+        <span class="token key atrule">vm-db-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+    <span class="token key atrule">staging</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+        <span class="token key atrule">vm-db-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+    <span class="token key atrule">production</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+        <span class="token key atrule">vm-db-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span></code></pre>
 <h2 id="introduction" class="anchor-title"><a href="#introduction">Introduction</a></h2>
 <p>Nous avons vu précemment comment débuter avec Ansible avec les notions fondamentales d'inventaire et de playbooks. Dans l'idée d'apporter un peu plus d'outils à cet ensemble Ansible est également capable de gérer et interpréter des variables qui peuvent venir de différentes sources.</p>
 <p>La gestion des variables d'Ansible étant relativement souple cela ouvre la porte à beaucoup de façons de les définir et surtout la possibilité de le faire à partir de nombreuses sources !
 Pour commencer attaquons nous aux variables qu'Ansible lui même manipule pour son propre fonctionnement.</p>
 <h2 id="les-variables" class="anchor-title"><a href="#les-variables">Les variables</a></h2>
+<p>Ansible introduit énormément de souplesse en terme « d'endroit » ou peuvent être déclarées des variables ce qui laisse énormémement de liberté sur la façon dont on souhaite organiser notre projet mais qui a pour contrepartie de demander énormément de rigueur afin de respecter les standards établis pour le projet, sous peine que cela devienne très rapidement un vrai foutoir.</p>
 <h3 id="les-variables-d-hote" class="anchor-title"><a href="#les-variables-d-hote">Les variables d'hôte</a></h3>
-<p>hostname: web-staging-01</p>
+<p>Pour commencer nous aborderons le principe des variables d'hôtes qui en toute logique, permettent de définir des variables au niveau d'une machine bien précise. Vous verrez avec le temps que sur des infrastructures d'exploitation conséquentes ces variables sont souvent peu utilisées car il est rare de n'avoir qu'une seule machine derrière un service.</p>
+<p>Commençons par créer un nouveau répertoire <code class="code-inline" id="3342582e194d63e4c91b56623752c9c6">host_vars</code> à la racine de notre répertoire de travail qui contiendra des fichiers reprenant les nom d'hôtes définis dans notre inventaire, nous commencerons par les membres du groupe <code class="code-inline" id="09c2ea6bb9250e08e7dd4d3e48358c1c">webservers</code> et crérons donc 2 fichiers <code class="code-inline" id="b1968897fac270be74c071d033ab6a0e">vm-web-prod-01.yml</code> et <code class="code-inline" id="e589daf2b7e2a572b4cad6a4bbe1f1c4">vm-web-staging-01.yml</code>.</p>
+<p>Chaque fichier contiendra pour l'instant une définition de variable selon l'exemple suivant:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="50178c361ffb96ef0d358d3d029ee6d1"><span class="token key atrule">hostname</span><span class="token punctuation">:</span> web<span class="token punctuation">-</span>production<span class="token punctuation">-</span><span class="token number">01</span></code></pre>
+<p>On fera bien évidemment de même avec le second fichier et les instances du groupe <code class="code-inline" id="98b017f5726ac5cc1d0f3ebc0d5e9932">dbservers</code> en ajoutant les fichiers <code class="code-inline" id="046a3fa1c339e608cdac89d3759d5efc">vm-db-prod-01.yml</code> et <code class="code-inline" id="e10721db6a4bbbf2832fc0a68c6b86c4">vm-db-staging-01.yml</code> contenant respectivement:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="b9f615aae31ccb3bfbd5ce24321f3466"><span class="token key atrule">hostname</span><span class="token punctuation">:</span> db<span class="token punctuation">-</span>production<span class="token punctuation">-</span><span class="token number">01</span></code></pre>
+<p>et</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="59e4728e749f2ae502c297ade53f3d36"><span class="token key atrule">hostname</span><span class="token punctuation">:</span> db<span class="token punctuation">-</span>staging<span class="token punctuation">-</span><span class="token number">01</span></code></pre>
+<p>Il est possible de faire afficher à Ansible les différentes variables définies <code class="code-inline" id="ab739423aa5845ce11397469f5b622bc">ansible-inventory --graph -i inventories --vars</code> qui devrait vous renvoyer pour l'instant:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="e46f25764f198ed9b0170fb1a4fa1b90">@all<span class="token punctuation">:</span>
+  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token key atrule">-@ungrouped</span><span class="token punctuation">:</span>
+  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token key atrule">-@webservers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span>vm<span class="token punctuation">-</span>web<span class="token punctuation">-</span>prod<span class="token punctuation">-</span><span class="token number">01</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_host = 162.19.93.111<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_user = debian<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>hostname = web<span class="token punctuation">-</span>production<span class="token punctuation">-</span><span class="token number">01</span><span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span>vm<span class="token punctuation">-</span>web<span class="token punctuation">-</span>staging<span class="token punctuation">-</span><span class="token number">01</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_host = 162.19.93.190<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_user = debian<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>hostname = web<span class="token punctuation">-</span>staging<span class="token punctuation">-</span><span class="token number">01</span><span class="token punctuation">}</span>
+  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token key atrule">-@dbservers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span>vm<span class="token punctuation">-</span>db<span class="token punctuation">-</span>prod<span class="token punctuation">-</span><span class="token number">01</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_host = 162.19.92.208<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_user = debian<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>hostname = db<span class="token punctuation">-</span>prod<span class="token punctuation">-</span><span class="token number">01</span><span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span>vm<span class="token punctuation">-</span>db<span class="token punctuation">-</span>staging<span class="token punctuation">-</span><span class="token number">01</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_host = 162.19.92.175<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_user = debian<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>hostname = db<span class="token punctuation">-</span>staging<span class="token punctuation">-</span><span class="token number">01</span><span class="token punctuation">}</span>
+  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token key atrule">-@staging</span><span class="token punctuation">:</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span>vm<span class="token punctuation">-</span>web<span class="token punctuation">-</span>staging<span class="token punctuation">-</span><span class="token number">01</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_host = 162.19.93.190<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_user = debian<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>hostname = web<span class="token punctuation">-</span>staging<span class="token punctuation">-</span><span class="token number">01</span><span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span>vm<span class="token punctuation">-</span>db<span class="token punctuation">-</span>staging<span class="token punctuation">-</span><span class="token number">01</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_host = 162.19.92.175<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_user = debian<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>hostname = db<span class="token punctuation">-</span>staging<span class="token punctuation">-</span><span class="token number">01</span><span class="token punctuation">}</span>
+  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token key atrule">-@production</span><span class="token punctuation">:</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span>vm<span class="token punctuation">-</span>web<span class="token punctuation">-</span>prod<span class="token punctuation">-</span><span class="token number">01</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_host = 162.19.93.111<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_user = debian<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>hostname = web<span class="token punctuation">-</span>production<span class="token punctuation">-</span><span class="token number">01</span><span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span>vm<span class="token punctuation">-</span>db<span class="token punctuation">-</span>prod<span class="token punctuation">-</span><span class="token number">01</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_host = 162.19.92.208<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>ansible_user = debian<span class="token punctuation">}</span>
+  <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>hostname = db<span class="token punctuation">-</span>prod<span class="token punctuation">-</span><span class="token number">01</span><span class="token punctuation">}</span></code></pre>
+<p>Où l'on peut constater la présence de nos variables au niveau de chacun des hôtes !</p>
 <h3 id="les-variables-de-groupe" class="anchor-title"><a href="#les-variables-de-groupe">Les variables de groupe</a></h3>
-<p>hostname: web-staging-01</p>
-<p>workshop: ansible</p>
-<h3 id="les-facts" class="anchor-title"><a href="#les-facts">Les « facts »</a></h3></body>
+<p>Passons à présent aux variables de groupes, vous l'aurez compris celles-ci s'appliqueront à un groupe de machine tel que nous l'aurons défini dans notre inventaire.
+Leur fonctionnement repose sur le même principe que les variables d'hôtes, nous crérons donc cette fois un répertoire appelé <code class="code-inline" id="96fa973cda8809ad84f646e3d8fbbc1c">group_vars</code> contenant un fichier pour chacun des groupes que nous aurons défini.</p>
+<p>Nous allons donc créer les fichiers <code class="code-inline" id="d5d28546170c3f1cde6f9e5eb6650e04">production.yml</code> et <code class="code-inline" id="fdfb7eaf996e4a34e1cbe39626abd88d">staging.yml</code> contenant respectivement pour l'instant:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="1c44e2b473666dbf085850909a57e9dd"><span class="token key atrule">stage</span><span class="token punctuation">:</span> production</code></pre>
+<p>et</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="9a5d134f409ca2b717ae97938c4f9302"><span class="token key atrule">stage</span><span class="token punctuation">:</span> staging</code></pre>
+<p>En rejouant la commande ansible précédente vous pourrez constater qu'une nouvelle variables <code class="code-inline" id="9a8c2b9d518bc163e99611fbacea63b2">stage</code> apparait bien comme définie lors de l'affichage de votre inventaire.</p>
+<div class="admonition info">
+<p class="admonition-title">L'héritage des variables</p>
+<p>
+    Il est bien évidemment possible d'appliquer une définition de variable aux groupes parent comme aux groupes enfant, dans ce cas on prendra bien soin de faire attention à l'héritage des variables !
+</p>
+</div>
+<p>On oubliera pas au passage que même s'il n'apparait pas de manière explicite dans notre inventaire, le groupe <code class="code-inline" id="a181a603769c1f98ad927e7367c7aa51">all</code> est systématiquement définit par Ansible comme « super parent » et qu'il est donc de manière possible de déclarer des variables pour ce groupe en créant un fichier <code class="code-inline" id="3bbc25f336e8603709264766a1deb103">all.yml</code> dans <code class="code-inline" id="96fa973cda8809ad84f646e3d8fbbc1c">group_vars</code> contenant par exemple: </p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="e2be63d919122da7c891bc479efba8b9"><span class="token key atrule">workshop</span><span class="token punctuation">:</span> ansible</code></pre>
+<h3 id="definir-des-variables-dans-un-inventaire" class="anchor-title"><a href="#definir-des-variables-dans-un-inventaire">Définir des variables dans un inventaire</a></h3>
+<p>Il est possible (je vous l'ai dit Ansible est très souple) de définir des variables directement dans votre fichier d'inventaire, on l'a déjà plus ou moins vu d'ailleurs avec la définition de clés spécifiques à Ansible comme <code class="code-inline" id="e15cba2a55d1c830968665125de5abf6">ansible_host</code> ou <code class="code-inline" id="6410e7f930b2aeb0c84b0bda2d1beefc">ansible_user</code> au niveau d'un hôte, l'ajout de variable sur un hôte fonctionne donc de la même façon en ajoutant des clés à la suite.</p>
+<p>Au niveau d'un groupe il faudra passer par la clé <code class="code-inline" id="b63119da730344b345cdc8f62a4711e9">vars</code> on pourrait imaginer par exemple indiquer un serveur de temps bien précis pour une zone géographique avec quelque chose comme: </p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="05a8a46e5665b86b161e13f1426b8e0c"><span class="token key atrule">france</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token key atrule">host-01</span><span class="token punctuation">:</span>
+    <span class="token key atrule">host-02</span><span class="token punctuation">:</span>
+  <span class="token key atrule">vars</span><span class="token punctuation">:</span>
+    <span class="token key atrule">ntp_server</span><span class="token punctuation">:</span> ntp.univ<span class="token punctuation">-</span>lyon1.fr</code></pre>
+<h3 id="comment-les-variables-sont-elles-fusionnees" class="anchor-title"><a href="#comment-les-variables-sont-elles-fusionnees">Comment les variables sont elles fusionnées ?</a></h3>
+<p>Ansible fusionne les variables pour les appliquer de manière spécifique à chacun de nos hôte, cela signifie que sortie de notre définition d'inventaire et de correspondance hôte/groupe la notion de groupe ne perdure pas, en effet Ansible va écraser les variables préalablement définies en suivant cet ordre (de poids le plus faible au plus important):</p>
+<ul>
+<li>groupe <code class="code-inline" id="a181a603769c1f98ad927e7367c7aa51">all</code> (n'oubliez pas c'est le parent « racine »)</li>
+<li>groupe parent</li>
+<li>groupe enfant</li>
+<li>hôte</li>
+</ul>
+<p>Pour résumer de la variable la moins précise (en terme de périmètre de définition) à la plus précise.</p>
+<p><strong>Quelques points d'attention toutefois:</strong></p>
+<p>Pour les groupes de même niveau hiérarchique les variables du dernier groupe considéré écraseront les autres, sauf si une pondération est appliqué au niveau du groupe en utilisant la variable <code class="code-inline" id="758c388c037d3201cc2270949118c771">ansible_group_priority</code> comme suit:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="341544c95234a8b5cda34c03a0c2fa3d"><span class="token key atrule">france</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token key atrule">host-01</span><span class="token punctuation">:</span>
+    <span class="token key atrule">host-02</span><span class="token punctuation">:</span>
+  <span class="token key atrule">vars</span><span class="token punctuation">:</span>
+    <span class="token key atrule">ntp_server</span><span class="token punctuation">:</span> ntp.sophia.mines<span class="token punctuation">-</span>paristech.fr
+<span class="token key atrule">lyon</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token key atrule">host-01</span><span class="token punctuation">:</span>
+    <span class="token key atrule">host-02</span><span class="token punctuation">:</span>
+  <span class="token key atrule">vars</span><span class="token punctuation">:</span>
+    <span class="token key atrule">ntp_server</span><span class="token punctuation">:</span> ntp.univ<span class="token punctuation">-</span>lyon1.fr
+    <span class="token key atrule">ansible_group_priority</span><span class="token punctuation">:</span> <span class="token number">10</span></code></pre>
+<div class="admonition info">
+<p class="admonition-title">Prioriser un groupe</p>
+<p>
+    <code class="code-inline" id="758c388c037d3201cc2270949118c771">ansible_group_priority</code> peut uniquement être défini au niveau de l'inventaire, il n'est pas possible de l'utiliser dans <code class="code-inline" id="96fa973cda8809ad84f646e3d8fbbc1c">group_vars</code>.
+</p>
+</div>
+<h3 id="last-but-not-least-les-facts" class="anchor-title"><a href="#last-but-not-least-les-facts">Last but not least, les facts</a></h3>
+<p>Les facts sont au coeur du fonctionnement des variables dans Ansible dans le sens où ce sont des variables spécifiques récupérées directement depuis l'hôte concerné par un déploiement.
+Elles permettent de récupérer pas mal d'information parmi lesquelles notamment la ou les interfaces réseaux des machines, le type d'OS et sa version ou encore des informations concernant le matériel de la cible.</p>
+<p>On peut les consulter en utilisant par exemple le module <code class="code-inline" id="a0f848942ce863cf53c0fa6cc684007d">setup</code> directement en ligne de commande: <code class="code-inline" id="b009dee184bfea748ed25bf50e9e1975">ansible -i inventories vm-web-prod-01 -m setup</code>.
+Il est possible de filtrer la sortie affichée par Ansible en utilisant l'option <code class="code-inline" id="b2c97ae425dd751b0e48a3acae79cf4a">filter</code>: <code class="code-inline" id="cfe01759ba3876ba78ec4ce0a545d29e">ansible -i inventories vm-web-prod-01 -m setup -a "filter=ansible_default_ipv4"</code></p>
+<p>Ces « facts » se reveleront fort utiles au fur et à mesure de votre prise en main d'Ansible.</p>
+<h2 id="utiliser-les-variables-dans-nos-playbooks" class="anchor-title"><a href="#utiliser-les-variables-dans-nos-playbooks">Utiliser les variables dans nos playbooks</a></h2>
+<p>Nous avons vu comment définir des variables, c'est bien beau mais comment les utilisées ? </p>
+<p>Reprenons par exemple nos fichiers d'hôte ou nous définissons la clé <code class="code-inline" id="0897acf49c7c1ea9f76efe59187aa046">hostname</code>, on peut constater que celle-ci dispose d'une partie qui reprend le contenu de la clé <code class="code-inline" id="9a8c2b9d518bc163e99611fbacea63b2">stage</code> définie au niveau du groupe.
+On peut donc modifier nos fichiers d'hôte de la manière suivante pour exploiter cette définition:</p>
+<pre class="code-multiline"><code id="a6020e2c2b3238718d22e555f550e795">hostname: "web-{{ stage }}-01"</code></pre>
+<p>Et allons modifier notre playbook (<code class="code-inline" id="c91a24a63d659cd3b2cf6f2e04b303a5">example.yml</code>) pour utiliser ces variables de la manière suivante:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="fbbcda2c9e634c58d7239734ee6dba09"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
+
+  <span class="token key atrule">pre_tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Updating APT cache index
+      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+        <span class="token key atrule">update_cache</span><span class="token punctuation">:</span> yes
+
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token comment"># NGINX</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install Nginx web server
+      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> present
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Nginx status configuration file
+      <span class="token key atrule">ansible.builtin.copy</span><span class="token punctuation">:</span>
+        <span class="token key atrule">src</span><span class="token punctuation">:</span> nginx/status.conf
+        <span class="token key atrule">dest</span><span class="token punctuation">:</span> /etc/nginx/conf.d/status.conf
+      <span class="token key atrule">notify</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> restart_nginx
+
+    <span class="token comment"># CONFIG</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Set a hostname
+      <span class="token key atrule">ansible.builtin.hostname</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"{{ hostname }}"</span>
+
+  <span class="token key atrule">handlers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restart_nginx
+      <span class="token key atrule">ansible.builtin.service</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> restarted</code></pre>
+<h2 id="les-templates" class="anchor-title"><a href="#les-templates">Les templates</a></h2>
+<p>Sujet étroitement lié à l'utilisation des variables, les templates au sens d'Ansible sont des fichiers un peu particulier dont le contenu peut-être défini dynamiquement (par opposition notamment à l'utilisation de fichiers de configuration « statiques ») comme nous avons pu le voir dans la partie <a href="http://localhost:8000/blog/cours/ansible/ansible-les-playbooks#les-handlers" target="_blank">playbook</a>.</p>
+<p>Il faut également savoir qu'Ansible s'appuie sur le moteur de template <a href="https://jinja.palletsprojects.com/en/3.1.x/" target="_blank">Jinja2</a> issu du monde Python qui pourrait être comparé à Twif pour PHP, Pebble pour Java, Liquid pour RoR ou encore DotLiquid pour .Net.</p>
+<p>Nous l'avons vu les variables peuvent être définies à divers endroits et peuvent ensuite être accessibles avec les doubles parenthèses <code class="code-inline" id="00c04488921d6bb7a5c9ce2c71e3400b">{{ ... }}</code>.</p>
+<p>Imaginons que nous souhaitions personnaliser nos <a href="https://fr.wikipedia.org/wiki/Message_of_the_Day" target="_blank">motd</a> par exemple en fonction de l'environnement que nous allons accéder.</p>
+<h3 id="definir-et-utiliser-un-nouveau-template" class="anchor-title"><a href="#definir-et-utiliser-un-nouveau-template">Définir et utiliser un nouveau template</a></h3>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#assigning-a-variable-to-one-machine-host-variables" target="_blank">https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#assigning-a-variable-to-one-machine-host-variables</a></li>
+<li><a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#assigning-a-variable-to-many-machines-group-variables" target="_blank">https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#assigning-a-variable-to-many-machines-group-variables</a></li>
+</ul></body>
                                                                                 </main>
                 <div class="article-footer" data-aos="fade-in">
                                                                         <div class="author">
