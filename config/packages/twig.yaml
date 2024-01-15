@@ -24,7 +24,7 @@ twig:
 
             trackers:
                 matomo: "%env(MATOMO_ID)%"
-            
+
             caseStudies:
                 enabled: true
 
@@ -56,6 +56,26 @@ twig:
                     - { path: "services", label: "Conception sur-mesure d'infrastructures", anchor: "conception_infrastructures" }
                     - { path: "services", label: "Pilotage d'infrastructures", anchor: "pilotage_infrastructures" }
                     - { path: "services", label: "Environnement de développement", anchor: "environment" }
+
+        clients:
+            bedrock:
+                url: "https://bedrockstreaming.com/"
+            crnh:
+                url: "https://www.crnh-rhone-alpes.fr/"
+            elao:
+                url: "https://www.elao.com/"
+            amabla:
+                url: "https://www.amabla.com/"
+            grieps:
+                url: "https://www.grieps.fr/"
+            numeridanse:
+                url: "https://www.numeridanse.tv/accueil"
+            musique_music:
+                url: "https://www.musique-music.com/"
+            panneau_pocket:
+                url: "https://www.panneaupocket.com/"
+            wotol:
+                url: "https://www.wotol.com/"
 
 when@test:
     twig:
