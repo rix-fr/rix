@@ -263,7 +263,16 @@
                                                                                             <li>
                                                     <a href="#variabiliser-ses-fichiers-de-configuration">Variabiliser ses fichiers de configuration</a>
                                                 </li>
+                                                                                            <li>
+                                                    <a href="#les-filtres-jinja2">Les filtres Jinja2</a>
+                                                </li>
+                                                                                            <li>
+                                                    <a href="#conditionner-l-execution-de-ses-taches">Conditionner l&#039;exécution de ses tâches</a>
+                                                </li>
                                                                                     </ol>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#point-de-progression">Point de progression</a>
                                                                     </li>
                                                     </ol>
                                         <div class="article-info">
@@ -379,7 +388,7 @@ Bien que très axé débutants il peut également représenté une possibilité 
   <span class="token punctuation">|</span>  <span class="token punctuation">|</span>  <span class="token punctuation">|</span><span class="token punctuation">-</span><span class="token punctuation">-</span><span class="token punctuation">{</span>hostname = db<span class="token punctuation">-</span>prod<span class="token punctuation">-</span><span class="token number">01</span><span class="token punctuation">}</span></code></pre>
 <p>Où l'on peut constater la présence de nos variables au niveau de chacun des hôtes !</p>
 <h3 id="les-variables-de-groupe" class="anchor-title"><a href="#les-variables-de-groupe">Les variables de groupe</a></h3>
-<p>Passons à présent aux variables de groupes, vous l'aurez compris celles-ci s'appliqueront à un groupe de machine <strong>tel que nous l'aurons défini dans notre inventaire</strong>.
+<p>Passons à présent aux variables de groupes, vous l'aurez compris celles-ci s'appliqueront à un groupe de machines <strong>tel que nous l'aurons défini dans notre inventaire</strong>.
 Leur fonctionnement repose sur le même principe que les variables d'hôtes, nous créerons donc cette fois un répertoire appelé <code class="code-inline" id="96fa973cda8809ad84f646e3d8fbbc1c">group_vars</code> contenant un fichier pour chacun des groupes que nous aurons défini.</p>
 <p>Nous allons donc créer les fichiers <code class="code-inline" id="d5d28546170c3f1cde6f9e5eb6650e04">production.yml</code> et <code class="code-inline" id="fdfb7eaf996e4a34e1cbe39626abd88d">staging.yml</code> contenant respectivement pour l'instant:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="1c44e2b473666dbf085850909a57e9dd"><span class="token key atrule">stage</span><span class="token punctuation">:</span> production</code></pre>
@@ -395,7 +404,7 @@ Leur fonctionnement repose sur le même principe que les variables d'hôtes, nou
 <p>On oubliera pas au passage que même s'il n'apparait pas de manière explicite dans notre inventaire, le groupe <code class="code-inline" id="a181a603769c1f98ad927e7367c7aa51">all</code> est systématiquement défini par Ansible comme « super parent » et qu'il est donc bien évidemment possible de déclarer des variables pour ce groupe en créant un fichier <code class="code-inline" id="3bbc25f336e8603709264766a1deb103">all.yml</code> dans <code class="code-inline" id="96fa973cda8809ad84f646e3d8fbbc1c">group_vars</code> contenant par exemple: </p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="e2be63d919122da7c891bc479efba8b9"><span class="token key atrule">workshop</span><span class="token punctuation">:</span> ansible</code></pre>
 <h3 id="definir-des-variables-dans-un-inventaire" class="anchor-title"><a href="#definir-des-variables-dans-un-inventaire">Définir des variables dans un inventaire</a></h3>
-<p>Il est possible (je vous l'ai dit Ansible est très souple) de définir des variables directement dans votre fichier d'inventaire, on l'a déjà plus ou moins vu d'ailleurs avec la définition de clés spécifiques à Ansible comme <code class="code-inline" id="e15cba2a55d1c830968665125de5abf6">ansible_host</code> ou <code class="code-inline" id="6410e7f930b2aeb0c84b0bda2d1beefc">ansible_user</code> au niveau d'un hôte, l'ajout de variable sur un hôte fonctionne donc de la même façon en ajoutant des clés à la suite.</p>
+<p>Il est possible (je vous l'ai dit Ansible est très souple) de définir des variables directement dans votre fichier d'inventaire, on l'a déjà plus ou moins vu d'ailleurs avec la définition de clés spécifiques à Ansible comme <code class="code-inline" id="e15cba2a55d1c830968665125de5abf6">ansible_host</code> ou <code class="code-inline" id="6410e7f930b2aeb0c84b0bda2d1beefc">ansible_user</code> au niveau d'un hôte, l'ajout de variables sur un hôte fonctionne donc de la même façon en ajoutant des clés à la suite.</p>
 <p>Au niveau d'un groupe, il faudra passer par la clé <code class="code-inline" id="b63119da730344b345cdc8f62a4711e9">vars</code>. Par exemple on pourrait imaginer par exemple indiquer un serveur de temps bien précis pour une zone géographique avec quelque chose comme: </p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="05a8a46e5665b86b161e13f1426b8e0c"><span class="token key atrule">france</span><span class="token punctuation">:</span>
   <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
@@ -440,11 +449,11 @@ Elles permettent de récupérer pas mal d'information parmi lesquelles notamment
 Il est possible de filtrer la sortie affichée par Ansible en utilisant l'option <code class="code-inline" id="b2c97ae425dd751b0e48a3acae79cf4a">filter</code>: <code class="code-inline" id="cfe01759ba3876ba78ec4ce0a545d29e">ansible -i inventories vm-web-prod-01 -m setup -a "filter=ansible_default_ipv4"</code></p>
 <p>Ces « facts » se reveleront fort utiles au fur et à mesure de votre prise en main d'Ansible.</p>
 <h2 id="utiliser-les-variables-dans-nos-playbooks" class="anchor-title"><a href="#utiliser-les-variables-dans-nos-playbooks">Utiliser les variables dans nos playbooks</a></h2>
-<p>Nous avons vu comment définir des variables, c'est bien beau mais comment les utilisées ? </p>
-<p>Reprenons par exemple nos fichiers d'hôte ou nous définissons la clé <code class="code-inline" id="0897acf49c7c1ea9f76efe59187aa046">hostname</code>, on peut constater que celle-ci dispose d'une partie qui reprend le contenu de la clé <code class="code-inline" id="9a8c2b9d518bc163e99611fbacea63b2">stage</code> définie au niveau du groupe.
-On peut donc modifier nos fichiers d'hôte de la manière suivante pour exploiter cette définition:</p>
-<pre class="code-multiline"><code id="a6020e2c2b3238718d22e555f550e795">hostname: "web-{{ stage }}-01"</code></pre>
-<p>Et allons modifier notre playbook (<code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code>) pour utiliser ces variables de la manière suivante:</p>
+<p>Nous avons vu comment définir des variables, c'est bien beau mais comment les utiliser ? </p>
+<p>Reprenons par exemple nos fichiers d'hôtes ou nous définissons la clé <code class="code-inline" id="0897acf49c7c1ea9f76efe59187aa046">hostname</code>, on peut constater que celle-ci dispose d'une partie qui reprend le contenu de la clé <code class="code-inline" id="9a8c2b9d518bc163e99611fbacea63b2">stage</code> définie au niveau du groupe.
+On peut donc modifier ces fichiers d'hôtes de la manière suivante pour exploiter cette définition:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="a6020e2c2b3238718d22e555f550e795"><span class="token key atrule">hostname</span><span class="token punctuation">:</span> <span class="token string">"web-{{ stage }}-01"</span></code></pre>
+<p>Allons ensuite modifier notre playbook (<code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code>) pour utiliser ces variables de la manière suivante:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="fbbcda2c9e634c58d7239734ee6dba09"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
 
@@ -478,13 +487,13 @@ On peut donc modifier nos fichiers d'hôte de la manière suivante pour exploite
         <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
         <span class="token key atrule">state</span><span class="token punctuation">:</span> restarted</code></pre>
 <h2 id="les-templates" class="anchor-title"><a href="#les-templates">Les templates</a></h2>
-<p>Sujet étroitement lié à l'utilisation des variables, les templates au sens d'Ansible sont des fichiers un peu particulier dont le contenu peut-être défini dynamiquement (par opposition notamment à l'utilisation de fichiers de configuration « statiques ») comme nous avons pu le voir dans la partie <a href="/blog/cours/ansible/ansible-les-playbooks#les-handlers">playbook</a>.</p>
+<p>Sujet étroitement lié à l'utilisation des variables, les templates au sens d'Ansible sont des fichiers un peu particuliers dont le contenu peut-être défini dynamiquement (par opposition notamment à l'utilisation de fichiers de configuration « statiques ») comme nous avons pu le voir dans la partie <a href="/blog/cours/ansible/ansible-les-playbooks#les-handlers">playbook</a>.</p>
 <p>Il faut également savoir qu'Ansible s'appuie sur le moteur de template <a href="https://jinja.palletsprojects.com/en/3.1.x/" target="_blank">Jinja2</a> issu du monde Python qui pourrait être comparé à Twig pour PHP, Pebble pour Java, Liquid pour RoR ou encore DotLiquid pour .Net.</p>
 <p>Nous l'avons vu les variables peuvent être définies à divers endroits et peuvent ensuite être accessibles avec les doubles parenthèses <code class="code-inline" id="00c04488921d6bb7a5c9ce2c71e3400b">{{ ... }}</code>.</p>
-<p>Imaginons que nous souhaitions personnaliser nos <a href="https://fr.wikipedia.org/wiki/Message_of_the_Day" target="_blank">motd</a> par exemple en fonction de l'environnement que nous allons accéder.</p>
+<p>Imaginons que nous souhaitions personnaliser nos <a href="https://fr.wikipedia.org/wiki/Message_of_the_Day" target="_blank">motd</a> par exemple en fonction de l'environnement duquel fait partie notre hôte cible.</p>
 <h3 id="definir-et-utiliser-un-nouveau-template" class="anchor-title"><a href="#definir-et-utiliser-un-nouveau-template">Définir et utiliser un nouveau template</a></h3>
-<p>Ansible prévoit par défaut l'utilisation d'un répertoire <code class="code-inline" id="fed36e93a0509e20f2dc96cbbd85b678">templates</code> pour cette mission, que nous devrons donc créé (toujours à la racine de notre répertoire de travail).
-Afin de stocker 2 fichiers nous crérons un répertoire dédié à motd qui contiendra donc <code class="code-inline" id="1eeadef35e0afa776e8733abce2e8598">production.j2</code> et <code class="code-inline" id="ea44399be7b5e71b5d499f43a541e397">staging.j2</code></p>
+<p>Ansible prévoit par défaut l'utilisation d'un répertoire <code class="code-inline" id="fed36e93a0509e20f2dc96cbbd85b678">templates</code> pour cette mission, que nous devrons donc créer (toujours à la racine de notre répertoire de travail).
+Afin de stocker 2 fichiers nous créerons un répertoire dédié à motd qui contiendra donc <code class="code-inline" id="1eeadef35e0afa776e8733abce2e8598">production.j2</code> et <code class="code-inline" id="ea44399be7b5e71b5d499f43a541e397">staging.j2</code></p>
 <p>Pour ces deux nouveaux fichiers nous ajouterons les contenus suivants:</p>
 <p>Pour la <strong>production</strong>:</p>
 <pre class="code-multiline language-shell"><code class="language-shell" id="c17d0eca85ccece0095d521455b6d4cb"><span class="token shebang important">#!/bin/sh</span>
@@ -575,16 +584,142 @@ EOF
 <h3 id="variabiliser-ses-fichiers-de-configuration" class="anchor-title"><a href="#variabiliser-ses-fichiers-de-configuration">Variabiliser ses fichiers de configuration</a></h3>
 <p>Avec cette première approche vous avez sans doute vu les possibilités qui s'offrent à nous, nous avons vu pour l'instant la possibilité de déposer des fichiers de manière « statique » à savoir sans données spécifiques à un hôte et un groupe.
 C'est justement ce qu'apporte les templates nous allons pouvoir définir des variables dont la valeur dépendra de l'environnement d'exécution ou de la finalité de nos serveurs.</p>
-<p>Introduisions avec cette idée un service PHP-FPM qui nous permettra de faire tourner des applicatifs basés sur PHP.</p>
-<p>Toujours dans notre playbooks <code class="code-inline" id="09c2ea6bb9250e08e7dd4d3e48358c1c">webservers</code> ajoutons une section pour PHP:</p>
-<pre class="code-multiline language-yaml"><code class="language-yaml" id="6118e9d2fe9bc3366621e5cf3392d5db"><span class="token comment"># PHP</span>
+<p>Introduisons à présent un service PHP-FPM qui nous permettra de faire tourner des applicatifs basés sur PHP.</p>
+<p>Toujours dans notre playbooks <code class="code-inline" id="09c2ea6bb9250e08e7dd4d3e48358c1c">webservers</code> ajoutons une section pour PHP où nous gérons:</p>
+<ul>
+<li>l'installation du paquet;</li>
+<li>l'ajout d'un fichier de configuration personnalisé;</li>
+<li>le redémarrage du service.</li>
+</ul>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="b4658e72c9af370391d8fe8c4f06189b"><span class="token comment"># PHP</span>
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install PHP<span class="token punctuation">-</span>FPM service
       <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
         <span class="token key atrule">name</span><span class="token punctuation">:</span> php<span class="token punctuation">-</span>fpm
-        <span class="token key atrule">state</span><span class="token punctuation">:</span> present</code></pre>
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> present
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> PHP<span class="token punctuation">-</span>FPM <span class="token punctuation">&gt;</span> Configuration
+      <span class="token key atrule">ansible.builtin.template</span><span class="token punctuation">:</span>
+        <span class="token key atrule">src</span><span class="token punctuation">:</span> <span class="token string">"php/app.ini.j2"</span>
+        <span class="token key atrule">dest</span><span class="token punctuation">:</span> <span class="token string">"/etc/php-fpm/8.2/php-fpm/app.ini"</span>  
+
+  <span class="token key atrule">handlers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restart_php<span class="token punctuation">-</span>fpm
+      <span class="token key atrule">ansible.builtin.service</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> php8.2<span class="token punctuation">-</span>fpm
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> restarted</code></pre>
+<p>Si jamais vous avez oublié comment fonctionnait les handlers (ou à quoi ils servent) vous pouvez vous référer à la partie <a href="/blog/cours/ansible/ansible-les-playbooks">playbooks</a>.</p>
+<p>Il nous restera à créer notre template dans le répertoire <code class="code-inline" id="16ca8287fc58ab4a3cc4658af072fd4e">templates/php</code> portant le nom <code class="code-inline" id="8d164757312574b0b39b51b987d7e589">app.ini.j2</code>, le nommage importe peu mais il peut donner une idée de l'utilité du fichier en question, dans notre cas la double extension <code class="code-inline" id="26723c0af6b35e6d15a09cc0c6df07fd">.ini.j2</code> nous permet d'indiquer qu'il s'agit d'un template Jinja2 et que son contenu est au format ini.</p>
+<p>Profitons en pour introduire les structures de contrôle à l'intérieur de templates Jinja2.</p>
+<p>Le contenu de notre fichier <code class="code-inline" id="8d164757312574b0b39b51b987d7e589">app.ini.j2</code> sera ainsi:</p>
+<pre class="code-multiline"><code id="e2083c495c9b50023ae17495f0efc163">{# PHP custom configuration, handle by Ansible #} 
+{%- set config = php.config|default({}) -%}
+
+{% for key, value in config.items() %}
+  {{ key }} = {{ value }}
+{% endfor %}</code></pre>
+<p><strong>On y remarquera trois choses:</strong></p>
+<ul>
+<li>Les commentaires sont déclarés à l'aide de <code class="code-inline" id="678450a0a3ab2faf6c3df0b327a5568f">{#...#}</code>;</li>
+<li>Il est possible de déclarer des variables à l'intérieur d'un template Jinja2 à l'aide de la structure <code class="code-inline" id="c60e8c933659ea7bc2687c06b9ed9bcc">{%- set variable_name = value -%}</code>;</li>
+<li>On utilise pour l'exemple une structure itérative <code class="code-inline" id="bbc1b03dcacc5d2921328065b65c99b5">{% for %}...{% endfor %}</code>.</li>
+</ul>
+<p>Les structures de contrôles dans la syntaxe jinja2 sont exprimées à l'aide des marqueurs <code class="code-inline" id="36611d09a006cd54cdbc8e93340697ee">{% ... %}</code></p>
+<p>Il nous reste a alimenter notre template à partir de nos fichiers de déclaration de variables, ici <code class="code-inline" id="df33094f7c05bf883eef62337ffaedd0">group_vars/webservers.yml</code> qui contiendra:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="7631fbb024051dc5af8ec8ef28c078f2"><span class="token key atrule">php</span><span class="token punctuation">:</span>
+  <span class="token key atrule">config</span><span class="token punctuation">:</span>
+    <span class="token key atrule">error_reporting</span><span class="token punctuation">:</span> <span class="token string">'E_ALL &amp; ~E_DEPRECATED &amp; ~E_STRICT'</span>
+    <span class="token key atrule">display_errors</span><span class="token punctuation">:</span> <span class="token boolean important">False</span>
+    <span class="token key atrule">memory_limit</span><span class="token punctuation">:</span> 256M</code></pre>
+<h3 id="les-filtres-jinja2" class="anchor-title"><a href="#les-filtres-jinja2">Les filtres Jinja2</a></h3>
+<p>Jinja2 propose nativement un certain nombre de « <a href="https://jinja.palletsprojects.com/en/2.10.x/templates/#list-of-builtin-filters" target="_blank">filtres</a> » permettant de faire des manipulations basiques à l'intérieur de nos templates.
+Afin d'appliquer un filtre à une valeur on utilise la notation <code class="code-inline" id="b99834bc19bbad24580b3adfa04fb947">|</code>.</p>
+<p><strong>Exemple:</strong></p>
+<pre class="code-multiline"><code id="ea8d36f22de19188b502fa5d62f69f44">{{ "lyon" | capitalize }}</code></pre>
+<p>renverra</p>
+<pre class="code-multiline"><code id="0355d87edb25c5f7a82dde63fef30243"># output
+Lyon</code></pre>
+<p>Ci-dessous un playbook utilisant différents filtres (ne pas hésiter à tester dans un playbook dédié <code class="code-inline" id="f38ee1018013a55b78172e799e66ecc7">jinjaFilters.yml</code> ;) )</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="19726ef82a66fd4c00d559be62f05f09"><span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"Jinja Filters Playbook"</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span> localhost
+  <span class="token key atrule">gather_facts</span><span class="token punctuation">:</span> no
+  <span class="token key atrule">vars</span><span class="token punctuation">:</span>
+    <span class="token key atrule">mandala</span><span class="token punctuation">:</span> element
+
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Mandala variable is mandory
+      <span class="token key atrule">ansible.builtin.debug</span><span class="token punctuation">:</span>
+        <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ mandala | mandatory }}"</span>
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Undefined variable have a default
+      <span class="token key atrule">ansible.builtin.debug</span><span class="token punctuation">:</span>
+        <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ undefined_var | default('default') }}"</span>
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Omitting a parameters
+      <span class="token key atrule">ansible.builtin.debug</span><span class="token punctuation">:</span>
+        <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ va | default(omit) }}"</span> <span class="token comment">#If omitted, prints a generic message.</span>
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Flatten a list
+      <span class="token key atrule">ansible.builtin.debug</span><span class="token punctuation">:</span>
+        <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ [3, [4, 2] ] | flatten }}"</span>
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Join two list with '+'
+      <span class="token key atrule">ansible.builtin.debug</span><span class="token punctuation">:</span>
+        <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ [3, 4] + [4, 2] }}"</span>
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Join two list with <span class="token punctuation">|</span> union()
+      <span class="token key atrule">ansible.builtin.debug</span><span class="token punctuation">:</span>
+        <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ [3, 4] | union([4, 2]) }}"</span>
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Hash a string
+      <span class="token key atrule">ansible.builtin.debug</span><span class="token punctuation">:</span>
+        <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ 'secret' | hash }}"</span>
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Hash a password
+      <span class="token key atrule">ansible.builtin.debug</span><span class="token punctuation">:</span>
+        <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ 'secret' | password_hash }}"</span>
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Combine hashes
+      <span class="token key atrule">ansible.builtin.debug</span><span class="token punctuation">:</span>
+        <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ {'param1': ['value1', 'value3']} | combine({'param2': 'value2'}) }}"</span>
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Url split
+      <span class="token key atrule">ansible.builtin.debug</span><span class="token punctuation">:</span>
+        <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ 'https://user:password@www.example.com:9000/dir/index.html?query=term#fragment' | urlsplit }}"</span>
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Display date time
+      <span class="token key atrule">ansible.builtin.debug</span><span class="token punctuation">:</span>
+        <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ '%Y-%m-%d %H:%M:%S' | strftime }}"</span>
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"Multi Filter : Play with datetime objet to get minutes from now to end of this course"</span>
+      <span class="token key atrule">ansible.builtin.debug</span><span class="token punctuation">:</span>
+        <span class="token key atrule">msg</span><span class="token punctuation">:</span> <span class="token string">"{{ ((('%Y-%m-%d %H:%M:%S' | strftime | to_datetime) -  ('%Y-%m-%d 18:00:00' | strftime | to_datetime)).total_seconds() / 60) | abs }}"</span></code></pre>
+<h3 id="conditionner-l-execution-de-ses-taches" class="anchor-title"><a href="#conditionner-l-execution-de-ses-taches">Conditionner l'exécution de ses tâches</a></h3>
+<p>Il est également possible de venir utiliser des structures conditionnelles à l'intérieur de nos playbooks et de par exemple, conditionner l'exécution de certaines tâches à un contexte particulier.
+On peut ainsi imaginer retreintre l'utilisation des tâches utilisant le module apt aux seules distributions Debian.</p>
+<p>Nous le ferions par exemple en ajoutant une condition sur toutes nos tâches faisant appel au module de la façon suivante:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="92502edaa94db902da567e84c5158525"><span class="token key atrule">pre_tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Updating APT cache index
+      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+        <span class="token key atrule">update_cache</span><span class="token punctuation">:</span> yes
+      <span class="token key atrule">when</span><span class="token punctuation">:</span> ansible_distribution == "Debian"</code></pre>
+<p>On remarquera que la condition <code class="code-inline" id="df491a4de50739fa9cffdbd4e3f4b4bb">when</code> contient une expression Jinja « brute » sans <code class="code-inline" id="00c04488921d6bb7a5c9ce2c71e3400b">{{ ... }}</code>
+On pourra utiliser différents opérateurs parmi les suivants:</p>
+<ul>
+<li><a href="http://jinja.pocoo.org/docs/templates/#comparisons" target="_blank">http://jinja.pocoo.org/docs/templates/#comparisons</a></li>
+<li><a href="http://jinja.pocoo.org/docs/templates/#logic" target="_blank">http://jinja.pocoo.org/docs/templates/#logic</a></li>
+<li><a href="http://jinja.pocoo.org/docs/templates/#other-operators" target="_blank">http://jinja.pocoo.org/docs/templates/#other-operators</a></li>
+</ul>
+<h2 id="point-de-progression" class="anchor-title"><a href="#point-de-progression">Point de progression</a></h2>
+<p>Nous avons à présent entre nos mains la quasi totalité des concepts fondamentaux d'Ansible</p>
+<ul>
+<li>L'installation d'un <a href="/blog/cours/ansible/ansible-environnement-cle-en-main">environnement Ansible</a>;</li>
+<li>Utiliser l'<a href="/blog/cours/ansible/ansible-les-inventaires-statiques">inventaire</a>;</li>
+<li>Créer des <a href="/blog/cours/ansible/ansible-les-playbooks">playbooks</a>.</li>
+</ul>
+<p>La prochaine étape sera orienté sur la réutilisation, l'optimisation et la structuration de ces concepts en introduisant la notion de <strong>roles/collections</strong>.</p>
 <ul>
 <li><a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#assigning-a-variable-to-one-machine-host-variables" target="_blank">https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#assigning-a-variable-to-one-machine-host-variables</a></li>
 <li><a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#assigning-a-variable-to-many-machines-group-variables" target="_blank">https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#assigning-a-variable-to-many-machines-group-variables</a></li>
+<li><a href="https://jinja.palletsprojects.com/en/3.1.x/" target="_blank">https://jinja.palletsprojects.com/en/3.1.x/</a></li>
 </ul></body>
                                                                                 </main>
                 <div class="article-footer" data-aos="fade-in">

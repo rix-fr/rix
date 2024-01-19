@@ -46,7 +46,7 @@
         "https://rix-fr.github.io/rix/pr/127/blog/cours/ansible/content/images/blog/thumbnails/ansible-playbooks.jpg"
     ],
     "datePublished": "5 décembre 2023",
-    "dateModified": "5 décembre 2023",
+    "dateModified": "18 janvier 2024",
     "author": [
         {
             "@type": "Person",
@@ -283,7 +283,8 @@
                             </div>
                                                 <div class="article-info__date">
                             <span>Publication <strong>5 décembre 2023</strong></span>
-                                                                                </div>
+                                                                                        <span>Modification <strong>18 janvier 2024</strong></span>
+                                                    </div>
                     </div>
                 </div>
                 <main>
@@ -611,7 +612,7 @@ Complétons notre playbook de manière à obtenir la configuration suivante:</p>
       <span class="figure__legend">Exécution d'un handler.</span>
     </figcaption>
 </figure>
-<p><strong>À retenir:</strong> Les actions de type <code class="code-inline" id="a4510384236c8e83a0cf3b6d8b987aef">notify</code> sont déclenchées <strong>à la fin de chaque bloc de tâches</strong> d'un « play » donné, elles ne le sont bien évidemment <strong>qu'une seule fois</strong> même si elles sont appelé plusieurs fois.</p>
+<p><strong>À retenir:</strong> Les actions de type <code class="code-inline" id="a4510384236c8e83a0cf3b6d8b987aef">notify</code> sont déclenchées <strong>à la fin de chaque bloc de tâches</strong> d'un « play » donné, elles ne le sont bien évidemment <strong>qu'une seule fois</strong> même si elles sont appelées plusieurs fois.</p>
 <p>Il est également possible d'ajouter à un handler une clé <code class="code-inline" id="839d7228b5ccc60e54455093a966b8c2">listen</code> comme ci-dessous, celle-ci indiquant au handler « d'écouter » un thème spécifique permettant de regrouper plusieurs « handlers ».</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="3760a33542300664ae88814a2662ba2f"><span class="token key atrule">handlers</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restart_nginx
@@ -629,7 +630,7 @@ Complétons notre playbook de manière à obtenir la configuration suivante:</p>
 <p><strong>Nous savons à présent gérer:</strong></p>
 <ul>
 <li>L'installation d'un <a href="/blog/cours/ansible/ansible-environnement-cle-en-main">environnement Ansible</a>;</li>
-<li>Utiliser l'inventaire</li>
+<li>Utiliser l'<a href="/blog/cours/ansible/ansible-les-inventaires-statiques">inventaire</a></li>
 <li>Créer des playbooks</li>
 </ul>
 <p>Nous pouvons toutefois encore apporter un peu de <strong>dynamisme</strong> à ces premières notions par l'introduction de <a href="/blog/cours/ansible/ansible-les-variables">variables</a> dont nous parlerons dans la suite.</p>
