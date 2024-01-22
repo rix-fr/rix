@@ -447,7 +447,7 @@ Leur fonctionnement repose sur le même principe que les variables d'hôtes, nou
 Elles permettent de récupérer pas mal d'information parmi lesquelles notamment la ou les interfaces réseaux des machines, le type d'OS et sa version ou encore des informations concernant le matériel de la cible.</p>
 <p>On peut les consulter en utilisant par exemple le module <code class="code-inline" id="a0f848942ce863cf53c0fa6cc684007d">setup</code> directement en ligne de commande: <code class="code-inline" id="b009dee184bfea748ed25bf50e9e1975">ansible -i inventories vm-web-prod-01 -m setup</code>.
 Il est possible de filtrer la sortie affichée par Ansible en utilisant l'option <code class="code-inline" id="b2c97ae425dd751b0e48a3acae79cf4a">filter</code>: <code class="code-inline" id="cfe01759ba3876ba78ec4ce0a545d29e">ansible -i inventories vm-web-prod-01 -m setup -a "filter=ansible_default_ipv4"</code></p>
-<p>Ces « facts » se reveleront fort utiles au fur et à mesure de votre prise en main d'Ansible.</p>
+<p>Ces « facts » se révèleront fort utiles au fur et à mesure de votre prise en main d'Ansible.</p>
 <h2 id="utiliser-les-variables-dans-nos-playbooks" class="anchor-title"><a href="#utiliser-les-variables-dans-nos-playbooks">Utiliser les variables dans nos playbooks</a></h2>
 <p>Nous avons vu comment définir des variables, c'est bien beau mais comment les utiliser ? </p>
 <p>Reprenons par exemple nos fichiers d'hôtes ou nous définissons la clé <code class="code-inline" id="0897acf49c7c1ea9f76efe59187aa046">hostname</code>, on peut constater que celle-ci dispose d'une partie qui reprend le contenu de la clé <code class="code-inline" id="9a8c2b9d518bc163e99611fbacea63b2">stage</code> définie au niveau du groupe.
@@ -708,6 +708,42 @@ On pourra utiliser différents opérateurs parmi les suivants:</p>
 <li><a href="http://jinja.pocoo.org/docs/templates/#logic" target="_blank">http://jinja.pocoo.org/docs/templates/#logic</a></li>
 <li><a href="http://jinja.pocoo.org/docs/templates/#other-operators" target="_blank">http://jinja.pocoo.org/docs/templates/#other-operators</a></li>
 </ul>
+<p><strong>Application pratique :</strong> Nous allons <strong>conditionner l'exécution</strong> de la partie PHP, on peut en effet imaginer avoir des serveurs web ne servant que du contenu statique et qui n'auront donc pas forcément besoin de PHP.</p>
+<p>Modifions nos deux tâches concernant PHP comme suit (pour rappel dans <code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code>): </p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="b5541c0d7279e17a62d87ec0fb935224"><span class="token punctuation">...</span>
+    <span class="token comment"># PHP</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install PHP<span class="token punctuation">-</span>FPM service
+      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> php<span class="token punctuation">-</span>fpm
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> present
+      <span class="token key atrule">when</span><span class="token punctuation">:</span> php.enabled
+      <span class="token key atrule">tags</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> php
+        <span class="token punctuation">-</span> installation
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> PHP<span class="token punctuation">-</span>FPM <span class="token punctuation">&gt;</span> Configuration
+      <span class="token key atrule">ansible.builtin.template</span><span class="token punctuation">:</span>
+        <span class="token key atrule">src</span><span class="token punctuation">:</span> <span class="token string">"php/app.ini.j2"</span>
+        <span class="token key atrule">dest</span><span class="token punctuation">:</span> <span class="token string">"/etc/php/8.2/fpm/conf.d/app.ini"</span>    
+      <span class="token key atrule">notify</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> restart_php<span class="token punctuation">-</span>fpm
+      <span class="token key atrule">when</span><span class="token punctuation">:</span> php.enabled
+      <span class="token key atrule">tags</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> php
+        <span class="token punctuation">-</span> configuration
+<span class="token punctuation">...</span></code></pre>
+<p>Et notre fichier de variables de groupe <code class="code-inline" id="df33094f7c05bf883eef62337ffaedd0">group_vars/webservers.yml</code>:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="70c73fb27a0073872a44b61639666e59"><span class="token key atrule">php</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token punctuation">...</span></code></pre>
+<p>En jouant sur l'état de notre variable <code class="code-inline" id="9717cf7a4f6a3d6ddcb8e2b644e2ab10">php.enabled</code> nous pouvons donc activer / désactiver l'exécution de nos tâches PHP ce qui donnera: </p>
+<figure>
+    <img src="/rix/pr/127/resized/content/images/blog/2024/cours/ansible/ansible-variables/ansible-playbook-conditionnal.png/b88e67b7f711496c8e8d9a298509cf79.png" srcset="/rix/pr/127/resized/content/images/blog/2024/cours/ansible/ansible-variables/ansible-playbook-conditionnal.png/b88e67b7f711496c8e8d9a298509cf79.png 1x,
+/rix/pr/127/resized/content/images/blog/2024/cours/ansible/ansible-variables/ansible-playbook-conditionnal.png/e934573fed71f6be66df931f294b09cc.png 2x," id="b88e67b7f711496c8e8d9a298509cf79-png">
+    <figcaption>
+      <span class="figure__legend">Conditionnement d'exécution des tâches.</span>
+    </figcaption>
+</figure>
 <h2 id="point-de-progression" class="anchor-title"><a href="#point-de-progression">Point de progression</a></h2>
 <p>Nous avons à présent entre nos mains la quasi totalité des concepts fondamentaux d'Ansible</p>
 <ul>
@@ -715,7 +751,7 @@ On pourra utiliser différents opérateurs parmi les suivants:</p>
 <li>Utiliser l'<a href="/blog/cours/ansible/ansible-les-inventaires-statiques">inventaire</a>;</li>
 <li>Créer des <a href="/blog/cours/ansible/ansible-les-playbooks">playbooks</a>.</li>
 </ul>
-<p>La prochaine étape sera orienté sur la réutilisation, l'optimisation et la structuration de ces concepts en introduisant la notion de <strong>roles/collections</strong>.</p>
+<p>La prochaine étape sera orientée sur la réutilisation, l'optimisation et la structuration de ces concepts en introduisant la notion de <strong>roles/collections</strong>.</p>
 <ul>
 <li><a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#assigning-a-variable-to-one-machine-host-variables" target="_blank">https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#assigning-a-variable-to-one-machine-host-variables</a></li>
 <li><a href="https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#assigning-a-variable-to-many-machines-group-variables" target="_blank">https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#assigning-a-variable-to-many-machines-group-variables</a></li>
