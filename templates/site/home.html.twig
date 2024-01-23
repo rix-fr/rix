@@ -4,6 +4,8 @@
 {% set interval = date('now').diff(date(site.xpDate)) %}
 
 {% block meta_title site.title %}
+{% block meta_keywords "Prestataire hébergement, Infogérance, Devops, performance, cloud, sécurité" %}
+
 {% block meta_description "Bienvenue chez Rix ! Une équipe de SRE/DevOps qui conçoit, infogère et supervise des infrastructures résilientes, il parait même qu'on accompagne les équipes applicatives pour les mettre dans les meilleurs conditions ;)."|format(interval.y) %}
 
 {% block meta %}
@@ -19,10 +21,8 @@
             <h1>Infrastructures <strong>sur-mesure</strong> et SRE*.</h1>
             <p><i>* Site Reliability Engineering</i><p>
 
-            <p>Grâce à nos cultures DevOps et SecOps, nous assurons le dialogue avec les équipes techniques afin d'apporter notre expertise dans l'analyse des comportements des applications web.</p>
-            <p>Grâce à nos cultures DevOps et SecOps, nous assurons le dialogue avec les équipes techniques afin d'apporter notre expertise dans l'analyse des comportements des applications web.</p>
-
-            <p>Nous intervenons comme support des équipes de développement en tant que SRE (Site Reliability Engineering).</p>
+            <p>Nous assurons l'hébergement, l'infogérance et la supervision active d'infrastructures applicatives à contraintes (résilience, disponibilité...).</p>
+            <p>Grâce à nos cultures <strong>DevOps</strong> et <strong>SecOps</strong>, nous assurons le dialogue avec les équipes applicatives afin d'apporter notre expertise dans l'analyse des comportements des applications web en tant que <strong>SRE (Site Reliability Engineering)</strong> as a Service.</p>
             <p><strong>L'objectif ?</strong> Apporter un maximum d'informations qualifiées à vos équipes pour piloter au mieux vos applications.</p>
 
             <p>Cerise sur le gâteau, Rix est <strong>agréé <a target="_blank" href="https://www.entreprises.gouv.fr/fr/entrepreneuriat/aides-et-financement/credit-d-impot-innovation">CII</a></strong></p>
@@ -78,9 +78,9 @@
                 <section class="home-services">
                     <h2 class="h2--large">
                         <span>Nos services</span>
-                        Apporter un maximum de valeur aux équipes techniques.
+                        Apporter un maximum de valeur aux équipes applicatives.
                     </h2>
-                    <p>Nous accompagnons vos équipes dans la mise en place de la culture et des outils orientés Ops en nous appuyant sur notre expérience de plus de <strong>15 ans d'exploitation</strong> d'applications web.</p>
+                    <p>Nous accompagnons vos équipes dans la mise en place de la culture DevOps et d'outils d'observabilité en nous appuyant sur notre expérience de plus de <strong>15 ans d'exploitation</strong> d'applications web.</p>
 
                     <div class="services-list">
                         <div class="services-list__title">
@@ -95,7 +95,7 @@
                                     <img src="{{ asset('build/images/services/consulting.svg') }}" alt="">
                                     <h4>Accompagnement et outillage DevOps</h4>
                                     <p>Mise à disposition d'outils et transmission de la culture DevOps aux équipes techniques afin de faciliter leur quotidien.</p>
-                                    <p>Aide au diagnostique en cas de problèmes applicatifs complexes et conseil pour la résolution.</p>
+                                    <p>Aide au diagnostique en cas de problèmes applicatifs complexes et accompagnement lors de sa résolution.</p>
                                     <span class="sliding-button sliding-button--mobile">
                                         <span class="sliding-button__content">
                                             <i class="icon icon--arrow-right" aria-hidden="true"></i>
@@ -108,7 +108,8 @@
                                 <a href="{{ path('services', { _fragment: 'performances_diagnostique' }) }}">
                                     <img src="{{ asset('build/images/services/performance.svg') }}" alt="">
                                     <h4>Performances et diagnostique</h4>
-                                    <p>Mesure de performances, tirs de charge, estimation des capacités d'une infrastructure. Mise au point de <strong>PRA</strong> et <strong>PCA</strong>.</p>
+                                    <p>Mesure de performances, tirs de charge, estimation des capacités d'une infrastructure.</p>
+                                    <p>Nous vous accompagnons durant les différentes étapes nécessaires à la mise au point de vos <strong>PRA</strong> et <strong>PCA</strong>.</p>
                                     <span class="sliding-button">
                                         <span class="sliding-button__content">
                                             <i class="icon icon--arrow-right" aria-hidden="true"></i>
@@ -137,7 +138,7 @@
                         <div class="services-list__title">
                             <h3>
                                 <span>Services</span>
-                                Infrastructure
+                                Hébergement et infogérance cloud
                             </h3>
                         </div>
                         <ul>
@@ -164,6 +165,7 @@
                                     <img src="{{ asset('build/images/services/cloud.svg') }}" alt="">
                                     <h4>Expertise Kubernetes</h4>
                                     <p>Conception et mise en oeuvre avec vos équipes <strong>(c'est important;))</strong> de cluster Kubernetes. Stratégies de déploiement, supervision... </p>
+                                    <p>Nous prenons soin d'auditer votre applicatif afin de déterminer si Kubernetes est <strong>la bonne solution</strong> pour vous.</p>
                                     <span class="sliding-button sliding-button--large sliding-button--replaced">
                                         <img src="{{ asset('build/images/services/ovh-cloud.svg') }}" alt="OVH Cloud">
                                         <img src="{{ asset('build/images/services/scaleway.svg') }}" alt="Scaleway">
@@ -214,7 +216,7 @@
                     <li class="detection">
                         <img src="{{ asset('build/images/home/ecosystem/detection.svg') }}" alt="">
                         <h4>Détection</h4>
-                        <p>Système de supervision permettant d'anticiper au maximum de potentiels incidents.</p>
+                        <p>Système de supervision permettant d'anticiper et de résoudre les potentiels incidents.</p>
                     </li>
                     <li class="automation">
                         <img src="{{ asset('build/images/home/ecosystem/automation.svg') }}" alt="">
@@ -230,6 +232,7 @@
                         <img src="{{ asset('build/images/home/ecosystem/backup.svg') }}" alt="">
                         <h4>Sauvegarde</h4>
                         <p>Mise en sûreté de vos données, avec réplication et chiffrement.</p>
+                        <p>Stratégie, tests et anonymisation.</p>
                     </li>
                 </ul>
             </div>
