@@ -4,8 +4,8 @@ twig:
     globals:
         forceNoIndex: "%env(bool:APP_FORCE_NO_INDEX)%"
         site:
-            title: "Rix 🐺 - Expertise & solutions devops sur-mesure"
-            description: "Rix - Conception d'infrastructures web sur-mesure orientées DevOps - Expertise et outillage Devops"
+            title: "Rix - Experts en infrastructures résilientes et supervisées à Lyon."
+            description: "Rix infrastructures web sur-mesure orientées DevOps - SRE - Hébergement et infogérance cloud à Lyon."
             birthdate: 03/31/2020 # Date de création de Rix
             xpDate: 01/01/2006 # Date d'expertise Rix (en tant que Elao)
             contact:

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{% block meta_locale app.request.locale %}" class="no-js">
+<html lang="{% block meta_locale app.request.locale %}" prefix="og: http://ogp.me/ns#" class="no-js">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
         <meta name="theme-color" content="#ffffff">
 
         {% block meta %}
-            <meta name="description" content="{% block meta_description site.description %}" />
+            <meta name="description" content="Rix est une agence indépendante, spécialisée dans l'exploitation d'infrastructures résilientes et la mise à disposition d'équipe SRE/DevOps." />
             <link rel="canonical" href="{{ app.request.uri }}" />
 
             <!-- Open Graph / Facebook -->
@@ -37,7 +37,7 @@
             {% if og_image|default(false) %}
                 <meta property="og:image" content="{{ og_image }}">
             {% endif %}
-            {% set og_image_alt %}{% block og_image_alt %}Rix - Expertise et outillage DevOps{% endblock %}{% endset %}
+            {% set og_image_alt %}{% block og_image_alt %}Rix - SRE & DevOps - Experts en hébergement applicatif et supervision d'infrastructures.{% endblock %}{% endset %}
             {% if og_image_alt|default(false) %}
                 <meta property="og:image:alt" content="{{ og_image_alt }}">
             {% endif %}

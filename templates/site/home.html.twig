@@ -3,8 +3,8 @@
 
 {% set interval = date('now').diff(date(site.xpDate)) %}
 
-{% block meta_title "Rix 🐺 - Expertise Kubernetes & SRE" %}
-{% block meta_description "Rix concepteurs d'infrastructures résilientes depuis plus de %d ans par des expert·e·s passionné·e·s, spécialistes Kubernetes et des environnements à fortes contraintes techniques."|format(interval.y) %}
+{% block meta_title site.title %}
+{% block meta_description "Bienvenue chez Rix ! Une équipe de SRE/DevOps qui conçoit, infogère et supervise des infrastructures résilientes, il parait même qu'on accompagne les équipes applicatives pour les mettre dans les meilleurs conditions ;)."|format(interval.y) %}
 
 {% block meta %}
     {{ parent() }}
@@ -20,6 +20,8 @@
             <p><i>* Site Reliability Engineering</i><p>
 
             <p>Grâce à nos cultures DevOps et SecOps, nous assurons le dialogue avec les équipes techniques afin d'apporter notre expertise dans l'analyse des comportements des applications web.</p>
+            <p>Grâce à nos cultures DevOps et SecOps, nous assurons le dialogue avec les équipes techniques afin d'apporter notre expertise dans l'analyse des comportements des applications web.</p>
+
             <p>Nous intervenons comme support des équipes de développement en tant que SRE (Site Reliability Engineering).</p>
             <p><strong>L'objectif ?</strong> Apporter un maximum d'informations qualifiées à vos équipes pour piloter au mieux vos applications.</p>
 
