@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{% block meta_locale app.request.locale %}" class="no-js">
+<html lang="{% block meta_locale app.request.locale %}" prefix="og: http://ogp.me/ns#" class="no-js">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +12,7 @@
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
         <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+        <link rel="dns-prefetch" href="https://www.rix.fr/">
         {#<link rel="mask-icon" href="{{ asset('safari-pinned-tab.svg') }}" color="#ff4344">#}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
         <meta name="msapplication-TileColor" content="#ff4344">
@@ -19,7 +20,9 @@
         <meta name="theme-color" content="#ffffff">
 
         {% block meta %}
-            <meta name="description" content="{% block meta_description site.description %}" />
+            <meta name="description" content="Rix est une agence indépendante, spécialisée dans l'exploitation d'infrastructures cloud résilientes et la mise à disposition d'équipe SRE/DevOps." />
+            <meta name="keywords" content="{% block meta_keywords "DevOps, SecOps, SRE, Kubernetes, Cloud, Infogérance" %}" />
+
             <link rel="canonical" href="{{ app.request.uri }}" />
 
             <!-- Open Graph / Facebook -->
@@ -37,7 +40,7 @@
             {% if og_image|default(false) %}
                 <meta property="og:image" content="{{ og_image }}">
             {% endif %}
-            {% set og_image_alt %}{% block og_image_alt %}Rix - Expertise et outillage DevOps{% endblock %}{% endset %}
+            {% set og_image_alt %}{% block og_image_alt %}Rix - SRE & DevOps - Experts en hébergement applicatif et supervision d'infrastructures cloud.{% endblock %}{% endset %}
             {% if og_image_alt|default(false) %}
                 <meta property="og:image:alt" content="{{ og_image_alt }}">
             {% endif %}
