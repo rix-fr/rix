@@ -2,7 +2,7 @@
 type:               "post"
 title:              "Ansible - Les playbooks"
 date:               "2023-12-05"
-lastModified:       ~
+lastModified:       "2024-01-22"
 tableOfContent:     true
 description:        "Découverte des playbooks, élément essentiel d'Ansible qui va nous permettre d'organiser et structurer nos tâches !"
 thumbnail:          "content/images/blog/thumbnails/ansible-playbooks.jpg"
@@ -24,7 +24,7 @@ Disposer d'un **environnement de travail Ansible fonctionnel**, si ça n'est pas
 
 ## Introduction
 
-Un playbook Ansible est un élément **central** pour Ansible puisque c'est dans ce fichier de configuration (écrit en YAML toujours), que l'on va organiser et indiquer quelles actions nous souhaitons déclencher à Ansible. 
+Un playbook est un élément **central** pour Ansible puisque c'est dans ce fichier de configuration (écrit en YAML toujours), que l'on va organiser et indiquer quelles actions nous souhaitons déclencher. 
 
 Les playbooks décrivent des « tâches » à exécuter sur des groupes de machines identifiés dans [les inventaires](/blog/cours/ansible/ansible-les-inventaires-statiques), ils sont écrits à l'aide du format [YAML](https://yaml.org/).
 
@@ -50,7 +50,7 @@ Créons un nouveau fichier que nous appellerons `example.yml` dans notre répert
 
 La structure YAML permet une compréhension relativement aisée du contenu, on identifiera ainsi:
 
-- Une clé principale appelée `hosts` permettant de définir les « hôtes » ou plutôt les machines concernées par les tâches qui vont suivre (identifiées par leur groupe d'appartenance);
+- Une clé principale appelée `hosts` permettant de définir les « hôtes », les machines concernées par les tâches qui vont suivre (identifiées par leur groupe d'appartenance);
 - Une clé `tasks` permettant de définir les différentes « tâches » ou actions que nous souhaitons déclencher sur nos machines.
 
 **Un bloc ainsi défini est appelé un « play »**.
@@ -170,11 +170,11 @@ Vous devriez, en jouant votre playbook (`ansible-playbook example.yml -i invento
     </figcaption>
 </figure>
 
-À la différence de nos premières tâches, l'utilisation du module `shell` a entrainé une modification de l'état des deux serveurs membres du groupe `webservers` qu'ansible nous confirme à l'aide de son retour `changed`.
+À la différence de nos premières tâches, l'utilisation du module `shell` a entrainé une modification de l'état des deux serveurs membres du groupe `webservers` qu'Ansible nous confirme à l'aide de son retour `changed`.
 
 ### Visualiser les machines ciblées
 
-Lorsque l'on dispose de playbook assez longs, il peut-être intérressant de vérifier la liste des hôtes concernés, c'est faisable à l'aide de la commande `ansible-playbook example.yml -i inventories --list-host`.
+Lorsque l'on dispose de playbook assez longs, il peut-être intéressant de vérifier la liste des hôtes concernés, c'est faisable à l'aide de la commande `ansible-playbook example.yml -i inventories --list-host`.
 
 <figure>
     <img src="content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-list-host.gif">
@@ -307,14 +307,41 @@ Et exécutons le, nous devrions obtenir la sortie suivante:
     </figcaption>
 </figure>
 
-Où l'on constate qu'effectivement la première tâche exécutée est notre mise à jour d'index de paquets (nous parlerons plus en détails de la tâche « Gathering facts » lorsque nous aborderons les **variables**)
+Où l'on constate qu'effectivement la première tâche exécutée est notre mise à jour d'index de paquets (nous parlerons plus en détails de la tâche « [**Gathering facts**](/blog/cours/ansible/ansible-les-variables/) » lorsque nous aborderons les **variables**)
 
-Nous ne détaillerons pas la section `post_tasks` puisqu'elle fonctionne exactement de la même manière.
+Nous ne détaillerons pas la section `post_tasks` puisqu'elle fonctionne exactement de la même manière, toutefois nous pouvons **enrichir notre playbook** avec de nouvelles instructions concernant nos instances de bases de données.
+
+**Pour cela nous avons plusieurs options:**
+
+- Soit tout concentrer dans notre playbook `webservers.yml`, mais l'on pourra faire remarquer à raison, que le nom du fichier n'est plus en adéquation avec son contenu;
+- Soit créer un nouveau playbook dédié aux instances de bases de données `dbservers.yml`.
+
+Nous nous orienterons pour l'exemple, sur cette seconde option, nous créerons donc un fichier `dbservers.yml` à la racine de notre répertoire de travail dont le contenu ressemblera beaucoup à celui de `webservers.yml`.
+
+```yaml
+- hosts: dbservers
+
+  pre_tasks:
+    - name: Updating APT cache index
+      ansible.builtin.apt:
+        update_cache: yes
+
+  tasks:
+    # MARIADB
+    - name: Install MariaDB server
+      ansible.builtin.apt:
+        name: mariadb-server
+        state: present
+      notify:
+          - restart_mariadb
+```
+
+Notre nouveau playbook est bien evidemment « jouable » à l'aide de la commande `ansible-playbook dbservers.yml -i inventories`.
 
 #### Les handlers
 
 Bien, reprenons notre exemple d'installation d'Nginx, nous avons un paquet « tout neuf » auquel nous n'avons apporté aucune configuration pour l'instant. 
-Imaginons à présent que nous souhaitons ajouter un fichier de configuration spécifique pour notre serveur web, pour notre exemple nous mettrons en place un fichier qui nous renvoie simplement un « état » de notre serveur Nginx.
+Imaginons à présent que nous souhaitions ajouter un fichier de configuration spécifique pour notre serveur web, pour notre exemple nous mettrons en place un fichier qui nous renvoie simplement un « état » de notre serveur Nginx.
 
 En premier lieu nous allons créer un nouveau **répertoire** appelé `files` à la racine de notre espace de travail lui même contenant un **répertoire** `nginx` (histoire d'organiser un minimum les choses) dans lequel nous ajouterons le fichier `status.conf` contenant:
 
@@ -363,7 +390,7 @@ Pour terminer nous pouvons vérifier que notre configuration fonctionne bien en 
 En l'état actuel vous devriez avoir pour toute réponse une **page blanche**, en effet bien que notre fichier de configuration ait été déposé sur le serveur, Nginx ne le prend pas encore en compte car le service n'a pas été **redémarré**.
 C'est là qu'entre en jeu **les handlers** !
 
-Les handlers sont des tâches un peu particulières qui ne se déclenche que lorsqu'elle sont **notifiées**. 
+Les handlers sont des tâches un peu particulières qui ne se déclenchent que lorsqu'elles sont **notifiées**. 
 Complétons notre playbook de manière à obtenir la configuration suivante:
 
 ```yaml
@@ -407,7 +434,8 @@ Vous devriez également pouvoir constater l'exécution du handler sur la sortie 
     </figcaption>
 </figure>
 
-**À retenir:** Les actions de type `notify` sont déclenchées **à la fin de chaque bloc de tâches** d'un « play » donné, elles ne le sont bien évidemment **qu'une seule fois** même si elles sont appelé plusieurs fois.
+!!! info "La directive « Notify »"
+    Les actions de type `notify` sont déclenchées **à la fin de chaque bloc de tâches** d'un « play » donné, elles ne le sont bien évidemment **qu'une seule fois** même si elles sont appelée plusieurs fois.
 
 Il est également possible d'ajouter à un handler une clé `listen` comme ci-dessous, celle-ci indiquant au handler « d'écouter » un thème spécifique permettant de regrouper plusieurs « handlers ».
 
@@ -426,13 +454,180 @@ Il est également possible d'ajouter à un handler une clé `listen` comme ci-de
     listen: restart_http_stack
 ```
 
+#### Les instructions import... et export...
+
+Vous l'aurez compris, si l'on conserve l'ensemble de nos instructions dans un seul playbook celui-ci peut rapidemnent devenir **volumineux et difficile** à maintenir. Pour autant séparer nos instructions dans des playbooks dédiés conduit invariablement à dupliquer certains blocs d'instructions ce qui n'est pas non plus l'idéal, fort heureusement il est possible de résoudre ces problématiques de manière élégante en utilisant différentes instructions préfixées `import_` et `export_`.
+
+**Avant de réorganiser nos travaux il est important de bien comprendre la différence entre les deux:**
+
+- Les instructions de type `import_*` sont « pré-traitées » au moment où les playbooks sont parcourus et donc avant leur exécution;
+- Les instructions de type `export_*` sont traitées au moment où elles sont rencontrées durant l'exécution. 
+
+**Réorganisons à présent nos playbooks en tenant compte de cette nouvelle information:**
+
+- L'instruction de mise à jour de notre index APT dans notre `pre_tasks` peut-être considérée comme **une tâche commune** à l'ensemble des machines;
+- Il est intéressant de pouvoir « jouer » de manière indépendante les deux playbooks `webservers.yml` et `dbservers.yml` mais il peut aussi être « sympa » de pouvoir **les appeler de manière groupée**;
+- Les handlers pourront être potentiellement notifiés de manière transverse par de futures tâches de configuration.
+
+Nous déplacerons donc nos tâches « communes » dans un playbook dédié `common.yml` qui contiendra donc:
+
+```yaml
+- name: Updating APT cache index
+  ansible.builtin.apt:
+    update_cache: yes
+```
+
+Nous supprimerons bien évidemment des playbooks `webservers.yml` et `dbservers.yml` les instructions correspondantes.
+
+Nos handlers eux, finiront dans un nouveau playbook `handlers.yml` comme ci-dessous:
+
+```yaml
+- name: restart_nginx
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+- name: restart_mariadb
+  ansible.builtin.service:
+    name: mariadb
+    state: restarted
+```
+
+Quant à nos deux playbooks principaux nous les modifierons légèrement en y ajoutant:
+
+- l'inclusion des pre_tasks (`common.yml`);
+- l'inclusion des handlers (`handlers.yml`);
+- un playbook « global » afin de les déclencher.
+
+**Respectivement:**
+
+```yaml
+---
+- hosts: webservers
+
+  pre_tasks:
+    - ansible.builtin.import_tasks: common.yml
+    
+  tasks:
+    # NGINX
+    - name: Install Nginx web server
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+      
+    - name: Nginx status configuration file
+      ansible.builtin.copy:
+        src: nginx/status.conf
+        dest: /etc/nginx/conf.d/status.conf
+      notify:
+          - restart_nginx
+ 
+  handlers:
+    - ansible.builtin.include_tasks: handlers.yml
+```
+
+```yaml
+---
+- hosts: dbservers
+
+  pre_tasks:
+    - ansible.builtin.import_tasks: common.yml
+
+  tasks:
+    # NGINX
+    - name: Install MariaDB server
+      ansible.builtin.apt:
+        name: mariadb-server
+        state: present
+
+  handlers:
+    - ansible.builtin.include_tasks: handlers.yml
+```
+
+Nous créerons enfin pour terminer un dernier playbook `main.yml` contenant:
+
+```yaml
+- ansible.builtin.import_playbook: webservers.yml
+- ansible.builtin.import_playbook: dbservers.yml
+```
+
+Nous pouvons à présent jouer l'ensemble avec la commande: `ansible-playbook main.yml -i inventories` !
+
+
+### Taguer ses tâches
+
+Nous venons de voir la possibilité de « diviser pour réorganiser » nos tâches, mais il existe également la possibilité de « taguer » nos tâches de manière à les déclencher de manière **ciblée**, ouvrant également la possibilité de les exécuter de façons transverses si celles-ci appartiennent à plusieurs playbooks différents. 
+
+Nous verrons qu'ils sont **très utiles voir indispensables** dès lorsque nous aurons abordé la notion de **roles**.
+
+Reprenons notre exemple précédent où nous disposons de deux playbooks principaux distincts `webservers.yml` et `dbservers.yml` nous les modifierons de façon à « taguer » nos différentes tâches comme ci-après:
+
+**Webservers:**
+
+```yaml
+...
+  tasks:
+    # NGINX
+    - name: Install Nginx web server
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+      tags:
+        - nginx
+        - installation
+      
+    - name: Nginx status configuration file
+      ansible.builtin.copy:
+        src: nginx/status.conf
+        dest: /etc/nginx/conf.d/status.conf
+      notify:
+          - restart_nginx
+      tags:
+        - nginx
+        - configuration
+...
+```
+
+**Dbservers:**
+
+```yaml
+...
+  tasks:
+    # NGINX
+    - name: Install MariaDB server
+      ansible.builtin.apt:
+        name: mariadb-server
+        state: present
+      tags:
+        - db
+...
+```
+
+#### Utilisation
+
+Maintenant que nos tags sont définis nous sommes en capacité de les exploiter en ajoutant l'option `--tags` à notre exécution ce qui nous donnera par exemple: 
+- `ansible-playbook main.yml -i inventories --tags "nginx,db"`.
+
+Il est également possible d'ignorer certains tags avec l'option `--skip-tags`: 
+- `ansible-playbook main.yml -i inventories --skip-tags db`.
+
+#### Les tags never and always 
+
+Ansible dans son fonctionnement, prévoit **des tags réservés**:
+
+- `always`, permet de systématiquement jouer une tâche **sauf** lorsqu'elle est explicitement exclue à l'aide de l'option `--skip-tags`;
+- `never` à l'inverse, permettra de ne **jamais jouer les tâches concernées à moins de le spécifier explicitement** à l'aide le l'option `--tags`.
+
+
+!!! info "La tâche « Gathering facts »"
+    La tâche « Gathering fact » porte le tag « always » par défaut qui lui permet d'être jouée systématiquement, il est donc possible d'ignorer cette tâche via les options vues ci-dessus. Toutefois son absence peut entrainer un mauvais fonctionnement (voir une erreur) des différentes tâches devant être exécutées à sa suite.
+
 ## Point de progression
 
 **Nous savons à présent gérer:**
 
 - L'installation d'un [environnement Ansible](/blog/cours/ansible/ansible-environnement-cle-en-main);
-- Utiliser l'inventaire
-- Créer des playbooks
+- Utiliser l'[inventaire](/blog/cours/ansible/ansible-les-inventaires-statiques);
+- Créer des playbooks.
 
 Nous pouvons toutefois encore apporter un peu de **dynamisme** à ces premières notions par l'introduction de [variables](/blog/cours/ansible/ansible-les-variables) dont nous parlerons dans la suite.
 
@@ -443,3 +638,5 @@ Nous pouvons toutefois encore apporter un peu de **dynamisme** à ces premières
 - https://yaml.org/spec/1.2.2/#912-document-markers
 - https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_privilege_escalation.html
 - https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html#handlers
+- https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_tags.html
+
