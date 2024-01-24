@@ -46,7 +46,7 @@
         "https://rix-fr.github.io/rix/blog/cours/ansible/content/images/blog/thumbnails/ansible-playbooks.jpg"
     ],
     "datePublished": "5 décembre 2023",
-    "dateModified": "5 décembre 2023",
+    "dateModified": "22 janvier 2024",
     "author": [
         {
             "@type": "Person",
@@ -257,6 +257,9 @@
                                                                                             <li>
                                                     <a href="#organiser-ses-taches">Organiser ses tâches</a>
                                                 </li>
+                                                                                            <li>
+                                                    <a href="#taguer-ses-taches">Taguer ses tâches</a>
+                                                </li>
                                                                                     </ol>
                                                                     </li>
                                                             <li class="table-of-contents__item">
@@ -283,7 +286,8 @@
                             </div>
                                                 <div class="article-info__date">
                             <span>Publication <strong>5 décembre 2023</strong></span>
-                                                                                </div>
+                                                                                        <span>Modification <strong>22 janvier 2024</strong></span>
+                                                    </div>
                     </div>
                 </div>
                 <main>
@@ -294,7 +298,7 @@ Bien que très axé débutants il peut également représenté une possibilité 
 <h2 id="pre-requis" class="anchor-title"><a href="#pre-requis">Pré-requis</a></h2>
 <p>Disposer d'un <strong>environnement de travail Ansible fonctionnel</strong>, si ça n'est pas encore le cas vous pouvez jeter un oeil <a href="/blog/cours/ansible/ansible-premiers-pas">ici</a> !</p>
 <h2 id="introduction" class="anchor-title"><a href="#introduction">Introduction</a></h2>
-<p>Un playbook Ansible est un élément <strong>central</strong> pour Ansible puisque c'est dans ce fichier de configuration (écrit en YAML toujours), que l'on va organiser et indiquer quelles actions nous souhaitons déclencher à Ansible. </p>
+<p>Un playbook est un élément <strong>central</strong> pour Ansible puisque c'est dans ce fichier de configuration (écrit en YAML toujours), que l'on va organiser et indiquer quelles actions nous souhaitons déclencher. </p>
 <p>Les playbooks décrivent des « tâches » à exécuter sur des groupes de machines identifiés dans <a href="/blog/cours/ansible/ansible-les-inventaires-statiques">les inventaires</a>, ils sont écrits à l'aide du format <a href="https://yaml.org/" target="_blank">YAML</a>.</p>
 <div class="admonition info">
 <p class="admonition-title">La syntaxe Yaml</p>
@@ -314,7 +318,7 @@ Bien que très axé débutants il peut également représenté une possibilité 
       <span class="token key atrule">ansible.builtin.ping</span><span class="token punctuation">:</span> <span class="token null important">~</span></code></pre>
 <p>La structure YAML permet une compréhension relativement aisée du contenu, on identifiera ainsi:</p>
 <ul>
-<li>Une clé principale appelée <code class="code-inline" id="85cf4e6d42a71e693fd780c8b29accdd">hosts</code> permettant de définir les « hôtes » ou plutôt les machines concernées par les tâches qui vont suivre (identifiées par leur groupe d'appartenance);</li>
+<li>Une clé principale appelée <code class="code-inline" id="85cf4e6d42a71e693fd780c8b29accdd">hosts</code> permettant de définir les « hôtes », les machines concernées par les tâches qui vont suivre (identifiées par leur groupe d'appartenance);</li>
 <li>Une clé <code class="code-inline" id="2cb1ad4f3eb0ea704c74a73689ad1654">tasks</code> permettant de définir les différentes « tâches » ou actions que nous souhaitons déclencher sur nos machines.</li>
 </ul>
 <p><strong>Un bloc ainsi défini est appelé un « play »</strong>.</p>
@@ -425,9 +429,9 @@ Bien que très axé débutants il peut également représenté une possibilité 
       <span class="figure__legend">Playbook contenant deux « plays » et plusieurs « tasks ».</span>
     </figcaption>
 </figure>
-<p>À la différence de nos premières tâches, l'utilisation du module <code class="code-inline" id="2591c98b70119fe624898b1e424b5e91">shell</code> a entrainé une modification de l'état des deux serveurs membres du groupe <code class="code-inline" id="09c2ea6bb9250e08e7dd4d3e48358c1c">webservers</code> qu'ansible nous confirme à l'aide de son retour <code class="code-inline" id="8977dfac2f8e04cb96e66882235f5aba">changed</code>.</p>
+<p>À la différence de nos premières tâches, l'utilisation du module <code class="code-inline" id="2591c98b70119fe624898b1e424b5e91">shell</code> a entrainé une modification de l'état des deux serveurs membres du groupe <code class="code-inline" id="09c2ea6bb9250e08e7dd4d3e48358c1c">webservers</code> qu'Ansible nous confirme à l'aide de son retour <code class="code-inline" id="8977dfac2f8e04cb96e66882235f5aba">changed</code>.</p>
 <h3 id="visualiser-les-machines-ciblees" class="anchor-title"><a href="#visualiser-les-machines-ciblees">Visualiser les machines ciblées</a></h3>
-<p>Lorsque l'on dispose de playbook assez longs, il peut-être intérressant de vérifier la liste des hôtes concernés, c'est faisable à l'aide de la commande <code class="code-inline" id="21030b1bc68fb02a94414f4458e99f08">ansible-playbook example.yml -i inventories --list-host</code>.</p>
+<p>Lorsque l'on dispose de playbook assez longs, il peut-être intéressant de vérifier la liste des hôtes concernés, c'est faisable à l'aide de la commande <code class="code-inline" id="21030b1bc68fb02a94414f4458e99f08">ansible-playbook example.yml -i inventories --list-host</code>.</p>
 <figure>
     <img src="/rix/resized/content/images/blog/2023/ansible/ansible-playbook/ansible-playbook-list-host.gif/3380753e5b694ee86c4d72d157c09c79.gif" id="3380753e5b694ee86c4d72d157c09c79-gif">
     <figcaption>
@@ -529,11 +533,33 @@ Le but de chacune de ces tâches est d'exécuter un module (nous en avons déjà
       <span class="figure__legend">Exécution d'une pre-task.</span>
     </figcaption>
 </figure>
-<p>Où l'on constate qu'effectivement la première tâche exécutée est notre mise à jour d'index de paquets (nous parlerons plus en détails de la tâche « Gathering facts » lorsque nous aborderons les <strong>variables</strong>)</p>
-<p>Nous ne détaillerons pas la section <code class="code-inline" id="122262e3bc2b18846d6367493be122dc">post_tasks</code> puisqu'elle fonctionne exactement de la même manière.</p>
+<p>Où l'on constate qu'effectivement la première tâche exécutée est notre mise à jour d'index de paquets (nous parlerons plus en détails de la tâche « <a href="/blog/cours/ansible/ansible-les-variables/"><strong>Gathering facts</strong></a> » lorsque nous aborderons les <strong>variables</strong>)</p>
+<p>Nous ne détaillerons pas la section <code class="code-inline" id="122262e3bc2b18846d6367493be122dc">post_tasks</code> puisqu'elle fonctionne exactement de la même manière, toutefois nous pouvons <strong>enrichir notre playbook</strong> avec de nouvelles instructions concernant nos instances de bases de données.</p>
+<p><strong>Pour cela nous avons plusieurs options:</strong></p>
+<ul>
+<li>Soit tout concentrer dans notre playbook <code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code>, mais l'on pourra faire remarquer à raison, que le nom du fichier n'est plus en adéquation avec son contenu;</li>
+<li>Soit créer un nouveau playbook dédié aux instances de bases de données <code class="code-inline" id="5e770988217638696ce7e93a56c3da3d">dbservers.yml</code>.</li>
+</ul>
+<p>Nous nous orienterons pour l'exemple, sur cette seconde option, nous créerons donc un fichier <code class="code-inline" id="5e770988217638696ce7e93a56c3da3d">dbservers.yml</code> à la racine de notre répertoire de travail dont le contenu ressemblera beaucoup à celui de <code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code>.</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="df38da0b2044de0ca8a7d75e8b86d07b"><span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbservers
+
+  <span class="token key atrule">pre_tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Updating APT cache index
+      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+        <span class="token key atrule">update_cache</span><span class="token punctuation">:</span> yes
+
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token comment"># MARIADB</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install MariaDB server
+      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> mariadb<span class="token punctuation">-</span>server
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> present
+      <span class="token key atrule">notify</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> restart_mariadb</code></pre>
+<p>Notre nouveau playbook est bien evidemment « jouable » à l'aide de la commande <code class="code-inline" id="8ee9161eaa245fd21d6887f8a5e0cd4b">ansible-playbook dbservers.yml -i inventories</code>.</p>
 <h4 id="les-handlers" class="anchor-title"><a href="#les-handlers">Les handlers</a></h4>
 <p>Bien, reprenons notre exemple d'installation d'Nginx, nous avons un paquet « tout neuf » auquel nous n'avons apporté aucune configuration pour l'instant.
-Imaginons à présent que nous souhaitons ajouter un fichier de configuration spécifique pour notre serveur web, pour notre exemple nous mettrons en place un fichier qui nous renvoie simplement un « état » de notre serveur Nginx.</p>
+Imaginons à présent que nous souhaitions ajouter un fichier de configuration spécifique pour notre serveur web, pour notre exemple nous mettrons en place un fichier qui nous renvoie simplement un « état » de notre serveur Nginx.</p>
 <p>En premier lieu nous allons créer un nouveau <strong>répertoire</strong> appelé <code class="code-inline" id="45b963397aa40d4a0063e0d85e4fe7a1">files</code> à la racine de notre espace de travail lui même contenant un <strong>répertoire</strong> <code class="code-inline" id="ee434023cf89d7dfb21f63d64f0f9d74">nginx</code> (histoire d'organiser un minimum les choses) dans lequel nous ajouterons le fichier <code class="code-inline" id="617f940792257db3b58a57be6b4a6c50">status.conf</code> contenant:</p>
 <pre class="code-multiline"><code id="18dd76eb1056156c3ae8407bc53c292f">server {
     listen *:8080;
@@ -574,7 +600,7 @@ Pour terminer nous pouvons vérifier que notre configuration fonctionne bien en 
 </div>
 <p>En l'état actuel vous devriez avoir pour toute réponse une <strong>page blanche</strong>, en effet bien que notre fichier de configuration ait été déposé sur le serveur, Nginx ne le prend pas encore en compte car le service n'a pas été <strong>redémarré</strong>.
 C'est là qu'entre en jeu <strong>les handlers</strong> !</p>
-<p>Les handlers sont des tâches un peu particulières qui ne se déclenche que lorsqu'elle sont <strong>notifiées</strong>.
+<p>Les handlers sont des tâches un peu particulières qui ne se déclenchent que lorsqu'elles sont <strong>notifiées</strong>.
 Complétons notre playbook de manière à obtenir la configuration suivante:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="3b435d5d82d9102136cae515e9999b93"><span class="token punctuation">---</span>
 <span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
@@ -611,7 +637,12 @@ Complétons notre playbook de manière à obtenir la configuration suivante:</p>
       <span class="figure__legend">Exécution d'un handler.</span>
     </figcaption>
 </figure>
-<p><strong>À retenir:</strong> Les actions de type <code class="code-inline" id="a4510384236c8e83a0cf3b6d8b987aef">notify</code> sont déclenchées <strong>à la fin de chaque bloc de tâches</strong> d'un « play » donné, elles ne le sont bien évidemment <strong>qu'une seule fois</strong> même si elles sont appelé plusieurs fois.</p>
+<div class="admonition info">
+<p class="admonition-title">La directive « Notify »</p>
+<p>
+    Les actions de type <code class="code-inline" id="a4510384236c8e83a0cf3b6d8b987aef">notify</code> sont déclenchées <strong>à la fin de chaque bloc de tâches</strong> d'un « play » donné, elles ne le sont bien évidemment <strong>qu'une seule fois</strong> même si elles sont appelée plusieurs fois.
+</p>
+</div>
 <p>Il est également possible d'ajouter à un handler une clé <code class="code-inline" id="839d7228b5ccc60e54455093a966b8c2">listen</code> comme ci-dessous, celle-ci indiquant au handler « d'écouter » un thème spécifique permettant de regrouper plusieurs « handlers ».</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="3760a33542300664ae88814a2662ba2f"><span class="token key atrule">handlers</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restart_nginx
@@ -625,12 +656,145 @@ Complétons notre playbook de manière à obtenir la configuration suivante:</p>
         <span class="token key atrule">name</span><span class="token punctuation">:</span> haproxy
         <span class="token key atrule">state</span><span class="token punctuation">:</span> restarted
     <span class="token key atrule">listen</span><span class="token punctuation">:</span> restart_http_stack</code></pre>
+<h4 id="les-instructions-import-et-export" class="anchor-title"><a href="#les-instructions-import-et-export">Les instructions import... et export...</a></h4>
+<p>Vous l'aurez compris, si l'on conserve l'ensemble de nos instructions dans un seul playbook celui-ci peut rapidemnent devenir <strong>volumineux et difficile</strong> à maintenir. Pour autant séparer nos instructions dans des playbooks dédiés conduit invariablement à dupliquer certains blocs d'instructions ce qui n'est pas non plus l'idéal, fort heureusement il est possible de résoudre ces problématiques de manière élégante en utilisant différentes instructions préfixées <code class="code-inline" id="fe8630d1d657e9bb58b1a9260acd93cf">import_</code> et <code class="code-inline" id="0583300c259450db57fd2307fc84a673">export_</code>.</p>
+<p><strong>Avant de réorganiser nos travaux il est important de bien comprendre la différence entre les deux:</strong></p>
+<ul>
+<li>Les instructions de type <code class="code-inline" id="9ec8c49bdcba93e76013a10e3b107b76">import_*</code> sont « pré-traitées » au moment où les playbooks sont parcourus et donc avant leur exécution;</li>
+<li>Les instructions de type <code class="code-inline" id="36d2653a72f06c6cd8c23ef246e0f785">export_*</code> sont traitées au moment où elles sont rencontrées durant l'exécution. </li>
+</ul>
+<p><strong>Réorganisons à présent nos playbooks en tenant compte de cette nouvelle information:</strong></p>
+<ul>
+<li>L'instruction de mise à jour de notre index APT dans notre <code class="code-inline" id="c14192fc9675e5023582b237e885e10d">pre_tasks</code> peut-être considérée comme <strong>une tâche commune</strong> à l'ensemble des machines;</li>
+<li>Il est intéressant de pouvoir « jouer » de manière indépendante les deux playbooks <code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code> et <code class="code-inline" id="5e770988217638696ce7e93a56c3da3d">dbservers.yml</code> mais il peut aussi être « sympa » de pouvoir <strong>les appeler de manière groupée</strong>;</li>
+<li>Les handlers pourront être potentiellement notifiés de manière transverse par de futures tâches de configuration.</li>
+</ul>
+<p>Nous déplacerons donc nos tâches « communes » dans un playbook dédié <code class="code-inline" id="bc4930c33479e166f682f0031e513be6">common.yml</code> qui contiendra donc:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="16ef5ddfb32998c9ae2976567b572137"><span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Updating APT cache index
+  <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+    <span class="token key atrule">update_cache</span><span class="token punctuation">:</span> yes</code></pre>
+<p>Nous supprimerons bien évidemment des playbooks <code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code> et <code class="code-inline" id="5e770988217638696ce7e93a56c3da3d">dbservers.yml</code> les instructions correspondantes.</p>
+<p>Nos handlers eux, finiront dans un nouveau playbook <code class="code-inline" id="7f3b19104652c4e477b43b3f04ce0ac2">handlers.yml</code> comme ci-dessous:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="b7da470b61009f1817239f1c1a38a4a8"><span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restart_nginx
+  <span class="token key atrule">ansible.builtin.service</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+    <span class="token key atrule">state</span><span class="token punctuation">:</span> restarted
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restart_mariadb
+  <span class="token key atrule">ansible.builtin.service</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> mariadb
+    <span class="token key atrule">state</span><span class="token punctuation">:</span> restarted</code></pre>
+<p>Quant à nos deux playbooks principaux nous les modifierons légèrement en y ajoutant:</p>
+<ul>
+<li>l'inclusion des pre_tasks (<code class="code-inline" id="bc4930c33479e166f682f0031e513be6">common.yml</code>);</li>
+<li>l'inclusion des handlers (<code class="code-inline" id="7f3b19104652c4e477b43b3f04ce0ac2">handlers.yml</code>);</li>
+<li>un playbook « global » afin de les déclencher.</li>
+</ul>
+<p><strong>Respectivement:</strong></p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="4aea649df32b90aec788ad030b05d5df"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
+
+  <span class="token key atrule">pre_tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">ansible.builtin.import_tasks</span><span class="token punctuation">:</span> common.yml
+
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token comment"># NGINX</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install Nginx web server
+      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> present
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Nginx status configuration file
+      <span class="token key atrule">ansible.builtin.copy</span><span class="token punctuation">:</span>
+        <span class="token key atrule">src</span><span class="token punctuation">:</span> nginx/status.conf
+        <span class="token key atrule">dest</span><span class="token punctuation">:</span> /etc/nginx/conf.d/status.conf
+      <span class="token key atrule">notify</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> restart_nginx
+
+  <span class="token key atrule">handlers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">ansible.builtin.include_tasks</span><span class="token punctuation">:</span> handlers.yml</code></pre>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="ef1e538bc89419ac3a3be89e118f443c"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbservers
+
+  <span class="token key atrule">pre_tasks</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">ansible.builtin.import_tasks</span><span class="token punctuation">:</span> common.yml
+
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token comment"># NGINX</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install MariaDB server
+      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> mariadb<span class="token punctuation">-</span>server
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> present
+
+  <span class="token key atrule">handlers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">ansible.builtin.include_tasks</span><span class="token punctuation">:</span> handlers.yml</code></pre>
+<p>Nous créerons enfin pour terminer un dernier playbook <code class="code-inline" id="c0c84c46776cbacdea8e3ecb98f3dd65">main.yml</code> contenant:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="95e8e7ff0d30ec6b7d97b785902b9f74"><span class="token punctuation">-</span> <span class="token key atrule">ansible.builtin.import_playbook</span><span class="token punctuation">:</span> webservers.yml
+<span class="token punctuation">-</span> <span class="token key atrule">ansible.builtin.import_playbook</span><span class="token punctuation">:</span> dbservers.yml</code></pre>
+<p>Nous pouvons à présent jouer l'ensemble avec la commande: <code class="code-inline" id="8c7354e1cff57ed36e4431314a54e660">ansible-playbook main.yml -i inventories</code> !</p>
+<h3 id="taguer-ses-taches" class="anchor-title"><a href="#taguer-ses-taches">Taguer ses tâches</a></h3>
+<p>Nous venons de voir la possibilité de « diviser pour réorganiser » nos tâches, mais il existe également la possibilité de « taguer » nos tâches de manière à les déclencher de manière <strong>ciblée</strong>, ouvrant également la possibilité de les exécuter de façons transverses si celles-ci appartiennent à plusieurs playbooks différents. </p>
+<p>Nous verrons qu'ils sont <strong>très utiles voir indispensables</strong> dès lorsque nous aurons abordé la notion de <strong>roles</strong>.</p>
+<p>Reprenons notre exemple précédent où nous disposons de deux playbooks principaux distincts <code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code> et <code class="code-inline" id="5e770988217638696ce7e93a56c3da3d">dbservers.yml</code> nous les modifierons de façon à « taguer » nos différentes tâches comme ci-après:</p>
+<p><strong>Webservers:</strong></p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="0b9737c6b7d556f948304ab150fd8466"><span class="token punctuation">...</span>
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token comment"># NGINX</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install Nginx web server
+      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> present
+      <span class="token key atrule">tags</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> nginx
+        <span class="token punctuation">-</span> installation
+
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Nginx status configuration file
+      <span class="token key atrule">ansible.builtin.copy</span><span class="token punctuation">:</span>
+        <span class="token key atrule">src</span><span class="token punctuation">:</span> nginx/status.conf
+        <span class="token key atrule">dest</span><span class="token punctuation">:</span> /etc/nginx/conf.d/status.conf
+      <span class="token key atrule">notify</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> restart_nginx
+      <span class="token key atrule">tags</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> nginx
+        <span class="token punctuation">-</span> configuration
+<span class="token punctuation">...</span></code></pre>
+<p><strong>Dbservers:</strong></p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="019e5d9c0d3097a39636bca37f409f1d"><span class="token punctuation">...</span>
+  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
+    <span class="token comment"># NGINX</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install MariaDB server
+      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+        <span class="token key atrule">name</span><span class="token punctuation">:</span> mariadb<span class="token punctuation">-</span>server
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> present
+      <span class="token key atrule">tags</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> db
+<span class="token punctuation">...</span></code></pre>
+<h4 id="utilisation" class="anchor-title"><a href="#utilisation">Utilisation</a></h4>
+<p>Maintenant que nos tags sont définis nous sommes en capacité de les exploiter en ajoutant l'option <code class="code-inline" id="6f25395e79fac881defa876bd79e9ecc">--tags</code> à notre exécution ce qui nous donnera par exemple: </p>
+<ul>
+<li><code class="code-inline" id="f4344daabf6a7425a8632af0a14d201d">ansible-playbook main.yml -i inventories --tags "nginx,db"</code>.</li>
+</ul>
+<p>Il est également possible d'ignorer certains tags avec l'option <code class="code-inline" id="62fd855941ceb308c49c4a562310a43b">--skip-tags</code>: </p>
+<ul>
+<li><code class="code-inline" id="9c7ee4964f76d37bbfc11296975e05c6">ansible-playbook main.yml -i inventories --skip-tags db</code>.</li>
+</ul>
+<h4 id="les-tags-never-and-always" class="anchor-title"><a href="#les-tags-never-and-always">Les tags never and always</a></h4>
+<p>Ansible dans son fonctionnement, prévoit <strong>des tags réservés</strong>:</p>
+<ul>
+<li><code class="code-inline" id="f9f90eeaf400d228facde6bc48da5cfb">always</code>, permet de systématiquement jouer une tâche <strong>sauf</strong> lorsqu'elle est explicitement exclue à l'aide de l'option <code class="code-inline" id="62fd855941ceb308c49c4a562310a43b">--skip-tags</code>;</li>
+<li><code class="code-inline" id="c7561db7a418dd39b2201dfe110ab4a4">never</code> à l'inverse, permettra de ne <strong>jamais jouer les tâches concernées à moins de le spécifier explicitement</strong> à l'aide le l'option <code class="code-inline" id="6f25395e79fac881defa876bd79e9ecc">--tags</code>.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">La tâche « Gathering facts »</p>
+<p>
+    La tâche « Gathering fact » porte le tag « always » par défaut qui lui permet d'être jouée systématiquement, il est donc possible d'ignorer cette tâche via les options vues ci-dessus. Toutefois son absence peut entrainer un mauvais fonctionnement (voir une erreur) des différentes tâches devant être exécutées à sa suite.
+</p>
+</div>
 <h2 id="point-de-progression" class="anchor-title"><a href="#point-de-progression">Point de progression</a></h2>
 <p><strong>Nous savons à présent gérer:</strong></p>
 <ul>
 <li>L'installation d'un <a href="/blog/cours/ansible/ansible-environnement-cle-en-main">environnement Ansible</a>;</li>
-<li>Utiliser l'inventaire</li>
-<li>Créer des playbooks</li>
+<li>Utiliser l'<a href="/blog/cours/ansible/ansible-les-inventaires-statiques">inventaire</a>;</li>
+<li>Créer des playbooks.</li>
 </ul>
 <p>Nous pouvons toutefois encore apporter un peu de <strong>dynamisme</strong> à ces premières notions par l'introduction de <a href="/blog/cours/ansible/ansible-les-variables">variables</a> dont nous parlerons dans la suite.</p>
 <h2 id="aller-plus-loin-avec-les-sources" class="anchor-title"><a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a></h2>
@@ -640,6 +804,7 @@ Complétons notre playbook de manière à obtenir la configuration suivante:</p>
 <li><a href="https://yaml.org/spec/1.2.2/#912-document-markers" target="_blank">https://yaml.org/spec/1.2.2/#912-document-markers</a></li>
 <li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_privilege_escalation.html" target="_blank">https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_privilege_escalation.html</a></li>
 <li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html#handlers" target="_blank">https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html#handlers</a></li>
+<li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_tags.html" target="_blank">https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_tags.html</a></li>
 </ul></body>
                                                                                 </main>
                 <div class="article-footer" data-aos="fade-in">
