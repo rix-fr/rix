@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ansible - Roles et collections, savoir factoriser.</title>
+
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/rix/pr/134/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/rix/pr/134/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/rix/pr/134/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/rix/pr/134/favicon-16x16.png">
+        <link rel="manifest" href="/rix/pr/134/site.webmanifest">
+                <link rel="shortcut icon" href="/rix/pr/134/favicon.ico">
+        <meta name="msapplication-TileColor" content="#ff4344">
+        <meta name="msapplication-config" content="/rix/pr/134/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+                        <meta name="description" content="Automatiser c&#039;est bien, faire en sorte que cela soit réutilisable simplement c&#039;est mieux. Mise en oeuvre des collections et roles avec Ansible." />
+            <link rel="canonical" href="https://rix-fr.github.io/rix/pr/134/blog/cours/ansible/ansible-les-roles" />
+
+            <!-- Open Graph / Facebook -->
+                                        <meta property="og:type" content="website">
+                        <meta property="og:title" content="Ansible - Roles et collections, savoir factoriser." />
+            <meta property="og:locale" content="fr" />
+            <meta property="og:description" content="Automatiser c&#039;est bien, faire en sorte que cela soit réutilisable simplement c&#039;est mieux. Mise en oeuvre des collections et roles avec Ansible." />
+            <meta property="og:url" content="https://rix-fr.github.io/rix/pr/134/blog/cours/ansible/ansible-les-roles" />
+            <meta property="og:site_name" content="rix" />
+
+                                        <meta property="og:image" content="https://rix-fr.github.io/rix/pr/134/resized/content/images/blog/thumbnails/ansible-les-roles.jpg/78d8d30de26aff170a9ed5a8686e2f5e.jpg">
+                                                    <meta property="og:image:alt" content="Rix - Expertise et outillage DevOps">
+            
+            <!-- Twitter -->
+            <meta property="twitter:card" content="summary_large_image">
+            <meta property="twitter:title" content="Ansible - Roles et collections, savoir factoriser.">
+            <meta property="twitter:description" content="Automatiser c&#039;est bien, faire en sorte que cela soit réutilisable simplement c&#039;est mieux. Mise en oeuvre des collections et roles avec Ansible.">
+            <meta property="twitter:site" content="@rix_fr">
+            <meta property="twitter:creator" content="@rix_fr">
+                                        <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/134/resized/content/images/blog/thumbnails/ansible-les-roles.jpg/f593d9e7bb0bc2fa23d8b8191a30b0df.jpg">
+                                <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": "Ansible - Roles et collections, savoir factoriser.",
+    "image": [
+        "https://rix-fr.github.io/rix/pr/134/blog/cours/ansible/content/images/blog/thumbnails/ansible-les-roles.jpg"
+    ],
+    "datePublished": "19 janvier 2024",
+    "dateModified": "19 janvier 2024",
+    "author": [
+        {
+            "@type": "Person",
+            "name": "Guewen Faivre"
+        }
+    ],
+    "keywords": [
+        "Cours",
+        "Ansible",
+        "Automation",
+        "Playbook",
+        "Collection",
+        "Role"
+    ]
+}
+    </script>
+            
+
+    <link rel="alternate" type="application/rss+xml" href="/rix/pr/134/blog/rss.xml" title="Le blog de l'équipe Rix" />
+
+                            <meta name="robots" content="noindex" />
+        
+        <script>
+                        document.querySelector('html').classList.remove('no-js');
+        </script>
+
+                    <link rel="stylesheet" href="/rix/pr/134/build/305.36ec4749.css">
+        
+                    <script src="/rix/pr/134/build/runtime.ea0b3f4d.js" defer></script><script src="/rix/pr/134/build/70.671fda9c.js" defer></script><script src="/rix/pr/134/build/app.e999eb99.js" defer></script>
+
+                        <script defer src="https://comments.rix.fr/comentario.js"></script>
+        
+    </head>
+    <body class="page-article">
+                    <header class="header">
+                <div class="container">
+                    <a href="/rix/pr/134/">
+                        <img src="/rix/pr/134/build/images/logos/logo-horizontal.ae7b8485.svg" alt="" class="logo">
+                        <span class="screen-reader">Retour à l'accueil</span>
+                    </a>
+
+                                            <nav class="nav">
+    <ul>
+                                    <li class="nav__item ">
+                    <a href="/rix/pr/134/">
+                        <span>Accueil</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/134/services">
+                        <span>Nos services</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/134/etudes-de-cas">
+                        <span>Cas clients</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/134/a-propos">
+                        <span>À propos</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/134/blog">
+                        <span>Blog</span>
+                    </a>
+                </li>
+                            <li class="nav__item nav__item--icon">
+            <a href="/rix/pr/134/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                <span>Contactez-nous</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+                    
+                                            <nav class="nav-mobile">
+    <div class="nav-mobile__header">
+        <a href="/rix/pr/134/">
+            <img src="/rix/pr/134/build/images/logos/logo-horizontal-white.901392b9.svg" alt="" class="logo">
+        </a>
+        <button class="nav-toggle nav-toggle--close">
+            <i class="icon icon--close" aria-hidden="true"></i>
+            <span class="screen-reader">Fermer le menu</span>
+        </button>
+    </div>
+    <ul>
+                                    <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/134/">
+                        Accueil
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/134/services">
+                        Nos services
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/134/etudes-de-cas">
+                        Cas clients
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/134/a-propos">
+                        À propos
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/134/blog">
+                        Blog
+                    </a>
+                </li>
+                            <li class="nav-mobile__item nav-mobile__item--icon">
+            <a href="/rix/pr/134/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                Contactez-nous
+            </a>
+        </li>
+    </ul>
+</nav>
+<button class="nav-toggle nav-toggle--open">
+    <i class="icon icon--hamburger" aria-hidden="true"></i>
+    <span class="screen-reader">Ouvrir le menu</span>
+</button>
+
+                                    </div>
+            </header>
+                <main>
+                <div class="banner banner--blog">
+        <div class="container">
+            <h1>
+                <a href="/rix/pr/134/blog">Blog</a>
+                <strong>/</strong>
+            </h1>
+        </div>
+    </div>
+
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <ul class="tags-list">
+                                            <li class="tags-list__item">
+                            #Cours
+                        </li>
+                                            <li class="tags-list__item">
+                            #Ansible
+                        </li>
+                                            <li class="tags-list__item">
+                            #Automation
+                        </li>
+                                            <li class="tags-list__item">
+                            #Playbook
+                        </li>
+                                            <li class="tags-list__item">
+                            #Collection
+                        </li>
+                                            <li class="tags-list__item">
+                            #Role
+                        </li>
+                                    </ul>
+                <h2 class="h2--large">Ansible - Roles et collections, savoir factoriser.</h2>
+                <p>Automatiser c&#039;est bien, faire en sorte que cela soit réutilisable simplement c&#039;est mieux. Mise en oeuvre des collections et roles avec Ansible.</p>
+                <div class="article-overview">
+                                        <ol class="table-of-contents">
+                                                            <li class="table-of-contents__item">
+                                    <a href="#preambule">Préambule</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#pre-requis">Pré-requis</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#introduction">Introduction</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#role">Role</a>
+                                                                    </li>
+                                                    </ol>
+                                        <div class="article-info">
+                                                                            <div class="author ">
+                                <div class="author__image">
+                                                                            <img     src="/rix/pr/134/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg"
+    srcset="
+        /rix/pr/134/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg 1x,
+        /rix/pr/134/resized/content/images/member/avatars/gfaivre.jpg/d2d8af0b210c37c677635983f1c02d6d.jpg 2x
+    "
+ />
+                                                                    </div>
+                                <span class="author__info">
+                                    Écrit par
+                                                                            <strong>Guewen Faivre</strong>
+                                                                    </span>
+                            </div>
+                                                <div class="article-info__date">
+                            <span>Publication <strong>19 janvier 2024</strong></span>
+                                                                                </div>
+                    </div>
+                </div>
+                <main>
+                                                            <body><h2 id="preambule" class="anchor-title"><a href="#preambule">Préambule</a></h2>
+<p>Ce cours est utilisé dans le cadre de TP au sein de l'IUT Lyon 1. Il est notamment dispensé à des étudiants peu ou pas familiers avec les stratégies d'automatisation et de déploiement des infrastructures.
+Bien que très axé débutants il peut également représenté une possibilité de monter « rapidement » pour certaines équipes sur les principes fondamentaux d'Ansible afin de disposer du bagage minimal nécessaire à son utilisation.</p>
+<p>Il s'agit bien évidemment de supports à vocation pédagogique qui <strong>ne sont pas toujours transposables</strong> à une activité professionnelle.</p>
+<h2 id="pre-requis" class="anchor-title"><a href="#pre-requis">Pré-requis</a></h2>
+<p>Avoir suivi/lu les cours concernant: </p>
+<ul>
+<li>les <a href="/blog/cours/ansible/ansible-les-inventaires-statiques">inventaires</a>;</li>
+<li>les <a href="/blog/cours/ansible/ansible-les-playbooks">playbooks</a>;</li>
+<li>les <a href="/blog/cours/ansible/ansible-les-variables">variables</a>.</li>
+</ul>
+<p>Et donc disposer d'un inventaire s'approchant de celui-ci:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="834333afda0dfea7fabf0f9555540281"><span class="token key atrule">all</span><span class="token punctuation">:</span>
+  <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+    <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.XXX
+      <span class="token key atrule">ansible_user</span><span class="token punctuation">:</span> debian
+    <span class="token key atrule">vm-db-prod-01</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.XXX
+      <span class="token key atrule">ansible_user</span><span class="token punctuation">:</span> debian
+    <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.XXX
+      <span class="token key atrule">ansible_user</span><span class="token punctuation">:</span> debian
+    <span class="token key atrule">vm-db-staging-01</span><span class="token punctuation">:</span>
+      <span class="token key atrule">ansible_host</span><span class="token punctuation">:</span> XXX.XXX.XXX.XXX
+      <span class="token key atrule">ansible_user</span><span class="token punctuation">:</span> debian
+  <span class="token key atrule">children</span><span class="token punctuation">:</span>
+    <span class="token key atrule">webservers</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+        <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+    <span class="token key atrule">dbservers</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-db-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+        <span class="token key atrule">vm-db-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+    <span class="token key atrule">staging</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-web-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+        <span class="token key atrule">vm-db-staging-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+    <span class="token key atrule">production</span><span class="token punctuation">:</span>
+      <span class="token key atrule">hosts</span><span class="token punctuation">:</span>
+        <span class="token key atrule">vm-web-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span>
+        <span class="token key atrule">vm-db-prod-01</span><span class="token punctuation">:</span> <span class="token null important">~</span></code></pre>
+<h2 id="introduction" class="anchor-title"><a href="#introduction">Introduction</a></h2>
+<p>Précédemment nous avons vu l'utilisation des concepts fondamentaux d'Ansible, toutefois au fur et à mesure de l'évolution de ce TD vous avez du vous poser plusieurs questions et notamment celles de la maintenance et de la réutilisation de tout ce qu'on à fait.
+Et vous avez bien raison, car jusqu'à présent nous n'avons rien produit de bien réutilisable et de correctement maintenable.</p>
+<p>En effet nos playbooks contiennent de nombreuses instructions qui bien que liées n'ont pas forcément pour finaliter de cohabiter et l'ensemble de ces instructions paraissent en l'état bien difficilement réutilisables.</p>
+<p>Il est donc plus que temps d'intégrer le concept de role et plus largement de collection.</p>
+<h2 id="role" class="anchor-title"><a href="#role">Role</a></h2>
+<p>Au sens Ansible un role est assimilable à un regroupement de tâches dont (normalement) la finalité s'oriente vers le même objectif. On peut ainsi s'imaginer un rôle dédié à la gestion de notre serveur web Nginx.</p>
+<p>La structure d'un role est très similaire à l'organisation que l'on a pu voir jusqu'à présent, on retrouvera ainsi une arborescence comme suit:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="db6efd5f9971ad93ff86fc3ce7a89265">roles/
+    nginx/                <span class="token comment"># this hierarchy represents a "role"</span>
+        tasks/            <span class="token comment">#</span>
+            main.yml      <span class="token comment">#  &lt;-- tasks file can include smaller files if warranted</span>
+        handlers/         <span class="token comment">#</span>
+            main.yml      <span class="token comment">#  &lt;-- handlers file</span>
+        templates/        <span class="token comment">#  &lt;-- files for use with the template resource</span>
+            app.conf.j2   <span class="token comment">#  &lt;------- templates end in .j2</span>
+        files/            <span class="token comment">#</span>
+            bar.conf      <span class="token comment">#  &lt;-- files for use with the copy resource</span>
+            foo.sh        <span class="token comment">#  &lt;-- script files for use with the script resource</span>
+        vars/             <span class="token comment">#</span>
+            main.yml      <span class="token comment">#  &lt;-- variables associated with this role</span>
+        defaults/         <span class="token comment">#</span>
+            main.yml      <span class="token comment">#  &lt;-- default lower priority variables for this role</span>
+        meta/             <span class="token comment">#</span>
+            main.yml      <span class="token comment">#  &lt;-- role dependencies</span>
+        library/          <span class="token comment"># roles can also include custom modules</span>
+        module_utils/     <span class="token comment"># roles can also include custom module_utils</span>
+        lookup_plugins/   <span class="token comment"># or other types of plugins, like lookup in this case</span></code></pre>
+<p>Ansible prévoit donc un répertoire dédié aux roles dans lequel nous retrouverons un répertoire par role, chacune de ces rôles obéissant à la structure définie ci-dessus.</p></body>
+                                                                                </main>
+                <div class="article-footer" data-aos="fade-in">
+                                                                        <div class="author">
+                                <div class="author__image">
+                                    <img     src="/rix/pr/134/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg"
+    srcset="
+        /rix/pr/134/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg 1x,
+        /rix/pr/134/resized/content/images/member/avatars/gfaivre.jpg/d2d8af0b210c37c677635983f1c02d6d.jpg 2x
+    "
+ />
+                                </div>
+                                <span class="author__info">
+                                    Écrit par
+                                    <strong>Guewen Faivre</strong>
+                                </span>
+                                <div class="author__social">
+                                                                            <a href="https://twitter.com/guewen_faivre">
+                                            <i class="icon icon--twitter" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte twitter de Guewen Faivre</span>
+                                        </a>
+                                                                                                                <a href="https://github.com/gfaivre">
+                                            <i class="icon icon--github" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte github de Guewen Faivre</span>
+                                        </a>
+                                                                                                                <a href="http://www.elao.com">
+                                            <i class="icon icon--website" aria-hidden="true"></i>
+                                            <span class="screen-reader">Site personnel de Guewen Faivre</span>
+                                        </a>
+                                                                    </div>
+                            </div>
+                                                            </div>
+                                    <div class="comment">
+                                                    <div id="comentario"></div>
+                                                                                                    <p>
+                                Une typo ?
+                                <a href="https://github.com/rix-fr/rix/edit/cours/ansible-roles-and-collections/content/blog/cours/ansible/ansible-les-roles.md/" target="_blank">Modifier cet article sur Github</a>
+                            </p>
+                                            </div>
+                            </div>
+        </div>
+    </div>
+        </main>
+                    <footer class="footer">
+    <div class="container">
+        <div class="footer__contact">
+            <div class="catchphrase">
+                <p class="h1">Le monde du DevOps vous semble obscur ?</p>
+                <p>Contactez-nous, nous vous aiderons à y <strong>voir plus clair</strong>.</p>
+            </div>
+            <div class="contact-tiles">
+                <span class="contact-tiles__item">
+                    <i class="icon icon--location" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Passez nous voir !</span>
+                        <span>Nous sommes à Lyon !</span>
+                        <span>34 rue Jean Broquin</span>
+                        <span>69006 Lyon, France</span>
+                    </span>
+                </span>
+                <span class="contact-tiles__item">
+                    <i class="icon icon--message" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Par téléphone ou par mail</span>
+                        <a href="tel:33482537609">04 82 53 76 09</a>
+                        <a href="mailto:contact@rix.fr">contact@rix.fr</a>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="footer__brand">
+            <img src="/rix/pr/134/build/images/logos/logo-horizontal-white.901392b9.svg" alt="Rix">
+            <span>Expertise et outilllage DevOps</span>
+        </div>
+        <nav class="footer__links">
+            <div class="pages">
+                <ul>
+                                                                        <li>
+                                <a href="/rix/pr/134/etudes-de-cas">Cas clients</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/134/a-propos">À propos</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/134/contact">Contact</a>
+                            </li>
+                                                            </ul>
+            </div>
+            <div class="services">
+                <a href="/rix/pr/134/services">Nos services</a>
+                <div>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/134/services#accompagnement_outillage">Accompagnement et outillage DevOps</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/134/services#experts_kubernetes">Expertise Kubernetes</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/134/services#performances_diagnostique">Performances et diagnostique</a>
+                                </li>
+                                                    </ul>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/134/services#conception_infrastructures">Conception sur-mesure d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/134/services#pilotage_infrastructures">Pilotage d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/134/services#environment">Environnement de développement</a>
+                                </li>
+                                                    </ul>
+                                    </div>
+            </div>
+        </nav>
+        <div class="footer__legals">
+            <span>©2024 - Rix - Tous droits réservés</span>
+            -
+            <a href="/rix/pr/134/legal">Mentions légales</a>
+            -
+            <a href="/rix/pr/134/confidentialite">Données personnelles</a>
+        </div>
+    </div>
+</footer>
+
+
+
+            </body>
+</html>
