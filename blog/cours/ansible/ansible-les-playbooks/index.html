@@ -46,7 +46,7 @@
         "https://rix-fr.github.io/rix/blog/cours/ansible/content/images/blog/thumbnails/ansible-playbooks.jpg"
     ],
     "datePublished": "5 décembre 2023",
-    "dateModified": "22 janvier 2024",
+    "dateModified": "29 janvier 2024",
     "author": [
         {
             "@type": "Person",
@@ -286,7 +286,7 @@
                             </div>
                                                 <div class="article-info__date">
                             <span>Publication <strong>5 décembre 2023</strong></span>
-                                                                                        <span>Modification <strong>22 janvier 2024</strong></span>
+                                                                                        <span>Modification <strong>29 janvier 2024</strong></span>
                                                     </div>
                     </div>
                 </div>
@@ -541,7 +541,7 @@ Le but de chacune de ces tâches est d'exécuter un module (nous en avons déjà
 <li>Soit créer un nouveau playbook dédié aux instances de bases de données <code class="code-inline" id="5e770988217638696ce7e93a56c3da3d">dbservers.yml</code>.</li>
 </ul>
 <p>Nous nous orienterons pour l'exemple, sur cette seconde option, nous créerons donc un fichier <code class="code-inline" id="5e770988217638696ce7e93a56c3da3d">dbservers.yml</code> à la racine de notre répertoire de travail dont le contenu ressemblera beaucoup à celui de <code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code>.</p>
-<pre class="code-multiline language-yaml"><code class="language-yaml" id="df38da0b2044de0ca8a7d75e8b86d07b"><span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbservers
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="a0409a75a354f079b77aeb45a0f55314"><span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> dbservers
 
   <span class="token key atrule">pre_tasks</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Updating APT cache index
@@ -553,9 +553,7 @@ Le but de chacune de ces tâches est d'exécuter un module (nous en avons déjà
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install MariaDB server
       <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
         <span class="token key atrule">name</span><span class="token punctuation">:</span> mariadb<span class="token punctuation">-</span>server
-        <span class="token key atrule">state</span><span class="token punctuation">:</span> present
-      <span class="token key atrule">notify</span><span class="token punctuation">:</span>
-          <span class="token punctuation">-</span> restart_mariadb</code></pre>
+        <span class="token key atrule">state</span><span class="token punctuation">:</span> present</code></pre>
 <p>Notre nouveau playbook est bien evidemment « jouable » à l'aide de la commande <code class="code-inline" id="8ee9161eaa245fd21d6887f8a5e0cd4b">ansible-playbook dbservers.yml -i inventories</code>.</p>
 <h4 id="les-handlers" class="anchor-title"><a href="#les-handlers">Les handlers</a></h4>
 <p>Bien, reprenons notre exemple d'installation d'Nginx, nous avons un paquet « tout neuf » auquel nous n'avons apporté aucune configuration pour l'instant.
@@ -731,6 +729,16 @@ Complétons notre playbook de manière à obtenir la configuration suivante:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="95e8e7ff0d30ec6b7d97b785902b9f74"><span class="token punctuation">-</span> <span class="token key atrule">ansible.builtin.import_playbook</span><span class="token punctuation">:</span> webservers.yml
 <span class="token punctuation">-</span> <span class="token key atrule">ansible.builtin.import_playbook</span><span class="token punctuation">:</span> dbservers.yml</code></pre>
 <p>Nous pouvons à présent jouer l'ensemble avec la commande: <code class="code-inline" id="8c7354e1cff57ed36e4431314a54e660">ansible-playbook main.yml -i inventories</code> !</p>
+<p>Tout semble fonctionner ! Mais est-ce vraiment le cas ?
+Modifiez à nouveau le fichier de configuration <code class="code-inline" id="617f940792257db3b58a57be6b4a6c50">status.conf</code> destiné à Nginx et relancer le provisionning.</p>
+<p>Vous devriez vous retrouver avec l'erreur <code class="code-inline" id="f40ea55e1ea4604069bc09b42697416a">ERROR! The requested handler 'restart_nginx' was not found in either the main handlers list nor in the listening handlers list</code> ! </p>
+<p>En effet nous avons utilisé une directive de type <code class="code-inline" id="d436eb0fd9de10b54a828ce6435f7e81">include</code> pour inclure notre fichier de handlers, or nous avons vu que ces instructions ne sont pas « pré-traitées ». Ansible lorsqu'il parcours notre playbook rencontre donc l'instruction:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="32921237cf69dc04426071b8c0b9b9a4"><span class="token key atrule">notify</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> restart_nginx</code></pre>
+<p>AVANT que notre fichier <code class="code-inline" id="7f3b19104652c4e477b43b3f04ce0ac2">handlers.yml</code> et donc qu'Ansible ait connaissance de l'existance de ce handler !</p>
+<p>Pour corriger ce comportement il faudra donc dans notre cas utiliser la directive:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="a529dd7a521de3e9c5d35a954983c539"><span class="token key atrule">handlers</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">ansible.builtin.inport_tasks</span><span class="token punctuation">:</span> handlers.yml</code></pre>
 <h3 id="taguer-ses-taches" class="anchor-title"><a href="#taguer-ses-taches">Taguer ses tâches</a></h3>
 <p>Nous venons de voir la possibilité de « diviser pour réorganiser » nos tâches, mais il existe également la possibilité de « taguer » nos tâches de manière à les déclencher de manière <strong>ciblée</strong>, ouvrant également la possibilité de les exécuter de façons transverses si celles-ci appartiennent à plusieurs playbooks différents. </p>
 <p>Nous verrons qu'ils sont <strong>très utiles voir indispensables</strong> dès lorsque nous aurons abordé la notion de <strong>roles</strong>.</p>
