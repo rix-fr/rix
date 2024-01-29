@@ -2,7 +2,7 @@
 type:               "post"
 title:              "Ansible - Les playbooks"
 date:               "2023-12-05"
-lastModified:       "2024-01-22"
+lastModified:       "2024-01-29"
 tableOfContent:     true
 description:        "Découverte des playbooks, élément essentiel d'Ansible qui va nous permettre d'organiser et structurer nos tâches !"
 thumbnail:          "content/images/blog/thumbnails/ansible-playbooks.jpg"
@@ -332,8 +332,6 @@ Nous nous orienterons pour l'exemple, sur cette seconde option, nous créerons d
       ansible.builtin.apt:
         name: mariadb-server
         state: present
-      notify:
-          - restart_mariadb
 ```
 
 Notre nouveau playbook est bien evidemment « jouable » à l'aide de la commande `ansible-playbook dbservers.yml -i inventories`.
@@ -552,6 +550,26 @@ Nous créerons enfin pour terminer un dernier playbook `main.yml` contenant:
 
 Nous pouvons à présent jouer l'ensemble avec la commande: `ansible-playbook main.yml -i inventories` !
 
+Tout semble fonctionner ! Mais est-ce vraiment le cas ?
+Modifiez à nouveau le fichier de configuration `status.conf` destiné à Nginx et relancer le provisionning.
+
+Vous devriez vous retrouver avec l'erreur `ERROR! The requested handler 'restart_nginx' was not found in either the main handlers list nor in the listening handlers list` ! 
+
+En effet nous avons utilisé une directive de type `include` pour inclure notre fichier de handlers, or nous avons vu que ces instructions ne sont pas « pré-traitées ». Ansible lorsqu'il parcours notre playbook rencontre donc l'instruction:
+
+```yaml
+      notify:
+          - restart_nginx
+```
+
+AVANT que notre fichier `handlers.yml` et donc qu'Ansible ait connaissance de l'existance de ce handler !
+
+Pour corriger ce comportement il faudra donc dans notre cas utiliser la directive:
+
+```yaml
+  handlers:
+    - ansible.builtin.inport_tasks: handlers.yml
+```
 
 ### Taguer ses tâches
 
