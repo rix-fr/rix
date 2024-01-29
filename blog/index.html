@@ -183,30 +183,30 @@
             <div class="container content">
                 <ul class="miniature-list">
                                                                         <li class="miniature-highlight">
-                                <a href="/rix/blog/cours/ansible/ansible-les-playbooks" class="miniature-highlight__content">
+                                <a href="/rix/blog/cours/ansible/ansible-les-variables" class="miniature-highlight__content">
                                     <div class="details">
-                                        <span class="date">5 déc. 2023</span>
-                                        <h2>Ansible - Les playbooks</h2>
-                                        <p>Découverte des playbooks, élément essentiel d&#039;Ansible qui va nous permettre d&#039;organiser et structurer nos tâches !</p>
+                                        <span class="date">29 janv. 2024</span>
+                                        <h2>Ansible - Les variables</h2>
+                                        <p>Les variables avec Ansible, introduisons du dynamisme dans nos playbooks !</p>
                                     </div>
                                     <div class="miniature-highlight__image">
                                         <div class="image" style="background-color: #f1f1f1;
-    background-image: url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/2903de14c5b26063f2657f61e9f7372b.jpg');
+    background-image: url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/d9a137b573f450e18bb0744f3932cedf.jpg');
     background-image: -webkit-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/2903de14c5b26063f2657f61e9f7372b.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/13bbdeec5128bc4a67a438036ce05de1.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/d9a137b573f450e18bb0744f3932cedf.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/adb8110014bc060ea13cbe3757487424.jpg') 2x
     );
     background-image: -moz-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/2903de14c5b26063f2657f61e9f7372b.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/13bbdeec5128bc4a67a438036ce05de1.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/d9a137b573f450e18bb0744f3932cedf.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/adb8110014bc060ea13cbe3757487424.jpg') 2x
     );
     background-image: -ms-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/2903de14c5b26063f2657f61e9f7372b.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/13bbdeec5128bc4a67a438036ce05de1.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/d9a137b573f450e18bb0744f3932cedf.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/adb8110014bc060ea13cbe3757487424.jpg') 2x
     );
     background-image: image-set(
-        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/2903de14c5b26063f2657f61e9f7372b.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/13bbdeec5128bc4a67a438036ce05de1.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/d9a137b573f450e18bb0744f3932cedf.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/adb8110014bc060ea13cbe3757487424.jpg') 2x
     );;"></div>
                                     </div>
                                 </a>
@@ -222,7 +222,7 @@
                                                 <span>#Automation</span>
                                             </li>
                                                                                     <li class="tags-list__item">
-                                                <span>#Playbook</span>
+                                                <span>#Variables</span>
                                             </li>
                                                                             </ul>
                                 </div>
@@ -242,6 +242,54 @@
                                                                                     </span>
                                     </div>
                                 </div>
+                            </li>
+                                                                                                <li class="miniature-inline">
+                                <a href="/rix/blog/cours/ansible/ansible-les-playbooks">
+                                    <div class="miniature-inline__image">
+                                        <span class="image" style="background-color: #f1f1f1;
+    background-image: url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/67d8223c821d5f9ae6bdff772e8da8a8.jpg');
+    background-image: -webkit-image-set(
+        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/67d8223c821d5f9ae6bdff772e8da8a8.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/7c2421f183fe3910b158e0269822f67e.jpg') 2x
+    );
+    background-image: -moz-image-set(
+        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/67d8223c821d5f9ae6bdff772e8da8a8.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/7c2421f183fe3910b158e0269822f67e.jpg') 2x
+    );
+    background-image: -ms-image-set(
+        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/67d8223c821d5f9ae6bdff772e8da8a8.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/7c2421f183fe3910b158e0269822f67e.jpg') 2x
+    );
+    background-image: image-set(
+        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/67d8223c821d5f9ae6bdff772e8da8a8.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-playbooks.jpg/7c2421f183fe3910b158e0269822f67e.jpg') 2x
+    );"></span>
+                                    </div>
+                                    <div class="miniature-inline__content">
+                                        <h2 class="miniature-inline__title">Ansible - Les playbooks</h2>
+                                        <p>Découverte des playbooks, élément essentiel d&#039;Ansible qui va nous permettre d&#039;organiser et structurer nos tâches !</p>
+                                        <ul class="tags-list">
+                                                                                            <li class="tags-list__item">
+                                                    #Cours
+                                                </li>
+                                                                                            <li class="tags-list__item">
+                                                    #Ansible
+                                                </li>
+                                                                                            <li class="tags-list__item">
+                                                    #Automation
+                                                </li>
+                                                                                            <li class="tags-list__item">
+                                                    #Playbook
+                                                </li>
+                                                                                    </ul>
+                                        <span class="sliding-button sliding-button--mobile">
+                                            <span class="sliding-button__content">
+                                                <i class="icon icon--arrow-right" aria-hidden="true"></i>
+                                                Lire l'article
+                                            </span>
+                                        </span>
+                                    </div>
+                                </a>
                             </li>
                                                                                                 <li class="miniature-inline">
                                 <a href="/rix/blog/cours/ansible/ansible-les-inventaires-statiques">
@@ -333,30 +381,30 @@
                                     </div>
                                 </a>
                             </li>
-                                                                                                <li class="miniature-inline">
+                                                                                                <li class="miniature">
                                 <a href="/rix/blog/cours/ansible/ansible-environnement-cle-en-main">
-                                    <div class="miniature-inline__image">
+                                    <div class="miniature__image">
                                         <span class="image" style="background-color: #f1f1f1;
-    background-image: url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/39c637f0a1ff260e0eacd350fd6193e4.jpg');
+    background-image: url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/eae61410753152dba71f62f27b1a5f3b.jpg');
     background-image: -webkit-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/39c637f0a1ff260e0eacd350fd6193e4.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/94638efcc2e1b3d7afe8add495aa3f4d.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/eae61410753152dba71f62f27b1a5f3b.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/9ee2c8ce29ba79b4812efdc70b035c29.jpg') 2x
     );
     background-image: -moz-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/39c637f0a1ff260e0eacd350fd6193e4.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/94638efcc2e1b3d7afe8add495aa3f4d.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/eae61410753152dba71f62f27b1a5f3b.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/9ee2c8ce29ba79b4812efdc70b035c29.jpg') 2x
     );
     background-image: -ms-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/39c637f0a1ff260e0eacd350fd6193e4.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/94638efcc2e1b3d7afe8add495aa3f4d.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/eae61410753152dba71f62f27b1a5f3b.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/9ee2c8ce29ba79b4812efdc70b035c29.jpg') 2x
     );
     background-image: image-set(
-        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/39c637f0a1ff260e0eacd350fd6193e4.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/94638efcc2e1b3d7afe8add495aa3f4d.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/eae61410753152dba71f62f27b1a5f3b.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/lazy-ansible.jpg/9ee2c8ce29ba79b4812efdc70b035c29.jpg') 2x
     );"></span>
                                     </div>
-                                    <div class="miniature-inline__content">
-                                        <h2 class="miniature-inline__title">Ansible - Un environnement de travail clé en main avec Lazy Ansible.</h2>
+                                    <div class="miniature__content">
+                                        <h2 class="h3">Ansible - Un environnement de travail clé en main avec Lazy Ansible.</h2>
                                         <p>Utilisation de la recipe Lazy Ansible du projet Manala pour mettre en oeuvre un environnement de travail dédié Ansible.</p>
                                         <ul class="tags-list">
                                                                                             <li class="tags-list__item">
@@ -604,54 +652,6 @@
                                                 </li>
                                                                                             <li class="tags-list__item">
                                                     #Raspberry
-                                                </li>
-                                                                                    </ul>
-                                        <span class="sliding-button sliding-button--mobile">
-                                            <span class="sliding-button__content">
-                                                <i class="icon icon--arrow-right" aria-hidden="true"></i>
-                                                Lire l'article
-                                            </span>
-                                        </span>
-                                    </div>
-                                </a>
-                            </li>
-                                                                                                <li class="miniature">
-                                <a href="/rix/blog/linux/integrer-icloud-gnome-calendar">
-                                    <div class="miniature__image">
-                                        <span class="image" style="background-color: #f1f1f1;
-    background-image: url('/rix/resized/content/images/blog/thumbnails/calendar.jpg/73773f96882739f398c4db9552656943.jpg');
-    background-image: -webkit-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/calendar.jpg/73773f96882739f398c4db9552656943.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/calendar.jpg/1759af6b89e8a6cf93e2919540947b13.jpg') 2x
-    );
-    background-image: -moz-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/calendar.jpg/73773f96882739f398c4db9552656943.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/calendar.jpg/1759af6b89e8a6cf93e2919540947b13.jpg') 2x
-    );
-    background-image: -ms-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/calendar.jpg/73773f96882739f398c4db9552656943.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/calendar.jpg/1759af6b89e8a6cf93e2919540947b13.jpg') 2x
-    );
-    background-image: image-set(
-        url('/rix/resized/content/images/blog/thumbnails/calendar.jpg/73773f96882739f398c4db9552656943.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/calendar.jpg/1759af6b89e8a6cf93e2919540947b13.jpg') 2x
-    );"></span>
-                                    </div>
-                                    <div class="miniature__content">
-                                        <h2 class="h3">Intégrer des agendas iCloud à Gnome Calendar</h2>
-                                        <p>Intégrer (relativement) facilement des agendas iCloud à Gnome Calendar</p>
-                                        <ul class="tags-list">
-                                                                                            <li class="tags-list__item">
-                                                    #Linux
-                                                </li>
-                                                                                            <li class="tags-list__item">
-                                                    #Icloud
-                                                </li>
-                                                                                            <li class="tags-list__item">
-                                                    #Calendar
-                                                </li>
-                                                                                            <li class="tags-list__item">
-                                                    #Gnome
                                                 </li>
                                                                                     </ul>
                                         <span class="sliding-button sliding-button--mobile">
