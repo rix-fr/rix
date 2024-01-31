@@ -45,8 +45,8 @@
     "image": [
         "https://rix-fr.github.io/rix/pr/134/blog/cours/ansible/content/images/blog/thumbnails/ansible-les-roles.jpg"
     ],
-    "datePublished": "19 janvier 2024",
-    "dateModified": "19 janvier 2024",
+    "datePublished": "2 février 2024",
+    "dateModified": "2 février 2024",
     "author": [
         {
             "@type": "Person",
@@ -240,7 +240,15 @@
                                     <a href="#introduction">Introduction</a>
                                                                     </li>
                                                             <li class="table-of-contents__item">
-                                    <a href="#role">Role</a>
+                                    <a href="#les-roles">Les rôles</a>
+                                                                            <ol class="table-of-contents__sub-level">
+                                                                                            <li>
+                                                    <a href="#creer-son-premier-role">Créer son premier rôle</a>
+                                                </li>
+                                                                                    </ol>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a>
                                                                     </li>
                                                     </ol>
                                         <div class="article-info">
@@ -259,12 +267,18 @@
                                                                     </span>
                             </div>
                                                 <div class="article-info__date">
-                            <span>Publication <strong>19 janvier 2024</strong></span>
+                            <span>Publication <strong>2 février 2024</strong></span>
                                                                                 </div>
                     </div>
                 </div>
                 <main>
-                                                            <body><h2 id="preambule" class="anchor-title"><a href="#preambule">Préambule</a></h2>
+                                                                <div class="alert alert--error">
+                            <i class="icon icon--danger" aria-hidden="true"></i>
+                            <div>
+                                <p>Cet article n'est pas encore publié. Cet aperçu est disponible uniquement dans cet environnement mais n'apparaîtra en production qu'à partir du 2 février 2024</p>
+                            </div>
+                        </div>
+                                        <body><h2 id="preambule" class="anchor-title"><a href="#preambule">Préambule</a></h2>
 <p>Ce cours est utilisé dans le cadre de TP au sein de l'IUT Lyon 1. Il est notamment dispensé à des étudiants peu ou pas familiers avec les stratégies d'automatisation et de déploiement des infrastructures.
 Bien que très axé débutants il peut également représenté une possibilité de monter « rapidement » pour certaines équipes sur les principes fondamentaux d'Ansible afin de disposer du bagage minimal nécessaire à son utilisation.</p>
 <p>Il s'agit bien évidemment de supports à vocation pédagogique qui <strong>ne sont pas toujours transposables</strong> à une activité professionnelle.</p>
@@ -312,9 +326,9 @@ Bien que très axé débutants il peut également représenté une possibilité 
 Et vous avez bien raison, car jusqu'à présent nous n'avons rien produit de bien réutilisable et de correctement maintenable.</p>
 <p>En effet nos playbooks contiennent de nombreuses instructions qui bien que liées n'ont pas forcément pour finaliter de cohabiter et l'ensemble de ces instructions paraissent en l'état bien difficilement réutilisables.</p>
 <p>Il est donc plus que temps d'intégrer le concept de role et plus largement de collection.</p>
-<h2 id="role" class="anchor-title"><a href="#role">Role</a></h2>
-<p>Au sens Ansible un role est assimilable à un regroupement de tâches dont (normalement) la finalité s'oriente vers le même objectif. On peut ainsi s'imaginer un rôle dédié à la gestion de notre serveur web Nginx.</p>
-<p>La structure d'un role est très similaire à l'organisation que l'on a pu voir jusqu'à présent, on retrouvera ainsi une arborescence comme suit:</p>
+<h2 id="les-roles" class="anchor-title"><a href="#les-roles">Les rôles</a></h2>
+<p>Au sens Ansible un rôle est assimilable à un regroupement de tâches dont (normalement) la finalité s'oriente vers le même objectif. On peut ainsi s'imaginer un rôle dédié à la gestion de notre serveur web Nginx.</p>
+<p>La structure d'un rôle est très similaire à l'organisation que l'on a pu voir jusqu'à présent, on retrouvera ainsi une arborescence comme suit:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="db6efd5f9971ad93ff86fc3ce7a89265">roles/
     nginx/                <span class="token comment"># this hierarchy represents a "role"</span>
         tasks/            <span class="token comment">#</span>
@@ -335,7 +349,33 @@ Et vous avez bien raison, car jusqu'à présent nous n'avons rien produit de bie
         library/          <span class="token comment"># roles can also include custom modules</span>
         module_utils/     <span class="token comment"># roles can also include custom module_utils</span>
         lookup_plugins/   <span class="token comment"># or other types of plugins, like lookup in this case</span></code></pre>
-<p>Ansible prévoit donc un répertoire dédié aux roles dans lequel nous retrouverons un répertoire par role, chacune de ces rôles obéissant à la structure définie ci-dessus.</p></body>
+<p>Ansible prévoit donc un répertoire dédié aux rôles dans lequel nous retrouverons un répertoire par rôle, chacune de ces rôles obéissant à la structure définie ci-dessus.</p>
+<div class="admonition info">
+<p class="admonition-title">Structure d'un rôle</p>
+<p>
+    Un rôle doit contenir au moins un des répertoires de l'arborescence ci-dessus. À l'inverse si certains répertoires ne sont pas nécessaire à son fonctionnement, ils peuvent être omis.
+    Par défaut Ansible « recherchera » les instructions d'un répertoire dans un fichier <code class="code-inline" id="c0c84c46776cbacdea8e3ecb98f3dd65">main.yml</code>.
+</p>
+</div>
+<p>Ansible par défaut « recherchera » des rôles à différents endroits:</p>
+<ul>
+<li>Dans l'emplacement destiné aux <strong>collections</strong> (dont nous parlerons juste après);</li>
+<li>Dans un répertoire <code class="code-inline" id="4295e8065f2f640103f566df3329e17f">roles</code> relativement à la position de notre fichier de playbook;</li>
+<li>À partir de la clé <code class="code-inline" id="6a6caaf55798ec748f53398dd5ab0d0e">role_path</code> configurable notamment dans le fichier de configuration <code class="code-inline" id="0485be50e14d7e6644f184d2d75f7d3c">ansible.cfg</code>;</li>
+<li>Et pour finir dans le répertoire ou se trouve le playbook.</li>
+</ul>
+<h3 id="creer-son-premier-role" class="anchor-title"><a href="#creer-son-premier-role">Créer son premier rôle</a></h3>
+<p>Reprenons nos travaux précédent, nous avions au final plusieurs tâches chacune chargée de faire des choses bien différentes (Nginx, PHP, motd...)
+Notre objectif pour cette fois sera de refactoriser ces sections de manière à les transformer en rôles.</p>
+<h4 id="motd" class="anchor-title"><a href="#motd">Motd</a></h4>
+<p>Rien de bien compliqué pour commencer, créons notre arborescence dans un répertoire <code class="code-inline" id="4295e8065f2f640103f566df3329e17f">roles</code> à la racine de notre répertoire de travail en y ajoutant un répertoire <code class="code-inline" id="8776dc2b7228908a1ba75b6547efede7">motd</code>.
+Dans ce dernier nous allons ensuite créer les répertoires <code class="code-inline" id="2cb1ad4f3eb0ea704c74a73689ad1654">tasks</code> et <code class="code-inline" id="fed36e93a0509e20f2dc96cbbd85b678">templates</code></p>
+<p>À l'intérieur du répertoire <code class="code-inline" id="2cb1ad4f3eb0ea704c74a73689ad1654">tasks</code> nous allons donc créé un fichier <code class="code-inline" id="c0c84c46776cbacdea8e3ecb98f3dd65">main.yml</code> qui contiendra nos principales tâches</p>
+<h2 id="aller-plus-loin-avec-les-sources" class="anchor-title"><a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a></h2>
+<ul>
+<li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html" target="_blank">https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html</a></li>
+<li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html#embedding-modules-and-plugins-in-roles" target="_blank">https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html#embedding-modules-and-plugins-in-roles</a></li>
+</ul></body>
                                                                                 </main>
                 <div class="article-footer" data-aos="fade-in">
                                                                         <div class="author">
