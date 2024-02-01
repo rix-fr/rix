@@ -1,12 +1,13 @@
 {% import "macros.html.twig" as macros %}
+
 {% extends 'base.html.twig' %}
 
 {% block meta_title -%}
-    {{ caseStudy.metaTitle|default(caseStudy.title) }} | {{ parent() }}
+    {{ caseStudy.metaTitle ?? caseStudy.title }} | {{ parent() }}
 {%- endblock %}
 
 {% block meta_description -%}
-    {{ caseStudy.metaDescription|default(caseStudy.description)|default(parent()) }}
+    {{ caseStudy.metaDescription ?? parent() }}
 {%- endblock %}
 
 {% block og_image asset(caseStudy.images|first|glide_image_preset('opengraph_image')) %}
@@ -42,7 +43,7 @@
                     <div class="technologies-list__title">
                         <span class="h3--small">Les technos utilisées</span>
                     </div>
-                    {% include "glossary/term_list.html.twig" with {
+                    {% include "glossary/partials/_term_list.html.twig" with {
                         terms: caseStudy.terms
                     } only %}
                 </div>

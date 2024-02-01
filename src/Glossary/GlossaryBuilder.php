@@ -9,8 +9,8 @@ use App\Model\Glossary\Term;
 class GlossaryBuilder
 {
     /**
-     * @param array|Term[] $terms
-     * @param int<0, max>  $split
+     * @param Term[]      $terms
+     * @param int<0, max> $split
      */
     public function build(array $terms, int $split = 3): array
     {
