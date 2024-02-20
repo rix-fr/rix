@@ -248,6 +248,9 @@
                                                                                             <li>
                                                     <a href="#organisation-et-structures-de-controle-avancees">Organisation et structures de contrôle avancées</a>
                                                 </li>
+                                                                                            <li>
+                                                    <a href="#declarer-les-variables-de-roles">Déclarer les variables de rôles</a>
+                                                </li>
                                                                                     </ol>
                                                                     </li>
                                                             <li class="table-of-contents__item">
@@ -289,11 +292,12 @@ Bien que très axé débutants il peut également représenté une possibilité 
 <h2 id="introduction" class="anchor-title"><a href="#introduction">Introduction</a></h2>
 <p>Précédemment nous avons vu l'utilisation des concepts fondamentaux d'Ansible, toutefois au fur et à mesure de l'évolution de ce TD vous avez du vous poser plusieurs questions et notamment celles de la maintenance et de la réutilisation de tout ce qu'on à fait.
 Et vous avez bien raison, car jusqu'à présent nous n'avons rien produit de bien réutilisable et de correctement maintenable.</p>
-<p>En effet nos playbooks contiennent de nombreuses instructions qui bien que liées n'ont pas forcément pour finaliter de cohabiter et l'ensemble de ces instructions paraissent en l'état bien difficilement réutilisables.</p>
-<p>Il est donc plus que temps d'intégrer le concept de role et plus largement de collection.</p>
+<p>En effet nos playbooks contiennent de nombreuses instructions qui bien que liées n'ont pas forcément pour finalité de cohabiter et l'ensemble de ces instructions paraissent en l'état, bien difficilement transposables à d'autres projets/contextes.</p>
+<p>Il est donc plus que temps d'intégrer le concept de <strong>rôle</strong> et plus largement de <strong>collection</strong>.</p>
 <h2 id="les-roles" class="anchor-title"><a href="#les-roles">Les rôles</a></h2>
-<p>Au sens Ansible un rôle est assimilable à un regroupement de tâches dont (normalement) la finalité s'oriente vers le même objectif. On peut ainsi s'imaginer un rôle dédié à la gestion de notre serveur web Nginx.</p>
-<p>La structure d'un rôle est très similaire à l'organisation que l'on a pu voir jusqu'à présent, on retrouvera ainsi une arborescence comme suit:</p>
+<p>Au sens Ansible un rôle est assimilable à un <strong>regroupement de tâches</strong> qui (normalement) s'orientent vers un même objectif.
+On peut ainsi s'imaginer un rôle dédié à la gestion de notre serveur web nginx ou encore à un serveur de bases de données PostgreSQL.</p>
+<p>La structure d'un rôle est très similaire à l'organisation que l'on a pu voir jusqu'à présent, on retrouvera ainsi une arborescence type:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="db6efd5f9971ad93ff86fc3ce7a89265">roles/
     nginx/                <span class="token comment"># this hierarchy represents a "role"</span>
         tasks/            <span class="token comment">#</span>
@@ -314,11 +318,11 @@ Et vous avez bien raison, car jusqu'à présent nous n'avons rien produit de bie
         library/          <span class="token comment"># roles can also include custom modules</span>
         module_utils/     <span class="token comment"># roles can also include custom module_utils</span>
         lookup_plugins/   <span class="token comment"># or other types of plugins, like lookup in this case</span></code></pre>
-<p>Ansible prévoit donc un répertoire dédié aux rôles dans lequel nous retrouverons un répertoire par rôle, chacune de ces rôles obéissant à la structure définie ci-dessus.</p>
+<p>Ansible prévoit un répertoire dédié aux rôles dans lequel nous retrouverons <strong>un répertoire par rôle</strong>, chacun de ces rôles obéissant à la structure définie ci-dessus.</p>
 <div class="admonition info">
 <p class="admonition-title">Structure d'un rôle</p>
 <p>
-    Un rôle doit contenir au moins un des répertoires de l'arborescence ci-dessus. À l'inverse si certains répertoires ne sont pas nécessaire à son fonctionnement, ils peuvent être omis.
+    Un rôle doit contenir <strong>au moins</strong> un des répertoires de l'arborescence ci-dessus. À l'inverse si certains répertoires ne sont pas nécessaires à son fonctionnement, ils peuvent être omis.
     Par défaut Ansible « recherchera » les instructions d'un répertoire dans un fichier <code class="code-inline" id="c0c84c46776cbacdea8e3ecb98f3dd65">main.yml</code>.
 </p>
 </div>
@@ -331,14 +335,14 @@ Et vous avez bien raison, car jusqu'à présent nous n'avons rien produit de bie
 </ul>
 <h3 id="creer-son-premier-role" class="anchor-title"><a href="#creer-son-premier-role">Créer son premier rôle</a></h3>
 <p>Reprenons nos travaux précédent, nous avions au final plusieurs tâches chacune chargée de faire des choses bien différentes (Nginx, PHP, motd...)
-Notre objectif pour cette fois sera de refactoriser ces sections de manière à les transformer en rôles.</p>
+Notre objectif pour cette fois sera de <strong>refactoriser ces sections</strong> de manière à les transformer en <strong>rôles</strong>.</p>
 <h4 id="motd" class="anchor-title"><a href="#motd">Motd</a></h4>
-<p>Rien de bien compliqué pour commencer histoire de ne pas vous perdre tout de suite ;)
+<p>Rien de bien compliqué pour commencer, histoire de ne pas vous perdre tout de suite ;)
 Créons notre arborescence dans un répertoire <code class="code-inline" id="4295e8065f2f640103f566df3329e17f">roles</code> <strong>à la racine de notre répertoire de travail</strong> en y ajoutant un répertoire <code class="code-inline" id="8776dc2b7228908a1ba75b6547efede7">motd</code>.
 Dans ce dernier nous allons ensuite créer les répertoires <code class="code-inline" id="2cb1ad4f3eb0ea704c74a73689ad1654">tasks</code> et <code class="code-inline" id="a4a918a45181164207929d52aec36aec">defaults</code>.</p>
 <p>À l'intérieur de chacun de ces répertoires nouvellement créés nous ajouterons un fichier <code class="code-inline" id="c0c84c46776cbacdea8e3ecb98f3dd65">main.yml</code> pour l'instant vide.</p>
-<p>Nous créerons également une arborescence <code class="code-inline" id="b35c9eb4b3769e2d7572c34c9da4ba19">templates/scripts</code> dans notre role et nous « rapatrierons » nos fichiers de template <code class="code-inline" id="1eeadef35e0afa776e8733abce2e8598">production.j2</code> et <code class="code-inline" id="ea44399be7b5e71b5d499f43a541e397">staging.j2</code>.</p>
-<p>Vous devriez à ce stade disposer d'une arborescence de role similaire à la suivante:</p>
+<p>Nous créerons également une arborescence <code class="code-inline" id="b35c9eb4b3769e2d7572c34c9da4ba19">templates/scripts</code> dans notre role et nous « rapatrierons » nos fichiers de template <code class="code-inline" id="1eeadef35e0afa776e8733abce2e8598">production.j2</code> et <code class="code-inline" id="ea44399be7b5e71b5d499f43a541e397">staging.j2</code> du répertoire templates à la racine de notre projet vers le répertoire <code class="code-inline" id="b35c9eb4b3769e2d7572c34c9da4ba19">templates/scripts</code> de notre rôle.</p>
+<p>Vous devriez à ce stade disposer d'une arborescence pour le rôle <strong>motd</strong> similaire à la suivante:</p>
 <pre class="code-multiline language-shell"><code class="language-shell" id="8b48f80264c17dfafe42fe6816cc41b9">motd
 ├── defaults
 │   └── main.yml
@@ -358,7 +362,7 @@ Dans ce dernier nous allons ensuite créer les répertoires <code class="code-in
     <span class="token key atrule">owner</span><span class="token punctuation">:</span> root
     <span class="token key atrule">group</span><span class="token punctuation">:</span> root
     <span class="token key atrule">mode</span><span class="token punctuation">:</span> <span class="token string">"0755"</span></code></pre>
-<p>À ce stade vous avez un premier rôle, très simple fonctionnel, il nous reste à assurer son déclenchement au niveau de notre playbook <code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code> que nous allons modifier de manière à intégrer l'exécution de notre rôle:</p>
+<p>À ce stade vous avez un premier rôle très simple, fonctionnel, il nous reste à assurer son déclenchement au niveau de notre playbook <code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code> que nous allons modifier de manière à intégrer l'exécution de notre rôle:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="f4ff126908acf7303a79b2254a233053"><span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"Configuring webservers"</span>
   <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
 
@@ -368,17 +372,17 @@ Dans ce dernier nous allons ensuite créer les répertoires <code class="code-in
   <span class="token key atrule">pre_tasks</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"Common tasks"</span>
     <span class="token punctuation">...</span></code></pre>
-<p>En exécutant la commande <code class="code-inline" id="ff2336ad0e6cf0fd72a2c936a67fe361">ansible-playbook -i inventories main.yml</code> vous ne devriez constater aucune changements notables si ce n'est que l'exécution des instructions relatives à la configuration de motd se fait désormais à partir de notre nouveau rôle.</p>
+<p>En exécutant la commande <code class="code-inline" id="ff2336ad0e6cf0fd72a2c936a67fe361">ansible-playbook -i inventories main.yml</code> vous ne devriez constater aucun changements notables si ce n'est que l'exécution des instructions relatives à la configuration de motd se fait désormais à partir de notre nouveau rôle.</p>
 <h3 id="organisation-et-structures-de-controle-avancees" class="anchor-title"><a href="#organisation-et-structures-de-controle-avancees">Organisation et structures de contrôle avancées</a></h3>
-<p>Dans le but d'étoffer et de rendre un peu plus robuste notre rôle nous allons introduire quelques contraintes:</p>
+<p>Dans le but d'étoffer et de rendre <strong>un peu plus robuste</strong> notre rôle nous allons introduire quelques contraintes:</p>
 <ul>
-<li>La possibilité d'activer ou non une fonctionnalité de contrôle des motd existants côté serveur (tolère t'on ou non la présence de motd non gérés par notre rôle);</li>
+<li>La possibilité d'activer ou non une fonctionnalité de contrôle des motd existants côté serveur (tolère t-on ou non la présence de motd non gérés par notre rôle ?);</li>
 <li>La possibilité de choisir le répertoire d'installation de nos scripts motd;</li>
 <li>La possibilité d'avoir plusieurs scripts déployés (actuellement nous n'en déployons qu'un seul).</li>
 </ul>
 <p>Mais avant de commencer nous allons, pour l'exemple voir que nous pouvons tout à fait (et c'est d'ailleurs très courant) géré l'inclusion de tâches dans nos rôles comme dans nos playbook principaux.</p>
-<p>Créons dans le répertoire <code class="code-inline" id="563d664f9447abba6124ea1b6aade3d4">roles/motd/tasks</code> un fichier nommé <code class="code-inline" id="aafc68c07cc65c24b090ad13e2c1d05d">scripts.yml</code> dans lequel nous allons transférer le contenu du fichier <code class="code-inline" id="563d664f9447abba6124ea1b6aade3d4">roles/motd/tasks</code>.
-À présent dans notre fichier <code class="code-inline" id="563d664f9447abba6124ea1b6aade3d4">roles/motd/tasks</code> nous allons ajouter les instructions suivantes:</p>
+<p>Créons dans le répertoire <code class="code-inline" id="563d664f9447abba6124ea1b6aade3d4">roles/motd/tasks</code> un fichier nommé <code class="code-inline" id="aafc68c07cc65c24b090ad13e2c1d05d">scripts.yml</code> dans lequel nous allons transférer le contenu du fichier <code class="code-inline" id="2ee2cbf5f3784c716c408d5f38dad23a">roles/motd/tasks/main.yml</code>.</p>
+<p>À présent dans notre fichier <code class="code-inline" id="2ee2cbf5f3784c716c408d5f38dad23a">roles/motd/tasks/main.yml</code> nous ajoutons les instructions suivantes:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="ccb92a7404eccc93a33af4510e07ee97"><span class="token punctuation">---</span>
 
 <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Scripts
@@ -388,7 +392,7 @@ Dans ce dernier nous allons ensuite créer les répertoires <code class="code-in
     <span class="token punctuation">-</span> workshop_motd.scripts</code></pre>
 <p>On y retrouve les instructions d'import de tâches mais également les tags spécifiques qui nous permettrons de <a href="/blog/cours/ansible/ansible-les-playbooks#taguer-ses-taches">cibler nos exécutions</a>.</p>
 <h4 id="initialisation-de-variables-par-defaut" class="anchor-title"><a href="#initialisation-de-variables-par-defaut">Initialisation de variables par « défaut »</a></h4>
-<p>Souvenez-vous nous avons créés un répertoire <code class="code-inline" id="a4a918a45181164207929d52aec36aec">defaults</code>, celui-ci va contenir les variables utilisées par notre role et leur valeur par défaut.</p>
+<p>Souvenez-vous nous avons créés un répertoire <code class="code-inline" id="a4a918a45181164207929d52aec36aec">defaults</code>, celui-ci va contenir les variables utilisées par notre rôle et leur valeur par défaut.</p>
 <p>Dans le fichier <code class="code-inline" id="7eeda618087b49ae876084ab6c73fdbb">defaults/main.yml</code> nous ajouterons donc:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="59c33ff2281ce685ffec433bd38f39ce"><span class="token punctuation">---</span>
 
@@ -397,22 +401,58 @@ Dans ce dernier nous allons ensuite créer les répertoires <code class="code-in
 <span class="token key atrule">workshop_motd_scripts</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span></code></pre>
 <p><strong>Dans l'ordre:</strong></p>
 <ul>
-<li>Une variable qui nous servira à configurer l'exclusivité des scripts motd;</li>
+<li>Une variable qui nous servira à <strong>configurer l'exclusivité</strong> des scripts motd;</li>
 <li>Une seconde qui permettra de configurer le répertoire cible de destination de nos scripts;</li>
 <li>Et enfin une dernière qui nous permettra de paramétrer les scripts à déployer côté serveur.</li>
 </ul>
+<h3 id="declarer-les-variables-de-roles" class="anchor-title"><a href="#declarer-les-variables-de-roles">Déclarer les variables de rôles</a></h3>
+<p>Une bonne pratique consiste à toujours déclarer les variables qui seront utilisées dans notre rôle.
+Dans notre cas nous utiliserons 3 variables que nous allons donc déclarer dans le fichier <code class="code-inline" id="1f4b4c39205109d4cfa93f1513d9a22d">roles/motd/defaults/main.yml</code>.</p>
+<p>Celui-ci contenant:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="59c33ff2281ce685ffec433bd38f39ce"><span class="token punctuation">---</span>
+
+<span class="token key atrule">workshop_motd_scripts_exclusive</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+<span class="token key atrule">workshop_motd_scripts_dir</span><span class="token punctuation">:</span> /etc/update<span class="token punctuation">-</span>motd.d
+<span class="token key atrule">workshop_motd_scripts</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span></code></pre>
+<ul>
+<li><code class="code-inline" id="a44882030bf60cf6177ac274e10a07b2">workshop_motd_scripts_exclusive</code>: Nous servira à activer ou non l'exclusivité des fichiers;</li>
+<li><code class="code-inline" id="8e0442e53cb0e3972df373192cfec350">workshop_motd_scripts_dir</code>: Contiendra le répertoire sur la machine cible qui contiendra nos scripts motd;</li>
+<li><code class="code-inline" id="ee36da712d28543c21cf09f2396e8a6b">workshop_motd_scripts</code>: Un tableau contenant les informations de nos différents scripts.</li>
+</ul>
 <h4 id="exclusivite" class="anchor-title"><a href="#exclusivite">Exclusivité</a></h4>
-<p>Première contrainte, faire en sorte que notre rôle soit la référence en terme d'état de la machine cible.
+<p>Première contrainte, faire en sorte que notre rôle <strong>soit la référence</strong> en terme d'état de la machine cible.
 Pour se faire, l'idée et de ne conserver à l'exécution que les scripts <strong>déclarés</strong> dans notre configuration.</p>
-<p>La première étape sera donc de récupérer la liste des scripts présents sur notre machine cible avant l'exécution de nos tâches.</p>
+<p>Avant de nous lancer, il va falloir faire évoluer légèrement notre variable <code class="code-inline" id="ee36da712d28543c21cf09f2396e8a6b">workshop_motd_scripts</code> que vous retrouverez dans les fichiers:</p>
+<ul>
+<li><code class="code-inline" id="c3cc6827c1824b0a57b298489ce26597">group_vars/production.yml</code> que nous modifierons comme ci-dessous:</li>
+</ul>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="84e042358367ff6ea7fd529f17950ca6"><span class="token key atrule">workshop_motd_scripts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">file</span><span class="token punctuation">:</span> 10<span class="token punctuation">-</span>message
+    <span class="token key atrule">template</span><span class="token punctuation">:</span> scripts/<span class="token punctuation">{</span><span class="token punctuation">{</span> stage <span class="token punctuation">}</span><span class="token punctuation">}</span>.j2
+    <span class="token key atrule">message</span><span class="token punctuation">:</span> Attention environnement de production <span class="token tag">!</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">file</span><span class="token punctuation">:</span> 20<span class="token punctuation">-</span>uname</code></pre>
+<ul>
+<li><code class="code-inline" id="337425bdec603d6a2d4f366b58781ac6">group_vars/staging.yml</code> que nous modifierons comme ci-dessous:</li>
+</ul>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="ae13d93f1510982ac6ec481e268c9d5c"><span class="token key atrule">workshop_motd_scripts</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">file</span><span class="token punctuation">:</span> 10<span class="token punctuation">-</span>message
+    <span class="token key atrule">template</span><span class="token punctuation">:</span> scripts/<span class="token punctuation">{</span><span class="token punctuation">{</span> stage <span class="token punctuation">}</span><span class="token punctuation">}</span>.j2
+    <span class="token key atrule">message</span><span class="token punctuation">:</span> Environnement de staging <span class="token tag">!</span></code></pre>
+<p>Nous avons fait évoluer la structure de notre variable vers une structure plus complexe:</p>
+<ul>
+<li><code class="code-inline" id="8c7dd922ad47494fc02c388e12c00eac">file</code>: contient le nom du fichier attendu côté machine cible;</li>
+<li><code class="code-inline" id="66f6181bcb4cff4cd38fbc804a036db6">template</code>: indique le fichier de template à utiliser;</li>
+<li><code class="code-inline" id="78e731027d8fd50ed642340b7c9a63b3">message</code>: contient le message à afficher dans notre motd.</li>
+</ul>
+<p>Nous avons donc défini <strong>deux scripts motd</strong> à installer sur notre environnement de production et <strong>un seul</strong> sur notre environnement de staging.</p>
 <div class="admonition info">
 <p class="admonition-title">L'option register</p>
 <p>
-    Expliquer pourquoi c'est utile
+    L'utilisation de l'option <code class="code-inline" id="9de4a97425678c5b1288aa70c1669a64">register</code> permet de créer une variable à partir des données de sortie résultantes de l'exécution d'une tâche, dans le but de réutiliser cette variable <strong>dans une autre tâche à venir</strong>.
 </p>
 </div>
-<p>Nous positionnerons donc en tout début du fichier <code class="code-inline" id="48185f0fcc44358d6888a71d4fa7b64d">roles/motd/tasks/scripts.yaml</code> le bloc d'instruction suivant:</p>
-<pre class="code-multiline language-yaml"><code class="language-yaml" id="e1a443ca0f72038ca6473f41cfe73ac0"><span class="token punctuation">---</span>
+<p>Nous pouvons donc à présent positionner en tout début du fichier <code class="code-inline" id="48185f0fcc44358d6888a71d4fa7b64d">roles/motd/tasks/scripts.yaml</code> le bloc d'instruction suivant:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="e14b0c4e210d2c180e07d1d94cc11f85"><span class="token punctuation">---</span>
 
 <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Checking files to exclude
   <span class="token key atrule">ansible.builtin.set_fact</span><span class="token punctuation">:</span>
@@ -425,10 +465,18 @@ Pour se faire, l'idée et de ne conserver à l'exécution que les scripts <stron
     <span class="token key atrule">path</span><span class="token punctuation">:</span> <span class="token string">"{{ workshop_motd_scripts_dir }}"</span>
     <span class="token key atrule">file_type</span><span class="token punctuation">:</span> file
     <span class="token key atrule">patterns</span><span class="token punctuation">:</span> <span class="token string">"*"</span>
-    <span class="token key atrule">excludes</span><span class="token punctuation">:</span> <span class="token string">"{{workshop_scripts_list }}"</span>
+    <span class="token key atrule">excludes</span><span class="token punctuation">:</span> <span class="token string">"{{ workshop_scripts_list }}"</span>
   <span class="token key atrule">changed_when</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
   <span class="token key atrule">register</span><span class="token punctuation">:</span> __workshop_motd_scripts_exclusive_find
   <span class="token key atrule">when</span><span class="token punctuation">:</span> workshop_motd_scripts_exclusive</code></pre>
+<p>Le premier bloc d'instruction aura vocation à lister sous forme d'un tableau « plat » la liste des scripts que nous avons décidé d'avoir sur notre serveur (variable <code class="code-inline" id="ee36da712d28543c21cf09f2396e8a6b">workshop_motd_scripts</code>).
+Le but étant de récupérer une variable contenant des informations compréhensibles par l'option <code class="code-inline" id="7d1b98ec98cdcfba1cb39cb36a9f9ec0">excludes</code> du module <code class="code-inline" id="e7360693cd4330280f258bc143ead2d9">ansible.builtin.find</code> dont le comportement est similaire à la commande UNIX.</p>
+<p>La seconde tâche aura pour but de lister les fichiers côté serveur correspondant aux options que l'on aura passées au module à savoir:</p>
+<ul>
+<li>N'importe quel fichier de type fichier (Il n'y a pas de redondance ici, n'oubliez pas que dans un système UNIX, TOUT est fichier)</li>
+<li>Dont le nom remplit les conditions du paramètre <code class="code-inline" id="240bf022e685b0ee30ad9fe9e1fb5d5b">pattern</code> à savoir « * » soit n'importe quel caractère ou pour résumer tous les fichiers ;);</li>
+<li>En excluant les fichiers présents dans la variable <code class="code-inline" id="a134baf0cf59d3fe5ac1d51d131a3c07">workshop_scripts_list</code>.</li>
+</ul>
 <div class="admonition info">
 <p class="admonition-title">L'instruction loop</p>
 <p>
@@ -445,7 +493,7 @@ Pour se faire, l'idée et de ne conserver à l'exécution que les scripts <stron
 <div class="admonition info">
 <p class="admonition-title">L'option changed_when</p>
 <p>
-    L'option <code class="code-inline" id="0675d5ed9920bb041681c1d5489709e6">changed_when</code> nous permet de « décider » si une tâche à modifier (au sens Ansible) notre machine cible. En fonction de son retour nous pouvons donc décider si un changment doit être mentionné ou si un handler doit être déclenché. Bon à savoir également, si vous y définissez plusieurs conditions celles-ci sont jointent avec un opérateur <code class="code-inline" id="be5d5d37542d75f93a87094459f76678">and</code> par défaut.
+    L'option <code class="code-inline" id="0675d5ed9920bb041681c1d5489709e6">changed_when</code> nous permet de « décider » si une tâche a modifier (au sens Ansible) notre machine cible. En fonction de son retour nous pouvons donc décider si un changement doit être mentionné ou si un <code class="code-inline" id="c1cbfe271a40788a00e8bf8574d94d4b">handler</code> doit être déclenché. Bon à savoir également, si vous y définissez plusieurs conditions celles-ci sont jointent avec un opérateur <code class="code-inline" id="be5d5d37542d75f93a87094459f76678">and</code> par défaut.
 </p>
 </div>
 <p>Nous avons donc récupéré la liste des fichiers présents sur notre machine cible il nous reste à présent à supprimer ceux qui ne sont pas gérés par notre script.</p>
@@ -459,6 +507,7 @@ Pour se faire, l'idée et de ne conserver à l'exécution que les scripts <stron
 <li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html" target="_blank">https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html</a></li>
 <li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html#embedding-modules-and-plugins-in-roles" target="_blank">https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html#embedding-modules-and-plugins-in-roles</a></li>
 <li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_error_handling.html#defining-changed" target="_blank">https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_error_handling.html#defining-changed</a></li>
+<li><a href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#registering-variables" target="_blank">https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#registering-variables</a></li>
 </ul></body>
                                                                                 </main>
                 <div class="article-footer" data-aos="fade-in">
