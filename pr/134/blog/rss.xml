@@ -5,7 +5,7 @@
         <description>Découvrez nos articles techniques (ou non), rédigés par les membres de l'équipe Rix !</description>
         <copyright>Rix - L’utilisation des flux RSS de rix.fr est réservée à un usage strictement personnel, non professionnel et non collectif. Toute autre exploitation doit faire l’objet d’une autorisation et donner lieu au versement d’une rémunération. Contact : contact@rix.fr</copyright>
         <link>https://rix-fr.github.io/rix/pr/134/blog</link>
-        <pubDate>Tue, 20 Feb 2024 15:46:41 +0000</pubDate>
+        <pubDate>Mon, 26 Feb 2024 13:31:51 +0000</pubDate>
         <language>fr</language>
         <image>
             <url>https://rix-fr.github.io/rix/pr/134/apple-touch-icon.png</url>
@@ -14,26 +14,8 @@
         </image>
         <atom:link href="https://rix-fr.github.io/rix/pr/134/blog/rss.xml" rel="self" type="application/rss+xml"/>
                 <item>
-            <title>Ansible - Chiffrer ses informations sensibles, le vault.</title>
-            <pubDate>Sun, 18 Feb 2024 00:00:00 +0000</pubDate>
-            <description>
-                <![CDATA[ Utiliser le vault Ansible afin de faire en sorte qu&#039;aucune information sensible ne soit accessible publiquement. ]]>
-            </description>
-            <guid isPermaLink="true">https://rix-fr.github.io/rix/pr/134/blog/cours/ansible/ansible-le-vault</guid>
-            <link>https://rix-fr.github.io/rix/pr/134/blog/cours/ansible/ansible-le-vault</link>
-            <media:content url="https://rix-fr.github.io/rix/pr/134/resized/content/images/blog/thumbnails/ansible-le-vault.jpg/8523273987f54d7391a09ac7024f6bf5.jpg" width="1200" height="627">
-                <media:description type="plain">Ansible - Chiffrer ses informations sensibles, le vault.</media:description>
-                            </media:content>
-                            <category>cours</category>
-                            <category>ansible</category>
-                            <category>automation</category>
-                            <category>securite</category>
-                            <category>vault</category>
-                            <category>chiffrement</category>
-                                </item>
-                <item>
             <title>Ansible - Roles et collections, savoir factoriser.</title>
-            <pubDate>Fri, 02 Feb 2024 00:00:00 +0000</pubDate>
+            <pubDate>Mon, 26 Feb 2024 00:00:00 +0000</pubDate>
             <description>
                 <![CDATA[ Automatiser c&#039;est bien, faire en sorte que cela soit réutilisable simplement c&#039;est mieux. Mise en oeuvre des collections et roles avec Ansible. ]]>
             </description>
