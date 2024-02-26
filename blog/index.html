@@ -183,30 +183,30 @@
             <div class="container content">
                 <ul class="miniature-list">
                                                                         <li class="miniature-highlight">
-                                <a href="/rix/blog/cours/ansible/ansible-les-variables" class="miniature-highlight__content">
+                                <a href="/rix/blog/cours/ansible/ansible-les-roles" class="miniature-highlight__content">
                                     <div class="details">
-                                        <span class="date">29 janv. 2024</span>
-                                        <h2>Ansible - Les variables</h2>
-                                        <p>Les variables avec Ansible, introduisons du dynamisme dans nos playbooks !</p>
+                                        <span class="date">26 févr. 2024</span>
+                                        <h2>Ansible - Roles et collections, savoir factoriser.</h2>
+                                        <p>Automatiser c&#039;est bien, faire en sorte que cela soit réutilisable simplement c&#039;est mieux. Mise en oeuvre des collections et roles avec Ansible.</p>
                                     </div>
                                     <div class="miniature-highlight__image">
                                         <div class="image" style="background-color: #f1f1f1;
-    background-image: url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/d9a137b573f450e18bb0744f3932cedf.jpg');
+    background-image: url('/rix/resized/content/images/blog/thumbnails/ansible-les-roles.jpg/de1f91939a92181909cd864ce0e2b458.jpg');
     background-image: -webkit-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/d9a137b573f450e18bb0744f3932cedf.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/adb8110014bc060ea13cbe3757487424.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-roles.jpg/de1f91939a92181909cd864ce0e2b458.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-roles.jpg/191b6f07c7b99f7bd539e0e590b61f11.jpg') 2x
     );
     background-image: -moz-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/d9a137b573f450e18bb0744f3932cedf.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/adb8110014bc060ea13cbe3757487424.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-roles.jpg/de1f91939a92181909cd864ce0e2b458.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-roles.jpg/191b6f07c7b99f7bd539e0e590b61f11.jpg') 2x
     );
     background-image: -ms-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/d9a137b573f450e18bb0744f3932cedf.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/adb8110014bc060ea13cbe3757487424.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-roles.jpg/de1f91939a92181909cd864ce0e2b458.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-roles.jpg/191b6f07c7b99f7bd539e0e590b61f11.jpg') 2x
     );
     background-image: image-set(
-        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/d9a137b573f450e18bb0744f3932cedf.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/adb8110014bc060ea13cbe3757487424.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-roles.jpg/de1f91939a92181909cd864ce0e2b458.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-roles.jpg/191b6f07c7b99f7bd539e0e590b61f11.jpg') 2x
     );;"></div>
                                     </div>
                                 </a>
@@ -222,7 +222,13 @@
                                                 <span>#Automation</span>
                                             </li>
                                                                                     <li class="tags-list__item">
-                                                <span>#Variables</span>
+                                                <span>#Playbook</span>
+                                            </li>
+                                                                                    <li class="tags-list__item">
+                                                <span>#Collection</span>
+                                            </li>
+                                                                                    <li class="tags-list__item">
+                                                <span>#Role</span>
                                             </li>
                                                                             </ul>
                                 </div>
@@ -242,6 +248,54 @@
                                                                                     </span>
                                     </div>
                                 </div>
+                            </li>
+                                                                                                <li class="miniature-inline">
+                                <a href="/rix/blog/cours/ansible/ansible-les-variables">
+                                    <div class="miniature-inline__image">
+                                        <span class="image" style="background-color: #f1f1f1;
+    background-image: url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/5f3469213b403c2130d75900d38f7de1.jpg');
+    background-image: -webkit-image-set(
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/5f3469213b403c2130d75900d38f7de1.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/724d16db79134789c1198b9577d4692f.jpg') 2x
+    );
+    background-image: -moz-image-set(
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/5f3469213b403c2130d75900d38f7de1.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/724d16db79134789c1198b9577d4692f.jpg') 2x
+    );
+    background-image: -ms-image-set(
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/5f3469213b403c2130d75900d38f7de1.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/724d16db79134789c1198b9577d4692f.jpg') 2x
+    );
+    background-image: image-set(
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/5f3469213b403c2130d75900d38f7de1.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-les-variables.jpg/724d16db79134789c1198b9577d4692f.jpg') 2x
+    );"></span>
+                                    </div>
+                                    <div class="miniature-inline__content">
+                                        <h2 class="miniature-inline__title">Ansible - Les variables</h2>
+                                        <p>Les variables avec Ansible, introduisons du dynamisme dans nos playbooks !</p>
+                                        <ul class="tags-list">
+                                                                                            <li class="tags-list__item">
+                                                    #Cours
+                                                </li>
+                                                                                            <li class="tags-list__item">
+                                                    #Ansible
+                                                </li>
+                                                                                            <li class="tags-list__item">
+                                                    #Automation
+                                                </li>
+                                                                                            <li class="tags-list__item">
+                                                    #Variables
+                                                </li>
+                                                                                    </ul>
+                                        <span class="sliding-button sliding-button--mobile">
+                                            <span class="sliding-button__content">
+                                                <i class="icon icon--arrow-right" aria-hidden="true"></i>
+                                                Lire l'article
+                                            </span>
+                                        </span>
+                                    </div>
+                                </a>
                             </li>
                                                                                                 <li class="miniature-inline">
                                 <a href="/rix/blog/cours/ansible/ansible-les-playbooks">
@@ -336,30 +390,30 @@
                                     </div>
                                 </a>
                             </li>
-                                                                                                <li class="miniature-inline">
+                                                                                                <li class="miniature">
                                 <a href="/rix/blog/cours/ansible/ansible-premiers-pas">
-                                    <div class="miniature-inline__image">
+                                    <div class="miniature__image">
                                         <span class="image" style="background-color: #f1f1f1;
-    background-image: url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/78d80603ac66329b5a5c37cefde68627.jpg');
+    background-image: url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/d62c67f803636c1d3a3a17f144e04a75.jpg');
     background-image: -webkit-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/78d80603ac66329b5a5c37cefde68627.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/ebf0b5572c3a5487e79c649499f0e41f.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/d62c67f803636c1d3a3a17f144e04a75.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/ca79bfe07ddc4d125f81c3552c6299c7.jpg') 2x
     );
     background-image: -moz-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/78d80603ac66329b5a5c37cefde68627.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/ebf0b5572c3a5487e79c649499f0e41f.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/d62c67f803636c1d3a3a17f144e04a75.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/ca79bfe07ddc4d125f81c3552c6299c7.jpg') 2x
     );
     background-image: -ms-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/78d80603ac66329b5a5c37cefde68627.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/ebf0b5572c3a5487e79c649499f0e41f.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/d62c67f803636c1d3a3a17f144e04a75.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/ca79bfe07ddc4d125f81c3552c6299c7.jpg') 2x
     );
     background-image: image-set(
-        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/78d80603ac66329b5a5c37cefde68627.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/ebf0b5572c3a5487e79c649499f0e41f.jpg') 2x
+        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/d62c67f803636c1d3a3a17f144e04a75.jpg') 1x,
+        url('/rix/resized/content/images/blog/thumbnails/ansible-premier-pas.jpg/ca79bfe07ddc4d125f81c3552c6299c7.jpg') 2x
     );"></span>
                                     </div>
-                                    <div class="miniature-inline__content">
-                                        <h2 class="miniature-inline__title">Ansible - Découverte et premiers pas.</h2>
+                                    <div class="miniature__content">
+                                        <h2 class="h3">Ansible - Découverte et premiers pas.</h2>
                                         <p>Dans ce premier cours à destination des étudiants et/ou néophytes, nous verrons ce qu&#039;est Ansible ainsi qu&#039;un exemple très simple de son utilisation.</p>
                                         <ul class="tags-list">
                                                                                             <li class="tags-list__item">
@@ -604,54 +658,6 @@
                                                 </li>
                                                                                             <li class="tags-list__item">
                                                     #HowTo
-                                                </li>
-                                                                                    </ul>
-                                        <span class="sliding-button sliding-button--mobile">
-                                            <span class="sliding-button__content">
-                                                <i class="icon icon--arrow-right" aria-hidden="true"></i>
-                                                Lire l'article
-                                            </span>
-                                        </span>
-                                    </div>
-                                </a>
-                            </li>
-                                                                                                <li class="miniature">
-                                <a href="/rix/blog/linux/construire-image-debian-raspberry">
-                                    <div class="miniature__image">
-                                        <span class="image" style="background-color: #f1f1f1;
-    background-image: url('/rix/resized/content/images/blog/thumbnails/raspberrypi.jpg/80aae598a50641b22d1bab9f3f560087.jpg');
-    background-image: -webkit-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/raspberrypi.jpg/80aae598a50641b22d1bab9f3f560087.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/raspberrypi.jpg/c94b2bd8ba163dd5c3a809d26180e46c.jpg') 2x
-    );
-    background-image: -moz-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/raspberrypi.jpg/80aae598a50641b22d1bab9f3f560087.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/raspberrypi.jpg/c94b2bd8ba163dd5c3a809d26180e46c.jpg') 2x
-    );
-    background-image: -ms-image-set(
-        url('/rix/resized/content/images/blog/thumbnails/raspberrypi.jpg/80aae598a50641b22d1bab9f3f560087.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/raspberrypi.jpg/c94b2bd8ba163dd5c3a809d26180e46c.jpg') 2x
-    );
-    background-image: image-set(
-        url('/rix/resized/content/images/blog/thumbnails/raspberrypi.jpg/80aae598a50641b22d1bab9f3f560087.jpg') 1x,
-        url('/rix/resized/content/images/blog/thumbnails/raspberrypi.jpg/c94b2bd8ba163dd5c3a809d26180e46c.jpg') 2x
-    );"></span>
-                                    </div>
-                                    <div class="miniature__content">
-                                        <h2 class="h3">Construire une image Debian pour Raspberry Pi</h2>
-                                        <p>Construire une image source Debian à déployer sur Raspberry Pi en remplacement de Raspberry Pi OS (anciennement Raspbian).</p>
-                                        <ul class="tags-list">
-                                                                                            <li class="tags-list__item">
-                                                    #Devops
-                                                </li>
-                                                                                            <li class="tags-list__item">
-                                                    #Linux
-                                                </li>
-                                                                                            <li class="tags-list__item">
-                                                    #Build
-                                                </li>
-                                                                                            <li class="tags-list__item">
-                                                    #Raspberry
                                                 </li>
                                                                                     </ul>
                                         <span class="sliding-button sliding-button--mobile">
