@@ -654,12 +654,12 @@ Complétons notre playbook de manière à obtenir la configuration suivante:</p>
         <span class="token key atrule">name</span><span class="token punctuation">:</span> haproxy
         <span class="token key atrule">state</span><span class="token punctuation">:</span> restarted
     <span class="token key atrule">listen</span><span class="token punctuation">:</span> restart_http_stack</code></pre>
-<h4 id="les-instructions-import-et-export" class="anchor-title"><a href="#les-instructions-import-et-export">Les instructions import... et export...</a></h4>
-<p>Vous l'aurez compris, si l'on conserve l'ensemble de nos instructions dans un seul playbook celui-ci peut rapidemnent devenir <strong>volumineux et difficile</strong> à maintenir. Pour autant séparer nos instructions dans des playbooks dédiés conduit invariablement à dupliquer certains blocs d'instructions ce qui n'est pas non plus l'idéal, fort heureusement il est possible de résoudre ces problématiques de manière élégante en utilisant différentes instructions préfixées <code class="code-inline" id="fe8630d1d657e9bb58b1a9260acd93cf">import_</code> et <code class="code-inline" id="0583300c259450db57fd2307fc84a673">export_</code>.</p>
+<h4 id="les-instructions-import-et-include" class="anchor-title"><a href="#les-instructions-import-et-include">Les instructions import... et include...</a></h4>
+<p>Vous l'aurez compris, si l'on conserve l'ensemble de nos instructions dans un seul playbook celui-ci peut rapidemnent devenir <strong>volumineux et difficile</strong> à maintenir. Pour autant séparer nos instructions dans des playbooks dédiés conduit invariablement à dupliquer certains blocs d'instructions ce qui n'est pas non plus l'idéal, fort heureusement il est possible de résoudre ces problématiques de manière élégante en utilisant différentes instructions préfixées <code class="code-inline" id="fe8630d1d657e9bb58b1a9260acd93cf">import_</code> et <code class="code-inline" id="84de53352b4e3287e6e12392a69dddc3">include_</code>.</p>
 <p><strong>Avant de réorganiser nos travaux il est important de bien comprendre la différence entre les deux:</strong></p>
 <ul>
 <li>Les instructions de type <code class="code-inline" id="9ec8c49bdcba93e76013a10e3b107b76">import_*</code> sont « pré-traitées » au moment où les playbooks sont parcourus et donc avant leur exécution;</li>
-<li>Les instructions de type <code class="code-inline" id="36d2653a72f06c6cd8c23ef246e0f785">export_*</code> sont traitées au moment où elles sont rencontrées durant l'exécution. </li>
+<li>Les instructions de type <code class="code-inline" id="f22f9bf0ae1c0d546b1c9c5250df414d">include_*</code> sont traitées au moment où elles sont rencontrées durant l'exécution. </li>
 </ul>
 <p><strong>Réorganisons à présent nos playbooks en tenant compte de cette nouvelle information:</strong></p>
 <ul>

@@ -496,7 +496,7 @@ On peut donc modifier ces fichiers d'hôtes de la manière suivante pour exploit
 Afin de stocker 2 fichiers nous créerons un répertoire dédié à motd qui contiendra donc <code class="code-inline" id="1eeadef35e0afa776e8733abce2e8598">production.j2</code> et <code class="code-inline" id="ea44399be7b5e71b5d499f43a541e397">staging.j2</code></p>
 <p>Pour ces deux nouveaux fichiers nous ajouterons les contenus suivants:</p>
 <p>Pour la <strong>production</strong>:</p>
-<pre class="code-multiline language-shell"><code class="language-shell" id="c17d0eca85ccece0095d521455b6d4cb"><span class="token shebang important">#!/bin/sh</span>
+<pre class="code-multiline language-shell"><code class="language-shell" id="6448c6c3dafadcb17940de1eaa77b61b"><span class="token shebang important">#!/bin/sh</span>
 
 <span class="token assign-left variable">MOTD</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span><span class="token string">'EOF'
 [38;5;28m                    ____[0m[0m
@@ -532,7 +532,9 @@ Afin de stocker 2 fichiers nous créerons un répertoire dédié à motd qui con
 {{ motd.message | center(42) }}
 
 EOF</span>
-<span class="token variable">)</span></span></code></pre>
+<span class="token variable">)</span></span>
+
+<span class="token builtin class-name">printf</span> <span class="token string">"<span class="token variable">${MOTD}</span><span class="token entity" title="\n">\n</span><span class="token entity" title="\n">\n</span><span class="token entity" title="\n">\n</span>"</span></code></pre>
 <p>Pour la <strong>staging</strong>:</p>
 <pre class="code-multiline language-shell"><code class="language-shell" id="cf77f68cd822a62e0015d4f1a45c8871"><span class="token shebang important">#!/bin/sh</span>
 <span class="token punctuation">{</span>% <span class="token builtin class-name">set</span> message <span class="token operator">=</span> motd.message -%<span class="token punctuation">}</span>
@@ -591,7 +593,7 @@ C'est justement ce qu'apporte les templates nous allons pouvoir définir des var
 <li>l'ajout d'un fichier de configuration personnalisé;</li>
 <li>le redémarrage du service.</li>
 </ul>
-<pre class="code-multiline language-yaml"><code class="language-yaml" id="b4658e72c9af370391d8fe8c4f06189b"><span class="token comment"># PHP</span>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="31969ab1be20211fba78177cb8035036"><span class="token comment"># PHP</span>
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install PHP<span class="token punctuation">-</span>FPM service
       <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
         <span class="token key atrule">name</span><span class="token punctuation">:</span> php<span class="token punctuation">-</span>fpm
@@ -599,7 +601,7 @@ C'est justement ce qu'apporte les templates nous allons pouvoir définir des var
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> PHP<span class="token punctuation">-</span>FPM <span class="token punctuation">&gt;</span> Configuration
       <span class="token key atrule">ansible.builtin.template</span><span class="token punctuation">:</span>
         <span class="token key atrule">src</span><span class="token punctuation">:</span> <span class="token string">"php/app.ini.j2"</span>
-        <span class="token key atrule">dest</span><span class="token punctuation">:</span> <span class="token string">"/etc/php-fpm/8.2/php-fpm/app.ini"</span>  
+        <span class="token key atrule">dest</span><span class="token punctuation">:</span> <span class="token string">"/etc/php/8.2/fpm/app.ini"</span>  
 
   <span class="token key atrule">handlers</span><span class="token punctuation">:</span>
     <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restart_php<span class="token punctuation">-</span>fpm
