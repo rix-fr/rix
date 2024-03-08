@@ -452,14 +452,14 @@ Il est également possible d'ajouter à un handler une clé `listen` comme ci-de
     listen: restart_http_stack
 ```
 
-#### Les instructions import... et export...
+#### Les instructions import... et include...
 
-Vous l'aurez compris, si l'on conserve l'ensemble de nos instructions dans un seul playbook celui-ci peut rapidemnent devenir **volumineux et difficile** à maintenir. Pour autant séparer nos instructions dans des playbooks dédiés conduit invariablement à dupliquer certains blocs d'instructions ce qui n'est pas non plus l'idéal, fort heureusement il est possible de résoudre ces problématiques de manière élégante en utilisant différentes instructions préfixées `import_` et `export_`.
+Vous l'aurez compris, si l'on conserve l'ensemble de nos instructions dans un seul playbook celui-ci peut rapidemnent devenir **volumineux et difficile** à maintenir. Pour autant séparer nos instructions dans des playbooks dédiés conduit invariablement à dupliquer certains blocs d'instructions ce qui n'est pas non plus l'idéal, fort heureusement il est possible de résoudre ces problématiques de manière élégante en utilisant différentes instructions préfixées `import_` et `include_`.
 
 **Avant de réorganiser nos travaux il est important de bien comprendre la différence entre les deux:**
 
 - Les instructions de type `import_*` sont « pré-traitées » au moment où les playbooks sont parcourus et donc avant leur exécution;
-- Les instructions de type `export_*` sont traitées au moment où elles sont rencontrées durant l'exécution. 
+- Les instructions de type `include_*` sont traitées au moment où elles sont rencontrées durant l'exécution. 
 
 **Réorganisons à présent nos playbooks en tenant compte de cette nouvelle information:**
 

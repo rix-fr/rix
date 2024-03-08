@@ -323,6 +323,8 @@ MOTD=$(cat <<'EOF'
 
 EOF
 )
+
+printf "${MOTD}\n\n\n"
 ```
 
 Pour la **staging**:
@@ -408,7 +410,7 @@ Toujours dans notre playbooks `webservers` ajoutons une section pour PHP où nou
     - name: PHP-FPM > Configuration
       ansible.builtin.template:
         src: "php/app.ini.j2"
-        dest: "/etc/php-fpm/8.2/php-fpm/app.ini"  
+        dest: "/etc/php/8.2/fpm/app.ini"  
   
   handlers:
     - name: restart_php-fpm
