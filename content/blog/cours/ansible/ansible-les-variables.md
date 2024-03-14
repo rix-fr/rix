@@ -222,49 +222,26 @@ Ces « facts » se révèleront fort utiles au fur et à mesure de votre prise e
 
 Nous avons vu comment définir des variables, c'est bien beau mais comment les utiliser ? 
 
-Reprenons par exemple nos fichiers d'hôtes ou nous définissons la clé `hostname`, on peut constater que celle-ci dispose d'une partie qui reprend le contenu de la clé `stage` définie au niveau du groupe.
-On peut donc modifier ces fichiers d'hôtes de la manière suivante pour exploiter cette définition:
+Reprenons par exemple nos fichiers de variables d'hôtes ou nous définissons la clé `hostname`, on peut constater que celle-ci dispose d'une partie qui reprend le contenu de la clé `stage` définie au niveau du groupe.
+On peut donc les modifier de la manière suivante pour exploiter cette définition:
 
 ```yaml
 hostname: "web-{{ stage }}-01"
 ```
 
-Allons ensuite modifier notre playbook (`webservers.yml`) pour utiliser ces variables de la manière suivante:
+Allons ensuite modifier notre fichier (`common.yml`) pour utiliser ces variables de la manière suivante:
 
 ```yaml
 ---
-- hosts: webservers
-
-  pre_tasks:
-    - name: Updating APT cache index
-      ansible.builtin.apt:
-        update_cache: yes
-
-  tasks:
-    # NGINX
-    - name: Install Nginx web server
-      ansible.builtin.apt:
-        name: nginx
-        state: present
-      
-    - name: Nginx status configuration file
-      ansible.builtin.copy:
-        src: nginx/status.conf
-        dest: /etc/nginx/conf.d/status.conf
-      notify:
-          - restart_nginx
-
-    # CONFIG
-    - name: Set a hostname
-      ansible.builtin.hostname:
-        name: "{{ hostname }}"
-
-  handlers:
-    - name: restart_nginx
-      ansible.builtin.service:
-        name: nginx
-        state: restarted
+- name: Updating APT cache index
+  ansible.builtin.apt:
+    update_cache: yes
+# Setting hostname
+- name: Set a hostname
+  ansible.builtin.hostname:
+    name: "{{ hostname }}"
 ```
+Notre tâche vient ici « consommer » la variable `hostname` et l'utiliser comme paramètre du module Ansible.
 
 ## Les templates
 
