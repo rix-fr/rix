@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Faire fonctionner des conteneurs Docker dans WSL.</title>
+
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/rix/pr/137/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/rix/pr/137/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/rix/pr/137/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/rix/pr/137/favicon-16x16.png">
+        <link rel="manifest" href="/rix/pr/137/site.webmanifest">
+                <link rel="shortcut icon" href="/rix/pr/137/favicon.ico">
+        <meta name="msapplication-TileColor" content="#ff4344">
+        <meta name="msapplication-config" content="/rix/pr/137/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+                        <meta name="description" content="Avec l&#039;intégration WSL2 de Windows et Docker Desktop, comment utiliser des conteneurs Docker dans une machine virtuelle WSL ?" />
+            <link rel="canonical" href="https://rix-fr.github.io/rix/pr/137/blog/cours/docker-avec-windows-et-wsl" />
+
+            <!-- Open Graph / Facebook -->
+                                        <meta property="og:type" content="website">
+                        <meta property="og:title" content="Faire fonctionner des conteneurs Docker dans WSL." />
+            <meta property="og:locale" content="fr" />
+            <meta property="og:description" content="Avec l&#039;intégration WSL2 de Windows et Docker Desktop, comment utiliser des conteneurs Docker dans une machine virtuelle WSL ?" />
+            <meta property="og:url" content="https://rix-fr.github.io/rix/pr/137/blog/cours/docker-avec-windows-et-wsl" />
+            <meta property="og:site_name" content="rix" />
+
+                                        <meta property="og:image" content="https://rix-fr.github.io/rix/pr/137/resized/content/images/blog/thumbnails/nature.jpg/51f1c24cccc96753857fb175bb93da75.jpg">
+                                                    <meta property="og:image:alt" content="Rix - Expertise et outillage DevOps">
+            
+            <!-- Twitter -->
+            <meta property="twitter:card" content="summary_large_image">
+            <meta property="twitter:title" content="Faire fonctionner des conteneurs Docker dans WSL.">
+            <meta property="twitter:description" content="Avec l&#039;intégration WSL2 de Windows et Docker Desktop, comment utiliser des conteneurs Docker dans une machine virtuelle WSL ?">
+            <meta property="twitter:site" content="@rix_fr">
+            <meta property="twitter:creator" content="@rix_fr">
+                                        <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/137/resized/content/images/blog/thumbnails/nature.jpg/49a1600a5d20e55868ab81b9b0f988aa.jpg">
+                                <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": "Faire fonctionner des conteneurs Docker dans WSL.",
+    "image": [
+        "https://rix-fr.github.io/rix/pr/137/blog/cours/content/images/blog/thumbnails/nature.jpg"
+    ],
+    "datePublished": "11 avril 2023",
+    "dateModified": "11 avril 2023",
+    "author": [
+        {
+            "@type": "Person",
+            "name": "Guewen Faivre"
+        }
+    ],
+    "keywords": [
+        "Cours",
+        "Windows",
+        "Docker",
+        "Conteneur"
+    ]
+}
+    </script>
+            
+
+    <link rel="alternate" type="application/rss+xml" href="/rix/pr/137/blog/rss.xml" title="Le blog de l'équipe Rix" />
+
+                            <meta name="robots" content="noindex" />
+        
+        <script>
+                        document.querySelector('html').classList.remove('no-js');
+        </script>
+
+                    <link rel="stylesheet" href="/rix/pr/137/build/305.8dbcaf70.css">
+        
+                    <script src="/rix/pr/137/build/runtime.f39232a7.js" defer></script><script src="/rix/pr/137/build/70.671fda9c.js" defer></script><script src="/rix/pr/137/build/app.e999eb99.js" defer></script>
+
+                        <script defer src="https://comments.rix.fr/comentario.js"></script>
+        
+    </head>
+    <body class="page-article">
+                    <header class="header">
+                <div class="container">
+                    <a href="/rix/pr/137/">
+                        <img src="/rix/pr/137/build/images/logos/logo-horizontal.ae7b8485.svg" alt="" class="logo">
+                        <span class="screen-reader">Retour à l'accueil</span>
+                    </a>
+
+                                            <nav class="nav">
+    <ul>
+                                    <li class="nav__item ">
+                    <a href="/rix/pr/137/">
+                        <span>Accueil</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/137/services">
+                        <span>Nos services</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/137/etudes-de-cas">
+                        <span>Cas clients</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/137/a-propos">
+                        <span>À propos</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/137/blog">
+                        <span>Blog</span>
+                    </a>
+                </li>
+                            <li class="nav__item nav__item--icon">
+            <a href="/rix/pr/137/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                <span>Contactez-nous</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+                    
+                                            <nav class="nav-mobile">
+    <div class="nav-mobile__header">
+        <a href="/rix/pr/137/">
+            <img src="/rix/pr/137/build/images/logos/logo-horizontal-white.901392b9.svg" alt="" class="logo">
+        </a>
+        <button class="nav-toggle nav-toggle--close">
+            <i class="icon icon--close" aria-hidden="true"></i>
+            <span class="screen-reader">Fermer le menu</span>
+        </button>
+    </div>
+    <ul>
+                                    <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/137/">
+                        Accueil
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/137/services">
+                        Nos services
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/137/etudes-de-cas">
+                        Cas clients
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/137/a-propos">
+                        À propos
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/137/blog">
+                        Blog
+                    </a>
+                </li>
+                            <li class="nav-mobile__item nav-mobile__item--icon">
+            <a href="/rix/pr/137/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                Contactez-nous
+            </a>
+        </li>
+    </ul>
+</nav>
+<button class="nav-toggle nav-toggle--open">
+    <i class="icon icon--hamburger" aria-hidden="true"></i>
+    <span class="screen-reader">Ouvrir le menu</span>
+</button>
+
+                                    </div>
+            </header>
+                <main>
+                <div class="banner banner--blog">
+        <div class="container">
+            <h1>
+                <a href="/rix/pr/137/blog">Blog</a>
+                <strong>/</strong>
+            </h1>
+        </div>
+    </div>
+
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <ul class="tags-list">
+                                            <li class="tags-list__item">
+                            #Cours
+                        </li>
+                                            <li class="tags-list__item">
+                            #Windows
+                        </li>
+                                            <li class="tags-list__item">
+                            #Docker
+                        </li>
+                                            <li class="tags-list__item">
+                            #Conteneur
+                        </li>
+                                    </ul>
+                <h2 class="h2--large">Faire fonctionner des conteneurs Docker dans WSL.</h2>
+                <p>Avec l&#039;intégration WSL2 de Windows et Docker Desktop, comment utiliser des conteneurs Docker dans une machine virtuelle WSL ?</p>
+                <div class="article-overview">
+                                        <ol class="table-of-contents">
+                                                            <li class="table-of-contents__item">
+                                    <a href="#pre-requis">Pré-requis</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#installer-wsl-2-et-lancer-une-machine-virtuelle">Installer WSL 2 et lancer une machine virtuelle</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#installer-docker-desktop">Installer Docker Desktop</a>
+                                                                            <ol class="table-of-contents__sub-level">
+                                                                                            <li>
+                                                    <a href="#configuration">Configuration</a>
+                                                </li>
+                                                                                    </ol>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#tester-le-fonctionnement-de-docker-dans-une-machine-virtuelle-wsl">Tester le fonctionnement de Docker dans une machine virtuelle WSL</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a>
+                                                                    </li>
+                                                    </ol>
+                                        <div class="article-info">
+                                                                            <div class="author ">
+                                <div class="author__image">
+                                                                            <img     src="/rix/pr/137/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg"
+    srcset="
+        /rix/pr/137/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg 1x,
+        /rix/pr/137/resized/content/images/member/avatars/gfaivre.jpg/d2d8af0b210c37c677635983f1c02d6d.jpg 2x
+    "
+ />
+                                                                    </div>
+                                <span class="author__info">
+                                    Écrit par
+                                                                            <strong>Guewen Faivre</strong>
+                                                                    </span>
+                            </div>
+                                                <div class="article-info__date">
+                            <span>Publication <strong>11 avril 2023</strong></span>
+                                                                                </div>
+                    </div>
+                </div>
+                <main>
+                                                            <body><p>Avec l'arrivée de Docker Desktop il est dorénavant aisé de faire « tourner » des conteneurs Docker sous Windows.
+Il est par contre moins simple d'utiliser d'autres outils propres au monde UNIX que nous aurons besoin d'utiliser avec le Lazy Ansible de Manala (make par exemple).</p>
+<p>Et comme nous préférons éviter d'installer trop de choses sur les machines hôtes nous opterons pour un fonctionnement qui reste relativement élégant à savoir lancer une machine WSL Debian et y faire tourner notre conteneur Docker.
+De cette manière nous disposerons de l'ensemble de l'outillage Linux, sans avoir à l'installer sur notre poste.</p>
+<h2 id="pre-requis" class="anchor-title"><a href="#pre-requis">Pré-requis</a></h2>
+<ul>
+<li>Windows 10 au minimum</li>
+<li>Installer terminal windows (pour le confort).</li>
+</ul>
+<h2 id="installer-wsl-2-et-lancer-une-machine-virtuelle" class="anchor-title"><a href="#installer-wsl-2-et-lancer-une-machine-virtuelle">Installer WSL 2 et lancer une machine virtuelle</a></h2>
+<ul>
+<li>S'assurer que l'on utilise bien la version 2 de WSL: <code class="code-inline" id="854865becdc64149204dc6dcfba817c5">wsl --set-default-version 2</code></li>
+<li>Installer et lancer une machine virtuelle Debian: <code class="code-inline" id="6483cc1a579c559c3085fbbb9342dc25">wsl --install -d Debian</code></li>
+</ul>
+<p>Il faudra ensuite renseigner un nom d'utilisateur ainsi qu'un mot de passe (à ne pas perdre de préference).
+Vous devriez au final obtenir un shell comme ci-dessous, félicitation vous êtes dans une machine virtuelle Debian WSL !</p>
+<figure>
+    <img src="/rix/pr/137/resized/content/images/blog/2023/cours-docker-wsl/wsl_debian_shell.jpg/6fbef3ca7b35e4a4ba2503ac4d9f074b.jpg" alt="Un shell WSL" srcset="/rix/pr/137/resized/content/images/blog/2023/cours-docker-wsl/wsl_debian_shell.jpg/6fbef3ca7b35e4a4ba2503ac4d9f074b.jpg 1x,
+/rix/pr/137/resized/content/images/blog/2023/cours-docker-wsl/wsl_debian_shell.jpg/f988070bcb4009128e0af18075906181.jpg 2x," id="un-shell-wsl">
+    <figcaption>
+      <span class="figure__legend">Un shell WSL</span>
+    </figcaption>
+</figure>
+<h2 id="installer-docker-desktop" class="anchor-title"><a href="#installer-docker-desktop">Installer Docker Desktop</a></h2>
+<p>La partie la plus simple, téléchargez et installez le ici: <a href="https://docs.docker.com/desktop/windows/wsl/#download" target="_blank">https://docs.docker.com/desktop/windows/wsl/#download</a></p>
+<h3 id="configuration" class="anchor-title"><a href="#configuration">Configuration</a></h3>
+<p>Il y a quelques options à vérifier / activer pour un bon fonctionnement.</p>
+<ul>
+<li>Tout d'abord vérifier que le support de WSL 2 est activé dans les paramètres (Resources -&gt; WSL integration);</li>
+</ul>
+<figure>
+    <img src="/rix/pr/137/resized/content/images/blog/2023/cours-docker-wsl/docker-desktop-settings.jpg/715304e02b5695843f019c99941dd8d3.jpg" alt="Les paramètres Docker Desktop" srcset="/rix/pr/137/resized/content/images/blog/2023/cours-docker-wsl/docker-desktop-settings.jpg/715304e02b5695843f019c99941dd8d3.jpg 1x,
+/rix/pr/137/resized/content/images/blog/2023/cours-docker-wsl/docker-desktop-settings.jpg/c3b93f12d11ccf947af7185c695bacec.jpg 2x," id="les-parametres-docker-desktop">
+    <figcaption>
+      <span class="figure__legend">Les paramètres Docker Desktop</span>
+    </figcaption>
+</figure>
+<ul>
+<li>Ensuite vérifier que le support pour votre distribution est activé (Debian);</li>
+</ul>
+<h2 id="tester-le-fonctionnement-de-docker-dans-une-machine-virtuelle-wsl" class="anchor-title"><a href="#tester-le-fonctionnement-de-docker-dans-une-machine-virtuelle-wsl">Tester le fonctionnement de Docker dans une machine virtuelle WSL</a></h2>
+<p>Il faudra pour cela quitter et relancer (Dans un PowerShell <code class="code-inline" id="a30c09b8926e9423dd42eaef4f2091af">wsl -d Debian</code>) votre machine virtuelle Debian.
+Une fois à l'intérieur de celle-ci il sera nécessaire de donner les droits à votre utilisateur d'utiliser Docker en l'ajoutant au groupe du même nom.</p>
+<pre class="code-multiline"><code id="dd330e21eccf3dd5d44f62276b2676ab">usermod -a -G docker &lt;username&gt;</code></pre>
+<p>Pour terminer la commande <code class="code-inline" id="5ec1d0f6687a4c1e0107632871d4a131">docker ps</code> devrait vous renvoyer l'écran ci-dessous:</p>
+<figure>
+    <img src="/rix/pr/137/resized/content/images/blog/2023/cours-docker-wsl/add-user-to-docker-group.jpg/e2748db59362efca3ba6f018df84383b.jpg" alt="Ajouter un utilisateur au groupe docker" srcset="/rix/pr/137/resized/content/images/blog/2023/cours-docker-wsl/add-user-to-docker-group.jpg/e2748db59362efca3ba6f018df84383b.jpg 1x,
+/rix/pr/137/resized/content/images/blog/2023/cours-docker-wsl/add-user-to-docker-group.jpg/9c284bf54b95c30385f2bb78ea00815b.jpg 2x," id="ajouter-un-utilisateur-au-groupe-docker">
+    <figcaption>
+      <span class="figure__legend">Ajouter un utilisateur au groupe docker</span>
+    </figcaption>
+</figure>
+<h2 id="aller-plus-loin-avec-les-sources" class="anchor-title"><a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a></h2>
+<ul>
+<li><a href="https://learn.microsoft.com/fr-fr/windows/wsl/basic-commands" target="_blank">https://learn.microsoft.com/fr-fr/windows/wsl/basic-commands</a></li>
+<li><a href="https://learn.microsoft.com/fr-fr/training/modules/wsl/wsl-introduction/" target="_blank">https://learn.microsoft.com/fr-fr/training/modules/wsl/wsl-introduction/</a></li>
+<li><a href="https://learn.microsoft.com/fr-fr/windows/wsl/install" target="_blank">https://learn.microsoft.com/fr-fr/windows/wsl/install</a></li>
+<li><a href="https://learn.microsoft.com/fr-fr/windows/wsl/" target="_blank">https://learn.microsoft.com/fr-fr/windows/wsl/</a></li>
+</ul></body>
+                                                                        <div class="article-credits">
+                                Crédits: photo de couverture par
+                                                                    <a href="https://unsplash.com/@salty_sandals">
+                                        Jason Cooper
+                                    </a>
+                                                            </div>
+                                                            </main>
+                <div class="article-footer" data-aos="fade-in">
+                                                                        <div class="author">
+                                <div class="author__image">
+                                    <img     src="/rix/pr/137/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg"
+    srcset="
+        /rix/pr/137/resized/content/images/member/avatars/gfaivre.jpg/b9e2ad5ccb2390253e2c23ccbfb41dc7.jpg 1x,
+        /rix/pr/137/resized/content/images/member/avatars/gfaivre.jpg/d2d8af0b210c37c677635983f1c02d6d.jpg 2x
+    "
+ />
+                                </div>
+                                <span class="author__info">
+                                    Écrit par
+                                    <strong>Guewen Faivre</strong>
+                                </span>
+                                <div class="author__social">
+                                                                            <a href="https://twitter.com/guewen_faivre">
+                                            <i class="icon icon--twitter" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte twitter de Guewen Faivre</span>
+                                        </a>
+                                                                                                                <a href="https://github.com/gfaivre">
+                                            <i class="icon icon--github" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte github de Guewen Faivre</span>
+                                        </a>
+                                                                                                                <a href="http://www.elao.com">
+                                            <i class="icon icon--website" aria-hidden="true"></i>
+                                            <span class="screen-reader">Site personnel de Guewen Faivre</span>
+                                        </a>
+                                                                    </div>
+                            </div>
+                                                            </div>
+                                    <div class="comment">
+                                                    <div id="comentario"></div>
+                                                                                                    <p>
+                                Une typo ?
+                                <a href="https://github.com/rix-fr/rix/edit/blog/fixes/content/blog/cours/docker-avec-windows-et-wsl.md/" target="_blank">Modifier cet article sur Github</a>
+                            </p>
+                                            </div>
+                            </div>
+        </div>
+    </div>
+        </main>
+                    <footer class="footer">
+    <div class="container">
+        <div class="footer__contact">
+            <div class="catchphrase">
+                <p class="h1">Le monde du DevOps vous semble obscur ?</p>
+                <p>Contactez-nous, nous vous aiderons à y <strong>voir plus clair</strong>.</p>
+            </div>
+            <div class="contact-tiles">
+                <span class="contact-tiles__item">
+                    <i class="icon icon--location" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Passez nous voir !</span>
+                        <span>Nous sommes à Lyon !</span>
+                        <span>34 rue Jean Broquin</span>
+                        <span>69006 Lyon, France</span>
+                    </span>
+                </span>
+                <span class="contact-tiles__item">
+                    <i class="icon icon--message" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Par téléphone ou par mail</span>
+                        <a href="tel:33482537609">04 82 53 76 09</a>
+                        <a href="mailto:contact@rix.fr">contact@rix.fr</a>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="footer__brand">
+            <img src="/rix/pr/137/build/images/logos/logo-horizontal-white.901392b9.svg" alt="Rix">
+            <span>Expertise et outilllage DevOps</span>
+        </div>
+        <nav class="footer__links">
+            <div class="pages">
+                <ul>
+                                                                        <li>
+                                <a href="/rix/pr/137/etudes-de-cas">Cas clients</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/137/a-propos">À propos</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/137/contact">Contact</a>
+                            </li>
+                                                            </ul>
+            </div>
+            <div class="services">
+                <a href="/rix/pr/137/services">Nos services</a>
+                <div>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/137/services#accompagnement_outillage">Accompagnement et outillage DevOps</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/137/services#experts_kubernetes">Expertise Kubernetes</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/137/services#performances_diagnostique">Performances et diagnostique</a>
+                                </li>
+                                                    </ul>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/137/services#conception_infrastructures">Conception sur-mesure d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/137/services#pilotage_infrastructures">Pilotage d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/137/services#environment">Environnement de développement</a>
+                                </li>
+                                                    </ul>
+                                    </div>
+            </div>
+        </nav>
+        <div class="footer__legals">
+            <span>©2024 - Rix - Tous droits réservés</span>
+            -
+            <a href="/rix/pr/137/legal">Mentions légales</a>
+            -
+            <a href="/rix/pr/137/confidentialite">Données personnelles</a>
+        </div>
+    </div>
+</footer>
+
+
+
+            </body>
+</html>

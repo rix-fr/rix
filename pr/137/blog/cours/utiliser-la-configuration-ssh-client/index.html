@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="fr" class="no-js">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Utiliser le fichier de configuration SSH pour ses connexions distantes.</title>
+
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/rix/pr/137/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/rix/pr/137/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/rix/pr/137/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/rix/pr/137/favicon-16x16.png">
+        <link rel="manifest" href="/rix/pr/137/site.webmanifest">
+                <link rel="shortcut icon" href="/rix/pr/137/favicon.ico">
+        <meta name="msapplication-TileColor" content="#ff4344">
+        <meta name="msapplication-config" content="/rix/pr/137/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+                        <meta name="description" content="Apprendre à utiliser le fichier de configuration SSH pour organiser ses options de connexion." />
+            <link rel="canonical" href="https://rix-fr.github.io/rix/pr/137/blog/cours/utiliser-la-configuration-ssh-client" />
+
+            <!-- Open Graph / Facebook -->
+                                        <meta property="og:type" content="website">
+                        <meta property="og:title" content="Utiliser le fichier de configuration SSH pour ses connexions distantes." />
+            <meta property="og:locale" content="fr" />
+            <meta property="og:description" content="Apprendre à utiliser le fichier de configuration SSH pour organiser ses options de connexion." />
+            <meta property="og:url" content="https://rix-fr.github.io/rix/pr/137/blog/cours/utiliser-la-configuration-ssh-client" />
+            <meta property="og:site_name" content="rix" />
+
+                                        <meta property="og:image" content="https://rix-fr.github.io/rix/pr/137/resized/content/images/blog/thumbnails/zsh.jpg/985de3f6cb7e319c4763d6fd2c992f0d.jpg">
+                                                    <meta property="og:image:alt" content="Rix - Expertise et outillage DevOps">
+            
+            <!-- Twitter -->
+            <meta property="twitter:card" content="summary_large_image">
+            <meta property="twitter:title" content="Utiliser le fichier de configuration SSH pour ses connexions distantes.">
+            <meta property="twitter:description" content="Apprendre à utiliser le fichier de configuration SSH pour organiser ses options de connexion.">
+            <meta property="twitter:site" content="@rix_fr">
+            <meta property="twitter:creator" content="@rix_fr">
+                                        <meta property="twitter:image" content="https://rix-fr.github.io/rix/pr/137/resized/content/images/blog/thumbnails/zsh.jpg/00fc284e365bbe49d303c8f64ebb321d.jpg">
+                                <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": "Utiliser le fichier de configuration SSH pour ses connexions distantes.",
+    "image": [
+        "https://rix-fr.github.io/rix/pr/137/blog/cours/content/images/blog/thumbnails/zsh.jpg"
+    ],
+    "datePublished": "2 janvier 2023",
+    "dateModified": "2 janvier 2023",
+    "author": [
+        {
+            "@type": "Person",
+            "name": "La team Rix"
+        }
+    ],
+    "keywords": [
+        "Cours",
+        "Ssh",
+        "How to"
+    ]
+}
+    </script>
+            
+
+    <link rel="alternate" type="application/rss+xml" href="/rix/pr/137/blog/rss.xml" title="Le blog de l'équipe Rix" />
+
+                            <meta name="robots" content="noindex" />
+        
+        <script>
+                        document.querySelector('html').classList.remove('no-js');
+        </script>
+
+                    <link rel="stylesheet" href="/rix/pr/137/build/305.8dbcaf70.css">
+        
+                    <script src="/rix/pr/137/build/runtime.f39232a7.js" defer></script><script src="/rix/pr/137/build/70.671fda9c.js" defer></script><script src="/rix/pr/137/build/app.e999eb99.js" defer></script>
+
+                        <script defer src="https://comments.rix.fr/comentario.js"></script>
+        
+    </head>
+    <body class="page-article">
+                    <header class="header">
+                <div class="container">
+                    <a href="/rix/pr/137/">
+                        <img src="/rix/pr/137/build/images/logos/logo-horizontal.ae7b8485.svg" alt="" class="logo">
+                        <span class="screen-reader">Retour à l'accueil</span>
+                    </a>
+
+                                            <nav class="nav">
+    <ul>
+                                    <li class="nav__item ">
+                    <a href="/rix/pr/137/">
+                        <span>Accueil</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/137/services">
+                        <span>Nos services</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/137/etudes-de-cas">
+                        <span>Cas clients</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/137/a-propos">
+                        <span>À propos</span>
+                    </a>
+                </li>
+                                                <li class="nav__item ">
+                    <a href="/rix/pr/137/blog">
+                        <span>Blog</span>
+                    </a>
+                </li>
+                            <li class="nav__item nav__item--icon">
+            <a href="/rix/pr/137/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                <span>Contactez-nous</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+                    
+                                            <nav class="nav-mobile">
+    <div class="nav-mobile__header">
+        <a href="/rix/pr/137/">
+            <img src="/rix/pr/137/build/images/logos/logo-horizontal-white.901392b9.svg" alt="" class="logo">
+        </a>
+        <button class="nav-toggle nav-toggle--close">
+            <i class="icon icon--close" aria-hidden="true"></i>
+            <span class="screen-reader">Fermer le menu</span>
+        </button>
+    </div>
+    <ul>
+                                    <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/137/">
+                        Accueil
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/137/services">
+                        Nos services
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/137/etudes-de-cas">
+                        Cas clients
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/137/a-propos">
+                        À propos
+                    </a>
+                </li>
+                                                <li class="nav-mobile__item  ">
+                    <a href="/rix/pr/137/blog">
+                        Blog
+                    </a>
+                </li>
+                            <li class="nav-mobile__item nav-mobile__item--icon">
+            <a href="/rix/pr/137/contact">
+                <svg viewBox="0 0 20 17" fill="none" class="contact-icon">
+    <path d="M18.7692 12.4368H16.343V15L12.3512 12.4368H1V1H18.7692V12.4368Z" stroke="#99b7d1" stroke-width="2" fill="none"/>
+    <g>
+        <circle cx="5.84621" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="10.1538" cy="6.92311" r="1.07692" fill="#eb5050"/>
+        <circle cx="14.4614" cy="6.92311" r="1.07692" fill="#eb5050"/>
+    </g>
+</svg>
+
+                Contactez-nous
+            </a>
+        </li>
+    </ul>
+</nav>
+<button class="nav-toggle nav-toggle--open">
+    <i class="icon icon--hamburger" aria-hidden="true"></i>
+    <span class="screen-reader">Ouvrir le menu</span>
+</button>
+
+                                    </div>
+            </header>
+                <main>
+                <div class="banner banner--blog">
+        <div class="container">
+            <h1>
+                <a href="/rix/pr/137/blog">Blog</a>
+                <strong>/</strong>
+            </h1>
+        </div>
+    </div>
+
+    <div class="beveled-wrapper">
+        <div class="beveled-wrapper__gradient">
+            <div class="container shape"><!-- 🐺 shape --></div>
+            <div class="container content">
+                <ul class="tags-list">
+                                            <li class="tags-list__item">
+                            #Cours
+                        </li>
+                                            <li class="tags-list__item">
+                            #Ssh
+                        </li>
+                                            <li class="tags-list__item">
+                            #HowTo
+                        </li>
+                                    </ul>
+                <h2 class="h2--large">Utiliser le fichier de configuration SSH pour ses connexions distantes.</h2>
+                <p>Apprendre à utiliser le fichier de configuration SSH pour organiser ses options de connexion.</p>
+                <div class="article-overview">
+                                        <ol class="table-of-contents">
+                                                            <li class="table-of-contents__item">
+                                    <a href="#pre-requis">Pré-requis</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#tl-dr">TL;DR</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#pourquoi-utiliser-un-fichier-de-configuration">Pourquoi utiliser un fichier de configuration ?</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#le-fichier-de-configuration">Le fichier de configuration</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#les-instructions-de-configuration">Les instructions de configuration</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#priorite-des-instructions">Priorité des instructions</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#separer-et-inclure-ses-fichiers-de-configuration">Séparer et inclure ses fichiers de configuration</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#les-instructions-les-plus-courantes-utiles">Les instructions les plus courantes / utiles</a>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#multiplexer-ses-connexions-ssh">Multiplexer ses connexions SSH</a>
+                                                                            <ol class="table-of-contents__sub-level">
+                                                                                            <li>
+                                                    <a href="#exemple-de-fichiers-de-configuration-avec-multiplexage">Exemple de fichiers de configuration avec multiplexage</a>
+                                                </li>
+                                                                                    </ol>
+                                                                    </li>
+                                                            <li class="table-of-contents__item">
+                                    <a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a>
+                                                                    </li>
+                                                    </ol>
+                                        <div class="article-info">
+                                                                            <div class="author ">
+                                <div class="author__image">
+                                                                            <img     src="/rix/pr/137/resized/content/images/member/avatars/rix.png/7bdb9f34d8b53f82d37c01fd92196263.png"
+    srcset="
+        /rix/pr/137/resized/content/images/member/avatars/rix.png/7bdb9f34d8b53f82d37c01fd92196263.png 1x,
+        /rix/pr/137/resized/content/images/member/avatars/rix.png/4f7bb694753bd129601b986c5bdaabdb.png 2x
+    "
+ />
+                                                                    </div>
+                                <span class="author__info">
+                                    Écrit par
+                                                                            <strong>La team Rix</strong>
+                                                                    </span>
+                            </div>
+                                                <div class="article-info__date">
+                            <span>Publication <strong>2 janvier 2023</strong></span>
+                                                                                </div>
+                    </div>
+                </div>
+                <main>
+                                                            <body><p>Si vous vous connectez à plusieurs hôtes distants il y a fort à parier que vous ne mémorisez pas les subtilités de connexion propre à chacun d'entre eux (utilisateur spécifique, port non standard, options spécifiques…).</p>
+<p>On a eu, il est vrai, l'occasion de croiser des façons originales de le faire, notamment à base d'alias <strong>Bash</strong> mais ça reste assez artisanal alors même que tout est prévu et qu'OpenSSH permet de définir un fichier de configuration propre à chaque utilisateur du système ;)</p>
+<p>Cet article, principalement à destination des <strong>étudiant·e·s</strong> et des <strong>nouveaux arrivants</strong> dans le domaine saura sans doute également servir de <strong>pense bête aux confirmé·e·s</strong> !</p>
+<h2 id="pre-requis" class="anchor-title"><a href="#pre-requis">Pré-requis</a></h2>
+<p>Ils sont plus que pauvre puisqu'un client OpenSSH et une machine distante à laquelle se connecter suffiront.</p>
+<h2 id="tl-dr" class="anchor-title"><a href="#tl-dr">TL;DR</a></h2>
+<p>Contenu d'un fichier config d'un client SSH <strong>pour référence</strong>:</p>
+<pre class="code-multiline"><code id="f693d0d129e13d28d2ad7a0d2224ea53">Host *
+    User rix
+    IdentityFile ~/.ssh/ed_25519.key
+    IdentityFile ~/.ssh/id_rsa.key
+    IdentitiesOnly yes
+    ForwardAgent yes</code></pre>
+<h2 id="pourquoi-utiliser-un-fichier-de-configuration" class="anchor-title"><a href="#pourquoi-utiliser-un-fichier-de-configuration">Pourquoi utiliser un fichier de configuration ?</a></h2>
+<p>Comme abordé dans l'introduction, il existe autant de manières de se connecter à un serveur avec SSH qu'il n'en existe (de serveurs), les principaux bénéfices que l'on peut retirer de cette utilsation:</p>
+<ul>
+<li>Ajouter de la <strong>cohérence</strong> dans votre façon de vous connecter à vos différentes machines ( et on aime ça la cohérence ! ) il est en effet possible de créer une configuration spécifique à un serveur ou alors propre à différentes machines partageant les mêmes spécifités de connexion.</li>
+<li>Faciliter les connexions multiples, en créant des configurations aux contextes différents. Il est par exemple possible d'avoir une configuration utilisant une clé différente pour un groupe de machines données.</li>
+</ul>
+<h2 id="le-fichier-de-configuration" class="anchor-title"><a href="#le-fichier-de-configuration">Le fichier de configuration</a></h2>
+<p>En « standard » vous trouverez un dossier appelé <code class="code-inline" id="cb8c8e9d73e8e1088ed383f5cbcc67d7">.ssh</code> dans le répertoire utilisateur de votre système (<code class="code-inline" id="aea94043b2a25eaa09f7fca7202e2f58">/home/username/</code> sur un système de type UNIX ou <code class="code-inline" id="a6298c5bb3b7cb575506948654987a3e">C:\Users\username\</code>sous Windows). C'est ici que nous allons créé un fichier appelé tout simplement <code class="code-inline" id="2245023265ae4cf87d02c8b6ba991139">config</code> (sans extension).</p>
+<div class="admonition info">
+<p class="admonition-title">Configuration globale</p>
+<p>
+    Il est possible d'appliquer un comportement global au client SSH (C'est à dire pour tous les utilisateurs du système) en utilisant le fichier <code class="code-inline" id="8731a2f8db57d6091ed7c36fa4914c57">/etc/ssh/ssh_config</code>.
+</p>
+</div>
+<p>Si le répertoire <code class="code-inline" id="cb8c8e9d73e8e1088ed383f5cbcc67d7">.ssh</code> n'existe pas (il est créé automatiquement lorsque vous créez une nouvelle clé par exemple) vous pouvez le créer comme suit:</p>
+<pre class="code-multiline language-bash"><code class="language-bash" id="eeba653d768818d6f1d9fbd386be4763"><span class="token function">mkdir</span> <span class="token parameter variable">-p</span> ~/.ssh <span class="token operator">&amp;&amp;</span> <span class="token function">chmod</span> 0700 ~/.ssh</code></pre>
+<p>Pour ensuite créer le fichier <code class="code-inline" id="2245023265ae4cf87d02c8b6ba991139">config</code></p>
+<pre class="code-multiline language-bash"><code class="language-bash" id="51f5961c97381646f16e901a0f929747"><span class="token function">touch</span> ~/.ssh/config <span class="token operator">&amp;&amp;</span> <span class="token function">chmod</span> 0600 ~/.ssh/config</code></pre>
+<div class="admonition info">
+<p class="admonition-title">Les droits</p>
+<p>
+    Attention SSH est très sensible (à juste titre) aux droits appliqués aux fichiers qu'il doit utiliser.
+    Le répertoire <code class="code-inline" id="cb8c8e9d73e8e1088ed383f5cbcc67d7">.ssh</code> tout comme le fichier <code class="code-inline" id="2245023265ae4cf87d02c8b6ba991139">config</code> ne doit être accessible, lisible et modifiable qu'à l'utilisateur propriétaire.
+</p>
+</div>
+<h2 id="les-instructions-de-configuration" class="anchor-title"><a href="#les-instructions-de-configuration">Les instructions de configuration</a></h2>
+<p>Le fichier <code class="code-inline" id="2245023265ae4cf87d02c8b6ba991139">config</code> est basé sur un système de paires <strong>clé/valeur</strong> organisées par section, une structure minimal d'un fichier de configuration pourrait être la suivante:</p>
+<pre class="code-multiline language-javascript"><code class="language-javascript" id="02101d8599cab35f8abea3c06292b93d"><span class="token maybe-class-name">Host</span> server<span class="token operator">-</span>hostname<span class="token operator">-</span><span class="token number">1</span>
+    <span class="token constant">KEY</span> value
+    <span class="token constant">KEY</span> value</code></pre>
+<p>Allons plus loin avec une configuration:</p>
+<pre class="code-multiline language-javascript"><code class="language-javascript" id="99f3614232b5ca7150241353bc9a9a69"><span class="token maybe-class-name">Host</span> server<span class="token operator">-</span>hostname<span class="token operator">-</span><span class="token number">1</span>
+    <span class="token maybe-class-name">HostName</span> server<span class="token punctuation">.</span><span class="token property-access">tld</span>
+    <span class="token maybe-class-name">User</span> rix
+    <span class="token maybe-class-name">IdentityFile</span> <span class="token operator">~</span><span class="token operator">/</span><span class="token punctuation">.</span><span class="token property-access">ssh</span><span class="token operator">/</span>ed_25519<span class="token punctuation">.</span><span class="token property-access">key</span></code></pre>
+<p>La directive <code class="code-inline" id="c2ca16d048ec66e04bca283eab048ec2">Host</code> permet d'indiquer à la fois une nouvelle section mais également le <strong>« pattern »</strong> qui permettra au client de savoir quand appliquer la configuration.
+Dans ce premier exemple c'est assez simple et spécifique puisque notre bloc s'appliquera à la chaine <code class="code-inline" id="ebb6da98f7a366170e31a714f71d0e99">server-hostname-1</code></p>
+<p>Ainsi lorsque nous taperons <code class="code-inline" id="243f1108621e2493723bd9b3aae13049">ssh server-hostname-1</code> notre client saura à quel hote se connecter, avec quel utilisateur et quelle clé.
+L'équivalent sans fichier de configuration serait <code class="code-inline" id="c8478ea62a3e10b86be1f67f5f7f32c0">ssh -i ~/.ssh/ed_25519.key rix@server.tld</code></p>
+<p>L'utilisation d'un fichier de configuration prend tout son sens lorsque l'on souhaite appliquer des comportements spécifiques à un ensemble de machines.</p>
+<p>Il est ainsi possible d'utiliser des « pattern » (et de les enchaîner) en utilisant des opérateurs:</p>
+<ul>
+<li><code class="code-inline" id="e247a2c2ee3d44ce0b02e4c223829343">Host *</code> par exemple s'appliquera à tous les hôtes puisque le caractère <code class="code-inline" id="3389dae361af79b04c9c8e7057f60cc6">*</code> correspond à aucun ou plusieurs caractères.</li>
+<li><code class="code-inline" id="de0abed86db605dd81787132575736c8">192.168.140.*</code> il est possible de composer, dans ce cas  vous appliquerez votre configuration à l'ensemble des hôtes dont l'adresse fait partie du sous réseau <code class="code-inline" id="0b7b5a64aa087d3a92f8b1596ca8f152">192.168.140.0/24</code></li>
+<li><code class="code-inline" id="d1457b72c3fb323a2671125aef3eab5d">?</code> permet de restreindre une expression à un seul caractère. Ainsi <code class="code-inline" id="907f083cb0908be037a2bf93aa9b3a86">Host 172.16.1.?</code> correspondra à tous les hôtes ayant en dernier octet un chiffre compris entre 0 et 9.</li>
+<li><code class="code-inline" id="9033e0e305f247c0c3c80d0c7848c8b3">!</code> En début de chaîne permet d'exclure une correspondance. Ainsi <code class="code-inline" id="4816b7db8a742ede95c13c6a96f602a8">172.16.1.* !172.16.1.20</code> s'appliquera à tous les hôtes du sous réseau <code class="code-inline" id="6815a7a25dd3c355afbf7fd1faa49066">172.16.1.0/24</code> à l'exception de <code class="code-inline" id="1d5c489ba73c199fc08f2c9e9ea1e503">172.16.1.20</code>.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Organisation et structure du fichier</p>
+<p>
+    Le fichier de configuration SSH n'impose pas d'indentation, il est toutefois fortement recommandé de l'organiser afin de faciliter sa lecture et sa maintenance.
+    Il faut également noter que les instructions sont appliquées dans leur ordre d'apparition il est donc préférable de commencer par les sections très spécifiques et de terminer par les plus génériques.
+</p>
+</div>
+<h2 id="priorite-des-instructions" class="anchor-title"><a href="#priorite-des-instructions">Priorité des instructions</a></h2>
+<p>Il est possible en fonction d'où elles sont indiquées de surcharger certaines options de connexion, ainsi votre client SSH considérera par ordre de priorité:</p>
+<ul>
+<li>Les options spécifiées dans la ligne de commande</li>
+<li>Les options définies dans le fichier <code class="code-inline" id="2245023265ae4cf87d02c8b6ba991139">config</code> du compte utilisateur (<code class="code-inline" id="4cc0ecc8128c171b864a0cdda4b4cdea">~/.ssh/config</code>)</li>
+<li>Les options définies dans le fichier générique <code class="code-inline" id="8731a2f8db57d6091ed7c36fa4914c57">/etc/ssh/ssh_config</code></li>
+</ul>
+<p>Ainsi en reprendant notre section précédente:</p>
+<pre class="code-multiline"><code id="99f3614232b5ca7150241353bc9a9a69">Host server-hostname-1
+    HostName server.tld
+    User rix
+    IdentityFile ~/.ssh/ed_25519.key</code></pre>
+<p>Il est possible de vous connecter avec un autre utilisateur que celui défini dans votre fichier en surchargeant la clé <code class="code-inline" id="8f9bfe9d1345237cb3b2b205864da075">User</code>, soit avec <code class="code-inline" id="6af98adb38828857fc08d14dcf8bd0f5">ssh root@server-hostname-1</code> ou encore <code class="code-inline" id="f6e4ab8713b4219b45ee6c9804cde8bb">ssh -o "User=root" server-hostname-1</code>.</p>
+<h2 id="separer-et-inclure-ses-fichiers-de-configuration" class="anchor-title"><a href="#separer-et-inclure-ses-fichiers-de-configuration">Séparer et inclure ses fichiers de configuration</a></h2>
+<p>Il est également possible, notamment lorsque le contenu des fichiers devient conséquent ou tout simplement pour organiser ses configurations entre différents contextes (clients, perso, pro...), de séparer la configuration dans plusieurs fichiers.</p>
+<p>Il est ainsi possible d'avoir autant de fichiers de configuration que de contextes pour ensuite les inclure dans notre fichier principal.</p>
+<p><strong>Exemple:</strong></p>
+<pre class="code-multiline language-ini"><code class="language-ini" id="f19b8d7ae84727645a8481cffd422b32"><span class="token comment"># Contenu de ~/.ssh/config</span>
+Host server-hostname-1
+    HostName server.tld
+    User rix
+    IdentityFile ~/.ssh/ed_25519.key
+
+Include ~/.ssh/config_alternative</code></pre>
+<pre class="code-multiline language-ini"><code class="language-ini" id="a219e909acb4da1bc29b19493dc91094"><span class="token comment"># Contenu de ~/.ssh/config_alternative</span>
+Host 192.168.140.*
+    User debian
+    IdentityFile ~/.ssh/id_rsa.key
+    AddKeysToAgent yes
+    UseKeychain yes</code></pre>
+<h2 id="les-instructions-les-plus-courantes-utiles" class="anchor-title"><a href="#les-instructions-les-plus-courantes-utiles">Les instructions les plus courantes / utiles</a></h2>
+<p>Le fichier <code class="code-inline" id="2245023265ae4cf87d02c8b6ba991139">config</code> supporte nombre d'options de configuration, celles-ci sont consultables <a href="https://linux.die.net/man/5/ssh_config" target="_blank">ici</a>.
+Il va de soi que dans l'activité quotidienne, les mêmes instructions sont souvent utilisées, ci-dessous une liste des plus courantes:</p>
+<ul>
+<li><code class="code-inline" id="9ff804472728077c3da1cd67b27fb91d">IdentityFile</code>: Nous l'avons vu précédemment, elle permet d'indiquer la clé à utiliser pour la section définie;</li>
+<li><code class="code-inline" id="787f1d575c24fc4fca7057057499b6ac">ForwardAgent</code>: Un grand classique, permet de « faire suivre » comme son nom l'indique au serveur distant, votre clé privée de manière à ce que celui-ci la stocke dans son propre agent SSH. Cette option permet ensuite de se connecter à d'autres serveurs <strong>« par rebond »</strong>, c'est ce principe qui est notamment mis en oeuvre par les <strong>« bastions » SSH</strong>;</li>
+<li><code class="code-inline" id="f382dcceabb5224c5f6cda7f40c496a6">IdentitiesOnly</code>: Important si vous utilisez l'option précédente, permet de ne transmettre que la ou les clé(s) spécifiée(s) avec l'option <code class="code-inline" id="9ff804472728077c3da1cd67b27fb91d">IdentityFile</code> précédente, par défaut SSH envoie toutes les clés privées qu'il trouvera dans votre trousseau;</li>
+<li><code class="code-inline" id="7f318b85c726342739f878ff5eaa4726">StrictHostKeyChecking</code>: Permet de vérifier la signature du serveur auquel on se connecte, toujours à <code class="code-inline" id="93cba07454f06a4a960172bbd6e2a435">Yes</code> sauf dans le cas de figure que l'on présente plus bas.</li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">Désactiver <code class="code-inline" id="7f318b85c726342739f878ff5eaa4726">StrictHostKeyChecking</code></p>
+<p>
+    Précaution d'usage, à ne faire que si vous savez réellement ce que vous faites ;)
+    Le seul exemple qui me vient à l'esprit pouvant nécessiter de désactiver cette option est celui de <strong>séances de cours / TP</strong> durant lesquelles nous avons souvent besoin de créer / détruire des instances qui peuvent potentillement récupérer les mêmes adresses IPs.
+</p>
+</div>
+<p>Pour éviter d'avoir régulièrement l'erreur, <code class="code-inline" id="a78833b2736349375511c2ca68c1e53b">WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!</code> il est possible de spécifier:</p>
+<pre class="code-multiline"><code id="3e6d63cf57a2f7b5bdc0364502e073d9">StrictHostKeyChecking no
+UserKnownHostsFile /dev/null</code></pre>
+<h2 id="multiplexer-ses-connexions-ssh" class="anchor-title"><a href="#multiplexer-ses-connexions-ssh">Multiplexer ses connexions SSH</a></h2>
+<p>Le principe du multiplexage réside dans le fait de <strong>« partager » la même connexion</strong> entre les différentes sessions ouvertes sur une même machine.
+Cette stratégie permet, dans le cas d'SSH de réutiliser une connexion TCP déjà ouverte vers un serveur distant.</p>
+<p>Le but ? S'épargner le délai d'ouverture d'une connexion TCP ainsi que celui de la réauthentification.
+Cette fonctionnalité peut-être particulièrement utile lors du transfert de nombreux fichiers d'une machine à une autre, elle réside principalement en l'utilisation de <strong>3 options de configuration</strong>:</p>
+<ul>
+<li><a href="https://man.openbsd.org/ssh_config#ControlMaster" target="_blank"><code class="code-inline" id="1b0facc55c41f218a538218492519faa">ControlMaster</code></a>: Permet d'indiquer à SSH la stratégie à adopter lorsqu'il détecte une possibilité de réutilisation d'une connexion ouverte (Fixée à <code class="code-inline" id="7fa3b767c460b54a2be4d49030b349c7">no</code> par défaut);</li>
+<li><code class="code-inline" id="549d5c6e2b78607181fe589b50192ed9">ControlPersist</code>: Permet d'indiquer comment SSH doit gérer la fermeture de la connexion initiale à la machine distante (celle qui a entrainée l'ouverture de la socket partagée);</li>
+<li><a href="https://man.openbsd.org/ssh_config#ControlPath" target="_blank"><code class="code-inline" id="9fb4749c29aa0a833c58bbe6ddba2baa">ControlPath</code></a>: Le chemin vers la socket utilisée pour le partage de connexion, cette option supporte les tokens <code class="code-inline" id="ef8d879cc6a7d979382475334e4c0468">%h</code> <code class="code-inline" id="30e5eaf29dce670b4322478de56f3334">%p</code> et <code class="code-inline" id="b0013a27d183172257ce4d97dec31538">%r</code> dont la combinaison  est très fortement recommandée. Plus d'informations sur les tokens supportés par SSH (<a href="https://man.openbsd.org/ssh_config#TOKENS" target="_blank">https://man.openbsd.org/ssh_config#TOKENS</a>).</li>
+</ul>
+<h3 id="exemple-de-fichiers-de-configuration-avec-multiplexage" class="anchor-title"><a href="#exemple-de-fichiers-de-configuration-avec-multiplexage">Exemple de fichiers de configuration avec multiplexage</a></h3>
+<pre class="code-multiline"><code id="5148876be877022b9e0af9dff154b539">Host server-hostname-1
+    HostName server.tld
+    User rix
+    IdentityFile ~/.ssh/ed_25519.key
+    ControlPath ~/.ssh/controlmasters/%C
+    ControlMaster auto
+    ControlPersist 10m</code></pre>
+<div class="admonition info">
+<p class="admonition-title">Le token %C</p>
+<p>
+    On remarquera son utilisation dans l'exemple ci-dessus. Il s'agit du <strong>hash <a href="https://en.wikipedia.org/wiki/SHA-1" target="_blank">SHA1</a></strong> des tokens %l%h%p%r (Respectivement le nom d'hôte local (<code class="code-inline" id="d070e55be10eb39bf131e7ee028ea65a">%l</code>), le nom d'hôte distant (<code class="code-inline" id="ef8d879cc6a7d979382475334e4c0468">%h</code>), le port de connexion distant (<code class="code-inline" id="30e5eaf29dce670b4322478de56f3334">%p</code>) et pour finir le nom d'utilisateur distant utilisé (<code class="code-inline" id="b0013a27d183172257ce4d97dec31538">%r</code>)).
+    L'utilisation du token <code class="code-inline" id="7aa7de32bee3fc5d6a7f0d746c0f2ae9">%C</code> assurant à la fois, l'unicité de la connexion et l'obfuscation de ses détails sur le système de fichiers.
+</p>
+</div>
+<h2 id="aller-plus-loin-avec-les-sources" class="anchor-title"><a href="#aller-plus-loin-avec-les-sources">Aller plus loin avec les sources</a></h2>
+<ul>
+<li>Recommandations pour un usage sécurisé d'OpenSSH par l'ANSSI: <a href="https://www.ssi.gouv.fr/uploads/2014/01/NT_OpenSSH.pdf" target="_blank">https://www.ssi.gouv.fr/uploads/2014/01/NT_OpenSSH.pdf</a></li>
+<li><a href="https://man.openbsd.org/ssh_config" target="_blank">https://man.openbsd.org/ssh_config</a></li>
+<li><a href="https://unix.stackexchange.com/a/89149" target="_blank">https://unix.stackexchange.com/a/89149</a></li>
+<li><a href="https://www.cyberciti.biz/faq/create-ssh-config-file-on-linux-unix/" target="_blank">https://www.cyberciti.biz/faq/create-ssh-config-file-on-linux-unix/</a></li>
+<li><a href="https://www.quora.com/What-is-the-controlpersist-feature-Unix" target="_blank">https://www.quora.com/What-is-the-controlpersist-feature-Unix</a></li>
+</ul></body>
+                                                                        <div class="article-credits">
+                                Crédits: photo de couverture par
+                                                                    <a href="https://unsplash.com/@afgprogrammer">
+                                        Mohammad Rahmani
+                                    </a>
+                                                            </div>
+                                                            </main>
+                <div class="article-footer" data-aos="fade-in">
+                                                                        <div class="author">
+                                <div class="author__image">
+                                    <img     src="/rix/pr/137/resized/content/images/member/avatars/rix.png/7bdb9f34d8b53f82d37c01fd92196263.png"
+    srcset="
+        /rix/pr/137/resized/content/images/member/avatars/rix.png/7bdb9f34d8b53f82d37c01fd92196263.png 1x,
+        /rix/pr/137/resized/content/images/member/avatars/rix.png/4f7bb694753bd129601b986c5bdaabdb.png 2x
+    "
+ />
+                                </div>
+                                <span class="author__info">
+                                    Écrit par
+                                    <strong>La team Rix</strong>
+                                </span>
+                                <div class="author__social">
+                                                                            <a href="https://twitter.com/rix_fr">
+                                            <i class="icon icon--twitter" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte twitter de La team Rix</span>
+                                        </a>
+                                                                                                                <a href="https://github.com/rix-fr">
+                                            <i class="icon icon--github" aria-hidden="true"></i>
+                                            <span class="screen-reader">Compte github de La team Rix</span>
+                                        </a>
+                                                                                                                <a href="http://www.elao.com">
+                                            <i class="icon icon--website" aria-hidden="true"></i>
+                                            <span class="screen-reader">Site personnel de La team Rix</span>
+                                        </a>
+                                                                    </div>
+                            </div>
+                                                            </div>
+                                    <div class="comment">
+                                                    <div id="comentario"></div>
+                                                                                                    <p>
+                                Une typo ?
+                                <a href="https://github.com/rix-fr/rix/edit/blog/fixes/content/blog/cours/utiliser-la-configuration-ssh-client.md/" target="_blank">Modifier cet article sur Github</a>
+                            </p>
+                                            </div>
+                            </div>
+        </div>
+    </div>
+        </main>
+                    <footer class="footer">
+    <div class="container">
+        <div class="footer__contact">
+            <div class="catchphrase">
+                <p class="h1">Le monde du DevOps vous semble obscur ?</p>
+                <p>Contactez-nous, nous vous aiderons à y <strong>voir plus clair</strong>.</p>
+            </div>
+            <div class="contact-tiles">
+                <span class="contact-tiles__item">
+                    <i class="icon icon--location" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Passez nous voir !</span>
+                        <span>Nous sommes à Lyon !</span>
+                        <span>34 rue Jean Broquin</span>
+                        <span>69006 Lyon, France</span>
+                    </span>
+                </span>
+                <span class="contact-tiles__item">
+                    <i class="icon icon--message" aria-hidden="true"></i>
+                    <span>
+                        <span class="title">Par téléphone ou par mail</span>
+                        <a href="tel:33482537609">04 82 53 76 09</a>
+                        <a href="mailto:contact@rix.fr">contact@rix.fr</a>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="footer__brand">
+            <img src="/rix/pr/137/build/images/logos/logo-horizontal-white.901392b9.svg" alt="Rix">
+            <span>Expertise et outilllage DevOps</span>
+        </div>
+        <nav class="footer__links">
+            <div class="pages">
+                <ul>
+                                                                        <li>
+                                <a href="/rix/pr/137/etudes-de-cas">Cas clients</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/137/a-propos">À propos</a>
+                            </li>
+                                                                                                <li>
+                                <a href="/rix/pr/137/contact">Contact</a>
+                            </li>
+                                                            </ul>
+            </div>
+            <div class="services">
+                <a href="/rix/pr/137/services">Nos services</a>
+                <div>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/137/services#accompagnement_outillage">Accompagnement et outillage DevOps</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/137/services#experts_kubernetes">Expertise Kubernetes</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/137/services#performances_diagnostique">Performances et diagnostique</a>
+                                </li>
+                                                    </ul>
+                                            <ul>
+                                                            <li>
+                                    <a href="/rix/pr/137/services#conception_infrastructures">Conception sur-mesure d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/137/services#pilotage_infrastructures">Pilotage d&#039;infrastructures</a>
+                                </li>
+                                                            <li>
+                                    <a href="/rix/pr/137/services#environment">Environnement de développement</a>
+                                </li>
+                                                    </ul>
+                                    </div>
+            </div>
+        </nav>
+        <div class="footer__legals">
+            <span>©2024 - Rix - Tous droits réservés</span>
+            -
+            <a href="/rix/pr/137/legal">Mentions légales</a>
+            -
+            <a href="/rix/pr/137/confidentialite">Données personnelles</a>
+        </div>
+    </div>
+</footer>
+
+
+
+            </body>
+</html>
