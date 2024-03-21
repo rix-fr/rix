@@ -450,42 +450,19 @@ Il est possible de filtrer la sortie affichée par Ansible en utilisant l'option
 <p>Ces « facts » se révèleront fort utiles au fur et à mesure de votre prise en main d'Ansible.</p>
 <h2 id="utiliser-les-variables-dans-nos-playbooks" class="anchor-title"><a href="#utiliser-les-variables-dans-nos-playbooks">Utiliser les variables dans nos playbooks</a></h2>
 <p>Nous avons vu comment définir des variables, c'est bien beau mais comment les utiliser ? </p>
-<p>Reprenons par exemple nos fichiers d'hôtes ou nous définissons la clé <code class="code-inline" id="0897acf49c7c1ea9f76efe59187aa046">hostname</code>, on peut constater que celle-ci dispose d'une partie qui reprend le contenu de la clé <code class="code-inline" id="9a8c2b9d518bc163e99611fbacea63b2">stage</code> définie au niveau du groupe.
-On peut donc modifier ces fichiers d'hôtes de la manière suivante pour exploiter cette définition:</p>
+<p>Reprenons par exemple nos fichiers de variables d'hôtes ou nous définissons la clé <code class="code-inline" id="0897acf49c7c1ea9f76efe59187aa046">hostname</code>, on peut constater que celle-ci dispose d'une partie qui reprend le contenu de la clé <code class="code-inline" id="9a8c2b9d518bc163e99611fbacea63b2">stage</code> définie au niveau du groupe.
+On peut donc les modifier de la manière suivante pour exploiter cette définition:</p>
 <pre class="code-multiline language-yaml"><code class="language-yaml" id="a6020e2c2b3238718d22e555f550e795"><span class="token key atrule">hostname</span><span class="token punctuation">:</span> <span class="token string">"web-{{ stage }}-01"</span></code></pre>
-<p>Allons ensuite modifier notre playbook (<code class="code-inline" id="35e10f4319de8bbbbd2033b3448a5e5d">webservers.yml</code>) pour utiliser ces variables de la manière suivante:</p>
-<pre class="code-multiline language-yaml"><code class="language-yaml" id="fbbcda2c9e634c58d7239734ee6dba09"><span class="token punctuation">---</span>
-<span class="token punctuation">-</span> <span class="token key atrule">hosts</span><span class="token punctuation">:</span> webservers
-
-  <span class="token key atrule">pre_tasks</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Updating APT cache index
-      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
-        <span class="token key atrule">update_cache</span><span class="token punctuation">:</span> yes
-
-  <span class="token key atrule">tasks</span><span class="token punctuation">:</span>
-    <span class="token comment"># NGINX</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Install Nginx web server
-      <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
-        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">state</span><span class="token punctuation">:</span> present
-
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Nginx status configuration file
-      <span class="token key atrule">ansible.builtin.copy</span><span class="token punctuation">:</span>
-        <span class="token key atrule">src</span><span class="token punctuation">:</span> nginx/status.conf
-        <span class="token key atrule">dest</span><span class="token punctuation">:</span> /etc/nginx/conf.d/status.conf
-      <span class="token key atrule">notify</span><span class="token punctuation">:</span>
-          <span class="token punctuation">-</span> restart_nginx
-
-    <span class="token comment"># CONFIG</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Set a hostname
-      <span class="token key atrule">ansible.builtin.hostname</span><span class="token punctuation">:</span>
-        <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"{{ hostname }}"</span>
-
-  <span class="token key atrule">handlers</span><span class="token punctuation">:</span>
-    <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> restart_nginx
-      <span class="token key atrule">ansible.builtin.service</span><span class="token punctuation">:</span>
-        <span class="token key atrule">name</span><span class="token punctuation">:</span> nginx
-        <span class="token key atrule">state</span><span class="token punctuation">:</span> restarted</code></pre>
+<p>Allons ensuite modifier notre fichier (<code class="code-inline" id="bc4930c33479e166f682f0031e513be6">common.yml</code>) pour utiliser ces variables de la manière suivante:</p>
+<pre class="code-multiline language-yaml"><code class="language-yaml" id="7996171dbc071aca37a2f4eedc32a263"><span class="token punctuation">---</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Updating APT cache index
+  <span class="token key atrule">ansible.builtin.apt</span><span class="token punctuation">:</span>
+    <span class="token key atrule">update_cache</span><span class="token punctuation">:</span> yes
+<span class="token comment"># Setting hostname</span>
+<span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Set a hostname
+  <span class="token key atrule">ansible.builtin.hostname</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">"{{ hostname }}"</span></code></pre>
+<p>Notre tâche vient ici « consommer » la variable <code class="code-inline" id="0897acf49c7c1ea9f76efe59187aa046">hostname</code> et l'utiliser comme paramètre du module Ansible.</p>
 <h2 id="les-templates" class="anchor-title"><a href="#les-templates">Les templates</a></h2>
 <p>Sujet étroitement lié à l'utilisation des variables, les templates au sens d'Ansible sont des fichiers un peu particuliers dont le contenu peut-être défini dynamiquement (par opposition notamment à l'utilisation de fichiers de configuration « statiques ») comme nous avons pu le voir dans la partie <a href="/blog/cours/ansible/ansible-les-playbooks#les-handlers">playbook</a>.</p>
 <p>Il faut également savoir qu'Ansible s'appuie sur le moteur de template <a href="https://jinja.palletsprojects.com/en/3.1.x/" target="_blank">Jinja2</a> issu du monde Python qui pourrait être comparé à Twig pour PHP, Pebble pour Java, Liquid pour RoR ou encore DotLiquid pour .Net.</p>
