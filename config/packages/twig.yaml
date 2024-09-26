@@ -45,6 +45,7 @@ twig:
             footer:
                 - { path: "case_studies", label: "Cas clients" }
                 - { path: "about", label: "À propos" }
+                - { path: "glossary", label: "Glossaire" }
                 - { path: "contact", label: "Contact" }
 
             footerServices:

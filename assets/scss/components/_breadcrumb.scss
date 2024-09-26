@@ -1,0 +1,24 @@
+@use '../abstracts' as *;
+
+.breadcrumb {
+  margin: 50px 0 30px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.breadcrumb__item {
+  &:before {
+    display: none;
+  }
+
+  &:after {
+    top: 50%;
+    transform: translateY(-50%);
+    content: '\e90b';
+    font-size: toRem(16px);
+  }
+
+  a {
+    text-decoration: none;
+  }
+}

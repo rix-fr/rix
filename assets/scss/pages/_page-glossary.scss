@@ -1,0 +1,28 @@
+@use '../abstracts' as *;
+
+.page-glossary {
+  .banner {
+    height: 1550px;
+  }
+
+  main {
+    background-image: none; // remove background-image to prevent ugliness when not much content on page
+  }
+
+  .glossary-logo {
+    margin: 0 auto 50px;
+    max-width: 400px;
+  }
+
+  .content-links {
+    margin-top: 300px;
+  }
+}
+
+@media (max-width: $screen-md) {
+  .page-glossary {
+    .content-links {
+      margin-top: 100px;
+    }
+  }
+}
